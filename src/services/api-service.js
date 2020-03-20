@@ -1,25 +1,23 @@
 import $ from 'jquery';
 
 let loadTeamshellApi = function(onLoad){
-    let lastLoaded='',raw_data,noChange=false;
+    var lastLoaded='',raw_data,_data,noChange=false;
     raw_data=localStorage.getItem("cachedData")
-    let _data;
     if(raw_data){
-        _data=JSON.parse(raw_data);
-        lastLoaded=_data.lastUpdated;
+        _data=JSON.parse(raw_data)
+        lastLoaded=_data.lastUpdated
     }
-    var devid=get_input("devid");
-    var url="https://script.google.com/macros/s/AKfycbwOZQzoqLRYbwSoTYWgJeT1A-YKfDKJf_2jqNBm5qmr_BncNL8/exec?callback=?&lastLoaded="+lastLoaded+("&devid="+(devid?devid:""));
+    var url="http://teamshell.net/json?callback=?&lastLoaded="+lastLoaded
     $.getJSON(url).done(function(_data){
         if(_data=="No Updated Needed"){
             noChange=true;
         } else {
-            raw_data=JSON.stringify(_data);
-            localStorage.setItem("cachedData",raw_data);
+            raw_data=JSON.stringify(_data)
+            localStorage.setItem("cachedData",raw_data)
         }
-        onLoad(raw_data,noChange);
-    });
-};
+        onLoad(raw_data,noChange)
+    })
+}
 
 let get_input = function(query_name){
     return localStorage.getItem(query_name)
