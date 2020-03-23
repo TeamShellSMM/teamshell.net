@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row header-row">
       <div class="col-xl-7">
-        <h1><img src="/assets/buzzySpin.gif"/> <span class="green">#Team</span><span class="orange">Shell</span> Levels</h1>
+        <h1><img src="/assets/buzzySpin.gif"/> <span class="green">#Team</span><span class="orange">Shell</span></h1>
         <ul id="nav">
           <li>
             <router-link to="/">Home</router-link>
