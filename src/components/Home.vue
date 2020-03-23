@@ -29,7 +29,7 @@
 <script>
   import { Timeline } from 'vue-tweet-embed'
   import { Chart } from 'chart.js';
-  import { loadTeamshellApi } from '../services/api-service';
+  import { loadTeamshellApi } from '../services/helper-service';
 
   export default {
     name: 'Home',

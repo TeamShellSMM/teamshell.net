@@ -37,7 +37,7 @@
 
 <script>
   import moment from 'moment/src/moment';
-  import { get_input,  store_input, loadTeamshellApi} from '../services/api-service';
+  import { get_input,  store_input, loadTeamshellApi, getMakerPoints} from '../services/helper-service';
 
   export default {
       name: 'Makers',
@@ -254,7 +254,7 @@
             makers[levels[levelCode].creator].levelcount++;
             makers[levels[levelCode].creator].likes += levels[levelCode].likes;
             makers[levels[levelCode].creator].clears += levels[levelCode].clears;
-            makers[levels[levelCode].creator].points += this.getMakerPoints(levels[levelCode].likes, levels[levelCode].clears, this.data.points[levels[levelCode].difficulty]);
+            makers[levels[levelCode].creator].points += getMakerPoints(levels[levelCode].likes, levels[levelCode].clears, this.data.points[levels[levelCode].difficulty]);
           }
 
           for(let i = 0; i < this.data.members.length; i++){
@@ -345,12 +345,6 @@
             that.raw_data=_rawData
             that.refresh()
           })
-        },
-        getMakerPoints(likes, clears, difficultyPoints){
-          if(clears == 0){
-            return 0;
-          }
-          return ((likes * 2 + clears)*difficultyPoints) * (likes/clears);
         },
         withinSeason(date,seasons){
           var min_date = 0;

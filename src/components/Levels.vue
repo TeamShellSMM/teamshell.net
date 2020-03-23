@@ -74,6 +74,7 @@
         <th style="width:10px">Clears</th>
         <th style="width:10px">TS Vote</th>
         <th style="width:10px">Likes</th>
+        <th style="width:10px" title="Like-Clear-Diff Score (aka how many TS Maker Points this level is worth)">LCD Score</th>
         <th style="width:10px">Cleared</th>
         <th style="width:10px">Your Vote</th>
         <th style="width:10px">You Liked</th>
@@ -84,7 +85,7 @@
 
 <script>
   //import moment from 'moment/src/moment';
-  import { get_input, removeDups, copyClipboard, store_input, loadTeamshellApi, save_input} from '../services/api-service';
+  import { get_input, removeDups, copyClipboard, store_input, loadTeamshellApi, save_input, getMakerPoints} from '../services/helper-service';
 
   const headers={
     played:{"Code":0,"Player":1,"Completed":2,"Shelder":3,"Liked":4,"DifficultyVote":5,"Timestamp":6},
@@ -112,6 +113,8 @@
       store_input(this.$route.query, 'approved','#pendingLevel')
       store_input(this.$route.query, 'minDifficulty','#minDifficulty')
       store_input(this.$route.query, 'maxDifficulty','#maxDifficulty')
+
+      $('th').tooltip()
 
       let that = this;
 
@@ -214,13 +217,13 @@
                 return (data=="1"?'<i title="Entered player has cleared this level." data-toggle="tooltip" class="fa fa-check text-success" aria-hidden="true"></i>': "");
               }
             },
-            targets:14
+            targets:15
           },
           {
             "render": function ( data ) {
               return isNaN(data)||data==0?"":Number(data).toFixed(1);
             },
-            targets:15
+            targets:16
           },
           {
             "render": function ( data, type ) {
@@ -230,11 +233,11 @@
                 return (data=="1"?'<i title="Player has liked this level" data-toggle="tooltip" class="fa fa-heart text-danger" aria-hidden="true"></i>': "");
               }
             },
-            targets:16
+            targets:17
           },
           {
             defaultContent:"",
-            targets:[6,7,8,9,10,11,12,13,14,15,16]
+            targets:[6,7,8,9,10,11,12,13,14,15,16,17]
           },
         ]
       });
@@ -250,6 +253,14 @@
         this.clears={};
         this.tag_labels=this.data.tags;
         this.tags_list=[];
+
+        this.data.points.shift()
+        var _points={0:0}
+
+        for(let i=0;i<this.data.points.length;i++){
+          _points[parseFloat(this.data.points[i][0])]=parseFloat(this.data.points[i][1]);
+        }
+        this.data.points=_points
 
         var filtered_plays=[];
         for(let i=0;i<this.data.played.length;i++){
@@ -302,6 +313,7 @@
           this.data.levels[i].push(tsclears) //no. of clears
           this.data.levels[i].push(votetotal>0? ((votesum/votetotal).toFixed(1))+","+votetotal:"0,0") //avg vote, num votes
           this.data.levels[i].push(likes) //liked
+          this.data.levels[i].push(getMakerPoints(likes, tsclears, this.data.points[this.data.levels[i][4]]).toFixed(1));
           if(current_creator==get_input("member")){
               this.data.levels[i].push("1")
               this.data.levels[i].push("-")
@@ -408,9 +420,9 @@
         }
 
         if(get_input("cleared")=="2"||get_input("cleared")=="3"){
-          datatable.column(14).search(get_input('cleared')=="3"?'"1"':'"0"',false,true)
+          datatable.column(15).search(get_input('cleared')=="3"?'"1"':'"0"',false,true)
         } else {
-          datatable.column(14).search("",false,true);
+          datatable.column(15).search("",false,true);
         }
 
         datatable.draw();

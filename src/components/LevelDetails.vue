@@ -42,7 +42,7 @@
 
 <script>
   import moment from 'moment/src/moment';
-  import { get_input, removeDups, copyClipboard, loadTeamshellApi} from '../services/api-service';
+  import { get_input, removeDups, copyClipboard, loadTeamshellApi} from '../services/helper-service';
 
   const headers={
     played:{"Code":0,"Player":1,"Completed":2,"Shelder":3,"Liked":4,"DifficultyVote":5,"Timestamp":6},

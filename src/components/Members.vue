@@ -52,7 +52,7 @@
 </template>
 
 <script>
-  import { loadTeamshellApi, ObjectLength} from '../services/api-service';
+  import { loadTeamshellApi, ObjectLength} from '../services/helper-service';
 
   export default {
       name: 'Members',

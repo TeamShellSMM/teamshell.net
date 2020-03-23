@@ -95,6 +95,13 @@ let ObjectLength_Legacy = function( object ) {
 
 let ObjectLength = Object.keys ? ObjectLength_Modern : ObjectLength_Legacy;
 
+let getMakerPoints = function(likes, clears, difficultyPoints){
+    if(clears == 0){
+    return 0;
+    }
+    return ((likes * 2 + clears)*difficultyPoints) * (likes/clears);
+}
+
 export {
-    loadTeamshellApi, get_input, save_input, store_input, setGetParam, copyClipboard, dev, removeDups, ObjectLength
+    loadTeamshellApi, get_input, save_input, store_input, setGetParam, copyClipboard, dev, removeDups, ObjectLength, getMakerPoints
 }
