@@ -162,7 +162,6 @@
         refresh(){
           this.data=JSON.parse(this.raw_data)
           this.data.levels.shift()
-          this.data.played.shift()
           this.data.members.shift()
           this.data.points.shift()
           var _points={0:0}
@@ -223,13 +222,13 @@
           }
 
           for(let i=0;i<this.data.played.length;i++){
-            var current_level=this.data.played[i][0]
-            var current_creator=this.data.played[i][1]
+            var current_level=this.data.played[i].code
+            var current_creator=this.data.played[i].player
             if(levels[current_level] && levels[current_level].creator!=current_creator){
-              if(this.data.played[i][4] == "1"){
+              if(this.data.played[i].liked == "1"){
                 levels[current_level]["likes"] = levels[current_level]["likes"] ? levels[current_level]["likes"] + 1 : 1;
               }
-              if(this.data.played[i][2] == "1"){
+              if(this.data.played[i].completed == "1"){
                 levels[current_level]["clears"] = levels[current_level]["clears"] ? levels[current_level]["clears"] + 1 : 1;
               }
             }

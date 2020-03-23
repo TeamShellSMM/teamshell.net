@@ -248,7 +248,6 @@
       refresh(){
         this.data=JSON.parse(this.raw_data);
         this.data.levels.shift();
-        this.data.played.shift();
         this.clearers=[];
         this.clears={};
         this.tag_labels=this.data.tags;
@@ -264,14 +263,14 @@
 
         var filtered_plays=[];
         for(let i=0;i<this.data.played.length;i++){
-          if(this.clearers.indexOf(this.data.played[i][1])==-1){ //getting all the people who have submitted clears
-            this.clearers.push(this.data.played[i][1])
+          if(this.clearers.indexOf(this.data.played[i].player)==-1){ //getting all the people who have submitted clears
+            this.clearers.push(this.data.played[i].player)
           }
-          if(!this.clears[this.data.played[i][0]]) this.clears[this.data.played[i][0]]={}
-          this.clears[this.data.played[i][0]][this.data.played[i][1]]={ //compiling the clears in a [level-code][player] format
-            cleared:this.data.played[i][2],
-            vote:this.data.played[i][5],
-            liked:this.data.played[i][4]=="1"
+          if(!this.clears[this.data.played[i].code]) this.clears[this.data.played[i].code]={}
+          this.clears[this.data.played[i].code][this.data.played[i].player]={ //compiling the clears in a [level-code][player] format
+            cleared:this.data.played[i].completed,
+            vote:this.data.played[i].difficulty_vote,
+            liked:this.data.played[i].liked=="1"
           }
         }
 
