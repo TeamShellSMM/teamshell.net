@@ -1,11 +1,11 @@
 import $ from 'jquery';
 
 let loadTeamshellApi = function(onLoad){
-    var raw_data,_data,noChange=false;
+    var raw_data,noChange=false;
     //raw_data=localStorage.getItem("cachedData")
-    if(raw_data){
+    /*if(raw_data){
         _data=JSON.parse(raw_data)
-    }
+    }*/
     var url="https://teamshell.net/backend/json?callback=?"
     $.getJSON(url).done(function(_data){
         if(_data=="No Updated Needed"){
