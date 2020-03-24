@@ -267,7 +267,6 @@
       refresh(){
         this.data=JSON.parse(this.raw_data);
         this.data.levels.shift();
-        this.data.played.shift();
         this.clearers=[];
         this.clears={};
         this.tag_labels=this.data.tags;
@@ -275,17 +274,17 @@
 
         var filtered_plays=[];
         for(let i=0;i<this.data.played.length;i++){
-          if(this.$route.params.code==this.data.played[i][0]){
+          if(this.$route.params.code==this.data.played[i].code){
             filtered_plays.push(this.data.played[i])
           }
-          if(this.clearers.indexOf(this.data.played[i][1])==-1){ //getting all the people who have submitted clears
-            this.clearers.push(this.data.played[i][1])
+          if(this.clearers.indexOf(this.data.played[i].player)==-1){ //getting all the people who have submitted clears
+            this.clearers.push(this.data.played[i].player)
           }
-          if(!this.clears[this.data.played[i][0]]) this.clears[this.data.played[i][0]]={}
-          this.clears[this.data.played[i][0]][this.data.played[i][1]]={ //compiling the clears in a [level-code][player] format
-            cleared:this.data.played[i][2],
-            vote:this.data.played[i][5],
-            liked:this.data.played[i][4]=="1"
+          if(!this.clears[this.data.played[i].code]) this.clears[this.data.played[i].code]={}
+          this.clears[this.data.played[i].code][this.data.played[i].player]={ //compiling the clears in a [level-code][player] format
+            cleared:this.data.played[i].completed,
+            vote:this.data.played[i].difficulty_vote,
+            liked:this.data.played[i].liked=="1"
           }
         }
 
@@ -355,7 +354,7 @@
             let current_creator=this.data.levels[i][headers.levels.Creator];
             var to_remove=[]
             for(let j=0;j<filtered_plays.length;j++){
-              if(filtered_plays[j][1]==current_creator){
+              if(filtered_plays[j].player==current_creator){
                 to_remove.push(j)
               }
             }
@@ -368,12 +367,6 @@
             filtered_levels.push(this.data.levels[i])
           }
         } //end main level loops
-
-        if(filtered_plays){
-        for(let i=0;i<filtered_plays.length;i++){
-            filtered_plays[i].unshift(i+1)
-          }
-        }
 
         var tempSelect="<option value=''>Default</option>"
 
@@ -408,12 +401,18 @@
         $("#tagSelect").html(tempSelect)
         var datatable=$('#table').DataTable()
         datatable.clear();
-        datatable.rows.add(filtered_levels)
+        datatable.rows.add(filtered_levels);
+
+        let dataTablePlays = [];
+        let playCounter = 1;
+        for(let play of filtered_plays){
+          dataTablePlays.push([playCounter++, play.code, play.player, play.completed, play.is_shellder, play.liked, play.difficulty_vote, play.created_at]);
+        }
 
         if(filtered_plays){
           var datatable2=$('#playedTable').DataTable()
           datatable2.clear();
-          datatable2.rows.add(filtered_plays)
+          datatable2.rows.add(dataTablePlays)
           datatable2.draw();
         }
         //

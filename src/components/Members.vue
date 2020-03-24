@@ -135,7 +135,6 @@
         refresh(){
           this.data=JSON.parse(this.raw_data)
           this.data.levels.shift()
-          this.data.played.shift()
           this.data.members.shift()
           this.data.points.shift()
           var _points={0:0}
@@ -173,15 +172,15 @@
 
           this.member_clears={}
           for(let i=0;i<this.data.played.length;i++){
-            if(this.withinTime(this.data.played[i][6],1)){
-              let current_player=this.data.played[i][1]
-              var current_code=this.data.played[i][0]
+            if(this.withinTime(this.data.played[i].created_at,1)){
+              let current_player=this.data.played[i].player
+              var current_code=this.data.played[i].code
 
               if(!this.member_clears[current_player]){
                 this.member_clears[current_player]={}
               }
 
-              if(this.data.played[i][2]=="1" && this.new_codes[current_code] && this.new_codes[current_code].creator!=current_player){
+              if(this.data.played[i].completed=="1" && this.new_codes[current_code] && this.new_codes[current_code].creator!=current_player){
                 var current_level=this.new_codes[current_code].new
                 var current_points=this.data.points[this.new_codes[current_code].difficulty]
                 if(this.member_clears[current_player][current_level]){ //if have value assign the largest point
