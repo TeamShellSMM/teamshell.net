@@ -2,18 +2,18 @@ import $ from 'jquery';
 
 let loadTeamshellApi = function(onLoad){
     var lastLoaded='',raw_data,_data,noChange=false;
-    raw_data=localStorage.getItem("cachedData")
+    //raw_data=localStorage.getItem("cachedData")
     if(raw_data){
         _data=JSON.parse(raw_data)
         lastLoaded=_data.lastUpdated
     }
-    var url="https://teamshell.net/backend/json?callback=?&lastLoaded="+lastLoaded
+    var url="https://teamshell.net/backend/json?callback=?"
     $.getJSON(url).done(function(_data){
         if(_data=="No Updated Needed"){
             noChange=true;
         } else {
             raw_data=JSON.stringify(_data)
-            localStorage.setItem("cachedData",raw_data)
+            //ocalStorage.setItem("cachedData",raw_data)
         }
         onLoad(raw_data,noChange)
     })
