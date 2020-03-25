@@ -149,7 +149,11 @@
               completed: 1
             }, function(result){
               if(result.status == "sucessful"){
-                that.getData();
+                $('.loader').hide();
+                let rownum = $(thatButt).attr('rownum');
+                let tempData = $('#table').DataTable().row(rownum).data();
+                tempData[15] = "1";
+                $('#table').DataTable().row(rownum).data(tempData).draw();
               } else {
                 that.$dialog.alert("Something went wrong buzzyS").then(function() {
                 });
@@ -177,7 +181,11 @@
               completed: 0
             }, function(result){
               if(result.status == "sucessful"){
-                that.getData();
+                $('.loader').hide();
+                let rownum = $(thatButt).attr('rownum');
+                let tempData = $('#table').DataTable().row(rownum).data();
+                tempData[15] = "0";
+                $('#table').DataTable().row(rownum).data(tempData).draw();
               } else {
                 that.$dialog.alert("Something went wrong buzzyS").then(function() {
                 });
@@ -205,7 +213,11 @@
               like: 1
             }, function(result){
               if(result.status == "sucessful"){
-                that.getData();
+                $('.loader').hide();
+                let rownum = $(thatButt).attr('rownum');
+                let tempData = $('#table').DataTable().row(rownum).data();
+                tempData[17] = "1";
+                $('#table').DataTable().row(rownum).data(tempData).draw();
               } else {
                 that.$dialog.alert("Something went wrong buzzyS").then(function() {
                 });
@@ -233,7 +245,11 @@
               like: 0
             }, function(result){
               if(result.status == "sucessful"){
-                that.getData();
+                $('.loader').hide();
+                let rownum = $(thatButt).attr('rownum');
+                let tempData = $('#table').DataTable().row(rownum).data();
+                tempData[17] = "0";
+                $('#table').DataTable().row(rownum).data(tempData).draw();
               } else {
                 that.$dialog.alert("Something went wrong buzzyS").then(function() {
                 });
@@ -324,12 +340,12 @@
             targets:12
           },
           {
-            "render": function ( data, type, row ) {
+            "render": function ( data, type, row, meta ) {
               if ( type !="display" ) {
                 return data=="1"?"1":"0";
               } else {
                 if(that.loggedIn){
-                  return (data=="1"?'<i title="You have cleared this level" data-toggle="tooltip" class="fa fa-check text-success dt-unclear-button" aria-hidden="true" code="' + row[1] + '" levelname="' + row[3] + '"></i>': '<i title="You have not submitted a clear for this level yet" data-toggle="tooltip" class="fa fa-check fa-inactive dt-clear-button" aria-hidden="true" code="' + row[1] + '" levelname="' + row[3] + '"></i>');
+                  return (data=="1"?'<i title="You have cleared this level" data-toggle="tooltip" class="fa fa-check text-success dt-unclear-button" aria-hidden="true" code="' + row[1] + '" levelname="' + row[3] + '" rownum="' + meta.row + '"></i>': '<i title="You have not submitted a clear for this level yet" data-toggle="tooltip" class="fa fa-check fa-inactive dt-clear-button" aria-hidden="true" code="' + row[1] + '" levelname="' + row[3] + '" rownum="' + meta.row + '"></i>');
                 } else {
                   return (data=="1"?'<i title="Entered player has cleared this level" data-toggle="tooltip" class="fa fa-check text-success" aria-hidden="true"></i>': '');
                 }
@@ -344,12 +360,12 @@
             targets:16
           },
           {
-            "render": function ( data, type, row ) {
+            "render": function ( data, type, row, meta ) {
               if ( type !="display" ) {
                 return data=="1"?"1":"0";
               } else {
                 if(that.loggedIn){
-                  return (data=="1"?'<i title="You liked this level" data-toggle="tooltip" class="fa fa-heart text-danger dt-unlike-button" aria-hidden="true" code="' + row[1] + '" levelname="' + row[3] + '"></i>': '<i title="You have not submitted a like for this level yet" data-toggle="tooltip" class="fa fa-heart fa-inactive dt-like-button" aria-hidden="true" code="' + row[1] + '" levelname="' + row[3] + '"></i>');
+                  return (data=="1"?'<i title="You liked this level" data-toggle="tooltip" class="fa fa-heart text-danger dt-unlike-button" aria-hidden="true" code="' + row[1] + '" levelname="' + row[3] + '" rownum="' + meta.row + '"></i>': '<i title="You have not submitted a like for this level yet" data-toggle="tooltip" class="fa fa-heart fa-inactive dt-like-button" aria-hidden="true" code="' + row[1] + '" levelname="' + row[3] + '" rownum="' + meta.row + '"></i>');
                 } else {
                   return (data=="1"?'<i title="Entered player has liked this level" data-toggle="tooltip" class="fa fa-heart text-danger" aria-hidden="true"></i>': '');
                 }

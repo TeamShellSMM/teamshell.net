@@ -9,6 +9,7 @@ let loadTeamshellApi = function(onLoad){
         _data=JSON.parse(raw_data)
     }*/
     var url= backendURL + "json?callback=?";
+    //var url = "http://teamshell.net:4000/json/?callback=?"
     $.getJSON(url).done(function(_data){
         if(_data=="No Updated Needed"){
             noChange=true;
