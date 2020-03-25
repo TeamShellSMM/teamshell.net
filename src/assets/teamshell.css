@@ -189,22 +189,33 @@ box-shadow: 0 0 0 3px #838383;
 }
 
 .comp-winners {
-height: calc(100% - 40px);
-padding: 10px;
-background-color: #f9f9f9;
-border-radius: 20px;
-margin-top:20px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 20px;
+    margin-top:10px;
+    margin-bottom:10px;
 }
 
 .comp-winners i {
-color: #F0CD73;
-font-size:80px;
-top: calc(50% - 40px);
-position:relative;
+    color: #F0CD73;
+    font-size:80px;
+    top: calc(50% - 40px);
+    position:relative;
+}
+
+.comp-winners img {
+    height: 80px;
+    width: 80px;
+    top: calc(50% - 40px);
+    position:relative;
 }
 
 .comp-winners h4 {
     text-align:center;
+}
+
+.comp-winners h6 {
+    font-size: 12px;
 }
 
 .loader-img {
@@ -238,4 +249,33 @@ position:relative;
 .level-detail-title,
 .maker-detail-title {
     margin-top:0.5em;
+}
+
+.header-row {
+    border-radius: 5px;
+    border-bottom: 1px solid lightgrey;
+    margin-bottom:10px;
+    overflow:hidden;
+}
+
+.header-row h1 {
+    font-size:84pt;
+}
+.header-row .buzzyS {
+    width:72px;
+}
+
+.header-logo-div {
+    width: 720px;
+    white-space: nowrap;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.header-comp-div {
+    width: 720px;
+    white-space: nowrap;
+    padding-left: 30px;
+    padding-right: 30px;
+    color:black !important;
 }
