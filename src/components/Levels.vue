@@ -4,7 +4,7 @@
       <div class="form-group row">
         <div class="col-md-6">
         <label for="registeredName">Registered TeamShell Name</label>
-        <input name="member" type="text" class="form-control" id="registeredName" autocomplete="off" placeholder="Your registered TeamShell Name">
+        <input name="member" type="text" class="form-control" id="registeredName" autocomplete="off" placeholder="Your registered TeamShell Name" :disabled="loggedIn">
         <small class="form-text text-muted">This is just to filter out the clears and is optional. Your registered TeamShell name is case sensitive.</small>
         </div>
 
@@ -85,7 +85,7 @@
 
 <script>
   //import moment from 'moment/src/moment';
-  import { get_input, removeDups, copyClipboard, store_input, loadTeamshellApi, save_input, getMakerPoints} from '../services/helper-service';
+  import { get_input, removeDups, copyClipboard, store_input, loadTeamshellApi, save_input, getMakerPoints, clear} from '../services/helper-service';
 
   const headers={
     played:{"Code":0,"Player":1,"Completed":2,"Shelder":3,"Liked":4,"DifficultyVote":5,"Timestamp":6},
@@ -133,6 +133,118 @@
         that.$router.push("/maker/" + this.getAttribute("maker"));
       });
 
+      $(document).off('click', 'i.dt-clear-button');
+      $(document).on('click', 'i.dt-clear-button', function(e){
+        e.stopPropagation();
+        e.preventDefault();
+        let thatButt = this;
+        if(that.loggedIn){
+          that.$dialog
+          .confirm('Are you sure you want to submit a clear for ' + $(thatButt).attr('levelname') + " (" + $(thatButt).attr('code') + ") ?")
+          .then(function() {
+            $('.loader').show();
+            clear({
+              token: that.$store.state.token,
+              code: $(thatButt).attr('code'),
+              completed: 1
+            }, function(result){
+              if(result.status == "sucessful"){
+                that.getData();
+              } else {
+                that.$dialog.alert("Something went wrong buzzyS").then(function() {
+                });
+              }
+            });
+          })
+          .catch(function() {
+          });
+        }
+      });
+
+      $(document).off('click', 'i.dt-unclear-button');
+      $(document).on('click', 'i.dt-unclear-button', function(e){
+        e.stopPropagation();
+        e.preventDefault();
+        let thatButt = this;
+        if(that.loggedIn){
+          that.$dialog
+          .confirm('Are you sure you want to remove your clear for ' + $(thatButt).attr('levelname') + " (" + $(thatButt).attr('code') + ") ?")
+          .then(function() {
+            $('.loader').show();
+            clear({
+              token: that.$store.state.token,
+              code: $(thatButt).attr('code'),
+              completed: 0
+            }, function(result){
+              if(result.status == "sucessful"){
+                that.getData();
+              } else {
+                that.$dialog.alert("Something went wrong buzzyS").then(function() {
+                });
+              }
+            });
+          })
+          .catch(function() {
+          });
+        }
+      });
+
+      $(document).off('click', 'i.dt-like-button');
+      $(document).on('click', 'i.dt-like-button', function(e){
+        e.stopPropagation();
+        e.preventDefault();
+        let thatButt = this;
+        if(that.loggedIn){
+          that.$dialog
+          .confirm('Are you sure you want to submit a like for ' + $(thatButt).attr('levelname') + " (" + $(thatButt).attr('code') + ") ?")
+          .then(function() {
+            $('.loader').show();
+            clear({
+              token: that.$store.state.token,
+              code: $(thatButt).attr('code'),
+              like: 1
+            }, function(result){
+              if(result.status == "sucessful"){
+                that.getData();
+              } else {
+                that.$dialog.alert("Something went wrong buzzyS").then(function() {
+                });
+              }
+            });
+          })
+          .catch(function() {
+          });
+        }
+      });
+
+      $(document).off('click', 'i.dt-unlike-button');
+      $(document).on('click', 'i.dt-unlike-button', function(e){
+        e.stopPropagation();
+        e.preventDefault();
+        let thatButt = this;
+        if(that.loggedIn){
+          that.$dialog
+          .confirm('Are you sure you want to remove your like for ' + $(thatButt).attr('levelname') + " (" + $(thatButt).attr('code') + ") ?")
+          .then(function() {
+            $('.loader').show();
+            clear({
+              token: that.$store.state.token,
+              code: $(thatButt).attr('code'),
+              like: 0
+            }, function(result){
+              if(result.status == "sucessful"){
+                that.getData();
+              } else {
+                that.$dialog.alert("Something went wrong buzzyS").then(function() {
+                });
+              }
+            });
+          })
+          .catch(function() {
+          });
+        }
+      });
+
       $('#table').DataTable({
         "language": {
         "emptyTable": "Data is loading. You may have to whitelist this site for browser extensions that block third party scripts",
@@ -146,7 +258,9 @@
         "columnDefs": [
           {
             "render": function ( data) {
-              return "<span class='text-monospace'><a class='dt-level-link' href='/level/" + encodeURI(data) + "' code='" + data + "'>" + data + "</a></span> <span class='copy' title='Copy tsclear code'><i class='fa fa-clipboard' aria-hidden='true'></i></span> <span class='copyLike' title='Copy tsclear code with like' data-toggle='tooltip'><i class='fa fa-heart text-danger' aria-hidden='true'></i></span>"
+              let copyTitle = "Copy tsclear code";
+              let likeTitle = "Copy tsclear code with like";
+              return "<span class='text-monospace'><a class='dt-level-link' href='/level/" + encodeURI(data) + "' code='" + data + "'>" + data + "</a></span> <span class='copy' title='" + copyTitle + "'><i class='fa fa-clipboard' aria-hidden='true'></i></span> <span class='copyLike' title='" + likeTitle + "' data-toggle='tooltip'><i class='fa fa-heart text-danger' aria-hidden='true'></i></span>"
             },
             "orderable": false,
             targets:1,
@@ -210,11 +324,15 @@
             targets:12
           },
           {
-            "render": function ( data, type ) {
+            "render": function ( data, type, row ) {
               if ( type !="display" ) {
                 return data=="1"?"1":"0";
               } else {
-                return (data=="1"?'<i title="Entered player has cleared this level." data-toggle="tooltip" class="fa fa-check text-success" aria-hidden="true"></i>': "");
+                if(that.loggedIn){
+                  return (data=="1"?'<i title="You have cleared this level" data-toggle="tooltip" class="fa fa-check text-success dt-unclear-button" aria-hidden="true" code="' + row[1] + '" levelname="' + row[3] + '"></i>': '<i title="You have not submitted a clear for this level yet" data-toggle="tooltip" class="fa fa-check fa-inactive dt-clear-button" aria-hidden="true" code="' + row[1] + '" levelname="' + row[3] + '"></i>');
+                } else {
+                  return (data=="1"?'<i title="Entered player has cleared this level" data-toggle="tooltip" class="fa fa-check text-success" aria-hidden="true"></i>': '');
+                }
               }
             },
             targets:15
@@ -226,11 +344,15 @@
             targets:16
           },
           {
-            "render": function ( data, type ) {
+            "render": function ( data, type, row ) {
               if ( type !="display" ) {
                 return data=="1"?"1":"0";
               } else {
-                return (data=="1"?'<i title="Player has liked this level" data-toggle="tooltip" class="fa fa-heart text-danger" aria-hidden="true"></i>': "");
+                if(that.loggedIn){
+                  return (data=="1"?'<i title="You liked this level" data-toggle="tooltip" class="fa fa-heart text-danger dt-unlike-button" aria-hidden="true" code="' + row[1] + '" levelname="' + row[3] + '"></i>': '<i title="You have not submitted a like for this level yet" data-toggle="tooltip" class="fa fa-heart fa-inactive dt-like-button" aria-hidden="true" code="' + row[1] + '" levelname="' + row[3] + '"></i>');
+                } else {
+                  return (data=="1"?'<i title="Entered player has liked this level" data-toggle="tooltip" class="fa fa-heart text-danger" aria-hidden="true"></i>': '');
+                }
               }
             },
             targets:17
@@ -244,8 +366,15 @@
 
       this.getData();
     },
+    computed: {
+      loggedIn: function(){
+        return this.$store.state.token ? true : false;
+      }
+    },
     methods: {
       refresh(){
+        let that = this;
+
         this.data=JSON.parse(this.raw_data);
         this.data.levels.shift();
         this.clearers=[];
@@ -427,53 +556,61 @@
         datatable.draw();
         $('[data-toggle="tooltip"],.copy,#refresh,#submitButton').tooltip()
         $('.copy').click(function(){
-          var code=$(this).parent().text().substring(0,11);
-          var old_title="Copy tsclear code"
-          var new_title="Code copied."
+          if(!that.$store.state.token){
+            var code=$(this).parent().text().substring(0,11);
+            var old_title="Copy tsclear code"
+            var new_title="Code copied."
 
-          $(this).addClass("text-success")
-            $(this).tooltip('hide')
-                .attr('title', new_title)
-                .attr('data-original-title', new_title)
-                .tooltip('update')
-                .tooltip('show')
-            var temp=this
+            $(this).addClass("text-success")
+              $(this).tooltip('hide')
+                  .attr('title', new_title)
+                  .attr('data-original-title', new_title)
+                  .tooltip('update')
+                  .tooltip('show')
+              var temp=this
 
-          setTimeout(function(){
-            $(temp).removeClass("text-success")
-            $(temp).tooltip('hide')
-                .attr('title', old_title)
-                .attr('data-original-title', old_title)
-                .tooltip('update')
-                .tooltip('enable')
-          },2000)
-          copyClipboard("!tsclear "+code)
+            setTimeout(function(){
+              $(temp).removeClass("text-success")
+              $(temp).tooltip('hide')
+                  .attr('title', old_title)
+                  .attr('data-original-title', old_title)
+                  .tooltip('update')
+                  .tooltip('enable')
+            },2000)
+            copyClipboard("!tsclear "+code)
+          } else {
+            console.log("send clear post");
+          }
         })
 
         $('.loader').hide();
 
         $('.copyLike').click(function(){
-          var code=$(this).parent().text().substring(0,11);
-          var old_title="Copy tsclear code with like"
-          var new_title="Code copied."
+          if(!that.$store.state.token){
+            var code=$(this).parent().text().substring(0,11);
+            var old_title="Copy tsclear code with like"
+            var new_title="Code copied."
 
-          $(this).addClass("text-success")
-            $(this).tooltip('hide')
-                .attr('title', new_title)
-                .attr('data-original-title', new_title)
-                .tooltip('update')
-                .tooltip('show')
-            var temp=this
+            $(this).addClass("text-success")
+              $(this).tooltip('hide')
+                  .attr('title', new_title)
+                  .attr('data-original-title', new_title)
+                  .tooltip('update')
+                  .tooltip('show')
+              var temp=this
 
-          setTimeout(function(){
-            $(temp).removeClass("text-success")
-            $(temp).tooltip('hide')
-                .attr('title', old_title)
-                .attr('data-original-title', old_title)
-                .tooltip('update')
-                .tooltip('enable')
-          },2000)
-          copyClipboard("!tsclear "+code+" like")
+            setTimeout(function(){
+              $(temp).removeClass("text-success")
+              $(temp).tooltip('hide')
+                  .attr('title', old_title)
+                  .attr('data-original-title', old_title)
+                  .tooltip('update')
+                  .tooltip('enable')
+            },2000)
+            copyClipboard("!tsclear "+code+" like")
+          } else {
+            console.log("send like post");
+          }
         });
       },
       getData(){

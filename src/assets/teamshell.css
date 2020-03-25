@@ -279,3 +279,7 @@ box-shadow: 0 0 0 3px #838383;
     padding-right: 30px;
     color:black !important;
 }
+
+.fa-inactive {
+    opacity:0.15;
+}
