@@ -221,7 +221,7 @@ box-shadow: 0 0 0 3px #838383;
 .loader-img {
     width: 120px;
     height: 120px;
-    position:absolute;
+    position:fixed;
     top: calc(50% - 60px);
     left: calc(50% - 60px);
     z-index: 600;
@@ -231,7 +231,7 @@ box-shadow: 0 0 0 3px #838383;
 .loader-bg {
     height:100%;
     width:100%;
-    position:absolute;
+    position:fixed;
     background-color: rgba(255,255,255, 0.6);
     z-index: 500;
 }
