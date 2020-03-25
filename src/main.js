@@ -13,6 +13,7 @@ import LevelDetails from './components/LevelDetails';
 import MakerDetails from './components/MakerDetails';
 import Makers from './components/Makers';
 import Members from './components/Members';
+import ShellAndTell from './components/ShellAndTell';
 
 const routes = [
   {path: '/', component: Home},
@@ -20,7 +21,8 @@ const routes = [
   {path: '/level/:code', component: LevelDetails},
   {path: '/maker/:name', component: MakerDetails},
   {path: '/makers', component: Makers},
-  {path: '/members', component: Members}
+  {path: '/members', component: Members},
+  {path: '/shellandtell/:id', component: ShellAndTell}
 ];
 
 const router = new VueRouter({

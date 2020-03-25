@@ -1,8 +1,31 @@
 <template>
   <div class="container">
     <div class="row header-row">
-      <div class="col-xl-7">
-        <h1><img src="/assets/buzzySpin.gif"/> <span class="green">#Team</span><span class="orange">Shell</span></h1>
+      <div class="d-inline-flex" style="flex-wrap:wrap;">
+        <div class="header-logo-div" style="">
+          <h1><img class="buzzyS" src="/assets/buzzySpin.gif"/> <span class="green">#Team</span><span class="orange">Shell</span></h1>
+        </div>
+        <div class="header-comp-div" style="display:none;">
+          <div class="row comp-winners" >
+            <div class="col-2" style="text-align: center;">
+              <img src="https://teamshell.net/assets/bam.png">
+            </div>
+            <div class="col-8">
+              <div class="">
+                <h4 style="text-align:center;">Shell And Tell 1 - SMB1-like</h4>
+                <h5 style="text-align:center;font-family: 'Bangers', sans-serif"><div class="medal" style="margin-right:10px;padding-top: 2px;"><div class="coin coin-gold"></div></div>Gimme Shellter by Hauspanther (3PG-DT0-NRF)</h5>
+                <h5 style="text-align:center;font-family: 'Bangers', sans-serif; margin-bottom:0px;"><router-link to="/shellandtell/1">Check out the other winners here</router-link></h5>
+              </div>
+            </div>
+            <div class="col-2" style="text-align: center;">
+              <img src="https://teamshell.net/assets/bam.png">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row nav-row">
+      <div class="col-12">
         <ul id="nav">
           <li>
             <router-link to="/">Home</router-link>
@@ -17,26 +40,18 @@
             <router-link to="/members">Members</router-link>
           </li>
         </ul>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
         <h4>Join the discord for more information: <a href="https://discord.gg/7tQJewa">https://discord.gg/7tQJewa</a></h4>
-
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
         <div class="form-check">
           <input class="form-check-input" type="checkbox" id="darkmode" v-model="theme" true-value="dark" false-value="light">
           <label class="form-check-label" for="darkmode">Dark Mode <i class="fa fa-moon-o" aria-hidden="true"></i></label>
-        </div>
-      </div>
-      <div class="col-xl-5" style="display:none;">
-        <div class="row comp-winners" >
-          <div class="col-md-2" style="text-align: center;">
-            <i class="fa fa-trophy"></i>
-          </div>
-          <div class="col-md-10">
-            <div class="">
-              <h4>Winners - Shell and Tell 1 (SMB1-like)</h4>
-              <h6><div class="medal" style="margin-right:10px;"><div class="coin coin-gold"></div></div>Gimme Shellter by Hauspanther (3PG-DT0-NRF)</h6>
-              <h6><div class="medal" style="margin-right:10px;"><div class="coin coin-silver"></div></div>Rocky Mountains: #TeamShell by cheese_chicken3 (C16-BT1-NVG)</h6>
-              <h6><div class="medal" style="margin-right:10px;"><div class="coin coin-bronze"></div></div>#TeamShell: Buckets O. Fun v2 by Dekaizo (3PQ-0PV-LXF)</h6>
-            </div>
-          </div>
         </div>
       </div>
     </div>
