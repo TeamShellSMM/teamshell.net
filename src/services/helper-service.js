@@ -1,12 +1,14 @@
 import $ from 'jquery';
 
+const backendURL = "https://teamshell.net/backend/";
+
 let loadTeamshellApi = function(onLoad){
     var raw_data,noChange=false;
     //raw_data=localStorage.getItem("cachedData")
     /*if(raw_data){
         _data=JSON.parse(raw_data)
     }*/
-    var url="https://teamshell.net/backend/json?callback=?"
+    var url= backendURL + "json?callback=?";
     $.getJSON(url).done(function(_data){
         if(_data=="No Updated Needed"){
             noChange=true;
@@ -16,6 +18,24 @@ let loadTeamshellApi = function(onLoad){
         }
         onLoad(raw_data,noChange)
     })
+}
+
+let login = function(otp, onLoad){
+    var url = backendURL + "json/login"
+    //var url = "http://teamshell.net:4000/json/login"
+    $.post(url, {
+        "otp": otp
+    }, function(result){
+        onLoad(result);
+    }, 'json');
+}
+
+let clear = function(data, onLoad){
+    var url = backendURL + "clear";
+    //var url = "http://teamshell.net:4000/clear";
+    $.post(url, data, function(result){
+        onLoad(result);
+    }, 'json');
 }
 
 let get_input = function(query_name){
@@ -102,5 +122,5 @@ let getMakerPoints = function(likes, clears, difficultyPoints){
 }
 
 export {
-    loadTeamshellApi, get_input, save_input, store_input, setGetParam, copyClipboard, dev, removeDups, ObjectLength, getMakerPoints
+    loadTeamshellApi, get_input, save_input, store_input, setGetParam, copyClipboard, dev, removeDups, ObjectLength, getMakerPoints, login, clear
 }

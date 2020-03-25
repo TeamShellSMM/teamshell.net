@@ -26,7 +26,7 @@
     </div>
     <div class="row nav-row">
       <div class="col-12">
-        <ul id="nav">
+        <ul id="nav" style="float:left;">
           <li>
             <router-link to="/">Home</router-link>
           </li>
@@ -39,6 +39,15 @@
           <li>
             <router-link to="/members">Members</router-link>
           </li>
+        </ul>
+        <ul id="nav" style="float:right;">
+          <li v-if="loggedIn">
+            <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Logged in as {{userName}}</span>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="#" v-on:click="logout()">Logout</a>
+            </div>
+          </li>
+
         </ul>
       </div>
     </div>
@@ -79,6 +88,18 @@
             this.$store.commit('setLight');
           }
         }
+      },
+      loggedIn: function(){
+        return this.$store.state.token ? true : false;
+      },
+      userName: function(){
+        return this.$store.state.user_info.Name;
+      }
+    },
+    methods: {
+      logout(){
+          this.$store.commit('setToken', { token: null });
+          this.$store.commit('setUserInfo', { user_info: {} });
       }
     }
   };
