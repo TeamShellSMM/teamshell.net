@@ -172,19 +172,21 @@
         let thatButt = this;
         if(that.loggedIn){
           that.$dialog
-          .confirm('Are you sure you want to remove your clear for ' + $(thatButt).attr('levelname') + " (" + $(thatButt).attr('code') + ") ?")
+          .confirm('Are you sure you want to remove your clear and like for ' + $(thatButt).attr('levelname') + " (" + $(thatButt).attr('code') + ") ?")
           .then(function() {
             $('.loader').show();
             clear({
               token: that.$store.state.token,
               code: $(thatButt).attr('code'),
-              completed: 0
+              completed: 0,
+              like: 0
             }, function(result){
               if(result.status == "sucessful"){
                 $('.loader').hide();
                 let rownum = $(thatButt).attr('rownum');
                 let tempData = $('#table').DataTable().row(rownum).data();
                 tempData[15] = "0";
+                tempData[17] = "0";
                 $('#table').DataTable().row(rownum).data(tempData).draw();
               } else {
                 that.$dialog.alert("Something went wrong buzzyS").then(function() {
@@ -204,18 +206,20 @@
         let thatButt = this;
         if(that.loggedIn){
           that.$dialog
-          .confirm('Are you sure you want to submit a like for ' + $(thatButt).attr('levelname') + " (" + $(thatButt).attr('code') + ") ?")
+          .confirm('Are you sure you want to submit a like and clear for ' + $(thatButt).attr('levelname') + " (" + $(thatButt).attr('code') + ") ?")
           .then(function() {
             $('.loader').show();
             clear({
               token: that.$store.state.token,
               code: $(thatButt).attr('code'),
+              completed: 1,
               like: 1
             }, function(result){
               if(result.status == "sucessful"){
                 $('.loader').hide();
                 let rownum = $(thatButt).attr('rownum');
                 let tempData = $('#table').DataTable().row(rownum).data();
+                tempData[15] = "1";
                 tempData[17] = "1";
                 $('#table').DataTable().row(rownum).data(tempData).draw();
               } else {
@@ -274,9 +278,14 @@
         "columnDefs": [
           {
             "render": function ( data) {
-              let copyTitle = "Copy tsclear code";
-              let likeTitle = "Copy tsclear code with like";
-              return "<span class='text-monospace'><a class='dt-level-link' href='/level/" + encodeURI(data) + "' code='" + data + "'>" + data + "</a></span> <span class='copy' title='" + copyTitle + "'><i class='fa fa-clipboard' aria-hidden='true'></i></span> <span class='copyLike' title='" + likeTitle + "' data-toggle='tooltip'><i class='fa fa-heart text-danger' aria-hidden='true'></i></span>"
+              if(that.loggedIn){
+                let copyTitle = "Copy levelcode";
+                return "<span class='text-monospace'><a class='dt-level-link' href='/level/" + encodeURI(data) + "' code='" + data + "'>" + data + "</a></span> <span class='copy' title='" + copyTitle + "'><i class='fa fa-clipboard' aria-hidden='true'></i></span>"
+              } else {
+                let copyTitle = "Copy tsclear code";
+                let likeTitle = "Copy tsclear code with like";
+                return "<span class='text-monospace'><a class='dt-level-link' href='/level/" + encodeURI(data) + "' code='" + data + "'>" + data + "</a></span> <span class='copy' title='" + copyTitle + "'><i class='fa fa-clipboard' aria-hidden='true'></i></span> <span class='copyLike' title='" + likeTitle + "' data-toggle='tooltip'><i class='fa fa-heart text-danger' aria-hidden='true'></i></span>"
+              }
             },
             "orderable": false,
             targets:1,
@@ -573,9 +582,9 @@
         $('[data-toggle="tooltip"],.copy,#refresh,#submitButton').tooltip()
         $('.copy').click(function(){
           if(!that.$store.state.token){
-            var code=$(this).parent().text().substring(0,11);
-            var old_title="Copy tsclear code"
-            var new_title="Code copied."
+            let code=$(this).parent().text().substring(0,11);
+            let old_title="Copy tsclear code"
+            let new_title="Code copied."
 
             $(this).addClass("text-success")
               $(this).tooltip('hide')
@@ -583,7 +592,7 @@
                   .attr('data-original-title', new_title)
                   .tooltip('update')
                   .tooltip('show')
-              var temp=this
+              let temp=this
 
             setTimeout(function(){
               $(temp).removeClass("text-success")
@@ -595,7 +604,27 @@
             },2000)
             copyClipboard("!tsclear "+code)
           } else {
-            console.log("send clear post");
+            let code=$(this).parent().text().substring(0,11);
+            let old_title="Copy levelcode"
+            let new_title="Code copied."
+
+            $(this).addClass("text-success")
+              $(this).tooltip('hide')
+                  .attr('title', new_title)
+                  .attr('data-original-title', new_title)
+                  .tooltip('update')
+                  .tooltip('show')
+              let temp=this
+
+            setTimeout(function(){
+              $(temp).removeClass("text-success")
+              $(temp).tooltip('hide')
+                  .attr('title', old_title)
+                  .attr('data-original-title', old_title)
+                  .tooltip('update')
+                  .tooltip('enable')
+            },2000)
+            copyClipboard(code)
           }
         })
 
