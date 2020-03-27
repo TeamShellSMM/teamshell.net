@@ -688,9 +688,7 @@
 
         let that = this;
         setTimeout(function(){
-          var datatable=$('#table').DataTable()
-          datatable.clear().draw();
-          that.refresh();
+          that.getData();
         }, 100);
       }
     }

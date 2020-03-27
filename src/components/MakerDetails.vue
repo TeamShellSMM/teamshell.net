@@ -17,6 +17,7 @@
         <th style="width:10px">Clears</th>
         <th style="width:10px">TS Vote</th>
         <th style="width:10px">Likes</th>
+        <th style="width:10px" title="Like-Clear-Diff Score (aka how many TS Maker Points this level is worth)">LCD Score</th>
         <th style="width:10px">Cleared</th>
         <th style="width:10px">Your Vote</th>
         <th style="width:10px">You Liked</th>
@@ -26,7 +27,7 @@
 </template>
 
 <script>
-  import { get_input, removeDups, copyClipboard, loadTeamshellApi} from '../services/helper-service';
+  import { get_input, removeDups, copyClipboard, loadTeamshellApi, getMakerPoints, clear} from '../services/helper-service';
 
   const headers={
     played:{"Code":0,"Player":1,"Completed":2,"Shelder":3,"Liked":4,"DifficultyVote":5,"Timestamp":6},
@@ -37,6 +38,8 @@
     name: 'MakerDetails',
     mounted(){
       let that = this;
+
+      $('th').tooltip()
 
       $(document).off('click', 'a.dt-level-link');
       $(document).on('click', 'a.dt-level-link', function(e){
@@ -53,20 +56,156 @@
         that.$router.push("/maker/" + this.getAttribute("maker"));
       });
 
+      $(document).off('click', 'i.dt-clear-button');
+      $(document).on('click', 'i.dt-clear-button', function(e){
+        e.stopPropagation();
+        e.preventDefault();
+        let thatButt = this;
+        if(that.loggedIn){
+          that.$dialog
+          .confirm('Are you sure you want to submit a clear for ' + $(thatButt).attr('levelname') + " (" + $(thatButt).attr('code') + ") ?")
+          .then(function() {
+            $('.loader').show();
+            clear({
+              token: that.$store.state.token,
+              code: $(thatButt).attr('code'),
+              completed: 1
+            }, function(result){
+              if(result.status == "sucessful"){
+                $('.loader').hide();
+                let rownum = $(thatButt).attr('rownum');
+                let tempData = $('#table').DataTable().row(rownum).data();
+                tempData[15] = "1";
+                $('#table').DataTable().row(rownum).data(tempData).draw();
+              } else {
+                that.$dialog.alert("Something went wrong buzzyS").then(function() {
+                });
+              }
+            });
+          })
+          .catch(function() {
+          });
+        }
+      });
+
+      $(document).off('click', 'i.dt-unclear-button');
+      $(document).on('click', 'i.dt-unclear-button', function(e){
+        e.stopPropagation();
+        e.preventDefault();
+        let thatButt = this;
+        if(that.loggedIn){
+          that.$dialog
+          .confirm('Are you sure you want to remove your clear and like for ' + $(thatButt).attr('levelname') + " (" + $(thatButt).attr('code') + ") ?")
+          .then(function() {
+            $('.loader').show();
+            clear({
+              token: that.$store.state.token,
+              code: $(thatButt).attr('code'),
+              completed: 0,
+              like: 0
+            }, function(result){
+              if(result.status == "sucessful"){
+                $('.loader').hide();
+                let rownum = $(thatButt).attr('rownum');
+                let tempData = $('#table').DataTable().row(rownum).data();
+                tempData[15] = "0";
+                tempData[17] = "0";
+                $('#table').DataTable().row(rownum).data(tempData).draw();
+              } else {
+                that.$dialog.alert("Something went wrong buzzyS").then(function() {
+                });
+              }
+            });
+          })
+          .catch(function() {
+          });
+        }
+      });
+
+      $(document).off('click', 'i.dt-like-button');
+      $(document).on('click', 'i.dt-like-button', function(e){
+        e.stopPropagation();
+        e.preventDefault();
+        let thatButt = this;
+        if(that.loggedIn){
+          that.$dialog
+          .confirm('Are you sure you want to submit a like and clear for ' + $(thatButt).attr('levelname') + " (" + $(thatButt).attr('code') + ") ?")
+          .then(function() {
+            $('.loader').show();
+            clear({
+              token: that.$store.state.token,
+              code: $(thatButt).attr('code'),
+              completed: 1,
+              like: 1
+            }, function(result){
+              if(result.status == "sucessful"){
+                $('.loader').hide();
+                let rownum = $(thatButt).attr('rownum');
+                let tempData = $('#table').DataTable().row(rownum).data();
+                tempData[15] = "1";
+                tempData[17] = "1";
+                $('#table').DataTable().row(rownum).data(tempData).draw();
+              } else {
+                that.$dialog.alert("Something went wrong buzzyS").then(function() {
+                });
+              }
+            });
+          })
+          .catch(function() {
+          });
+        }
+      });
+
+      $(document).off('click', 'i.dt-unlike-button');
+      $(document).on('click', 'i.dt-unlike-button', function(e){
+        e.stopPropagation();
+        e.preventDefault();
+        let thatButt = this;
+        if(that.loggedIn){
+          that.$dialog
+          .confirm('Are you sure you want to remove your like for ' + $(thatButt).attr('levelname') + " (" + $(thatButt).attr('code') + ") ?")
+          .then(function() {
+            $('.loader').show();
+            clear({
+              token: that.$store.state.token,
+              code: $(thatButt).attr('code'),
+              like: 0
+            }, function(result){
+              if(result.status == "sucessful"){
+                $('.loader').hide();
+                let rownum = $(thatButt).attr('rownum');
+                let tempData = $('#table').DataTable().row(rownum).data();
+                tempData[17] = "0";
+                $('#table').DataTable().row(rownum).data(tempData).draw();
+              } else {
+                that.$dialog.alert("Something went wrong buzzyS").then(function() {
+                });
+              }
+            });
+          })
+          .catch(function() {
+          });
+        }
+      });
+
       $('#table').DataTable({
         "language": {
         "emptyTable": "Data is loading. You may have to whitelist this site for browser extensions that block third party scripts",
-        "info":           "_TOTAL_ levels",
-        "infoEmpty":      "0 levels",
-        "infoFiltered":   "/ _MAX_ levels",
         },
         paging:false,
         responsive:true,
-        dom : "iti",
+        dom : "t",
         "columnDefs": [
           {
             "render": function ( data) {
-              return "<span class='text-monospace'><a class='dt-level-link' href='/level/" + encodeURI(data) + "' code='" + data + "'>" + data + "</a></span> <span class='copy' title='Copy tsclear code'><i class='fa fa-clipboard' aria-hidden='true'></i></span> <span class='copyLike' title='Copy tsclear code with like' data-toggle='tooltip'><i class='fa fa-heart text-danger' aria-hidden='true'></i></span>"
+              if(that.loggedIn){
+                let copyTitle = "Copy levelcode";
+                return "<span class='text-monospace'><a class='dt-level-link' href='/level/" + encodeURI(data) + "' code='" + data + "'>" + data + "</a></span> <span class='copy' title='" + copyTitle + "'><i class='fa fa-clipboard' aria-hidden='true'></i></span>"
+              } else {
+                let copyTitle = "Copy tsclear code";
+                let likeTitle = "Copy tsclear code with like";
+                return "<span class='text-monospace'><a class='dt-level-link' href='/level/" + encodeURI(data) + "' code='" + data + "'>" + data + "</a></span> <span class='copy' title='" + copyTitle + "'><i class='fa fa-clipboard' aria-hidden='true'></i></span> <span class='copyLike' title='" + likeTitle + "' data-toggle='tooltip'><i class='fa fa-heart text-danger' aria-hidden='true'></i></span>"
+              }
             },
             "orderable": false,
             targets:1,
@@ -130,48 +269,71 @@
             targets:12
           },
           {
-            "render": function ( data, type ) {
+            "render": function ( data, type, row, meta ) {
               if ( type !="display" ) {
                 return data=="1"?"1":"0";
               } else {
-                return (data=="1"?'<i title="Entered player has cleared this level." data-toggle="tooltip" class="fa fa-check text-success" aria-hidden="true"></i>': "");
+                if(that.loggedIn){
+                  return (data=="1"?'<i title="You have cleared this level" data-toggle="tooltip" class="fa fa-check text-success dt-unclear-button" aria-hidden="true" code="' + row[1] + '" levelname="' + row[3] + '" rownum="' + meta.row + '"></i>': '<i title="You have not submitted a clear for this level yet" data-toggle="tooltip" class="fa fa-check fa-inactive dt-clear-button" aria-hidden="true" code="' + row[1] + '" levelname="' + row[3] + '" rownum="' + meta.row + '"></i>');
+                } else {
+                  return (data=="1"?'<i title="Entered player has cleared this level" data-toggle="tooltip" class="fa fa-check text-success" aria-hidden="true"></i>': '');
+                }
               }
             },
-            targets:14
+            targets:15
           },
           {
             "render": function ( data ) {
               return isNaN(data)||data==0?"":Number(data).toFixed(1);
             },
-            targets:15
-          },
-          {
-            "render": function ( data, type ) {
-              if ( type !="display" ) {
-                return data=="1"?"1":"0";
-              } else {
-                return (data=="1"?'<i title="Player has liked this level" data-toggle="tooltip" class="fa fa-heart text-danger" aria-hidden="true"></i>': "");
-              }
-            },
             targets:16
           },
           {
+            "render": function ( data, type, row, meta ) {
+              if ( type !="display" ) {
+                return data=="1"?"1":"0";
+              } else {
+                if(that.loggedIn){
+                  return (data=="1"?'<i title="You liked this level" data-toggle="tooltip" class="fa fa-heart text-danger dt-unlike-button" aria-hidden="true" code="' + row[1] + '" levelname="' + row[3] + '" rownum="' + meta.row + '"></i>': '<i title="You have not submitted a like for this level yet" data-toggle="tooltip" class="fa fa-heart fa-inactive dt-like-button" aria-hidden="true" code="' + row[1] + '" levelname="' + row[3] + '" rownum="' + meta.row + '"></i>');
+                } else {
+                  return (data=="1"?'<i title="Entered player has liked this level" data-toggle="tooltip" class="fa fa-heart text-danger" aria-hidden="true"></i>': '');
+                }
+              }
+            },
+            targets:17
+          },
+          {
             defaultContent:"",
-            targets:[6,7,8,9,10,11,12,13,14,15,16]
+            targets:[6,7,8,9,10,11,12,13,14,15,16,17]
           },
         ]
       });
 
       this.getData();
     },
+    computed: {
+      loggedIn: function(){
+        return this.$store.state.token ? true : false;
+      }
+    },
     methods: {
       refresh(){
+        let that = this;
+
         this.data=JSON.parse(this.raw_data);
         this.data.levels.shift();
         this.clearers=[];
         this.clears={};
         this.tag_labels=this.data.tags;
         this.tags_list=[];
+
+        this.data.points.shift()
+        var _points={0:0}
+
+        for(let i=0;i<this.data.points.length;i++){
+          _points[parseFloat(this.data.points[i][0])]=parseFloat(this.data.points[i][1]);
+        }
+        this.data.points=_points
 
         var filtered_plays=[];
         for(let i=0;i<this.data.played.length;i++){
@@ -224,6 +386,7 @@
           this.data.levels[i].push(tsclears) //no. of clears
           this.data.levels[i].push(votetotal>0? ((votesum/votetotal).toFixed(1))+","+votetotal:"0,0") //avg vote, num votes
           this.data.levels[i].push(likes) //liked
+          this.data.levels[i].push(getMakerPoints(likes, tsclears, this.data.points[this.data.levels[i][4]]).toFixed(1));
           if(current_creator==get_input("member")){
               this.data.levels[i].push("1")
               this.data.levels[i].push("-")
@@ -303,27 +466,51 @@
         datatable.draw();
         $('[data-toggle="tooltip"],.copy,#refresh,#submitButton').tooltip()
         $('.copy').click(function(){
-          var code=$(this).parent().text().substring(0,11);
-          var old_title="Copy tsclear code"
-          var new_title="Code copied."
+          if(!that.$store.state.token){
+            let code=$(this).parent().text().substring(0,11);
+            let old_title="Copy tsclear code"
+            let new_title="Code copied."
 
-          $(this).addClass("text-success")
-            $(this).tooltip('hide')
-                .attr('title', new_title)
-                .attr('data-original-title', new_title)
-                .tooltip('update')
-                .tooltip('show')
-            var temp=this
+            $(this).addClass("text-success")
+              $(this).tooltip('hide')
+                  .attr('title', new_title)
+                  .attr('data-original-title', new_title)
+                  .tooltip('update')
+                  .tooltip('show')
+              let temp=this
 
-          setTimeout(function(){
-            $(temp).removeClass("text-success")
-            $(temp).tooltip('hide')
-                .attr('title', old_title)
-                .attr('data-original-title', old_title)
-                .tooltip('update')
-                .tooltip('enable')
-          },2000)
-          copyClipboard("!tsclear "+code)
+            setTimeout(function(){
+              $(temp).removeClass("text-success")
+              $(temp).tooltip('hide')
+                  .attr('title', old_title)
+                  .attr('data-original-title', old_title)
+                  .tooltip('update')
+                  .tooltip('enable')
+            },2000)
+            copyClipboard("!tsclear "+code)
+          } else {
+            let code=$(this).parent().text().substring(0,11);
+            let old_title="Copy levelcode"
+            let new_title="Code copied."
+
+            $(this).addClass("text-success")
+              $(this).tooltip('hide')
+                  .attr('title', new_title)
+                  .attr('data-original-title', new_title)
+                  .tooltip('update')
+                  .tooltip('show')
+              let temp=this
+
+            setTimeout(function(){
+              $(temp).removeClass("text-success")
+              $(temp).tooltip('hide')
+                  .attr('title', old_title)
+                  .attr('data-original-title', old_title)
+                  .tooltip('update')
+                  .tooltip('enable')
+            },2000)
+            copyClipboard(code)
+          }
         })
 
         $('.loader').hide();
