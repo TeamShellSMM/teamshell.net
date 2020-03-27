@@ -19,6 +19,11 @@ html.dark body {
     color:#FFF;
 }
 
+html.dark body .dg-content {
+    color:#212529; 
+}
+
+
 html.dark .text-muted {
     color: #aaa !important
 }
