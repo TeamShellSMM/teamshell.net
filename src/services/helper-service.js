@@ -1,6 +1,6 @@
 import $ from 'jquery';
 
-const backendURL = "https://teamshell.net/backend/";
+const backendURL = "/backend/";
 
 let loadTeamshellApi = function(onLoad){
     var raw_data,noChange=false;
