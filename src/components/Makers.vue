@@ -111,6 +111,7 @@
                 let silversHtml = "";
                 let bronzesHtml = "";
                 let ironsHtml = "";
+                let shellsHtml = "";
 
                 for(var i = 0; i < that.comp_winners.length; i++){
                   //return "<div class='points'><a href='../levels/?creator="+encodeURI(data)+"' target='_blank'>"+data+"</a></div>"
@@ -120,13 +121,16 @@
                         goldsHtml += '<div class="medal" title="Gold medalist of ' + that.comp_winners[i][2] + '"><div class="coin coin-gold"></div></div>';
                       break;
                       case "2":
-                        goldsHtml += '<div class="medal" title="Silver medalist of ' + that.comp_winners[i][2] + '"><div class="coin coin-silver"></div></div>';
+                        silversHtml += '<div class="medal" title="Silver medalist of ' + that.comp_winners[i][2] + '"><div class="coin coin-silver"></div></div>';
                       break;
                       case "3":
-                        goldsHtml += '<div class="medal" title="Bronze medalist of ' + that.comp_winners[i][2] + '"><div class="coin coin-bronze"></div></div>';
+                        bronzesHtml += '<div class="medal" title="Bronze medalist of ' + that.comp_winners[i][2] + '"><div class="coin coin-bronze"></div></div>';
                       break;
                       case "4":
-                        goldsHtml += '<div class="medal" title="Runner-up of ' + that.comp_winners[i][2] + '"><div class="coin coin-iron"></div></div>';
+                        ironsHtml += '<div class="medal" title="Runner-up of ' + that.comp_winners[i][2] + '"><div class="coin coin-iron"></div></div>';
+                      break;
+                      case "5":
+                        shellsHtml += '<div class="medal" title="Honorable Mention for ' + that.comp_winners[i][2] + '"><div class="coin coin-shell"></div></div>';
                       break;
                     }
                   }
@@ -144,6 +148,9 @@
                 }
                 if(ironsHtml != ""){
                   medalsHtml += '<div class="medals">' + ironsHtml + '</div>';
+                }
+                if(shellsHtml != ""){
+                  medalsHtml += '<div class="medals">' + shellsHtml + '</div>';
                 }
 
                 return "<a class='dt-maker-link' href='/maker/" + encodeURI(data) + "' maker='" + data + "'>" + data + "</a>"+medalsHtml;
@@ -322,7 +329,7 @@
           }
 
           datatable.draw();
-          $('[data-toggle="tooltip"],.copy,#refresh,#submitButton').tooltip()
+          $('[data-toggle="tooltip"],.copy,#refresh,#submitButton,.medal').tooltip()
 
           $('.loader').hide();
         },

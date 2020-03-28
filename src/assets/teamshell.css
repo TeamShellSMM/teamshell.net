@@ -20,7 +20,7 @@ html.dark body {
 }
 
 html.dark body .dg-content {
-    color:#212529; 
+    color:#212529;
 }
 
 
@@ -191,6 +191,13 @@ background: #9b9b9b;
 }
 .coin-iron:after {
 box-shadow: 0 0 0 3px #838383;
+}
+.coin-shell {
+border: 1px solid #01806e;
+background: #01a09e;
+}
+.coin-shell:after {
+box-shadow: 0 0 0 3px #21c0ae;
 }
 
 .comp-winners {

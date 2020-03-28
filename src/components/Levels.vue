@@ -293,9 +293,55 @@
           {
             "render": function ( data, type ) {
               if(type!="display") return data
-              return "<a class='dt-maker-link' href='/maker/" + encodeURI(data) + "' maker='" + data + "'>" + data + "</a>"
+              let goldsHtml = "";
+              let silversHtml = "";
+              let bronzesHtml = "";
+              let ironsHtml = "";
+              let shellsHtml = "";
+
+              for(var i = 0; i < that.comp_winners.length; i++){
+                //return "<div class='points'><a href='../levels/?creator="+encodeURI(data)+"' target='_blank'>"+data+"</a></div>"
+                if(data == that.comp_winners[i][1]){
+                  switch(that.comp_winners[i][3]){
+                    case "1":
+                      goldsHtml += '<div class="medal" title="Gold medalist of ' + that.comp_winners[i][2] + '"><div class="coin coin-gold"></div></div>';
+                    break;
+                    case "2":
+                      silversHtml += '<div class="medal" title="Silver medalist of ' + that.comp_winners[i][2] + '"><div class="coin coin-silver"></div></div>';
+                    break;
+                    case "3":
+                      bronzesHtml += '<div class="medal" title="Bronze medalist of ' + that.comp_winners[i][2] + '"><div class="coin coin-bronze"></div></div>';
+                    break;
+                    case "4":
+                      ironsHtml += '<div class="medal" title="Runner-up of ' + that.comp_winners[i][2] + '"><div class="coin coin-iron"></div></div>';
+                    break;
+                    case "5":
+                      shellsHtml += '<div class="medal" title="Honorable Mention for ' + that.comp_winners[i][2] + '"><div class="coin coin-shell"></div></div>';
+                    break;
+                  }
+                }
+              }
+
+              var medalsHtml = "";
+              if(goldsHtml != ""){
+                medalsHtml += '<div class="medals">' + goldsHtml + '</div>';
+              }
+              if(silversHtml != ""){
+                medalsHtml += '<div class="medals">' + silversHtml + '</div>';
+              }
+              if(bronzesHtml != ""){
+                medalsHtml += '<div class="medals">' + bronzesHtml + '</div>';
+              }
+              if(ironsHtml != ""){
+                medalsHtml += '<div class="medals">' + ironsHtml + '</div>';
+              }
+              if(shellsHtml != ""){
+                medalsHtml += '<div class="medals">' + shellsHtml + '</div>';
+              }
+
+              return "<a class='dt-maker-link' href='/maker/" + encodeURI(data) + "' maker='" + data + "'>" + data + "</a>"+medalsHtml;
             },
-            targets:2,
+            targets: 2
           },
           {
             "render": function ( data, type, row ) {
@@ -305,19 +351,66 @@
 
               if(row[7]){
                 var raw_vids=row[7].split(",")
-                for(var j=0;j<raw_vids.length;j++){
+                for(let j=0;j<raw_vids.length;j++){
                   videos+="<a target='_blank' data-toggle='tooltip' title='Video clear' href='"+raw_vids[j]+"'><i class='fa fa-video-camera' aria-hidden='true'></i></a> "
                 }
               }
               var tags=row[9]
               tags=tags?tags.split(","):[]
-              for(var i=0;i<tags.length;i++){
+              for(let i=0;i<tags.length;i++){
                 let type2=that.tag_labels[tags[i]]?that.tag_labels[tags[i]]:"secondary"
                 tags[i]='<a href="?tag='+tags[i]+'"><span class="tag badge badge-pill badge-'+type2+'">'+tags[i]+"</span></a>"
               }
               tags=tags.join("")
 
-              return "<span class='font-weight-bold'>"+data+"</span><br/>"+videos+" "+tags;
+
+              let goldsHtml = "";
+              let silversHtml = "";
+              let bronzesHtml = "";
+              let ironsHtml = "";
+              let shellsHtml = "";
+
+              for(let i = 0; i < that.comp_winners.length; i++){
+                //return "<div class='points'><a href='../levels/?creator="+encodeURI(data)+"' target='_blank'>"+data+"</a></div>"
+                if(row[1] == that.comp_winners[i][0]){
+                  switch(that.comp_winners[i][3]){
+                    case "1":
+                      goldsHtml += '<div class="medal" title="Gold medalist of ' + that.comp_winners[i][2] + '"><div class="coin coin-gold"></div></div>';
+                    break;
+                    case "2":
+                      silversHtml += '<div class="medal" title="Silver medalist of ' + that.comp_winners[i][2] + '"><div class="coin coin-silver"></div></div>';
+                    break;
+                    case "3":
+                      bronzesHtml += '<div class="medal" title="Bronze medalist of ' + that.comp_winners[i][2] + '"><div class="coin coin-bronze"></div></div>';
+                    break;
+                    case "4":
+                      ironsHtml += '<div class="medal" title="Runner-up of ' + that.comp_winners[i][2] + '"><div class="coin coin-iron"></div></div>';
+                    break;
+                    case "5":
+                      shellsHtml += '<div class="medal" title="Honorable Mention for ' + that.comp_winners[i][2] + '"><div class="coin coin-shell"></div></div>';
+                    break;
+                  }
+                }
+              }
+
+              var medalsHtml = "";
+              if(goldsHtml != ""){
+                medalsHtml += '<div class="medals">' + goldsHtml + '</div>';
+              }
+              if(silversHtml != ""){
+                medalsHtml += '<div class="medals">' + silversHtml + '</div>';
+              }
+              if(bronzesHtml != ""){
+                medalsHtml += '<div class="medals">' + bronzesHtml + '</div>';
+              }
+              if(ironsHtml != ""){
+                medalsHtml += '<div class="medals">' + ironsHtml + '</div>';
+              }
+              if(shellsHtml != ""){
+                medalsHtml += '<div class="medals">' + shellsHtml + '</div>';
+              }
+
+              return "<span class='font-weight-bold'>"+data+"</span>" + medalsHtml + "<br/>"+videos+" "+tags;
             },
             targets:3,
           },
@@ -409,6 +502,8 @@
 
         this.data.points.shift()
         var _points={0:0}
+
+        this.comp_winners = this.data.comp_winners;
 
         for(let i=0;i<this.data.points.length;i++){
           _points[parseFloat(this.data.points[i][0])]=parseFloat(this.data.points[i][1]);
@@ -579,7 +674,7 @@
         }
 
         datatable.draw();
-        $('[data-toggle="tooltip"],.copy,#refresh,#submitButton').tooltip()
+        $('[data-toggle="tooltip"],.copy,#refresh,#submitButton,.medal').tooltip()
         $('.copy').click(function(){
           if(!that.$store.state.token){
             let code=$(this).parent().text().substring(0,11);

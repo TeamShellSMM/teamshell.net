@@ -5,7 +5,7 @@
         <div class="header-logo-div" style="">
           <h1><img class="buzzyS" src="/assets/buzzySpin.gif"/> <span class="green">#Team</span><span class="orange">Shell</span></h1>
         </div>
-        <div class="header-comp-div" style="display:none;">
+        <div class="header-comp-div" style="">
           <div class="row comp-winners" >
             <div class="col-2" style="text-align: center;">
               <img src="https://teamshell.net/assets/bam.png">
@@ -13,7 +13,7 @@
             <div class="col-8">
               <div class="">
                 <h4 style="text-align:center;">Shell And Tell 1 - SMB1-like</h4>
-                <h5 style="text-align:center;font-family: 'Bangers', sans-serif"><div class="medal" style="margin-right:10px;padding-top: 2px;"><div class="coin coin-gold"></div></div>Gimme Shellter by Hauspanther (3PG-DT0-NRF)</h5>
+                <h5 style="text-align:center;font-family: 'Bangers', sans-serif"><div class="medal" style="margin-right:10px;padding-top: 2px;"><div class="coin coin-gold"></div></div>Permafrost #ST #TS by Hollow Soul (<router-link to="/level/4WD-7GR-TWF">4WD-7GR-TWF</router-link>)</h5>
                 <h5 style="text-align:center;font-family: 'Bangers', sans-serif; margin-bottom:0px;"><router-link to="/shellandtell/1">Check out the other winners here</router-link></h5>
               </div>
             </div>
