@@ -271,6 +271,19 @@
         }
       });
 
+      $(document).off('change', "#table_length select");
+      $(document).on("change", "#table_length select", function(){
+        // for persistant data
+        localStorage.setItem('level_table_length',$(this).val());
+      });
+
+      let pageLength = localStorage.getItem('level_table_length');
+      if(!pageLength){
+        pageLength = 10;
+      } else {
+        pageLength = parseInt(pageLength);
+      }
+
       $('#table').DataTable({
         "language": {
         "emptyTable": "Data is loading. You may have to whitelist this site for browser extensions that block third party scripts",
@@ -280,8 +293,10 @@
         },
         paging:true,
         pagingType: "simple",
+        "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
+        pageLength:pageLength,
         responsive: true,
-        dom : "itp",
+        dom : "litp",
         "columnDefs": [
           { responsivePriority: 1, targets: [0,1,3,4,15,17] },
           { responsivePriority: 2, targets: [14] },
