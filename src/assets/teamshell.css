@@ -295,3 +295,98 @@ box-shadow: 0 0 0 3px #21c0ae;
 .fa-inactive {
     opacity:0.15;
 }
+
+/*
+    Responsive Stuff
+*/
+.diff-text-mobile {
+    display:none;
+}
+
+@media only screen and (max-width: 600px) {
+    .dataTables_wrapper {
+        font-size: 12px;
+    }
+
+    .login-ul {
+        float:left !important;
+    }
+
+    .header-row h1 {
+        font-size:18vw;
+    }
+
+    .header-row .buzzyS {
+        width: 54px;
+    }
+
+    .header-comp-div {
+        width:100%;
+    }
+
+    .comp-winners img {
+        height: 40px;
+        width: 40px;
+        top: calc(50% - 20px);
+        position: relative;
+    }
+
+    .comp-winners h4 {
+        font-size: 0.75rem;
+    }
+
+    .comp-winners h5 {
+        font-size: 0.62rem;
+    }
+
+    .medal {
+        width: 10px;
+        height: 10px;
+        padding-top: 1px;
+    }
+
+    .coin {
+        border-radius: 50%;
+        width: 10px;
+        height: 10px;
+        box-shadow: 0px 0px 1px 0px #989898;
+    }
+
+    .coin:after {
+        width: 6px;
+        height: 6px;
+    }
+
+    .comp-winners .medal {
+        margin-right:5px !important;
+        padding-top:1px !important;
+    }
+
+    .header-flex-container {
+        width:100%;
+    }
+
+    .nav-row {
+        font-size: 14px !important;
+    }
+
+    .level-code-div {
+        max-width: 20px;
+    }
+
+    .level-name-div {
+        max-width: 120px;
+    }
+
+    table.dataTable.dtr-inline.collapsed.compact>tbody>tr>td:first-child, table.dataTable.dtr-inline.collapsed.compact>tbody>tr>th:first-child {
+        padding-left: 10px;
+    }
+
+    .diff-text-default {
+        display:none;
+    }
+
+    .diff-text-mobile {
+        display:inline !important;
+    }
+}

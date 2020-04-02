@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row header-row">
-      <div class="d-inline-flex" style="flex-wrap:wrap;">
+      <div class="d-inline-flex header-flex-container" style="flex-wrap:wrap;">
         <div class="header-logo-div" style="">
           <h1><img class="buzzyS" src="/assets/buzzySpin.gif"/> <span class="green">#Team</span><span class="orange">Shell</span></h1>
         </div>
@@ -40,7 +40,7 @@
             <router-link to="/members">Members</router-link>
           </li>
         </ul>
-        <ul id="nav" style="float:right;">
+        <ul id="nav" class="login-ul" style="float:right;">
           <li v-if="loggedIn">
             <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Logged in as {{userName}}</span>
             <div class="dropdown-menu">
@@ -110,5 +110,6 @@
   @import "//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css";
   @import "//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css";
   @import "//cdnjs.cloudflare.com/ajax/libs/datatables/1.10.20/css/jquery.dataTables.css";
+  @import "//cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css";
   @import "assets/teamshell.css?v=1.0.5";
 </style>

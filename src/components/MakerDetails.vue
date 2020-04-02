@@ -4,10 +4,10 @@
     <table id="table" class="compact row-border stripe hover" style="width:100%">
       <thead><tr>
         <th style="width:10px;">No.</th>
-        <th style="width:10em;">Level Code</th>
+        <th style="width:10em;"><span class="diff-text-default">Level Code</span><span class="diff-text-mobile">Code</span></th>
         <th style="width:10em">Creator</th>
         <th>Level Name</th>
-        <th style="width:10px">Difficulty</th>
+        <th style="width:10px"><span class="diff-text-default">Difficulty</span><span class="diff-text-mobile">Diff</span></th>
         <th>Approved</th>
         <th style="width:10px">New Code</th>
         <th style="width:10px">Video</th>
@@ -17,10 +17,10 @@
         <th style="width:10px">Clears</th>
         <th style="width:10px">TS Vote</th>
         <th style="width:10px">Likes</th>
-        <th style="width:10px" title="Like-Clear-Diff Score (aka how many TS Maker Points this level is worth)">LCD Score</th>
-        <th style="width:10px">Cleared</th>
+        <th style="width:10px" title="Like-Clear-Diff Score (aka how many TS Maker Points this level is worth)"><span class="diff-text-default">LCD Score</span><span class="diff-text-mobile">LCD</span></th>
+        <th style="width:10px">Clear</th>
         <th style="width:10px">Your Vote</th>
-        <th style="width:10px">You Liked</th>
+        <th style="width:10px">Like</th>
       </tr></thead>
     </table>
   </div>
@@ -196,15 +196,19 @@
         responsive:true,
         dom : "t",
         "columnDefs": [
+          { responsivePriority: 1, targets: [0,1,3,4,15,17] },
+          { responsivePriority: 2, targets: [14] },
+          { responsivePriority: 3, targets: [2] },
+          { responsivePriority: 4, targets: [5,6,7,8,9,10,11,12,13,16] },
           {
             "render": function ( data) {
               if(that.loggedIn){
                 let copyTitle = "Copy levelcode";
-                return "<span class='text-monospace'><a class='dt-level-link' href='/level/" + encodeURI(data) + "' code='" + data + "'>" + data + "</a></span> <span class='copy' title='" + copyTitle + "'><i class='fa fa-clipboard' aria-hidden='true'></i></span>"
+                return "<div class='text-monospace level-code-div'><a class='dt-level-link' href='/level/" + encodeURI(data) + "' code='" + data + "'>" + data + "</a></div> <span class='copy' title='" + copyTitle + "'><i class='fa fa-clipboard' aria-hidden='true'></i></span>"
               } else {
                 let copyTitle = "Copy tsclear code";
                 let likeTitle = "Copy tsclear code with like";
-                return "<span class='text-monospace'><a class='dt-level-link' href='/level/" + encodeURI(data) + "' code='" + data + "'>" + data + "</a></span> <span class='copy' title='" + copyTitle + "'><i class='fa fa-clipboard' aria-hidden='true'></i></span> <span class='copyLike' title='" + likeTitle + "' data-toggle='tooltip'><i class='fa fa-heart text-danger' aria-hidden='true'></i></span>"
+                return "<div class='text-monospace level-code-div'><a class='dt-level-link' href='/level/" + encodeURI(data) + "' code='" + data + "'>" + data + "</a></div> <span class='copy' title='" + copyTitle + "'><i class='fa fa-clipboard' aria-hidden='true'></i></span> <span class='copyLike' title='" + likeTitle + "' data-toggle='tooltip'><i class='fa fa-heart text-danger' aria-hidden='true'></i></span>"
               }
             },
             "orderable": false,
@@ -330,7 +334,7 @@
                 medalsHtml += '<div class="medals">' + shellsHtml + '</div>';
               }
 
-              return "<span class='font-weight-bold'>"+data+"</span>" + medalsHtml + "<br/>"+videos+" "+tags;
+              return "<div class='font-weight-bold level-name-div'>"+data+medalsHtml +"</div>" +  videos+" "+tags;
             },
             targets:3,
           },
