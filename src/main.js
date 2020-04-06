@@ -64,6 +64,9 @@ const store = new Vuex.Store({
     },
     setUserInfo(state, payload){
       state.user_info = payload.user_info;
+    },
+    setLastDiffRange(state, payload){
+      state.last_diff_range = payload;
     }
   },
   plugins: [vuexLocal.plugin]

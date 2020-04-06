@@ -65,11 +65,11 @@
     <h2 id="table_title" class="orange"></h2>
     <table id="table" class="compact row-border stripe hover" style="width:100%">
       <thead><tr>
-        <th style="width:10px;">No.</th>
-        <th style="width:10em;"><span class="diff-text-default">Level Code</span><span class="diff-text-mobile">Code</span></th>
+        <th class="all" style="width:10px;">No.</th>
+        <th class="all" style="width:10em;"><span class="diff-text-default">Level Code</span><span class="diff-text-mobile">Code</span></th>
         <th style="width:10em">Creator</th>
-        <th>Level Name</th>
-        <th style="width:10px"><span class="diff-text-default">Difficulty</span><span class="diff-text-mobile">Diff</span></th>
+        <th class="all">Level Name</th>
+        <th class="all" style="width:10px"><span class="diff-text-default">Difficulty</span><span class="diff-text-mobile">Diff</span></th>
         <th>Approved</th>
         <th style="width:10px">New Code</th>
         <th style="width:10px">Video</th>
@@ -80,9 +80,9 @@
         <th style="width:10px">TS Vote</th>
         <th style="width:10px">Likes</th>
         <th style="width:10px" title="Like-Clear-Diff Score (aka how many TS Maker Points this level is worth)"><span class="diff-text-default">LCD Score</span><span class="diff-text-mobile">LCD</span></th>
-        <th style="width:10px">Clear</th>
+        <th class="all" style="width:10px"><span class="diff-text-default">Clear</span><span class="diff-text-mobile"><i class='fa fa-check text-success' aria-hidden='true'></i></span></th>
         <th style="width:10px">Your Vote</th>
-        <th style="width:10px">Like</th>
+        <th class="all" style="width:10px"><span class="diff-text-default">Like</span><span class="diff-text-mobile"><i class='fa fa-heart text-danger' aria-hidden='true'></i></span></th>
       </tr></thead>
     </table>
   </div>
@@ -300,8 +300,7 @@
         "columnDefs": [
           { responsivePriority: 1, targets: [0,1,3,4,15,17] },
           { responsivePriority: 2, targets: [14] },
-          { responsivePriority: 3, targets: [2] },
-          { responsivePriority: 4, targets: [5,6,7,8,9,10,11,12,13,16] },
+          { responsivePriority: 4, targets: [2,5,6,7,8,9,10,11,12,13,16] },
           {
             "render": function ( data) {
               if(that.loggedIn){
@@ -366,7 +365,7 @@
                 }
               }
 
-              return "<a class='dt-maker-link' href='/maker/" + encodeURI(data) + "' maker='" + data + "'>" + data + "</a>"+medalsHtml;
+              return "<div class='creator-name-div'><a class='dt-maker-link' href='/maker/" + encodeURI(data) + "' maker='" + data + "'>" + data + "</a>"+medalsHtml +"</div>";
             },
             targets: 2
           },
@@ -379,7 +378,7 @@
               if(row[7]){
                 var raw_vids=row[7].split(",")
                 for(let j=0;j<raw_vids.length;j++){
-                  videos+="<a target='_blank' data-toggle='tooltip' title='Video clear' href='"+raw_vids[j]+"'><i class='fa fa-video-camera' aria-hidden='true'></i></a> "
+                  videos+="<a class='clear-vid-link' target='_blank' data-toggle='tooltip' title='Video clear' href='"+raw_vids[j]+"'><i class='fa fa-video-camera' aria-hidden='true'></i></a> "
                 }
               }
               var tags=row[9]
@@ -397,47 +396,98 @@
               let ironsHtml = "";
               let shellsHtml = "";
 
-              for(let i = 0; i < that.comp_winners.length; i++){
-                //return "<div class='points'><a href='../levels/?creator="+encodeURI(data)+"' target='_blank'>"+data+"</a></div>"
-                if(row[1] == that.comp_winners[i][0]){
-                  switch(that.comp_winners[i][3]){
-                    case "1":
-                      goldsHtml += '<div class="medal" title="Gold medalist of ' + that.comp_winners[i][2] + '"><div class="coin coin-gold"></div></div>';
-                    break;
-                    case "2":
-                      silversHtml += '<div class="medal" title="Silver medalist of ' + that.comp_winners[i][2] + '"><div class="coin coin-silver"></div></div>';
-                    break;
-                    case "3":
-                      bronzesHtml += '<div class="medal" title="Bronze medalist of ' + that.comp_winners[i][2] + '"><div class="coin coin-bronze"></div></div>';
-                    break;
-                    case "4":
-                      ironsHtml += '<div class="medal" title="Runner-up of ' + that.comp_winners[i][2] + '"><div class="coin coin-iron"></div></div>';
-                    break;
-                    case "5":
-                      shellsHtml += '<div class="medal" title="Honorable Mention for ' + that.comp_winners[i][2] + '"><div class="coin coin-shell"></div></div>';
-                    break;
+              if(that.comp_winners){
+                for(let i = 0; i < that.comp_winners.length; i++){
+                  //return "<div class='points'><a href='../levels/?creator="+encodeURI(data)+"' target='_blank'>"+data+"</a></div>"
+                  if(row[1] == that.comp_winners[i][0]){
+                    switch(that.comp_winners[i][3]){
+                      case "1":
+                        goldsHtml += '<div class="medal" title="Gold medalist of ' + that.comp_winners[i][2] + '"><div class="coin coin-gold"></div></div>';
+                      break;
+                      case "2":
+                        silversHtml += '<div class="medal" title="Silver medalist of ' + that.comp_winners[i][2] + '"><div class="coin coin-silver"></div></div>';
+                      break;
+                      case "3":
+                        bronzesHtml += '<div class="medal" title="Bronze medalist of ' + that.comp_winners[i][2] + '"><div class="coin coin-bronze"></div></div>';
+                      break;
+                      case "4":
+                        ironsHtml += '<div class="medal" title="Runner-up of ' + that.comp_winners[i][2] + '"><div class="coin coin-iron"></div></div>';
+                      break;
+                      case "5":
+                        shellsHtml += '<div class="medal" title="Honorable Mention for ' + that.comp_winners[i][2] + '"><div class="coin coin-shell"></div></div>';
+                      break;
+                    }
                   }
+                }
+
+                var medalsHtml = "";
+                if(goldsHtml != ""){
+                  medalsHtml += '<div class="medals">' + goldsHtml + '</div>';
+                }
+                if(silversHtml != ""){
+                  medalsHtml += '<div class="medals">' + silversHtml + '</div>';
+                }
+                if(bronzesHtml != ""){
+                  medalsHtml += '<div class="medals">' + bronzesHtml + '</div>';
+                }
+                if(ironsHtml != ""){
+                  medalsHtml += '<div class="medals">' + ironsHtml + '</div>';
+                }
+                if(shellsHtml != ""){
+                  medalsHtml += '<div class="medals">' + shellsHtml + '</div>';
                 }
               }
 
-              var medalsHtml = "";
-              if(goldsHtml != ""){
-                medalsHtml += '<div class="medals">' + goldsHtml + '</div>';
-              }
-              if(silversHtml != ""){
-                medalsHtml += '<div class="medals">' + silversHtml + '</div>';
-              }
-              if(bronzesHtml != ""){
-                medalsHtml += '<div class="medals">' + bronzesHtml + '</div>';
-              }
-              if(ironsHtml != ""){
-                medalsHtml += '<div class="medals">' + ironsHtml + '</div>';
-              }
-              if(shellsHtml != ""){
-                medalsHtml += '<div class="medals">' + shellsHtml + '</div>';
+              let goldsHtmlCreator = "";
+              let silversHtmlCreator = "";
+              let bronzesHtmlCreator = "";
+              let ironsHtmlCreator = "";
+              let shellsHtmlCreator = "";
+              if(that.comp_winners){
+                for(var i = 0; i < that.comp_winners.length; i++){
+                  //return "<div class='points'><a href='../levels/?creator="+encodeURI(data)+"' target='_blank'>"+data+"</a></div>"
+                  if(row[2] == that.comp_winners[i][1]){
+                    switch(that.comp_winners[i][3]){
+                      case "1":
+                        goldsHtmlCreator += '<div class="medal" title="Gold medalist of ' + that.comp_winners[i][2] + '"><div class="coin coin-gold"></div></div>';
+                      break;
+                      case "2":
+                        silversHtmlCreator += '<div class="medal" title="Silver medalist of ' + that.comp_winners[i][2] + '"><div class="coin coin-silver"></div></div>';
+                      break;
+                      case "3":
+                        bronzesHtmlCreator += '<div class="medal" title="Bronze medalist of ' + that.comp_winners[i][2] + '"><div class="coin coin-bronze"></div></div>';
+                      break;
+                      case "4":
+                        ironsHtmlCreator += '<div class="medal" title="Runner-up of ' + that.comp_winners[i][2] + '"><div class="coin coin-iron"></div></div>';
+                      break;
+                      case "5":
+                        shellsHtmlCreator += '<div class="medal" title="Honorable Mention for ' + that.comp_winners[i][2] + '"><div class="coin coin-shell"></div></div>';
+                      break;
+                    }
+                  }
+                }
+
+                var medalsHtmlCreator = "";
+                if(goldsHtmlCreator != ""){
+                  medalsHtmlCreator += '<div class="medals">' + goldsHtmlCreator + '</div>';
+                }
+                if(silversHtmlCreator != ""){
+                  medalsHtmlCreator += '<div class="medals">' + silversHtmlCreator + '</div>';
+                }
+                if(bronzesHtmlCreator != ""){
+                  medalsHtmlCreator += '<div class="medals">' + bronzesHtmlCreator + '</div>';
+                }
+                if(ironsHtmlCreator != ""){
+                  medalsHtmlCreator += '<div class="medals">' + ironsHtmlCreator + '</div>';
+                }
+                if(shellsHtmlCreator != ""){
+                  medalsHtmlCreator += '<div class="medals">' + shellsHtmlCreator + '</div>';
+                }
               }
 
-              return "<div class='font-weight-bold level-name-div'>"+data+medalsHtml +"</div>" +  videos+" "+tags;
+              let makerLink = "<div class='creator-name-div diff-text-mobile'><a class='dt-maker-link' href='/maker/" + encodeURI(row[2]) + "' maker='" + row[2] + "'>" + row[2] + "</a>"+medalsHtmlCreator +"</div>";
+
+              return makerLink + "<div class='font-weight-bold level-name-div'>"+data+medalsHtml +  videos + " " + tags + "</div>";
             },
             targets:3,
           },

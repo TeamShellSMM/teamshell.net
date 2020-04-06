@@ -42,6 +42,7 @@
         </ul>
         <ul id="nav" class="login-ul" style="float:right;">
           <li v-if="loggedIn">
+            <button class="btn random-button" title="Random Level" @click="randomLevel()"><i class="fa fa-random"></i></button>
             <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Logged in as {{userName}}</span>
             <div class="dropdown-menu">
               <a class="dropdown-item" href="#" v-on:click="logout()">Logout</a>
@@ -64,11 +65,15 @@
         </div>
       </div>
     </div>
-    <router-view></router-view>
+    <router-view :key="$route.fullPath"></router-view>
   </div>
 </template>
 
 <script>
+  import { random } from './services/helper-service';
+  import noUiSlider from 'nouislider';
+  import 'nouislider/distribute/nouislider.css';
+
   export default {
     name: 'App',
     mounted() {
@@ -100,6 +105,74 @@
       logout(){
           this.$store.commit('setToken', { token: null });
           this.$store.commit('setUserInfo', { user_info: {} });
+      },
+      randomLevel(){
+        let that = this;
+
+        this.$dialog
+        .confirm({
+          title: "Choose difficulty range",
+          body: "<div class='diff-range-container'><div id='difficulty-range-slider'></div><div>"
+        }, {
+          html: true
+        })
+        .then(dialog => {
+          console.log("ok", dialog);
+          let slider = document.getElementById('difficulty-range-slider');
+          let diffs = slider.noUiSlider.get()
+          that.$store.commit('setLastDiffRange', diffs);
+
+          $('.loader').show();
+            random({
+              token: that.$store.state.token,
+              minDifficulty: parseFloat(diffs[0]).toFixed(1),
+              maxDifficulty: parseFloat(diffs[1]).toFixed(1)
+            }, function(level){
+              $('.loader').hide();
+              console.log(level);
+              if(level){
+                that.$router.push("/level/" + level.Code);
+              } else {
+                that.$dialog.alert("<p>Sorry, but we couldn't find a level in the specified difficulty range that you haven't cleared yet!</p>", {html: true});
+              }
+            });
+        })
+        .catch(() => {
+          console.log('Prompt dismissed');
+        });
+
+        setTimeout(function(){
+          let slider = document.getElementById('difficulty-range-slider');
+
+          let formatNumber = {
+            to: function(number){
+              return number.toFixed(1);
+            },
+            from: function(text){
+              return parseFloat(text);
+            }
+          }
+
+          noUiSlider.create(slider, {
+              start: [0.5, 11],
+              connect: true,
+              tooltips: [formatNumber, formatNumber],
+              range: {
+                  'min': 0.5,
+                  'max': 11
+              },
+              step: 0.5,
+              pips: {
+                  mode: 'values',
+                  values: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+                  density: 4
+              }
+          });
+
+          if(that.$store.state.last_diff_range){
+            slider.noUiSlider.set(that.$store.state.last_diff_range);
+          }
+        }, 50);
       }
     }
   };

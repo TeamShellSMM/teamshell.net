@@ -296,6 +296,22 @@ box-shadow: 0 0 0 3px #21c0ae;
     opacity:0.15;
 }
 
+.random-button {
+    background-color: #01a09e;
+    color: white;
+    margin-right: 10px;
+}
+
+.diff-range-container {
+    padding: 20px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.noUi-value {
+    margin-top: 10px;
+}
+
 /*
     Responsive Stuff
 */
@@ -375,7 +391,6 @@ box-shadow: 0 0 0 3px #21c0ae;
     }
 
     .level-name-div {
-        max-width: 120px;
     }
 
     table.dataTable.dtr-inline.collapsed.compact>tbody>tr>td:first-child, table.dataTable.dtr-inline.collapsed.compact>tbody>tr>th:first-child {
@@ -388,5 +403,16 @@ box-shadow: 0 0 0 3px #21c0ae;
 
     .diff-text-mobile {
         display:inline !important;
+    }
+
+    .clear-vid-link {
+        margin-left: 2px;
+    }
+
+    .medals {
+        margin-left:-5px;
+    }
+    .medals:first-of-type {
+        margin-left:5px;
     }
 }
