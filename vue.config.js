@@ -6,7 +6,8 @@ module.exports = {
         pathRewrite: {'^/backend' : ''},
         changeOrigin: true,
         secure: false,
-      }
-    }
+      },
+    },
+  disableHostCheck:true
   }
 }

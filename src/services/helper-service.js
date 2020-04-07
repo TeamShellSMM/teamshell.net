@@ -3,13 +3,12 @@ import $ from 'jquery';
 const backendURL = "/backend/";
 
 let loadTeamshellApi = function(token,onLoad){
-    var raw_data,tokenData,noChange=false;
+    let raw_data,tokenData=null,noChange=false;
     let url= backendURL + "json";
     if(token){
-      tokenData={token:token}
+      tokenData={"token":token}
     }
     $.post(url,tokenData,function(_data){
-        console.log(_data)
         raw_data=JSON.stringify(_data)
         onLoad(raw_data,noChange)
     })
