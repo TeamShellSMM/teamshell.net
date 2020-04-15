@@ -2,28 +2,20 @@ import $ from 'jquery';
 
 const backendURL = "/backend/";
 
-let loadTeamshellApi = function(onLoad){
-    var raw_data,noChange=false;
-    //raw_data=localStorage.getItem("cachedData")
-    /*if(raw_data){
-        _data=JSON.parse(raw_data)
-    }*/
-    var url= backendURL + "json?callback=?";
-    //var url = "http://teamshell.net:4000/json/?callback=?"
-    $.getJSON(url).done(function(_data){
-        if(_data=="No Updated Needed"){
-            noChange=true;
-        } else {
-            raw_data=JSON.stringify(_data)
-            //ocalStorage.setItem("cachedData",raw_data)
-        }
+let loadTeamshellApi = function(token,onLoad){
+    let raw_data,tokenData=null,noChange=false;
+    let url= backendURL + "json";
+    if(token){
+      tokenData={"token":token}
+    }
+    $.post(url,tokenData,function(_data){
+        raw_data=JSON.stringify(_data)
         onLoad(raw_data,noChange)
     })
 }
 
 let login = function(otp, onLoad){
     var url = backendURL + "json/login"
-    //var url = "http://teamshell.net:4000/json/login"
     $.post(url, {
         "otp": otp
     }, function(result){
@@ -33,14 +25,14 @@ let login = function(otp, onLoad){
 
 let clear = function(data, onLoad){
     var url = backendURL + "clear";
-    //var url = "http://teamshell.net:4000/clear";
     $.post(url, data, function(result){
         onLoad(result);
     }, 'json');
 }
 
 let random = function(data, onLoad){
-    $.post("/backend/random", data, function(response){
+    var url = backendURL + "random";
+    $.post(url, data, function(response){
         onLoad(response.level);
     });
 }
@@ -83,16 +75,6 @@ let copyClipboard = function(str){
     document.body.removeChild(el);
 };
 
-let dev = function(id){
-    if(id){
-        localStorage.setItem("devid",id)
-        console.log('%c This site will now use the sheet with id '+id, 'background: #000; color: #f88501');
-    } else {
-        localStorage.removeItem("devid")
-        console.log('%c This site will now use the main sheet', 'background: #000; color: ##01a09e;');
-    }
-};
-
 let removeDups = function(names) {
     let unique = {};
     names.forEach(function(i) {
@@ -129,5 +111,5 @@ let getMakerPoints = function(likes, clears, difficultyPoints){
 }
 
 export {
-    loadTeamshellApi, get_input, save_input, store_input, setGetParam, copyClipboard, dev, removeDups, ObjectLength, getMakerPoints, login, clear, random
+    loadTeamshellApi, get_input, save_input, store_input, setGetParam, copyClipboard, removeDups, ObjectLength, getMakerPoints, login, clear, random
 }

@@ -83,7 +83,7 @@
       getData(){
         $('.loader').show();
         let that = this;
-        loadTeamshellApi(function(_rawData,dataNoChange){
+        loadTeamshellApi(that.$store.state.token,function(_rawData,dataNoChange){
           if(dataNoChange){
             $.notify("No new data was loaded",{
               className:"success",

@@ -372,7 +372,7 @@
           {
             "render": function ( data, type, row ) {
               if(type!="display") return data
-
+              let currentCode=row[1];
               var videos="";
 
               if(row[7]){
@@ -387,8 +387,23 @@
                 let type2=that.tag_labels[tags[i]]?that.tag_labels[tags[i]]:"secondary"
                 tags[i]='<a href="?tag='+tags[i]+'"><span class="tag badge badge-pill badge-'+type2+'">'+tags[i]+"</span></a>"
               }
+              
               tags=tags.join("")
 
+              let votesHtml=""
+              if(that.data.vote_counts && that.data.vote_counts[currentCode]){
+                if(that.data.vote_counts[currentCode].approve){
+                  
+                  votesHtml+='<a class="dt-level-link" href="/level/' + encodeURI(currentCode) + '" code="' + currentCode + '" title="Votes for approval"><span class="tag badge badge-pill badge-success">'+that.data.vote_counts[currentCode].approve+"</span></a>"
+                }
+                if(that.data.vote_counts[currentCode].reject){
+                  votesHtml+='<a class="dt-level-link" href="/level/' + encodeURI(currentCode) + '" code="' + currentCode + '" title="Votes for rejection"><span class="tag badge badge-pill badge-danger">'+that.data.vote_counts[currentCode].reject+"</span></a>"
+                }
+              }
+
+
+
+              
 
               let goldsHtml = "";
               let silversHtml = "";
@@ -398,7 +413,6 @@
 
               if(that.comp_winners){
                 for(let i = 0; i < that.comp_winners.length; i++){
-                  //return "<div class='points'><a href='../levels/?creator="+encodeURI(data)+"' target='_blank'>"+data+"</a></div>"
                   if(row[1] == that.comp_winners[i][0]){
                     switch(that.comp_winners[i][3]){
                       case "1":
@@ -487,7 +501,7 @@
 
               let makerLink = "<div class='creator-name-div diff-text-mobile'><a class='dt-maker-link' href='/maker/" + encodeURI(row[2]) + "' maker='" + row[2] + "'>" + row[2] + "</a>"+medalsHtmlCreator +"</div>";
 
-              return makerLink + "<div class='font-weight-bold level-name-div'>"+data+medalsHtml +  videos + " " + tags + "</div>";
+              return makerLink + "<div class='font-weight-bold level-name-div'>"+data+medalsHtml +"<br/>"+ votesHtml+" "+videos + " " + tags + "</div>";
             },
             targets:3,
           },
@@ -564,6 +578,9 @@
     computed: {
       loggedIn: function(){
         return this.$store.state.token ? true : false;
+      },      
+      is_shellder:function(){
+        return this.$store.state.user_info.shelder ? true : false;
       }
     },
     methods: {
@@ -847,7 +864,7 @@
         datatable.clear().draw();
 
         let that = this;
-        loadTeamshellApi(function(_rawData,dataNoChange){
+        loadTeamshellApi(that.$store.state.token,function(_rawData,dataNoChange){
           if(dataNoChange){
             $.notify("No new data was loaded",{
               className:"success",

@@ -24,6 +24,14 @@
       </tr></thead>
     </table>
 
+<div class="row">
+<div class="col-sm-12">
+<ul id="commentHTML" class="list-group d-block"></ul>
+</div>
+</div>
+  
+ 
+
     <div id="playedTableCont" class="level-detail-played-table">
       <table id="playedTable" class="compact row-border stripe hover" style="width:100%;">
         <thead><tr>
@@ -38,7 +46,7 @@
         </tr></thead>
       </table>
     </div>
-  </div>
+</div>
 </template>
 
 <script>
@@ -206,7 +214,7 @@
 
       $('#table').DataTable({
         "language": {
-        "emptyTable": "Data is loading. You may have to whitelist this site for browser extensions that block third party scripts",
+        "emptyTable": "Data is loading.",
         },
         paging:false,
         responsive:true,
@@ -239,7 +247,6 @@
               let shellsHtml = "";
 
               for(var i = 0; i < that.comp_winners.length; i++){
-                //return "<div class='points'><a href='../levels/?creator="+encodeURI(data)+"' target='_blank'>"+data+"</a></div>"
                 if(data == that.comp_winners[i][1]){
                   switch(that.comp_winners[i][3]){
                     case "1":
@@ -285,6 +292,7 @@
           {
             "render": function ( data, type, row ) {
               if(type!="display") return data
+              let currentCode=row[1];
 
               var videos="";
 
@@ -301,6 +309,17 @@
                 tags[i]='<a href="?tag='+tags[i]+'"><span class="tag badge badge-pill badge-'+type2+'">'+tags[i]+"</span></a>"
               }
               tags=tags.join("")
+
+              let votesHtml=""
+              if(that.data.vote_counts && that.data.vote_counts[currentCode]){
+                if(that.data.vote_counts[currentCode].approve){
+                  
+                  votesHtml+='<a class="dt-level-link" href="/level/' + encodeURI(currentCode) + '" code="' + currentCode + '" title="Votes for approval"><span class="tag badge badge-pill badge-success">'+that.data.vote_counts[currentCode].approve+"</span></a>"
+                }
+                if(that.data.vote_counts[currentCode].reject){
+                  votesHtml+='<a class="dt-level-link" href="/level/' + encodeURI(currentCode) + '" code="' + currentCode + '" title="Votes for rejection"><span class="tag badge badge-pill badge-danger">'+that.data.vote_counts[currentCode].reject+"</span></a>"
+                }
+              }
 
 
               let goldsHtml = "";
@@ -400,7 +419,7 @@
 
               let makerLink = "<div class='creator-name-div diff-text-mobile'><a class='dt-maker-link' href='/maker/" + encodeURI(row[2]) + "' maker='" + row[2] + "'>" + row[2] + "</a>"+medalsHtmlCreator +"</div>";
 
-              return makerLink + "<div class='font-weight-bold level-name-div'>"+data+medalsHtml +  videos + " " + tags + "</div>";
+              return makerLink + "<div class='font-weight-bold level-name-div'>"+data+medalsHtml +"<br/>"+ votesHtml+" "+ videos + " " + tags + "</div>";
             },
             targets:3,
           },
@@ -474,7 +493,7 @@
 
       $('#playedTable').DataTable({
         "language": {
-        "emptyTable": "Data is loading. You may have to whitelist this site for browser extensions that block third party scripts",
+        "emptyTable": "Data is loading.",
         "info":           "_TOTAL_ players",
         "infoEmpty":      "0 rows",
         "infoFiltered":   "/ _MAX_ rows",
@@ -614,6 +633,7 @@
     methods: {
       refresh(){
         let that = this;
+        let currentCode=this.$route.params.code;
 
         this.data=JSON.parse(this.raw_data);
         this.data.levels.shift();
@@ -625,6 +645,19 @@
         this.data.points.shift()
         var _points={0:0}
 
+        let commentHTML=""
+        if(that.data.shellder_comments && that.data.shellder_comments[currentCode]){
+          that.data.shellder_comments[currentCode].forEach( comment => {
+            if(comment.type=="approve"){
+              
+              commentHTML+='<li class="list-group-item list-group-item-success"><h5 class="mb-1">'+comment.player+' voted to approve with difficulty '+comment.difficulty_vote+':</h5>'+comment.reason+'</span>'
+            } else {
+              commentHTML+='<li class="list-group-item list-group-item-danger"><h5 class="mb-1">'+comment.player+' voted to reject:</h5>'+comment.reason+'</span>'
+            }
+            commentHTML+="</li>"
+          })
+        }
+        $("#commentHTML").html(commentHTML)
         this.comp_winners = this.data.comp_winners;
 
         for(let i=0;i<this.data.points.length;i++){
@@ -865,7 +898,7 @@
         datatable2.clear().draw();
 
         let that = this;
-        loadTeamshellApi(function(_rawData,dataNoChange){
+        loadTeamshellApi(that.$store.state.token,function(_rawData,dataNoChange){
           if(dataNoChange){
             $.notify("No new data was loaded",{
               className:"success",
