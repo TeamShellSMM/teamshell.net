@@ -1,26 +1,35 @@
 <template>
-  <div class="row">
-    <div class="col-md-6">
-      <table class="dashboard">
-        <tr><td>Official Levels</td><td id="numApproved">Loading</td></tr>
-        <tr><td>Pending Levels</td><td id="numPending">Loading</td></tr>
-        <tr><td>Members</td><td id="numMembers">Loading</td></tr>
-        <tr><td>Unoffical Members</td><td id="numUnofficialMembers">Loading</td></tr>
-        <tr><td>Clears</td><td id="numClears">Loading</td></tr>
-        <tr><td>Votes</td><td id="numVotes">Loading</td></tr>
-        <tr><td>Likes</td><td id="numLikes">Loading</td></tr>
-        <tr><td>TeamConsistency Levels</td><td id="numConsistency">Loading</td></tr>
-        <tr><td>Shell Jamps Done</td><td>A Lot</td></tr>
-      </table>
-      <h4>Levels by difficulty</h4>
-      <div class="chart-container" style="position: relative;width:100%;">
-      <canvas id="difficulty_chart"></canvas>
-      </div>
+  <div class="">
+    <div class="row">
+      <img v-if="theme == 'dark'" img src="/assets/howtodark.png" style="width:70%;margin-left:15%">
+      <img v-if="theme == 'light'" img src="/assets/howto.png" style="width:70%;margin-left:15%">
     </div>
-    <div class="col-md-4">
-      <h4>We have a twitter now! <a href="https://twitter.com/TeamShellSMM">https://twitter.com/TeamShellSMM</a></h4>
-      <div class="embed-responsive-item">
-        <Timeline id="teamshellsmm" sourceType="profile" :key="theme" :options="timelineOptions"></Timeline>
+      <div class="row">
+        <div class="col-md-6">
+          <h4>Current Stats</h4>
+          <table class="dashboard">
+          <tr><td>Official Levels</td><td id="numApproved">Loading</td></tr>
+          <tr><td>Pending Levels</td><td id="numPending">Loading</td></tr>
+          <tr><td>Members</td><td id="numMembers">Loading</td></tr>
+          <tr><td>Unoffical Members</td><td id="numUnofficialMembers">Loading</td></tr>
+          <tr><td>Clears</td><td id="numClears">Loading</td></tr>
+          <tr><td>Votes</td><td id="numVotes">Loading</td></tr>
+          <tr><td>Likes</td><td id="numLikes">Loading</td></tr>
+          <tr><td>TeamConsistency Levels</td><td id="numConsistency">Loading</td></tr>
+          <tr><td>Shell Jamps Done</td><td>A Lot</td></tr>
+        </table>
+        <h4>Levels by difficulty</h4>
+        <div class="chart-container" style="position: relative;width:100%;">
+        <canvas id="difficulty_chart"></canvas>
+        </div>
+      </div>
+      <div class="col-md-2">
+      </div>
+      <div class="col-md-4">
+        <h4>We have a twitter now! <a href="https://twitter.com/TeamShellSMM">https://twitter.com/TeamShellSMM</a></h4>
+        <div class="embed-responsive-item">
+          <Timeline id="teamshellsmm" sourceType="profile" :key="theme" :options="timelineOptions"></Timeline>
+        </div>
       </div>
     </div>
   </div>
