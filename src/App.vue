@@ -124,8 +124,8 @@
               message: $('#feedback-textarea').val()
           }, function(response){
             $('.loader').hide();
-            if(!response.status){
-              that.$dialog.alert("<p>Something went wrong buzzyS!</p>", {html: true});
+            if(response.status !== "successful"){
+              that.$dialog.alert("<p>" + response.message + "</p>", {html: true});
             }
           })
         })
