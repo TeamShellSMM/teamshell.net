@@ -312,6 +312,11 @@ box-shadow: 0 0 0 3px #21c0ae;
     margin-top: 10px;
 }
 
+.feedback-area {
+    margin-top: 5px;
+    width: 100%;
+}
+
 /*
     Responsive Stuff
 */

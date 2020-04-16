@@ -37,6 +37,13 @@ let random = function(data, onLoad){
     });
 }
 
+let putFeedback = function(data, onLoad){
+    var url = backendURL + "feedback";
+    $.post(url, data, function(response){
+        onLoad(response);
+    });
+}
+
 let get_input = function(query_name){
     return localStorage.getItem(query_name)
 };
@@ -111,5 +118,5 @@ let getMakerPoints = function(likes, clears, difficultyPoints){
 }
 
 export {
-    loadTeamshellApi, get_input, save_input, store_input, setGetParam, copyClipboard, removeDups, ObjectLength, getMakerPoints, login, clear, random
+    loadTeamshellApi, get_input, save_input, store_input, setGetParam, copyClipboard, removeDups, ObjectLength, getMakerPoints, login, clear, random, putFeedback
 }

@@ -45,6 +45,7 @@
             <button class="btn random-button" title="Random Level" @click="randomLevel()"><i class="fa fa-random"></i></button>
             <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Logged in as {{userName}}</span>
             <div class="dropdown-menu">
+              <a class="dropdown-item" href="#" v-on:click="showFeedbackDialog()">Submit feedback</a>
               <a class="dropdown-item" href="#" v-on:click="logout()">Logout</a>
             </div>
           </li>
@@ -70,7 +71,7 @@
 </template>
 
 <script>
-  import { random } from './services/helper-service';
+  import { random, putFeedback } from './services/helper-service';
   import noUiSlider from 'nouislider';
   import 'nouislider/distribute/nouislider.css';
 
@@ -102,6 +103,38 @@
       }
     },
     methods: {
+      showFeedbackDialog(){
+        let that = this;
+
+        this.$dialog
+        .confirm({
+          title: "Submit your feedback (anonymously)",
+          body: "<div class='feedback-div'><textarea rows='5' class='feedback-area' id='feedback-textarea'></textarea><div>"
+        }, {
+          html: true
+        })
+        .then(dialog => {
+          // Triggered when proceed button is clicked
+          // Show an alert with the user's input as the message
+          console.log(dialog);
+
+          $('.loader').show();
+          putFeedback({
+              token: that.$store.state.token,
+              message: $('#feedback-textarea').val()
+          }, function(response){
+            $('.loader').hide();
+            if(!response.status){
+              that.$dialog.alert("<p>Something went wrong buzzyS!</p>", {html: true});
+            }
+          })
+        })
+        .catch(() => {
+          // Triggered when dialog is dismissed by user
+
+          console.log('Prompt dismissed');
+        });
+      },
       logout(){
           this.$store.commit('setToken', { token: null });
           this.$store.commit('setUserInfo', { user_info: {} });
