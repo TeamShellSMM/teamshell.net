@@ -62,7 +62,7 @@
       </div>
     </div>
 
-    <h2 id="table_title" class="orange"></h2>
+    <h2 id="table_title" :class="$route.params.team + '-secondary-fg'"></h2>
     <table id="table" class="compact row-border stripe hover" style="width:100%">
       <thead><tr>
         <th class="all" style="width:10px;">No.</th>
@@ -387,13 +387,13 @@
                 let type2=that.tag_labels[tags[i]]?that.tag_labels[tags[i]]:"secondary"
                 tags[i]='<a href="?tag='+tags[i]+'"><span class="tag badge badge-pill badge-'+type2+'">'+tags[i]+"</span></a>"
               }
-              
+
               tags=tags.join("")
 
               let votesHtml=""
               if(that.data.vote_counts && that.data.vote_counts[currentCode]){
                 if(that.data.vote_counts[currentCode].approve){
-                  
+
                   votesHtml+='<a class="dt-level-link" href="/level/' + encodeURI(currentCode) + '" code="' + currentCode + '" title="Votes for approval"><span class="tag badge badge-pill badge-success">'+that.data.vote_counts[currentCode].approve+"</span></a>"
                 }
                 if(that.data.vote_counts[currentCode].reject){
@@ -403,7 +403,7 @@
 
 
 
-              
+
 
               let goldsHtml = "";
               let silversHtml = "";
@@ -578,7 +578,7 @@
     computed: {
       loggedIn: function(){
         return this.$store.state.token ? true : false;
-      },      
+      },
       is_shellder:function(){
         return this.$store.state.user_info.shelder ? true : false;
       }

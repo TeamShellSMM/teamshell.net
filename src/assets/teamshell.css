@@ -6,12 +6,36 @@ h1 {font-size:64pt;}
 table {width:100%;}
 img {width: 36px}
 #logo {position: relative;right:0px;background: #FFF}
-.green {color:#01a09e;}
-.orange {color:#f88501;}
 .copy,.copyLike {cursor:pointer;-webkit-transition: color 0.5s; /* Safari prior 6.1 */
     transition: color 0.5s;}
 #refresh {cursor: pointer;}
 
+.teamshell-primary-fg {color:#01a09e;}
+.teamshell-primary-bg {background-color:#01a09e;}
+.teamshell-secondary-fg {color:#f88501;}
+.teamshell-secondary-bg {background-color:#f88501;}
+
+.teamjamp-primary-fg {color:#ff5353;}
+.teamjamp-primary-bg {background-color:#ff5353;}
+.teamjamp-secondary-fg {color:#ffbb00;}
+.teamjamp-secondary-bg {background-color:#ffbb00;}
+
+/*.makerteams-primary-fg {color: #fd7e14;}
+.makerteams-primary-bg {background-color: #fd7e14;}
+.makerteams-secondary-fg {color:#007bff;}
+.makerteams-secondary-bg {background-color:#007bff;}*/
+
+.makerteams-primary-fg {color: #f9db00;}
+.makerteams-primary-bg {background-color: #f9db00;}
+.makerteams-secondary-fg {color:#086A9A;}
+.makerteams-secondary-bg {background-color:#086A9A;}
+
+/*.makerteams-primary-fg {color: #dc3545;}
+.makerteams-primary-bg {background-color: #dc3545;}
+.makerteams-secondary-fg {color:#007bff;}
+.makerteams-secondary-bg {background-color:#007bff;}*/
+
+.logo-shadow { text-shadow: 2px 2px #888888;}
 
 /* Dark Mode */
 html.dark body {
@@ -284,6 +308,12 @@ box-shadow: 0 0 0 3px #21c0ae;
     padding-right: 15px;
 }
 
+.header-logo-div-sub {
+    width:100%;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
 .header-comp-div {
     width: 720px;
     white-space: nowrap;
@@ -316,6 +346,155 @@ box-shadow: 0 0 0 3px #21c0ae;
     margin-top: 5px;
     width: 100%;
 }
+
+.text-bold {
+    font-weight:bold;
+}
+
+.teamjamp-logo {
+    border-radius: 20px;
+    margin-right:10px;
+}
+
+.howto-header {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.howto-text-container {
+    font-size: 1.3vw;
+    top:5vw;
+    padding-left:1.5vw;
+    padding-right:1.5vw;
+    position:absolute;
+    text-align:center
+}
+@media screen and (min-width: 1440px) {
+    .howto-text-container {
+        font-size: 18.7px;
+        top:72px;
+        padding-left:21px;
+        padding-right:21px;
+    }
+}
+
+.howto-text-container h4 {
+    font-size: 1.7vw;
+}
+@media screen and (min-width: 1440px) {
+    .howto-text-container h4 {
+        font-size: 24.5px;
+    }
+}
+
+.howto-text-container p {
+    margin-bottom: 1.38vw;
+}
+@media screen and (min-width: 1440px) {
+    .howto-text-container p {
+        margin-bottom:20px;
+    }
+}
+
+.howto-icon {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    font-size: 5vw;
+}
+@media screen and (min-width: 1440px) {
+    .howto-icon {
+        font-size:72px;
+    }
+}
+
+.howto-footer {
+    font-weight: bold;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom:20px;
+    padding-left:20px;
+    padding-right:20px;
+}
+
+.howto-circle {
+    position:relative;
+    left:25%;
+    width:50%;
+    border-radius:50%;
+    background-color:#EDE4E4;
+    transform: translate(0%, -50%);
+}
+
+.howto-step {
+    width:17%;
+    position:absolute;
+    top:4.8vw;
+    height:36vw;
+    border-radius:1.3vw;
+    color:black;
+}
+@media screen and (min-width: 1440px) {
+    .howto-step {
+        height:520px;
+        top:70px;
+    }
+}
+
+.howto-step-1 {
+    left:10%;
+}
+.howto-step-2 {
+    left:31%;
+}
+.howto-step-3 {
+    left:52%;
+}
+.howto-step-4 {
+    left:73%;
+}
+
+.howto-content {
+    width:100%;
+    height:42vw;
+    position:relative
+}
+@media screen and (min-width: 1440px) {
+    .howto-content {
+        height:600px;
+    }
+}
+
+.howto-header {
+    padding-left:10px;
+    padding-right:10px;
+    text-align:center;
+}
+
+
+.dark .howto-bg-element {
+    background: linear-gradient(90deg, #121212 2%, #EDE4E4 5%, #EDE4E4 95%, #121212 98%);
+}
+.howto-bg-element {
+    width:100%;
+    height:20.8vw;
+    position:absolute;
+    top:10.4vw;
+    background: linear-gradient(90deg, #FFFFFF 2%, #121212 5%, #121212 95%, #FFFFFF 98%);
+}
+@media screen and (min-width: 1440px) {
+    .howto-bg-element {
+        top:150px;
+        height:300px;
+    }
+}
+
+.maker-team p {
+    margin-top:10px;
+    padding-left: 30px;
+    padding-right: 30px;
+    font-size:20px;
+}
+
 
 /*
     Responsive Stuff

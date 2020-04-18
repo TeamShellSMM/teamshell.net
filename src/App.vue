@@ -1,72 +1,113 @@
 <template>
   <div class="container">
-    <div class="row header-row">
-      <div class="d-inline-flex header-flex-container" style="flex-wrap:wrap;">
-        <div class="header-logo-div" style="">
-          <h1><img class="buzzyS" src="/assets/buzzySpin.gif"/> <span class="green">#Team</span><span class="orange">Shell</span></h1>
-        </div>
-        <div class="header-comp-div" style="">
-          <div class="row comp-winners" >
-            <div class="col-2" style="text-align: center;">
-              <img src="https://teamshell.net/assets/bam.png">
-            </div>
-            <div class="col-8">
-              <div class="">
-                <h4 style="text-align:center;">Shell And Tell 1 - SMB1-like</h4>
-                <h5 style="text-align:center;font-family: 'Bangers', sans-serif"><div class="medal" style="margin-right:10px;padding-top: 2px;"><div class="coin coin-gold"></div></div>Permafrost #ST #TS by TheAnswer (<router-link to="/level/4WD-7GR-TWF">4WD-7GR-TWF</router-link>)</h5>
-                <h5 style="text-align:center;font-family: 'Bangers', sans-serif; margin-bottom:0px;"><router-link to="/shellandtell/1">Check out the other winners here</router-link></h5>
+    <template v-if="$route.params.team">
+      <div class="row header-row">
+        <div class="d-inline-flex header-flex-container" style="flex-wrap:wrap;">
+          <div class="header-logo-div" style="">
+            <h1 v-if="$route.params.team == 'teamshell'" ><img class="buzzyS" src="/assets/teamshell/buzzySpin.gif"/><span class="teamshell-primary-fg">#Team</span><span class="teamshell-secondary-fg">Shell</span></h1>
+            <h1 v-if="$route.params.team == 'teamjamp'" ><img class="buzzyS teamjamp-logo" src="/assets/teamjamp/logo.png"/><span class="teamjamp-primary-fg">#Team</span><span class="teamjamp-secondary-fg">Jamp</span></h1>
+          </div>
+          <div v-if="$route.params.team == 'teamshell'" class="header-comp-div" style="">
+            <div class="row comp-winners" >
+              <div class="col-2" style="text-align: center;">
+                <img src="/assets/teamshell/bam.png">
               </div>
-            </div>
-            <div class="col-2" style="text-align: center;">
-              <img src="https://teamshell.net/assets/bam.png">
+              <div class="col-8">
+                <div class="">
+                  <h4 style="text-align:center;">Shell And Tell 1 - SMB1-like</h4>
+                  <h5 style="text-align:center;font-family: 'Bangers', sans-serif"><div class="medal" style="margin-right:10px;padding-top: 2px;"><div class="coin coin-gold"></div></div>Permafrost #ST #TS by TheAnswer (<router-link to="/level/4WD-7GR-TWF">4WD-7GR-TWF</router-link>)</h5>
+                  <h5 style="text-align:center;font-family: 'Bangers', sans-serif; margin-bottom:0px;"><router-link to="/teamshell/shellandtell/1">Check out the other winners here</router-link></h5>
+                </div>
+              </div>
+              <div class="col-2" style="text-align: center;">
+                <img src="/assets/teamshell/bam.png">
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="row nav-row">
-      <div class="col-12">
-        <ul id="nav" style="float:left;">
-          <li>
-            <router-link to="/">Home</router-link>
-          </li>
-          <li>
-            <router-link to="/levels">Levels</router-link>
-          </li>
-          <li>
-            <router-link to="/makers">Makers</router-link>
-          </li>
-          <li>
-            <router-link to="/members">Members</router-link>
-          </li>
-        </ul>
-        <ul id="nav" class="login-ul" style="float:right;">
-          <li v-if="loggedIn">
-            <button class="btn random-button" title="Random Level" @click="randomLevel()"><i class="fa fa-random"></i></button>
-            <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Logged in as {{userName}}</span>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" href="#" v-on:click="showFeedbackDialog()">Submit feedback</a>
-              <a class="dropdown-item" href="#" v-on:click="logout()">Logout</a>
-            </div>
-          </li>
+      <div class="row nav-row">
+        <div class="col-12">
+          <ul id="nav" style="float:left;">
+            <li>
+              <router-link :to="'/' + $route.params.team + '/'">Home</router-link>
+            </li>
+            <li>
+              <router-link :to="'/' + $route.params.team + '/levels'">Levels</router-link>
+            </li>
+            <li>
+              <router-link :to="'/' + $route.params.team + '/makers'">Makers</router-link>
+            </li>
+            <li>
+              <router-link :to="'/' + $route.params.team + '/members'">Members</router-link>
+            </li>
+          </ul>
+          <ul id="nav" class="login-ul" style="float:right;">
+            <li v-if="loggedIn">
+              <button class="btn random-button" title="Random Level" @click="randomLevel()"><i class="fa fa-random"></i></button>
+              <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Logged in as {{userName}}</span>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#" v-on:click="showFeedbackDialog()">Submit feedback</a>
+                <a class="dropdown-item" href="#" v-on:click="logout()">Logout</a>
+              </div>
+            </li>
 
-        </ul>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-12">
-        <h4>Join the discord for more information: <a href="https://discord.gg/7tQJewa">https://discord.gg/7tQJewa</a></h4>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-12">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="darkmode" v-model="theme" true-value="dark" false-value="light">
-          <label class="form-check-label" for="darkmode">Dark Mode <i class="fa fa-moon-o" aria-hidden="true"></i></label>
+          </ul>
         </div>
       </div>
-    </div>
-    <router-view :key="$route.fullPath"></router-view>
+      <div class="row">
+        <div class="col-12">
+          <h4 v-if="$route.params.team == 'teamshell'">Join the discord for more information: <a href="https://discord.gg/7tQJewa">https://discord.gg/7tQJewa</a></h4>
+          <h4 v-if="$route.params.team == 'teamjamp'">Join the discord for more information: <a href="https://discord.gg/rekPFnq">https://discord.gg/rekPFnq</a></h4>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="darkmode" v-model="theme" true-value="dark" false-value="light">
+            <label class="form-check-label" for="darkmode">Dark Mode <i class="fa fa-moon-o" aria-hidden="true"></i></label>
+          </div>
+        </div>
+      </div>
+      <router-view :key="$route.fullPath"></router-view>
+    </template>
+    <template v-if="!$route.params.team">
+      <div class="row header-row">
+        <div class="d-inline-flex header-flex-container" style="flex-wrap:wrap;">
+          <div class="header-logo-div" style="">
+            <h1 class="logo-shadow"><span class="makerteams-primary-fg">Maker</span><span class="makerteams-secondary-fg">Teams</span></h1>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <h2 style="padding:20px;">This page is very much in construction, but currently we are hosting these teams:</h2>
+      </div>
+      <div class="row header-row">
+        <div class="d-inline-flex header-flex-container maker-team" style="flex-wrap:wrap;">
+          <div class="header-logo-div-sub" style="">
+            <h2><img class="buzzyS" src="/assets/teamshell/buzzySpin.gif" style="margin-right:10px;"/><router-link to="/teamshell"><span class="teamshell-primary-fg">#Team</span><span class="teamshell-secondary-fg">Shell</span></router-link></h2>
+          </div>
+          <p>
+            TeamShell is one of the biggest teams around and centered all around one thing: tough shell kaizo levels.<br />
+            If you're looking for levels with shelljumps this is the team for you!
+          </p>
+        </div>
+      </div>
+      <div class="row header-row">
+        <div class="d-inline-flex header-flex-container maker-team" style="flex-wrap:wrap;">
+          <div class="header-logo-div-sub" style="">
+            <h2><img class="buzzyS teamjamp-logo" src="/assets/teamjamp/logo.png" style="margin-right:10px;"/><router-link to="/teamjamp"><span class="teamjamp-primary-fg">#Team</span><span class="teamjamp-secondary-fg">Jamp</span></router-link></h2>
+          </div>
+          <p>
+            TeamJamp is a relatively new team centered all around platforming.<br />
+            If you want a more traditional platforming kaizo experience without tons of tough tech, you're gonna love this team!
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <h4 style="padding:20px;">If you want your very own team bot and page like these two, you can message us on discord (<span class="teamshell-primary-fg">Liaf#0443</span> or <span class="teamshell-primary-fg">a_unique_id#6616</span>) any time.</h4>
+      </div>
+    </template>
   </div>
 </template>
 
@@ -81,6 +122,7 @@
       if(this.$store.state.theme === "dark"){
         document.querySelector('html').classList.add('dark');
       }
+      console.log("route params", this.$route.params);
     },
     computed: {
       theme:{
@@ -214,7 +256,7 @@
 <style>
   @import "//fonts.googleapis.com/css?family=Bangers&display=swap";
   @import "//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css";
-  @import "//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css";
+  @import "//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css";
   @import "//cdnjs.cloudflare.com/ajax/libs/datatables/1.10.20/css/jquery.dataTables.css";
   @import "//cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css";
   @import "assets/teamshell.css?v=1.0.5";

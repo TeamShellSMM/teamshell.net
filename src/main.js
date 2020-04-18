@@ -22,14 +22,14 @@ import ShellAndTell from './components/ShellAndTell';
 import Login from './components/Login';
 
 const routes = [
-  {path: '/', component: Home},
-  {path: '/levels', component: Levels},
-  {path: '/level/:code', component: LevelDetails},
-  {path: '/maker/:name', component: MakerDetails},
-  {path: '/makers', component: Makers},
-  {path: '/members', component: Members},
-  {path: '/shellandtell/:id', component: ShellAndTell},
-  {path: '/login/:otp', component: Login}
+  {path: '/:team', component: Home},
+  {path: '/:team/levels', component: Levels},
+  {path: '/:team/level/:code', component: LevelDetails},
+  {path: '/:team/maker/:name', component: MakerDetails},
+  {path: '/:team/makers', component: Makers},
+  {path: '/:team/members', component: Members},
+  {path: '/:team/shellandtell/:id', component: ShellAndTell},
+  {path: '/:team/login/:otp', component: Login}
 ];
 
 const router = new VueRouter({

@@ -1,13 +1,88 @@
 <template>
   <div class="">
     <div class="row">
-      <img v-if="theme == 'dark'" img src="/assets/howtodark.png" style="width:70%;margin-left:15%">
-      <img v-if="theme == 'light'" img src="/assets/howto.png" style="width:70%;margin-left:15%">
+      <h2 class="howto-header">How to become a part of the team</h2>
+      <div class="howto-content">
+        <div class="howto-bg-element">
+
+        </div>
+        <div class="howto-step howto-step-1" :class="$route.params.team + '-primary-bg'">
+          <canvas width="10" height="10" class="howto-circle">
+
+          </canvas>
+          <i class='fab fa-discord howto-icon'></i>
+          <div class="howto-text-container">
+            <h4>Step #1</h4>
+            <p>
+              Join the discord (the link is up top) and use
+            </p>
+            <p class="text-bold">
+              !register YourName
+            </p>
+            <p>
+              in the #registration text-channel to register with your desired name!
+            </p>
+          </div>
+        </div>
+        <div class="howto-step howto-step-2" :class="$route.params.team + '-secondary-bg'">
+          <canvas width="10" height="10" class="howto-circle">
+
+          </canvas>
+          <i class='fas fa-sign-in-alt howto-icon'></i>
+          <div class="howto-text-container">
+            <h4>Step #2</h4>
+            <p>
+              After that you can go to the #misc-commands text-channel and use
+            </p>
+            <p class="text-bold">
+              !login
+            </p>
+            <p>
+              to get a login URL for this webpage
+            </p>
+          </div>
+        </div>
+        <div class="howto-step howto-step-3" :class="$route.params.team + '-primary-bg'">
+          <canvas width="10" height="10" class="howto-circle">
+
+          </canvas>
+          <i class='fas fa-heart howto-icon'></i>
+          <div class="howto-text-container">
+            <h4>Step #3</h4>
+            <p>
+              Play some levels from the list on this site and submit your clears by clicking the clear or like button on the right side of each level.
+            </p>
+            <p>
+              For beginners we'd recommend playing stuff with a lower difficulty.
+            </p>
+          </div>
+
+        </div>
+        <div class="howto-step howto-step-4" :class="$route.params.team + '-secondary-bg'">
+          <canvas width="10" height="10" class="howto-circle">
+
+          </canvas>
+          <i class='fas fa-thumbs-up howto-icon'></i>
+          <div class="howto-text-container">
+            <h4>Step #4</h4>
+            <p>
+              As soon as you get 10 points from clearing levels you can submit your very own level with
+            </p>
+            <p class="text-bold">
+              !add XXX-XXX-XXX LevelName
+            </p>
+            <p>
+              As soon as it's approved by the {{$route.params.team == 'teamshell' ? "shellders" : "moderators"}} you're done and you'll get your official initiation into the team!
+            </p>
+          </div>
+        </div>
+      </div>
+      <p class="howto-footer">If you need any help you can always ask in one of the text channels or you can just message a {{$route.params.team == 'teamshell' ? "shellder" : "moderator"}}. Hope you have fun and keep on {{$route.params.team == 'teamshell' ? "shelling" : "jamping"}}!</p>
     </div>
-      <div class="row">
-        <div class="col-md-6">
-          <h4>Current Stats</h4>
-          <table class="dashboard">
+    <div class="row">
+      <div class="col-md-6">
+        <h4>Current Stats</h4>
+        <table class="dashboard">
           <tr><td>Official Levels</td><td id="numApproved">Loading</td></tr>
           <tr><td>Pending Levels</td><td id="numPending">Loading</td></tr>
           <tr><td>Members</td><td id="numMembers">Loading</td></tr>
@@ -15,20 +90,26 @@
           <tr><td>Clears</td><td id="numClears">Loading</td></tr>
           <tr><td>Votes</td><td id="numVotes">Loading</td></tr>
           <tr><td>Likes</td><td id="numLikes">Loading</td></tr>
-          <tr><td>TeamConsistency Levels</td><td id="numConsistency">Loading</td></tr>
-          <tr><td>Shell Jamps Done</td><td>A Lot</td></tr>
+          <tr v-if="$route.params.team == 'teamshell'"><td>TeamConsistency Levels</td><td id="numConsistency">Loading</td></tr>
+          <tr v-if="$route.params.team == 'teamshell'"><td>Shell Jamps Done</td><td>A Lot</td></tr>
         </table>
         <h4>Levels by difficulty</h4>
         <div class="chart-container" style="position: relative;width:100%;">
-        <canvas id="difficulty_chart"></canvas>
+          <canvas id="difficulty_chart"></canvas>
         </div>
       </div>
       <div class="col-md-2">
       </div>
-      <div class="col-md-4">
+      <div class="col-md-4" v-if="$route.params.team == 'teamshell'">
         <h4>We have a twitter now! <a href="https://twitter.com/TeamShellSMM">https://twitter.com/TeamShellSMM</a></h4>
         <div class="embed-responsive-item">
           <Timeline id="teamshellsmm" sourceType="profile" :key="theme" :options="timelineOptions"></Timeline>
+        </div>
+      </div>
+      <div class="col-md-4" v-if="$route.params.team == 'teamjamp'">
+        <h4>We have a twitter now! <a href="https://twitter.com/team_jamp">https://twitter.com/team_jamp</a></h4>
+        <div class="embed-responsive-item">
+          <Timeline id="team_jamp" sourceType="profile" :key="theme" :options="timelineOptions"></Timeline>
         </div>
       </div>
     </div>

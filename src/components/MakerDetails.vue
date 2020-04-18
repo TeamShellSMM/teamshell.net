@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h2 id="table_title" class="orange maker-detail-title">{{$route.params.name}}'s Levels</h2>
+    <h2 id="table_title" :class="$route.params.team + '-secondary-fg maker-detail-title'">{{$route.params.name}}'s Levels</h2>
     <table id="table" class="compact row-border stripe hover" style="width:100%">
       <thead><tr>
         <th class="all" style="width:10px;">No.</th>

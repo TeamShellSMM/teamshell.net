@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h2 id="table_title" class="orange level-detail-title">Level Details</h2>
+    <h2 id="table_title" :class="$route.params.team + '-secondary-fg level-detail-title'">Level Details</h2>
     <table id="table" class="compact row-border stripe hover" style="width:100%">
       <thead><tr>
         <th class="all" style="width:10px;">No.</th>
@@ -29,8 +29,8 @@
 <ul id="commentHTML" class="list-group d-block"></ul>
 </div>
 </div>
-  
- 
+
+
 
     <div id="playedTableCont" class="level-detail-played-table">
       <table id="playedTable" class="compact row-border stripe hover" style="width:100%;">
@@ -313,7 +313,7 @@
               let votesHtml=""
               if(that.data.vote_counts && that.data.vote_counts[currentCode]){
                 if(that.data.vote_counts[currentCode].approve){
-                  
+
                   votesHtml+='<a class="dt-level-link" href="/level/' + encodeURI(currentCode) + '" code="' + currentCode + '" title="Votes for approval"><span class="tag badge badge-pill badge-success">'+that.data.vote_counts[currentCode].approve+"</span></a>"
                 }
                 if(that.data.vote_counts[currentCode].reject){
@@ -649,7 +649,7 @@
         if(that.data.shellder_comments && that.data.shellder_comments[currentCode]){
           that.data.shellder_comments[currentCode].forEach( comment => {
             if(comment.type=="approve"){
-              
+
               commentHTML+='<li class="list-group-item list-group-item-success"><h5 class="mb-1">'+comment.player+' voted to approve with difficulty '+comment.difficulty_vote+':</h5>'+comment.reason+'</span>'
             } else {
               commentHTML+='<li class="list-group-item list-group-item-danger"><h5 class="mb-1">'+comment.player+' voted to reject:</h5>'+comment.reason+'</span>'
