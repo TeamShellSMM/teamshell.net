@@ -98,7 +98,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-4 col-sm-6 p-1">
+        <div class="col-md-4 col-sm-6 p-1" style="display:none;">
           <div class="card team-card">
             <img src="/assets/teamjamp/logo.png" class="card-img-top card-img-team-logo card-img-team-jamp-logo" alt="buzzyS">
             <div class="card-body">
