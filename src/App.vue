@@ -114,8 +114,8 @@
           </div>
         </div>
       </div>
-      <div class="row">
-        <h4 style="padding:20px;">If you want your very own team bot and page like these two, you can message us on discord (<span class="teamshell-primary-fg">Liaf#0443</span> or <span class="teamshell-primary-fg">a_unique_id#6616</span>) any time.</h4>
+      <div class="makerteams-footer makerteams-secondary-bg">
+        <h4>If you want your very own team bot and page like these, you can message us on discord (<span class="teamshell-secondary-fg">Liaf#0443</span> or <span class="teamshell-secondary-fg">a_unique_id#6616</span>).</h4>
       </div>
     </template>
   </div>

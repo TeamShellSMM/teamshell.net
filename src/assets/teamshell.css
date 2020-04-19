@@ -533,6 +533,25 @@ box-shadow: 0 0 0 3px #21c0ae;
     border: 1px solid grey;
 }
 
+.makerteams-footer {
+    border-top: 2px solid #b8a100;
+    border-radius: 10px 10px 0px 0px;
+    padding:5px;
+    width:100vw;
+    position:fixed;
+    bottom:0px;
+    left:0px;
+    color:white;
+    text-shadow: 2px 2px #1f1f1f;
+}
+
+.makerteams-footer h4 {
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    width:100%;
+    font-size: 20px;
+    text-align:center;
+}
+
 /*
     Responsive Stuff
 */
