@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <div class="row">
+    <div class="row" v-if="!loggedIn">
       <h2 class="howto-header">How to become a part of the team</h2>
       <div class="howto-content">
         <div class="howto-bg-element">
@@ -141,7 +141,11 @@
       };
     },
     mounted(){
-      this.theme = this.$store.state.theme;
+      this.theme = this.$store.state[this.$route.params.team].theme;
+
+      if(this.$store.state[this.$route.params.team].theme === "dark"){
+        document.querySelector('html').classList.add('dark');
+      }
 
       this.getData();
     },
@@ -151,12 +155,18 @@
         options.tweetLimit = this.tweetLimit;
         options.theme = this.theme;
         return options;
+      },
+      loggedIn: function(){
+        if(this.$route.params.team){
+          return this.$store.state[this.$route.params.team].token ? true : false;
+        }
+        return false;
       }
     },
     created(){
       this.$store.subscribe((mutation, state) => {
-        if(mutation.type === "setDark" || mutation.type === "setLight"){
-          this.theme = state.theme;
+        if(mutation.type === this.$route.params.team + "/setDark" || mutation.type === this.$route.params.team + "/setLight"){
+          this.theme = state[this.$route.params.team].theme;
         }
       });
     },
@@ -164,7 +174,7 @@
       getData(){
         $('.loader').show();
         let that = this;
-        loadTeamshellApi(that.$store.state.token,function(_rawData,dataNoChange){
+        loadTeamshellApi(that.$route.params.team, that.$store.state[that.$route.params.team].token,function(_rawData,dataNoChange){
           if(dataNoChange){
             $.notify("No new data was loaded",{
               className:"success",

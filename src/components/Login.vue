@@ -19,20 +19,20 @@
 
       let that = this;
 
-      login(this.$route.params.otp, function(data){
+      login(this.$route.params.team, this.$route.params.otp, function(data){
         if(data.status == "error"){
           $('.loader').hide();
           alert(data.message);
           that.$dialog.alert(data.message).then(function(dialog) {
             console.log(dialog);
           });
-          that.$router.push("/levels");
+          that.$router.push("/" + that.$route.params.team + "/levels");
         }
         if(data.status == "logged_in"){
-          that.$store.commit('setToken', { token: data.token });
-          that.$store.commit('setUserInfo', { user_info: data.user_info });
+          that.$store.commit(that.$route.params.team + '/setToken', { token: data.token });
+          that.$store.commit(that.$route.params.team + '/setUserInfo', { user_info: data.user_info });
           localStorage.setItem('member', data.user_info.Name);
-          that.$router.push("/levels");
+          that.$router.push("/" + that.$route.params.team + "/levels");
         }
       });
 

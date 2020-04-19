@@ -232,6 +232,14 @@ box-shadow: 0 0 0 3px #21c0ae;
     margin-bottom:10px;
 }
 
+.dark .comp-winners {
+    padding: 10px;
+    background-color: #2f2f2f;
+    border-radius: 20px;
+    margin-top:10px;
+    margin-bottom:10px;
+}
+
 .comp-winners i {
     color: #F0CD73;
     font-size:80px;
@@ -319,7 +327,6 @@ box-shadow: 0 0 0 3px #21c0ae;
     white-space: nowrap;
     padding-left: 30px;
     padding-right: 30px;
-    color:black !important;
 }
 
 .fa-inactive {
@@ -488,13 +495,43 @@ box-shadow: 0 0 0 3px #21c0ae;
     }
 }
 
-.maker-team p {
-    margin-top:10px;
-    padding-left: 30px;
-    padding-right: 30px;
-    font-size:20px;
+.card-img-team-logo {
+    width: 50%;
+    margin: auto;
+    max-width: 100px;
 }
 
+.card-img-team-jamp-logo {
+    border-radius:20px;
+}
+
+.team-card {
+    text-align:center;
+    padding-top:10px;
+    padding-bottom:60px;
+    height:100%;
+}
+
+.team-card-nav-button {
+    position: absolute;
+    bottom: 20px;
+    transform: translate(-50%);
+    height:60px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.mt-back-link {
+    color: rgb(173, 181, 189);
+    margin-right:10px;
+    vertical-align: middle;
+    font-size:60px;
+}
+
+.dark .dg-main-content {
+    background: #1F1F1F;
+    border: 1px solid grey;
+}
 
 /*
     Responsive Stuff

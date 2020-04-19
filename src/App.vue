@@ -4,8 +4,8 @@
       <div class="row header-row">
         <div class="d-inline-flex header-flex-container" style="flex-wrap:wrap;">
           <div class="header-logo-div" style="">
-            <h1 v-if="$route.params.team == 'teamshell'" ><img class="buzzyS" src="/assets/teamshell/buzzySpin.gif"/><span class="teamshell-primary-fg">#Team</span><span class="teamshell-secondary-fg">Shell</span></h1>
-            <h1 v-if="$route.params.team == 'teamjamp'" ><img class="buzzyS teamjamp-logo" src="/assets/teamjamp/logo.png"/><span class="teamjamp-primary-fg">#Team</span><span class="teamjamp-secondary-fg">Jamp</span></h1>
+            <h1 v-if="$route.params.team == 'teamshell'" ><router-link :to="'/'" class="mt-back-link"><i class="fas fa-chevron-left"></i></router-link><img class="buzzyS" src="/assets/teamshell/buzzySpin.gif"/><span class="teamshell-primary-fg">#Team</span><span class="teamshell-secondary-fg">Shell</span></h1>
+            <h1 v-if="$route.params.team == 'teamjamp'" ><router-link :to="'/'" class="mt-back-link"><i class="fas fa-chevron-left"></i></router-link><img class="buzzyS teamjamp-logo" src="/assets/teamjamp/logo.png"/><span class="teamjamp-primary-fg">#Team</span><span class="teamjamp-secondary-fg">Jamp</span></h1>
           </div>
           <div v-if="$route.params.team == 'teamshell'" class="header-comp-div" style="">
             <div class="row comp-winners" >
@@ -80,28 +80,38 @@
         </div>
       </div>
       <div class="row">
-        <h2 style="padding:20px;">This page is very much in construction, but currently we are hosting these teams:</h2>
+        <h2 style="padding:10px;">This page is very much in construction, but currently we are hosting these teams:</h2>
       </div>
-      <div class="row header-row">
-        <div class="d-inline-flex header-flex-container maker-team" style="flex-wrap:wrap;">
-          <div class="header-logo-div-sub" style="">
-            <h2><img class="buzzyS" src="/assets/teamshell/buzzySpin.gif" style="margin-right:10px;"/><router-link to="/teamshell"><span class="teamshell-primary-fg">#Team</span><span class="teamshell-secondary-fg">Shell</span></router-link></h2>
+      <div class="row">
+        <div class="col-md-4 col-sm-6 p-1">
+          <div class="card team-card">
+            <img src="/assets/teamshell/buzzySpin.gif" class="card-img-top card-img-team-logo" alt="buzzyS">
+            <div class="card-body">
+              <h2 class="card-title"><router-link to="/teamshell"><span class="teamshell-primary-fg">#Team</span><span class="teamshell-secondary-fg">Shell</span></router-link></h2>
+              <p class="card-text">
+                TeamShell is one of the biggest teams around and centered all around one thing: tough shell kaizo levels.
+              </p>
+              <p class="card-text">
+                If you're looking for levels with shelljumps this is the team for you!
+              </p>
+              <router-link to="/teamshell" class="btn teamshell-primary-bg team-card-nav-button" style="color:white;">Go check it out!</router-link>
+            </div>
           </div>
-          <p>
-            TeamShell is one of the biggest teams around and centered all around one thing: tough shell kaizo levels.<br />
-            If you're looking for levels with shelljumps this is the team for you!
-          </p>
         </div>
-      </div>
-      <div class="row header-row">
-        <div class="d-inline-flex header-flex-container maker-team" style="flex-wrap:wrap;">
-          <div class="header-logo-div-sub" style="">
-            <h2><img class="buzzyS teamjamp-logo" src="/assets/teamjamp/logo.png" style="margin-right:10px;"/><router-link to="/teamjamp"><span class="teamjamp-primary-fg">#Team</span><span class="teamjamp-secondary-fg">Jamp</span></router-link></h2>
+        <div class="col-md-4 col-sm-6 p-1">
+          <div class="card team-card">
+            <img src="/assets/teamjamp/logo.png" class="card-img-top card-img-team-logo card-img-team-jamp-logo" alt="buzzyS">
+            <div class="card-body">
+              <h2 class="card-title"><router-link to="/teamjamp"><span class="teamjamp-primary-fg">#Team</span><span class="teamjamp-secondary-fg">Jamp</span></router-link></h2>
+              <p class="card-text">
+                TeamJamp is a relatively new team centered all around platforming.
+              </p>
+              <p class="card-text">
+                If you want a more traditional platforming kaizo experience without tons of tough tech, you're gonna love this team!
+              </p>
+              <router-link to="/teamjamp" class="btn teamjamp-primary-bg team-card-nav-button" style="color:white;">Go check it out!</router-link>
+            </div>
           </div>
-          <p>
-            TeamJamp is a relatively new team centered all around platforming.<br />
-            If you want a more traditional platforming kaizo experience without tons of tough tech, you're gonna love this team!
-          </p>
         </div>
       </div>
       <div class="row">
@@ -119,29 +129,41 @@
   export default {
     name: 'App',
     mounted() {
-      if(this.$store.state.theme === "dark"){
-        document.querySelector('html').classList.add('dark');
+      console.log("mounted");
+      if(this.$route.params.team){
+        if(this.$store.state[this.$route.params.team].theme === "dark"){
+          document.querySelector('html').classList.add('dark');
+        }
       }
-      console.log("route params", this.$route.params);
     },
     computed: {
       theme:{
         get: function(){
-          return this.$store.state.theme;
+          if(this.$route.params.team){
+            return this.$store.state[this.$route.params.team].theme;
+          } else {
+            return "light"
+          }
         },
         set: function(theme){
           if(theme === "dark"){
-            this.$store.commit('setDark');
+            this.$store.commit(this.$route.params.team + '/setDark');
           } else {
-            this.$store.commit('setLight');
+            this.$store.commit(this.$route.params.team + '/setLight');
           }
         }
       },
       loggedIn: function(){
-        return this.$store.state.token ? true : false;
+        if(this.$route.params.team){
+          return this.$store.state[this.$route.params.team].token ? true : false;
+        }
+        return false;
       },
       userName: function(){
-        return this.$store.state.user_info.Name;
+        if(this.$route.params.team){
+          return this.$store.state[this.$route.params.team].user_info.Name;
+        }
+        return "";
       }
     },
     methods: {
@@ -161,8 +183,8 @@
           console.log(dialog);
 
           $('.loader').show();
-          putFeedback({
-              token: that.$store.state.token,
+          putFeedback(that.$route.params.team, {
+              token: that.$store.state[that.$route.params.team].token,
               message: $('#feedback-textarea').val()
           }, function(response){
             $('.loader').hide();
@@ -178,8 +200,8 @@
         });
       },
       logout(){
-          this.$store.commit('setToken', { token: null });
-          this.$store.commit('setUserInfo', { user_info: {} });
+          this.$store.commit(this.$route.params.team + '/setToken', { token: null });
+          this.$store.commit(this.$route.params.team + '/setUserInfo', { user_info: {} });
       },
       randomLevel(){
         let that = this;
@@ -195,18 +217,18 @@
           console.log("ok", dialog);
           let slider = document.getElementById('difficulty-range-slider');
           let diffs = slider.noUiSlider.get()
-          that.$store.commit('setLastDiffRange', diffs);
+          that.$store.commit(that.$route.params.team + '/setLastDiffRange', diffs);
 
           $('.loader').show();
-            random({
-              token: that.$store.state.token,
+            random(that.$route.params.team, {
+              token: that.$store.state[that.$route.params.team].token,
               minDifficulty: parseFloat(diffs[0]).toFixed(1),
               maxDifficulty: parseFloat(diffs[1]).toFixed(1)
             }, function(level){
               $('.loader').hide();
               console.log(level);
               if(level){
-                that.$router.push("/level/" + level.Code);
+                that.$router.push("/" + that.$route.params.team + "/level/" + level.Code);
               } else {
                 that.$dialog.alert("<p>Sorry, but we couldn't find a level in the specified difficulty range that you haven't cleared yet!</p>", {html: true});
               }
@@ -244,8 +266,8 @@
               }
           });
 
-          if(that.$store.state.last_diff_range){
-            slider.noUiSlider.set(that.$store.state.last_diff_range);
+          if(that.$store.state[that.$route.params.team].last_diff_range){
+            slider.noUiSlider.set(that.$store.state[that.$route.params.team].last_diff_range);
           }
         }, 50);
       }
