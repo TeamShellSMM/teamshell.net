@@ -41,6 +41,41 @@ const router = new VueRouter({
   mode: 'history'
 })
 
+router.beforeEach((to, from, next) => {
+  if(to.params.team){
+    if(to.params.team == 'teamshell'){
+      document.title = "#TeamShell";
+      let link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+      link.type = 'image/x-icon';
+      link.rel = 'shortcut icon';
+      link.href = '/favicon-teamshell.ico';
+      document.getElementsByTagName('head')[0].appendChild(link);
+    } else if(to.params.team == 'teamjamp'){
+      document.title = "#TeamJamp";
+      let link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+      link.type = 'image/x-icon';
+      link.rel = 'shortcut icon';
+      link.href = '/favicon-teamjamp.ico';
+      document.getElementsByTagName('head')[0].appendChild(link);
+    } else {
+      document.title = "MakerTeams";
+      let link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+      link.type = 'image/x-icon';
+      link.rel = 'shortcut icon';
+      link.href = '/favicon.ico';
+      document.getElementsByTagName('head')[0].appendChild(link);
+    }
+  } else {
+    document.title = "MakerTeams";
+    let link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+    link.type = 'image/x-icon';
+    link.rel = 'shortcut icon';
+    link.href = '/favicon.ico';
+    document.getElementsByTagName('head')[0].appendChild(link);
+  }
+  next()
+})
+
 
 Vue.config.productionTip = false
 

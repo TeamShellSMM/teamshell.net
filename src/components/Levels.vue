@@ -79,7 +79,7 @@
         <th style="width:10px">Clears</th>
         <th style="width:10px">TS Vote</th>
         <th style="width:10px">Likes</th>
-        <th style="width:10px" title="Like-Clear-Diff Score (aka how many TS Maker Points this level is worth)"><span class="diff-text-default">LCD Score</span><span class="diff-text-mobile">LCD</span></th>
+        <th style="width:10px" title="Like-Clear-Diff Score (aka how many Maker Points this level is worth)"><span class="diff-text-default">LCD Score</span><span class="diff-text-mobile">LCD</span></th>
         <th class="all" style="width:10px"><span class="diff-text-default">Clear</span><span class="diff-text-mobile"><i class='fa fa-check text-success' aria-hidden='true'></i></span></th>
         <th style="width:10px">Your Vote</th>
         <th class="all" style="width:10px"><span class="diff-text-default">Like</span><span class="diff-text-mobile"><i class='fa fa-heart text-danger' aria-hidden='true'></i></span></th>
