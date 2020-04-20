@@ -29,7 +29,7 @@
         <th>Clears</th>
         <th>Likes</th>
         <th>Like/Clear Ratio</th>
-        <th>TS Maker Points</th>
+        <th>Maker Points</th>
       </tr></thead>
     </table>
   </div>
