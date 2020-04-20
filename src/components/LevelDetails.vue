@@ -39,7 +39,7 @@
           <th style="width:10em">Code</th>
           <th>Player</th>
           <th style="width:10em">Cleared</th>
-          <th style="width:10em">Shellder</th>
+          <th style="width:10em">Moderator</th>
           <th style="width:10px">Liked</th>
           <th style="width:10px">Difficulty Voted</th>
           <th style="width:5em">Submitted</th>
@@ -574,7 +574,7 @@
               if ( type !="display" ) {
                   return data=="1"?"1":"0";
               } else {
-                  return (data=="1"?'<i title="This is a Shellder Clear" data-toggle="tooltip" class="fa fa-check text-success" aria-hidden="true"></i>': "");
+                  return (data=="1"?'<i title="This is a Mod Clear" data-toggle="tooltip" class="fa fa-check text-success" aria-hidden="true"></i>': "");
               }
             },
             targets:4
@@ -584,7 +584,7 @@
               if ( type !="display" ) {
                   return data=="1"?"1":"0";
               } else {
-                  return (data=="1"?'<i title="This is a Shellder Clear" data-toggle="tooltip" class="fa fa-check text-success" aria-hidden="true"></i>': "");
+                  return (data=="1"?'<i title="This is a Mod Clear" data-toggle="tooltip" class="fa fa-check text-success" aria-hidden="true"></i>': "");
               }
             },
             targets:4
@@ -627,7 +627,10 @@
     },
     computed: {
       loggedIn: function(){
-        return this.$store.state[this.$route.params.team].token ? true : false;
+        if(this.$route.params.team){
+          return this.$store.state[this.$route.params.team].token ? true : false;
+        }
+        return false;
       }
     },
     methods: {

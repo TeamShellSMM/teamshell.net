@@ -23,7 +23,7 @@
     <table id="table" class="compact row-border stripe hover" style="width:100%">
       <thead><tr>
         <th>Member Name</th>
-        <th>Shelder</th>
+        <th>Moderator</th>
         <th>Member</th>
         <th>Levels Created</th>
         <th>Clears</th>

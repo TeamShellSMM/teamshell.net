@@ -3,9 +3,9 @@
     <div id="filter_form_cont">
       <div class="form-group row">
         <div class="col-md-3">
-        <label for="registeredName">Registered TeamShell Name</label>
-        <input name="member" type="text" class="form-control" id="registeredName" autocomplete="off" placeholder="Your registered TeamShell Name" :disabled="loggedIn">
-        <small class="form-text text-muted">This is just to filter out the clears and is optional. Your registered TeamShell name is case sensitive.</small>
+        <label for="registeredName">Registered Team Name</label>
+        <input name="member" type="text" class="form-control" id="registeredName" autocomplete="off" placeholder="Your registered Team Name" :disabled="loggedIn">
+        <small class="form-text text-muted">This is just to filter out the clears and is optional. Your registered Team Name is case sensitive.</small>
         </div>
 
         <div class="col-md-3">
@@ -21,7 +21,7 @@
             <option value="2">Uncleared Only</option>
             <option value="3">Cleared Only</option>
           </select>
-          <small class="form-text text-muted">The clears shown are clears registered to ShellBot 2000 in TeamShell's discord.</small>
+          <small class="form-text text-muted">The clears shown are clears registered to ShellBot 2000 in the team's discord.</small>
         </div>
 
 
@@ -32,7 +32,7 @@
             <option value="2" >Pending</option>
             <option value="3">All</option>
           </select>
-          <small class="form-text text-muted">Approved levels are levels that have been played and approved by a Shellder.</small>
+          <small class="form-text text-muted">Approved levels are levels that have been played and approved by a moderator.</small>
         </div>
 
       </div>
@@ -54,7 +54,7 @@
       <div class="col-md-4">
       <label for="tagSelect">Tags</label>
       <select name="tag" id="tagSelect" class="form-control"></select>
-          <small class="form-text text-muted">Default view will show all TeamShell Levels.</small>
+          <small class="form-text text-muted">Default view will show all Team Levels.</small>
         </div>
 
 
@@ -577,10 +577,16 @@
     },
     computed: {
       loggedIn: function(){
-        return this.$store.state[this.$route.params.team].token ? true : false;
+        if(this.$route.params.team){
+          return this.$store.state[this.$route.params.team].token ? true : false;
+        }
+        return false;
       },
       is_shellder:function(){
-        return this.$store.state[this.$route.params.team].user_info.shelder ? true : false;
+        if(this.$route.params.team){
+          return this.$store.state[this.$route.params.team].user_info.shelder ? true : false;
+        }
+        return false;
       }
     },
     methods: {

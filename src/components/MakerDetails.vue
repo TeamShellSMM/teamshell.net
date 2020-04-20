@@ -460,10 +460,16 @@
     },
     computed: {
       loggedIn: function(){
-        return this.$store.state[this.$route.params.team].token ? true : false;
+        if(this.$route.params.team){
+          return this.$store.state[this.$route.params.team].token ? true : false;
+        }
+        return false;
       },
       is_shellder:function(){
-        return this.$store.state[this.$route.params.team].user_info.shelder ? true : false;
+        if(this.$route.params.team){
+          return this.$store.state[this.$route.params.team].user_info.shelder ? true : false;
+        }
+        return false;
       }
     },
     methods: {

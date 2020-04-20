@@ -19,8 +19,11 @@
             <p class="text-bold">
               !register YourName
             </p>
-            <p>
+            <p v-if="$route.params.team == 'teamshell'">
               in the #registration text-channel to register with your desired name!
+            </p>
+            <p v-if="$route.params.team == 'teamjamp'">
+              in the #bot-spam text-channel to register with your desired name!
             </p>
           </div>
         </div>
@@ -31,8 +34,11 @@
           <i class='fas fa-sign-in-alt howto-icon'></i>
           <div class="howto-text-container">
             <h4>Step #2</h4>
-            <p>
+            <p v-if="$route.params.team == 'teamshell'">
               After that you can go to the #misc-commands text-channel and use
+            </p>
+            <p v-if="$route.params.team == 'teamjamp'">
+              After that you can go to the #bot-spam text-channel and use
             </p>
             <p class="text-bold">
               !login
