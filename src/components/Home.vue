@@ -65,8 +65,11 @@
           <i class='fas fa-thumbs-up howto-icon'></i>
           <div class="howto-text-container">
             <h4>Step #4</h4>
-            <p>
+            <p v-if="$route.params.team == 'teamshell'">
               As soon as you get 10 points from clearing levels you can submit your very own level with
+            </p>
+            <p v-if="$route.params.team == 'teamjamp'">
+              You can also immedately go and submit your very own level with
             </p>
             <p class="text-bold">
               !add XXX-XXX-XXX LevelName
