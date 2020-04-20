@@ -22,14 +22,18 @@ import ShellAndTell from './components/ShellAndTell';
 import Login from './components/Login';
 
 const routes = [
-  {path: '/', component: Home},
-  {path: '/levels', component: Levels},
-  {path: '/level/:code', component: LevelDetails},
-  {path: '/maker/:name', component: MakerDetails},
-  {path: '/makers', component: Makers},
-  {path: '/members', component: Members},
-  {path: '/shellandtell/:id', component: ShellAndTell},
-  {path: '/login/:otp', component: Login}
+  {path: '/', beforeEnter: (to, from, next) => {
+    document.querySelector('html').classList.remove('dark');
+    next();
+  }},
+  {path: '/:team', component: Home},
+  {path: '/:team/levels', component: Levels},
+  {path: '/:team/level/:code', component: LevelDetails},
+  {path: '/:team/maker/:name', component: MakerDetails},
+  {path: '/:team/makers', component: Makers},
+  {path: '/:team/members', component: Members},
+  {path: '/:team/shellandtell/:id', component: ShellAndTell},
+  {path: '/:team/login/:otp', component: Login}
 ];
 
 const router = new VueRouter({
@@ -44,7 +48,8 @@ const vuexLocal = new VuexPersistence({
   storage: window.localStorage
 });
 
-const store = new Vuex.Store({
+const moduleTeamShell = {
+  namespaced: true,
   state: {
     theme: 'light',
     token: '',
@@ -68,6 +73,41 @@ const store = new Vuex.Store({
     setLastDiffRange(state, payload){
       state.last_diff_range = payload;
     }
+  }
+}
+
+const moduleTeamJamp = {
+  namespaced: true,
+  state: {
+    theme: 'light',
+    token: '',
+    user_info: {}
+  },
+  mutations: {
+    setDark (state) {
+      state.theme = 'dark';
+      document.querySelector('html').classList.add('dark');
+    },
+    setLight (state) {
+      state.theme = 'light';
+      document.querySelector('html').classList.remove('dark');
+    },
+    setToken(state, payload){
+      state.token = payload.token;
+    },
+    setUserInfo(state, payload){
+      state.user_info = payload.user_info;
+    },
+    setLastDiffRange(state, payload){
+      state.last_diff_range = payload;
+    }
+  }
+}
+
+const store = new Vuex.Store({
+  modules: {
+    teamshell: moduleTeamShell,
+    teamjamp: moduleTeamJamp
   },
   plugins: [vuexLocal.plugin]
 });

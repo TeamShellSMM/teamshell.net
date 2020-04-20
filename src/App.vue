@@ -1,72 +1,123 @@
 <template>
   <div class="container">
-    <div class="row header-row">
-      <div class="d-inline-flex header-flex-container" style="flex-wrap:wrap;">
-        <div class="header-logo-div" style="">
-          <h1><img class="buzzyS" src="/assets/buzzySpin.gif"/> <span class="green">#Team</span><span class="orange">Shell</span></h1>
-        </div>
-        <div class="header-comp-div" style="">
-          <div class="row comp-winners" >
-            <div class="col-2" style="text-align: center;">
-              <img src="https://teamshell.net/assets/bam.png">
-            </div>
-            <div class="col-8">
-              <div class="">
-                <h4 style="text-align:center;">Shell And Tell 1 - SMB1-like</h4>
-                <h5 style="text-align:center;font-family: 'Bangers', sans-serif"><div class="medal" style="margin-right:10px;padding-top: 2px;"><div class="coin coin-gold"></div></div>Permafrost #ST #TS by TheAnswer (<router-link to="/level/4WD-7GR-TWF">4WD-7GR-TWF</router-link>)</h5>
-                <h5 style="text-align:center;font-family: 'Bangers', sans-serif; margin-bottom:0px;"><router-link to="/shellandtell/1">Check out the other winners here</router-link></h5>
+    <template v-if="$route.params.team">
+      <div class="row header-row">
+        <div class="d-inline-flex header-flex-container" style="flex-wrap:wrap;">
+          <div class="header-logo-div" style="">
+            <h1 v-if="$route.params.team == 'teamshell'" ><router-link :to="'/'" class="mt-back-link"><i class="fas fa-chevron-left"></i></router-link><img class="buzzyS" src="/assets/teamshell/buzzySpin.gif"/><span class="teamshell-primary-fg">#Team</span><span class="teamshell-secondary-fg">Shell</span></h1>
+            <h1 v-if="$route.params.team == 'teamjamp'" ><router-link :to="'/'" class="mt-back-link"><i class="fas fa-chevron-left"></i></router-link><img class="buzzyS teamjamp-logo" src="/assets/teamjamp/logo.png"/><span class="teamjamp-primary-fg">#Team</span><span class="teamjamp-secondary-fg">Jamp</span></h1>
+          </div>
+          <div v-if="$route.params.team == 'teamshell'" class="header-comp-div" style="">
+            <div class="row comp-winners" >
+              <div class="col-2" style="text-align: center;">
+                <img src="/assets/teamshell/bam.png">
               </div>
-            </div>
-            <div class="col-2" style="text-align: center;">
-              <img src="https://teamshell.net/assets/bam.png">
+              <div class="col-8">
+                <div class="">
+                  <h4 style="text-align:center;">Shell And Tell 1 - SMB1-like</h4>
+                  <h5 style="text-align:center;font-family: 'Bangers', sans-serif"><div class="medal" style="margin-right:10px;padding-top: 2px;"><div class="coin coin-gold"></div></div>Permafrost #ST #TS by TheAnswer (<router-link to="/level/4WD-7GR-TWF">4WD-7GR-TWF</router-link>)</h5>
+                  <h5 style="text-align:center;font-family: 'Bangers', sans-serif; margin-bottom:0px;"><router-link to="/teamshell/shellandtell/1">Check out the other winners here</router-link></h5>
+                </div>
+              </div>
+              <div class="col-2" style="text-align: center;">
+                <img src="/assets/teamshell/bam.png">
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="row nav-row">
-      <div class="col-12">
-        <ul id="nav" style="float:left;">
-          <li>
-            <router-link to="/">Home</router-link>
-          </li>
-          <li>
-            <router-link to="/levels">Levels</router-link>
-          </li>
-          <li>
-            <router-link to="/makers">Makers</router-link>
-          </li>
-          <li>
-            <router-link to="/members">Members</router-link>
-          </li>
-        </ul>
-        <ul id="nav" class="login-ul" style="float:right;">
-          <li v-if="loggedIn">
-            <button class="btn random-button" title="Random Level" @click="randomLevel()"><i class="fa fa-random"></i></button>
-            <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Logged in as {{userName}}</span>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" href="#" v-on:click="showFeedbackDialog()">Submit feedback</a>
-              <a class="dropdown-item" href="#" v-on:click="logout()">Logout</a>
-            </div>
-          </li>
+      <div class="row nav-row">
+        <div class="col-12">
+          <ul id="nav" style="float:left;">
+            <li>
+              <router-link :to="'/' + $route.params.team + '/'">Home</router-link>
+            </li>
+            <li>
+              <router-link :to="'/' + $route.params.team + '/levels'">Levels</router-link>
+            </li>
+            <li>
+              <router-link :to="'/' + $route.params.team + '/makers'">Makers</router-link>
+            </li>
+            <li>
+              <router-link :to="'/' + $route.params.team + '/members'">Members</router-link>
+            </li>
+          </ul>
+          <ul id="nav" class="login-ul" style="float:right;">
+            <li v-if="loggedIn">
+              <button class="btn random-button" title="Random Level" @click="randomLevel()"><i class="fa fa-random"></i></button>
+              <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Logged in as {{userName}}</span>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#" v-on:click="showFeedbackDialog()">Submit feedback</a>
+                <a class="dropdown-item" href="#" v-on:click="logout()">Logout</a>
+              </div>
+            </li>
 
-        </ul>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-12">
-        <h4>Join the discord for more information: <a href="https://discord.gg/7tQJewa">https://discord.gg/7tQJewa</a></h4>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-12">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="darkmode" v-model="theme" true-value="dark" false-value="light">
-          <label class="form-check-label" for="darkmode">Dark Mode <i class="fa fa-moon-o" aria-hidden="true"></i></label>
+          </ul>
         </div>
       </div>
-    </div>
-    <router-view :key="$route.fullPath"></router-view>
+      <div class="row">
+        <div class="col-12">
+          <h4 v-if="$route.params.team == 'teamshell'">Join the discord for more information: <a href="https://discord.gg/7tQJewa">https://discord.gg/7tQJewa</a></h4>
+          <h4 v-if="$route.params.team == 'teamjamp'">Join the discord for more information: <a href="https://discord.gg/rekPFnq">https://discord.gg/rekPFnq</a></h4>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="darkmode" v-model="theme" true-value="dark" false-value="light">
+            <label class="form-check-label" for="darkmode">Dark Mode <i class="fa fa-moon-o" aria-hidden="true"></i></label>
+          </div>
+        </div>
+      </div>
+      <router-view :key="$route.fullPath"></router-view>
+    </template>
+    <template v-if="!$route.params.team">
+      <div class="row header-row">
+        <div class="d-inline-flex header-flex-container" style="flex-wrap:wrap;">
+          <div class="header-logo-div" style="">
+            <h1 class="logo-shadow"><span class="makerteams-primary-fg">Maker</span><span class="makerteams-secondary-fg">Teams</span></h1>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <h2 style="padding:10px;">This page is very much in construction, but currently we are hosting these teams:</h2>
+      </div>
+      <div class="row">
+        <div class="col-md-4 col-sm-6 p-1">
+          <div class="card team-card">
+            <img src="/assets/teamshell/buzzySpin.gif" class="card-img-top card-img-team-logo" alt="buzzyS">
+            <div class="card-body">
+              <h2 class="card-title"><router-link to="/teamshell"><span class="teamshell-primary-fg">#Team</span><span class="teamshell-secondary-fg">Shell</span></router-link></h2>
+              <p class="card-text">
+                TeamShell is one of the biggest teams around and centered all around one thing: tough shell kaizo levels.
+              </p>
+              <p class="card-text">
+                If you're looking for levels with shelljumps this is the team for you!
+              </p>
+              <router-link to="/teamshell" class="btn teamshell-primary-bg team-card-nav-button" style="color:white;">Go check it out!</router-link>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 p-1" style="display:none;">
+          <div class="card team-card">
+            <img src="/assets/teamjamp/logo.png" class="card-img-top card-img-team-logo card-img-team-jamp-logo" alt="buzzyS">
+            <div class="card-body">
+              <h2 class="card-title"><router-link to="/teamjamp"><span class="teamjamp-primary-fg">#Team</span><span class="teamjamp-secondary-fg">Jamp</span></router-link></h2>
+              <p class="card-text">
+                TeamJamp is a relatively new team centered all around platforming.
+              </p>
+              <p class="card-text">
+                If you want a more traditional platforming kaizo experience without tons of tough tech, you're gonna love this team!
+              </p>
+              <router-link to="/teamjamp" class="btn teamjamp-primary-bg team-card-nav-button" style="color:white;">Go check it out!</router-link>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="makerteams-footer makerteams-secondary-bg">
+        <h4>If you want your very own team bot and page like these, you can message us on discord (<span class="teamshell-secondary-fg">Liaf#0443</span> or <span class="teamshell-secondary-fg">a_unique_id#6616</span>).</h4>
+      </div>
+    </template>
   </div>
 </template>
 
@@ -78,28 +129,41 @@
   export default {
     name: 'App',
     mounted() {
-      if(this.$store.state.theme === "dark"){
-        document.querySelector('html').classList.add('dark');
+      console.log("mounted");
+      if(this.$route.params.team){
+        if(this.$store.state[this.$route.params.team].theme === "dark"){
+          document.querySelector('html').classList.add('dark');
+        }
       }
     },
     computed: {
       theme:{
         get: function(){
-          return this.$store.state.theme;
+          if(this.$route.params.team){
+            return this.$store.state[this.$route.params.team].theme;
+          } else {
+            return "light"
+          }
         },
         set: function(theme){
           if(theme === "dark"){
-            this.$store.commit('setDark');
+            this.$store.commit(this.$route.params.team + '/setDark');
           } else {
-            this.$store.commit('setLight');
+            this.$store.commit(this.$route.params.team + '/setLight');
           }
         }
       },
       loggedIn: function(){
-        return this.$store.state.token ? true : false;
+        if(this.$route.params.team){
+          return this.$store.state[this.$route.params.team].token ? true : false;
+        }
+        return false;
       },
       userName: function(){
-        return this.$store.state.user_info.Name;
+        if(this.$route.params.team){
+          return this.$store.state[this.$route.params.team].user_info.Name;
+        }
+        return "";
       }
     },
     methods: {
@@ -119,8 +183,8 @@
           console.log(dialog);
 
           $('.loader').show();
-          putFeedback({
-              token: that.$store.state.token,
+          putFeedback(that.$route.params.team, {
+              token: that.$store.state[that.$route.params.team].token,
               message: $('#feedback-textarea').val()
           }, function(response){
             $('.loader').hide();
@@ -136,8 +200,8 @@
         });
       },
       logout(){
-          this.$store.commit('setToken', { token: null });
-          this.$store.commit('setUserInfo', { user_info: {} });
+          this.$store.commit(this.$route.params.team + '/setToken', { token: null });
+          this.$store.commit(this.$route.params.team + '/setUserInfo', { user_info: {} });
       },
       randomLevel(){
         let that = this;
@@ -153,18 +217,18 @@
           console.log("ok", dialog);
           let slider = document.getElementById('difficulty-range-slider');
           let diffs = slider.noUiSlider.get()
-          that.$store.commit('setLastDiffRange', diffs);
+          that.$store.commit(that.$route.params.team + '/setLastDiffRange', diffs);
 
           $('.loader').show();
-            random({
-              token: that.$store.state.token,
+            random(that.$route.params.team, {
+              token: that.$store.state[that.$route.params.team].token,
               minDifficulty: parseFloat(diffs[0]).toFixed(1),
               maxDifficulty: parseFloat(diffs[1]).toFixed(1)
             }, function(level){
               $('.loader').hide();
               console.log(level);
               if(level){
-                that.$router.push("/level/" + level.Code);
+                that.$router.push("/" + that.$route.params.team + "/level/" + level.Code);
               } else {
                 that.$dialog.alert("<p>Sorry, but we couldn't find a level in the specified difficulty range that you haven't cleared yet!</p>", {html: true});
               }
@@ -202,8 +266,8 @@
               }
           });
 
-          if(that.$store.state.last_diff_range){
-            slider.noUiSlider.set(that.$store.state.last_diff_range);
+          if(that.$store.state[that.$route.params.team].last_diff_range){
+            slider.noUiSlider.set(that.$store.state[that.$route.params.team].last_diff_range);
           }
         }, 50);
       }
@@ -214,7 +278,7 @@
 <style>
   @import "//fonts.googleapis.com/css?family=Bangers&display=swap";
   @import "//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css";
-  @import "//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css";
+  @import "//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css";
   @import "//cdnjs.cloudflare.com/ajax/libs/datatables/1.10.20/css/jquery.dataTables.css";
   @import "//cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css";
   @import "assets/teamshell.css?v=1.0.5";

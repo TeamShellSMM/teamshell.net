@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h2 id="table_title" class="orange maker-detail-title">{{$route.params.name}}'s Levels</h2>
+    <h2 id="table_title" :class="$route.params.team + '-secondary-fg maker-detail-title'">{{$route.params.name}}'s Levels</h2>
     <table id="table" class="compact row-border stripe hover" style="width:100%">
       <thead><tr>
         <th class="all" style="width:10px;">No.</th>
@@ -45,7 +45,7 @@
       $(document).on('click', 'a.dt-level-link', function(e){
         e.stopPropagation();
         e.preventDefault();
-        that.$router.push("/level/" + this.getAttribute("code"));
+        that.$router.push("/" + that.$route.params.team + "/level/" + this.getAttribute("code"));
         console.log("level link clicked", this.getAttribute("code"));
       });
 
@@ -53,7 +53,7 @@
       $(document).on('click', 'a.dt-maker-link', function(e){
         e.stopPropagation();
         e.preventDefault();
-        that.$router.push("/maker/" + this.getAttribute("maker"));
+        that.$router.push("/" + that.$route.params.team + "/maker/" + this.getAttribute("maker"));
       });
 
       $(document).off('click', 'i.dt-clear-button');
@@ -66,8 +66,8 @@
           .confirm('Are you sure you want to submit a clear for ' + $(thatButt).attr('levelname') + " (" + $(thatButt).attr('code') + ") ?")
           .then(function() {
             $('.loader').show();
-            clear({
-              token: that.$store.state.token,
+            clear(that.$route.params.team, {
+              token: that.$store.state[that.$route.params.team].token,
               code: $(thatButt).attr('code'),
               completed: 1
             }, function(result){
@@ -98,8 +98,8 @@
           .confirm('Are you sure you want to remove your clear and like for ' + $(thatButt).attr('levelname') + " (" + $(thatButt).attr('code') + ") ?")
           .then(function() {
             $('.loader').show();
-            clear({
-              token: that.$store.state.token,
+            clear(that.$route.params.team, {
+              token: that.$store.state[that.$route.params.team].token,
               code: $(thatButt).attr('code'),
               completed: 0,
               like: 0
@@ -132,8 +132,8 @@
           .confirm('Are you sure you want to submit a like and clear for ' + $(thatButt).attr('levelname') + " (" + $(thatButt).attr('code') + ") ?")
           .then(function() {
             $('.loader').show();
-            clear({
-              token: that.$store.state.token,
+            clear(that.$route.params.team, {
+              token: that.$store.state[that.$route.params.team].token,
               code: $(thatButt).attr('code'),
               completed: 1,
               like: 1
@@ -166,8 +166,8 @@
           .confirm('Are you sure you want to remove your like for ' + $(thatButt).attr('levelname') + " (" + $(thatButt).attr('code') + ") ?")
           .then(function() {
             $('.loader').show();
-            clear({
-              token: that.$store.state.token,
+            clear(that.$route.params.team, {
+              token: that.$store.state[that.$route.params.team].token,
               code: $(thatButt).attr('code'),
               like: 0
             }, function(result){
@@ -203,11 +203,11 @@
             "render": function ( data) {
               if(that.loggedIn){
                 let copyTitle = "Copy levelcode";
-                return "<div class='text-monospace level-code-div'><a class='dt-level-link' href='/level/" + encodeURI(data) + "' code='" + data + "'>" + data + "</a></div> <span class='copy' title='" + copyTitle + "'><i class='fa fa-clipboard' aria-hidden='true'></i></span>"
+                return "<div class='text-monospace level-code-div'><a class='dt-level-link' href='/" + that.$route.params.team + "/level/" + encodeURI(data) + "' code='" + data + "'>" + data + "</a></div> <span class='copy' title='" + copyTitle + "'><i class='fa fa-clipboard' aria-hidden='true'></i></span>"
               } else {
                 let copyTitle = "Copy tsclear code";
                 let likeTitle = "Copy tsclear code with like";
-                return "<div class='text-monospace level-code-div'><a class='dt-level-link' href='/level/" + encodeURI(data) + "' code='" + data + "'>" + data + "</a></div> <span class='copy' title='" + copyTitle + "'><i class='fa fa-clipboard' aria-hidden='true'></i></span> <span class='copyLike' title='" + likeTitle + "' data-toggle='tooltip'><i class='fa fa-heart text-danger' aria-hidden='true'></i></span>"
+                return "<div class='text-monospace level-code-div'><a class='dt-level-link' href='/" + that.$route.params.team + "/level/" + encodeURI(data) + "' code='" + data + "'>" + data + "</a></div> <span class='copy' title='" + copyTitle + "'><i class='fa fa-clipboard' aria-hidden='true'></i></span> <span class='copyLike' title='" + likeTitle + "' data-toggle='tooltip'><i class='fa fa-heart text-danger' aria-hidden='true'></i></span>"
               }
             },
             "orderable": false,
@@ -262,7 +262,7 @@
                 medalsHtml += '<div class="medals">' + shellsHtml + '</div>';
               }
 
-              return "<div class='creator-name-div'><a class='dt-maker-link' href='/maker/" + encodeURI(data) + "' maker='" + data + "'>" + data + "</a>"+medalsHtml +"</div>";
+              return "<div class='creator-name-div'><a class='dt-maker-link' href='/" + that.$route.params.team + "/maker/" + encodeURI(data) + "' maker='" + data + "'>" + data + "</a>"+medalsHtml +"</div>";
             },
             targets: 2
           },
@@ -275,7 +275,7 @@
               if(row[7]){
                 var raw_vids=row[7].split(",")
                 for(let j=0;j<raw_vids.length;j++){
-                  videos+="<a class='clear-vid-link' target='_blank' data-toggle='tooltip' title='Video clear' href='"+raw_vids[j]+"'><i class='fa fa-video-camera' aria-hidden='true'></i></a> "
+                  videos+="<a class='clear-vid-link' target='_blank' data-toggle='tooltip' title='Video clear' href='"+raw_vids[j]+"'><i class='fas fa-video' aria-hidden='true'></i></a> "
                 }
               }
               var tags=row[9]
@@ -382,7 +382,7 @@
                 }
               }
 
-              let makerLink = "<div class='creator-name-div diff-text-mobile'><a class='dt-maker-link' href='/maker/" + encodeURI(row[2]) + "' maker='" + row[2] + "'>" + row[2] + "</a>"+medalsHtmlCreator +"</div>";
+              let makerLink = "<div class='creator-name-div diff-text-mobile'><a class='dt-maker-link' href='/" + that.$route.params.team + "/maker/" + encodeURI(row[2]) + "' maker='" + row[2] + "'>" + row[2] + "</a>"+medalsHtmlCreator +"</div>";
 
               return makerLink + "<div class='font-weight-bold level-name-div'>"+data+medalsHtml +  videos + " " + tags + "</div>";
             },
@@ -460,10 +460,10 @@
     },
     computed: {
       loggedIn: function(){
-        return this.$store.state.token ? true : false;
+        return this.$store.state[this.$route.params.team].token ? true : false;
       },
       is_shellder:function(){
-        return this.$store.state.user_info.shelder ? true : false;
+        return this.$store.state[this.$route.params.team].user_info.shelder ? true : false;
       }
     },
     methods: {
@@ -618,7 +618,7 @@
         datatable.draw();
         $('[data-toggle="tooltip"],.copy,#refresh,#submitButton,.medal').tooltip()
         $('.copy').click(function(){
-          if(!that.$store.state.token){
+          if(!that.$store.state[that.$route.params.team].token){
             let code=$(this).parent().text().substring(0,11);
             let old_title="Copy tsclear code"
             let new_title="Code copied."
@@ -698,7 +698,7 @@
         datatable.clear().draw();
 
         let that = this;
-        loadTeamshellApi(that.$store.state.token,function(_rawData,dataNoChange){
+        loadTeamshellApi(that.$route.params.team, that.$store.state.token,function(_rawData,dataNoChange){
           if(dataNoChange){
             $.notify("No new data was loaded",{
               className:"success",

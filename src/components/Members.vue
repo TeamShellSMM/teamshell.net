@@ -75,7 +75,7 @@
         $(document).on('click', 'a.dt-maker-link', function(e){
           e.stopPropagation();
           e.preventDefault();
-          that.$router.push("/maker/" + this.getAttribute("maker"));
+          that.$router.push("/" + that.$route.params.team + "/maker/" + this.getAttribute("maker"));
         });
 
         $("#membershipStatus").change(function(){
@@ -165,7 +165,7 @@
                   medalsHtml += '<div class="medals">' + shellsHtml + '</div>';
                 }
 
-                return "<a class='dt-maker-link' href='/maker/" + encodeURI(data) + "' maker='" + data + "'>" + data + "</a>"+medalsHtml;
+                return "<a class='dt-maker-link' href='/" + that.$route.params.team + "/maker/" + encodeURI(data) + "' maker='" + data + "'>" + data + "</a>"+medalsHtml;
               },
               targets: 1
             },
@@ -293,7 +293,7 @@
 
           let that = this;
 
-          loadTeamshellApi(that.$store.state.token,function(_rawData,dataNoChange){
+          loadTeamshellApi(that.$route.params.team, that.$store.state[that.$route.params.team].token,function(_rawData,dataNoChange){
             if(dataNoChange){
               $.notify("No new data was loaded",{
                 className:"success",

@@ -2,43 +2,50 @@ import $ from 'jquery';
 
 const backendURL = "/backend/";
 
-let loadTeamshellApi = function(token,onLoad){
-    let raw_data,tokenData=null,noChange=false;
+let loadTeamshellApi = function(urlSlug, token,onLoad){
+    let raw_data,noChange=false;
     let url= backendURL + "json";
+    let data = {};
     if(token){
-      tokenData={"token":token}
+        data["token"] = token;
     }
-    $.post(url,tokenData,function(_data){
+    data["url_slug"] = urlSlug;
+    $.post(url,data,function(_data){
         raw_data=JSON.stringify(_data)
         onLoad(raw_data,noChange)
     })
 }
 
-let login = function(otp, onLoad){
-    var url = backendURL + "json/login"
-    $.post(url, {
+let login = function(urlSlug, otp, onLoad){
+    var url = backendURL + "json/login";
+    let data = {
+        "url_slug": urlSlug,
         "otp": otp
-    }, function(result){
-        onLoad(result);
-    }, 'json');
-}
-
-let clear = function(data, onLoad){
-    var url = backendURL + "clear";
+    }
     $.post(url, data, function(result){
         onLoad(result);
     }, 'json');
 }
 
-let random = function(data, onLoad){
+let clear = function(urlSlug, data, onLoad){
+    var url = backendURL + "clear";
+    data["url_slug"] = urlSlug;
+    $.post(url, data, function(result){
+        onLoad(result);
+    }, 'json');
+}
+
+let random = function(urlSlug, data, onLoad){
     var url = backendURL + "random";
+    data["url_slug"] = urlSlug;
     $.post(url, data, function(response){
         onLoad(response.level);
     });
 }
 
-let putFeedback = function(data, onLoad){
+let putFeedback = function(urlSlug, data, onLoad){
     var url = backendURL + "feedback";
+    data["url_slug"] = urlSlug;
     $.post(url, data, function(response){
         onLoad(response);
     });
