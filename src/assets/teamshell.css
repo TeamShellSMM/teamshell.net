@@ -20,20 +20,21 @@ img {width: 36px}
 .teamjamp-secondary-fg {color:#ffbb00;}
 .teamjamp-secondary-bg {background-color:#ffbb00;}
 
-/*.makerteams-primary-fg {color: #fd7e14;}
-.makerteams-primary-bg {background-color: #fd7e14;}
-.makerteams-secondary-fg {color:#007bff;}
-.makerteams-secondary-bg {background-color:#007bff;}*/
-
 .makerteams-primary-fg {color: #f9db00;}
 .makerteams-primary-bg {background-color: #f9db00;}
 .makerteams-secondary-fg {color:#086A9A;}
 .makerteams-secondary-bg {background-color:#086A9A;}
 
-/*.makerteams-primary-fg {color: #dc3545;}
-.makerteams-primary-bg {background-color: #dc3545;}
-.makerteams-secondary-fg {color:#007bff;}
-.makerteams-secondary-bg {background-color:#007bff;}*/
+.teampswitch-primary-fg {color:#7d7df7;}
+.teampswitch-primary-bg {background-color:#7d7df7;}
+.teampswitch-secondary-fg {color:#f57e03;}
+.teampswitch-secondary-bg {background-color:#f57e03;}
+
+.teampspeed-primary-fg {color:#fec22b;}
+.teampspeed-primary-bg {background-color:#fec22b;}
+.teampspeed-secondary-fg {color:#AAAAAA;}
+.teampspeed-secondary-bg {background-color:#AAAAAA;}
+
 
 .logo-shadow { text-shadow: 2px 2px #888888;}
 
@@ -42,11 +43,6 @@ html.dark body {
     background:#121212;
     color:#FFF;
 }
-
-html.dark body .dg-content {
-    color:#212529;
-}
-
 
 html.dark .text-muted {
     color: #aaa !important
@@ -501,7 +497,7 @@ box-shadow: 0 0 0 3px #21c0ae;
     max-width: 100px;
 }
 
-.card-img-team-jamp-logo {
+.card-img-rounded-logo {
     border-radius:20px;
 }
 
@@ -510,6 +506,10 @@ box-shadow: 0 0 0 3px #21c0ae;
     padding-top:10px;
     padding-bottom:60px;
     height:100%;
+}
+
+.team-card-small {
+    font-size:14px;
 }
 
 .team-card-nav-button {

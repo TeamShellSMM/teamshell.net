@@ -85,7 +85,7 @@
       <div class="row">
         <div class="col-md-4 col-sm-6 p-1">
           <div class="card team-card">
-            <img src="/assets/teamshell/buzzySpin.gif" class="card-img-top card-img-team-logo" alt="buzzyS">
+            <img src="/assets/teamshell/buzzySpin.gif" class="card-img-top card-img-team-logo" alt="logo">
             <div class="card-body">
               <h2 class="card-title"><router-link to="/teamshell"><span class="teamshell-primary-fg">#Team</span><span class="teamshell-secondary-fg">Shell</span></router-link></h2>
               <p class="card-text">
@@ -100,7 +100,7 @@
         </div>
         <div class="col-md-4 col-sm-6 p-1">
           <div class="card team-card">
-            <img src="/assets/teamjamp/logo.png" class="card-img-top card-img-team-logo card-img-team-jamp-logo" alt="buzzyS">
+            <img src="/assets/teamjamp/logo.png" class="card-img-top card-img-team-logo card-img-rounded-logo" alt="logo">
             <div class="card-body">
               <h2 class="card-title"><router-link to="/teamjamp"><span class="teamjamp-primary-fg">#Team</span><span class="teamjamp-secondary-fg">Jamp</span></router-link></h2>
               <p class="card-text">
@@ -110,6 +110,41 @@
                 If you want a more traditional platforming kaizo experience without tons of tough tech, you're gonna love this team!
               </p>
               <router-link to="/teamjamp" class="btn teamjamp-primary-bg team-card-nav-button" style="color:white;">Go check it out!</router-link>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <h4 style="padding:10px;">These teams are currently a bit too small to be hosted, so if you like what you see go check them out and show them some love:</h4>
+      </div>
+      <div class="row">
+        <div class="col-md-3 col-sm-6 p-1">
+          <div class="card team-card team-card-small">
+            <img src="/assets/teampswitch/logo.png" class="card-img-top card-img-team-logo" alt="logo">
+            <div class="card-body">
+              <h4 class="card-title"><a href="https://discord.gg/vrVfkbF"><span class="teampswitch-primary-fg">#Team</span><span class="teampswitch-secondary-fg"> P-Switch</span></a></h4>
+              <p class="card-text">
+                Team P-Switch is all about P-Switches and everything around them.
+              </p>
+              <p class="card-text">
+                If you're a fan of these items and any of their associated mechanics, this is the place for you.
+              </p>
+              <a href="https://discord.gg/vrVfkbF" target="_blank" class="btn teampswitch-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6 p-1">
+          <div class="card team-card team-card-small">
+            <img src="/assets/teampspeed/logo.png" class="card-img-top card-img-team-logo" alt="logo">
+            <div class="card-body">
+              <h4 class="card-title"><a href="https://discord.gg/q584b65"><span class="teampspeed-primary-fg">#Team</span><span class="teampspeed-secondary-fg"> P-Speed</span></a></h4>
+              <p class="card-text">
+                Team P-Speed is all about fast-paced platforming, kaizo, precision, whatever, as long as you don't have time to slow down.
+              </p>
+              <p class="card-text">
+                If you're trying to see how quickly you can read this post, this is the team for you.
+              </p>
+              <a href="https://discord.gg/q584b65" target="_blank" class="btn teampspeed-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
             </div>
           </div>
         </div>
