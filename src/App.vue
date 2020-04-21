@@ -148,6 +148,21 @@
             </div>
           </div>
         </div>
+        <div class="col-md-3 col-sm-6 p-1">
+          <div class="card team-card team-card-small">
+            <img src="/assets/teamtwister/logo.png" class="card-img-top card-img-team-logo" alt="logo">
+            <div class="card-body">
+              <h4 class="card-title"><a href="https://discord.gg/TKqa8sH"><span class="teamtwister-primary-fg">#Team</span><span class="teamtwister-secondary-fg">Twister</span></a></h4>
+              <p class="card-text">
+                Team Twister is a team revolving around the uses of twisters, for the good or bad of humanity.
+              </p>
+              <p class="card-text">
+                 All types of levels are accepted as long as they use twisters and have no checkpoints. If you want to get blown away, this is the place to be!
+              </p>
+              <a href="https://discord.gg/TKqa8sH" target="_blank" class="btn teamtwister-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="row" style="height:100px;">
 
