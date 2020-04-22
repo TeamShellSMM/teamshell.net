@@ -45,6 +45,8 @@
           <th>Levels Created</th>
           <th>Levels Cleared</th>
           <th>Points</th>
+          <th>Maker Id</th>
+          <th>Badges</th>
         </tr>
       </thead>
     </table>
@@ -99,7 +101,7 @@
 
         $('#table').DataTable({
           "language": {
-            "emptyTable": "Data is loading. You may have to whitelist this site for browser extensions that block third party scripts",
+            "emptyTable": "Data is loading. ",
             "info":           "_TOTAL_ records",
             "infoEmpty":      "0 records",
             "infoFiltered":   "/ _MAX_ records",
@@ -117,7 +119,7 @@
               targets:6,
             },
             {
-              "render": function ( data, type ) {
+              "render": function ( data, type, row ) {
                 if(type!="display") return data
                 let goldsHtml = "";
                 let silversHtml = "";
@@ -165,13 +167,15 @@
                   medalsHtml += '<div class="medals">' + shellsHtml + '</div>';
                 }
 
-                return "<a class='dt-maker-link' href='/" + that.$route.params.team + "/maker/" + encodeURI(data) + "' maker='" + data + "'>" + data + "</a>"+medalsHtml;
+                let badge=row[7].toString()?"<br/><small>(ID:"+row[7]+")</small>":"";
+
+                return "<a class='dt-maker-link' href='/" + that.$route.params.team + "/maker/" + encodeURI(data) + "' maker='" + data + "'>" + data + "</a>"+medalsHtml+badge;
               },
               targets: 1
             },
             {
               visible: false,
-              targets:[2,3]
+              targets:[2,3,7,8]
             }
           ],
         });
@@ -179,6 +183,8 @@
       },
       methods: {
         refresh(){
+
+
           this.data=JSON.parse(this.raw_data)
           this.data.levels.shift()
           this.data.members.shift()
@@ -244,9 +250,13 @@
           for(let i=0;i<this.data.members.length;i++){
             let current_player=this.data.members[i][0]
             var levels_cleared=member_levels[current_player]? member_levels[current_player]:0;
+            let maker_id=this.data.members[i].splice(3,1)
+            let badges=this.data.members[i].splice(3,1)
             this.data.members[i].push( levels_cleared );
             this.data.members[i].push( ObjectLength(this.member_clears[current_player]) ) //need to fix level clears for self
             this.data.members[i].push( this.sum(this.member_clears[current_player]).toFixed(1) ) //need to use object names instead of array index ;_;
+            this.data.members[i].push( maker_id )
+            this.data.members[i].push( badges )
             if(this.data.members[i][5]!="0.0"){
               toShow.push(this.data.members[i])
             }
