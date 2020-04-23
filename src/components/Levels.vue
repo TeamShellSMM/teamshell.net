@@ -58,7 +58,7 @@
         </div>
 
 
-        <div class="col-md-2"><label for="submitButton">&nbsp;</label><button id="submitButton" class="btn btn-block btn-primary" v-on:click="filterTable()">Filter</button></div>
+        <div class="col-md-2"><label for="submitButton">&nbsp;</label><button id="submitButton" class="btn btn-block" style="color:white;" :class="$route.params.team + '-primary-bg'" v-on:click="filterTable()">Filter</button></div>
       </div>
     </div>
 
@@ -77,7 +77,7 @@
         <th style="width:5em">Tags</th>
         <th style="width:5em">Code</th>
         <th style="width:10px">Clears</th>
-        <th style="width:10px">TS Vote</th>
+        <th style="width:10px">Diff Vote</th>
         <th style="width:10px">Likes</th>
         <th style="width:10px" title="Like-Clear-Diff Score (aka how many Maker Points this level is worth)"><span class="diff-text-default">LCD Score</span><span class="diff-text-mobile">LCD</span></th>
         <th class="all" style="width:10px"><span class="diff-text-default">Clear</span><span class="diff-text-mobile"><i class='fa fa-check text-success' aria-hidden='true'></i></span></th>

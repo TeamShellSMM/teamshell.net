@@ -12,34 +12,59 @@ img {width: 36px}
 
 .teamshell-primary-fg {color:#01a09e;}
 .teamshell-primary-bg {background-color:#01a09e;}
+.teamshell-primary-bc {border-color:#01a09e;}
 .teamshell-secondary-fg {color:#f88501;}
 .teamshell-secondary-bg {background-color:#f88501;}
+.teamshell-secondary-bc {border-color:#f88501;}
 
 .teamjamp-primary-fg {color:#ff5353;}
 .teamjamp-primary-bg {background-color:#ff5353;}
+.teamjamp-primary-bc {border-color:#ff5353;}
 .teamjamp-secondary-fg {color:#ffbb00;}
 .teamjamp-secondary-bg {background-color:#ffbb00;}
+.teamjamp-secondary-bc {border-color:#ffbb00;}
 
 .makerteams-primary-fg {color: #f9db00;}
 .makerteams-primary-bg {background-color: #f9db00;}
+.makerteams-primary-bc {border-color: #f9db00;}
 .makerteams-secondary-fg {color:#086A9A;}
 .makerteams-secondary-bg {background-color:#086A9A;}
+.makerteams-secondary-bc {border-color:#086A9A;}
 
 .teampswitch-primary-fg {color:#7d7df7;}
 .teampswitch-primary-bg {background-color:#7d7df7;}
+.teampswitch-primary-bc {border-color:#7d7df7;}
 .teampswitch-secondary-fg {color:#f57e03;}
 .teampswitch-secondary-bg {background-color:#f57e03;}
+.teampswitch-secondary-bc {border-color:#f57e03;}
 
 .teampspeed-primary-fg {color:#fec22b;}
 .teampspeed-primary-bg {background-color:#fec22b;}
+.teampspeed-primary-bc {border-color:#fec22b;}
 .teampspeed-secondary-fg {color:#AAAAAA;}
 .teampspeed-secondary-bg {background-color:#AAAAAA;}
+.teampspeed-secondary-bc {border-color:#AAAAAA;}
 
 .teamtwister-primary-fg {color:#88D8D8;}
 .teamtwister-primary-bg {background-color:#88D8D8;}
+.teamtwister-primary-bc {border-color:#88D8D8;}
 .teamtwister-secondary-fg {color:#AAAAAA;}
 .teamtwister-secondary-bg {background-color:#AAAAAA;}
+.teamtwister-secondary-bc {border-color:#AAAAAA;}
 
+.teamhat-primary-fg {color:#E86429;}
+.teamhat-primary-bg {background-color:#E86429;}
+.teamhat-primary-bc {border-color:#E86429;}
+.teamhat-secondary-fg {color:#fec22b;}
+.teamhat-secondary-bg {background-color:#fec22b;}
+.teamhat-secondary-bc {border-color:#fec22b;}
+
+.teamfish-primary-fg {color:#0037FF;}
+.teamfish-primary-bg {background-color:#0037FF;}
+.teamfish-primary-bc {border-color:#0037FF;}
+.teamfish-secondary-fg {color:#44B033;}
+.teamfish-secondary-bg {background-color:#44B033;}
+.teamfish-secondary-bc {border-color:#44B033;}
 
 
 
@@ -305,6 +330,23 @@ box-shadow: 0 0 0 3px #21c0ae;
     overflow:hidden;
 }
 
+.header-row-makerteams {
+    background-color: white;
+    border: 1px solid lightgrey;
+    border-radius: 10px 10px 0px 0px;
+    border-top-width: 0px;
+    border-bottom-width:0px;
+    margin-bottom: 0px;
+}
+
+.nav-row-makerteams {
+    background-color: white;
+    border: 1px solid lightgrey;
+    border-radius: 0px 0px 10px 10px;
+    border-top-width: 0px;
+    margin-bottom: 10px;
+}
+
 .header-row h1 {
     font-size:84pt;
 }
@@ -337,7 +379,6 @@ box-shadow: 0 0 0 3px #21c0ae;
 }
 
 .random-button {
-    background-color: #01a09e;
     color: white;
     margin-right: 10px;
 }
@@ -509,14 +550,18 @@ box-shadow: 0 0 0 3px #21c0ae;
 }
 
 .team-card {
-    text-align:center;
-    padding-top:10px;
-    padding-bottom:60px;
-    height:100%;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 60px;
+    height: 100%;
+    border-radius: 10px;
+    box-shadow: 3px 3px #5A5A5A;
+    border-width: 3px;
 }
 
 .team-card-small {
     font-size:14px;
+    box-shadow: 3px 3px #8A8A8A;
 }
 
 .team-card-nav-button {
@@ -557,6 +602,88 @@ box-shadow: 0 0 0 3px #21c0ae;
     width:100%;
     font-size: 20px;
     text-align:center;
+}
+
+.bs-callout {
+    padding: 20px;
+    margin: 20px 0;
+    border: 3px solid #eee;
+    border-left-width: 6px;
+    border-radius: 10px;
+    display:flex;
+    flex-wrap: wrap;
+    width:100%;
+}
+
+.bs-callout-title {
+    border-radius: 4px 10px 0px 0px;
+    border-bottom-width: 0px;
+    padding:0px;
+    background-color: white;
+}
+
+.bs-callout-title-box {
+    border-radius: 10px;
+    border-bottom: 3px solid #eee;
+    width:100%;
+    padding: 16px;
+    padding-left: 24px;
+}
+
+.bs-callout-content {
+    border-radius: 0px 0px 10px 4px;
+    border-top-width: 0px;
+    background-color: white;
+}
+
+.bs-callout-maker-teams {
+    border-left-color: #086A9A;
+    margin:0px;
+}
+
+.bs-callout-mini-teams {
+    border-left-color: #f9db00;
+    margin:0px;
+}
+
+.bs-callout-title h2,
+.bs-callout-title h3,
+.bs-callout-title h4,
+.bs-callout-title h5,
+.bs-callout-title h6 {
+    margin:0px;
+}
+
+.feature-box {
+    font-size:1.25rem;
+}
+
+.makerteams-body-bg {
+    background:#f5f5f5;
+}
+
+.makerteams-nav li a {
+    font-size: 28px;
+}
+
+.bot-command-list,
+.bot-command-list li {
+    width:100%;
+}
+
+.bot-command-list p {
+    padding-left:20px;
+    margin-bottom:0px;
+}
+
+.bot-command-text {
+    font-weight:bold;
+}
+
+.bot-command-important {
+    border-left-color: orangered;
+    border-left-width: 5px;
+    padding-left:16px;
 }
 
 /*

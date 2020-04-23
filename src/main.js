@@ -13,6 +13,9 @@ Vue.use(VueRouter);
 Vue.use(VuejsDialog);
 
 import Home from './components/Home';
+import Teams from './components/Teams';
+import Features from './components/Features';
+import HowToJoin from './components/HowToJoin';
 import Levels from './components/Levels';
 import LevelDetails from './components/LevelDetails';
 import MakerDetails from './components/MakerDetails';
@@ -25,7 +28,15 @@ const routes = [
   {path: '/', beforeEnter: (to, from, next) => {
     document.querySelector('html').classList.remove('dark');
     next();
-  }},
+  }, component: Teams},
+  {path: '/features', beforeEnter: (to, from, next) => {
+    document.querySelector('html').classList.remove('dark');
+    next();
+  }, component: Features},
+  {path: '/howtojoin', beforeEnter: (to, from, next) => {
+    document.querySelector('html').classList.remove('dark');
+    next();
+  }, component: HowToJoin},
   {path: '/:team', component: Home},
   {path: '/:team/levels', component: Levels},
   {path: '/:team/level/:code', component: LevelDetails},
@@ -50,6 +61,8 @@ router.beforeEach((to, from, next) => {
       link.rel = 'shortcut icon';
       link.href = '/favicon-teamshell.ico';
       document.getElementsByTagName('head')[0].appendChild(link);
+
+      document.querySelector('body').classList.remove('makerteams-body-bg');
     } else if(to.params.team == 'teamjamp'){
       document.title = "#TeamJamp";
       let link = document.querySelector("link[rel*='icon']") || document.createElement('link');
@@ -57,6 +70,8 @@ router.beforeEach((to, from, next) => {
       link.rel = 'shortcut icon';
       link.href = '/favicon-teamjamp.ico';
       document.getElementsByTagName('head')[0].appendChild(link);
+
+      document.querySelector('body').classList.remove('makerteams-body-bg');
     } else {
       document.title = "MakerTeams";
       let link = document.querySelector("link[rel*='icon']") || document.createElement('link');
@@ -64,6 +79,8 @@ router.beforeEach((to, from, next) => {
       link.rel = 'shortcut icon';
       link.href = '/favicon.ico';
       document.getElementsByTagName('head')[0].appendChild(link);
+
+      document.querySelector('body').classList.add('makerteams-body-bg');
     }
   } else {
     document.title = "MakerTeams";
@@ -72,6 +89,8 @@ router.beforeEach((to, from, next) => {
     link.rel = 'shortcut icon';
     link.href = '/favicon.ico';
     document.getElementsByTagName('head')[0].appendChild(link);
+
+    document.querySelector('body').classList.add('makerteams-body-bg');
   }
   next()
 })

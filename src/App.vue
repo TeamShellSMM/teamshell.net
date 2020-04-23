@@ -44,7 +44,7 @@
           </ul>
           <ul id="nav" class="login-ul" style="float:right;">
             <li v-if="loggedIn">
-              <button class="btn random-button" title="Random Level" @click="randomLevel()"><i class="fa fa-random"></i></button>
+              <button :class="$route.params.team + '-primary-bg'" class="btn random-button" title="Random Level" @click="randomLevel()"><i class="fa fa-random"></i></button>
               <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Logged in as {{userName}}</span>
               <div class="dropdown-menu">
                 <a class="dropdown-item" href="#" v-on:click="showFeedbackDialog()">Submit feedback</a>
@@ -72,103 +72,34 @@
       <router-view :key="$route.fullPath"></router-view>
     </template>
     <template v-if="!$route.params.team">
-      <div class="row header-row">
+      <div class="row header-row header-row-makerteams">
         <div class="d-inline-flex header-flex-container" style="flex-wrap:wrap;">
           <div class="header-logo-div" style="">
             <h1 class="logo-shadow"><span class="makerteams-primary-fg">Maker</span><span class="makerteams-secondary-fg">Teams</span></h1>
           </div>
         </div>
       </div>
-      <div class="row">
-        <h2 style="padding:10px;">This page is very much in construction, but currently we are hosting these teams:</h2>
-      </div>
-      <div class="row">
-        <div class="col-md-4 col-sm-6 p-1">
-          <div class="card team-card">
-            <img src="/assets/teamshell/buzzySpin.gif" class="card-img-top card-img-team-logo" alt="logo">
-            <div class="card-body">
-              <h2 class="card-title"><router-link to="/teamshell"><span class="teamshell-primary-fg">#Team</span><span class="teamshell-secondary-fg">Shell</span></router-link></h2>
-              <p class="card-text">
-                TeamShell is one of the biggest teams around and centered all around one thing: tough shell kaizo levels.
-              </p>
-              <p class="card-text">
-                If you're looking for levels with shelljumps this is the team for you!
-              </p>
-              <router-link to="/teamshell" class="btn teamshell-primary-bg team-card-nav-button" style="color:white;">Go check it out!</router-link>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-6 p-1">
-          <div class="card team-card">
-            <img src="/assets/teamjamp/logo.png" class="card-img-top card-img-team-logo card-img-rounded-logo" alt="logo">
-            <div class="card-body">
-              <h2 class="card-title"><router-link to="/teamjamp"><span class="teamjamp-primary-fg">#Team</span><span class="teamjamp-secondary-fg">Jamp</span></router-link></h2>
-              <p class="card-text">
-                TeamJamp is a relatively new team centered all around platforming.
-              </p>
-              <p class="card-text">
-                If you want a more traditional platforming kaizo experience without tons of tough tech, you're gonna love this team!
-              </p>
-              <router-link to="/teamjamp" class="btn teamjamp-primary-bg team-card-nav-button" style="color:white;">Go check it out!</router-link>
-            </div>
-          </div>
+      <div class="row nav-row-makerteams">
+        <div class="col-12">
+          <ul id="nav" class="makerteams-nav" style="float:left;">
+            <li>
+              <router-link :to="'/'">Teams</router-link>
+            </li>
+            <li>
+              <router-link :to="'/features'">Features</router-link>
+            </li>
+            <li>
+              <router-link :to="'/howtojoin'">How to join</router-link>
+            </li>
+          </ul>
         </div>
       </div>
-      <div class="row">
-        <h4 style="padding:10px;">These teams are currently a bit too small to be hosted, so if you like what you see go check them out and show them some love:</h4>
-      </div>
-      <div class="row">
-        <div class="col-md-3 col-sm-6 p-1">
-          <div class="card team-card team-card-small">
-            <img src="/assets/teampswitch/logo.png" class="card-img-top card-img-team-logo" alt="logo">
-            <div class="card-body">
-              <h4 class="card-title"><a href="https://discord.gg/vrVfkbF"><span class="teampswitch-primary-fg">#Team</span><span class="teampswitch-secondary-fg"> P-Switch</span></a></h4>
-              <p class="card-text">
-                Team P-Switch is all about P-Switches and everything around them.
-              </p>
-              <p class="card-text">
-                If you're a fan of these items and any of their associated mechanics, this is the place for you.
-              </p>
-              <a href="https://discord.gg/vrVfkbF" target="_blank" class="btn teampswitch-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3 col-sm-6 p-1">
-          <div class="card team-card team-card-small">
-            <img src="/assets/teampspeed/logo.png" class="card-img-top card-img-team-logo" alt="logo">
-            <div class="card-body">
-              <h4 class="card-title"><a href="https://discord.gg/q584b65"><span class="teampspeed-primary-fg">#Team</span><span class="teampspeed-secondary-fg"> P-Speed</span></a></h4>
-              <p class="card-text">
-                Team P-Speed is all about fast-paced platforming, kaizo, precision, whatever, as long as you don't have time to slow down.
-              </p>
-              <p class="card-text">
-                If you're trying to see how quickly you can read this post, this is the team for you.
-              </p>
-              <a href="https://discord.gg/q584b65" target="_blank" class="btn teampspeed-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3 col-sm-6 p-1">
-          <div class="card team-card team-card-small">
-            <img src="/assets/teamtwister/logo.png" class="card-img-top card-img-team-logo" alt="logo">
-            <div class="card-body">
-              <h4 class="card-title"><a href="https://discord.gg/TKqa8sH"><span class="teamtwister-primary-fg">#Team</span><span class="teamtwister-secondary-fg">Twister</span></a></h4>
-              <p class="card-text">
-                Team Twister is a team revolving around the uses of twisters, for the good or bad of humanity.
-              </p>
-              <p class="card-text">
-                 All types of levels are accepted as long as they use twisters and have no checkpoints. If you want to get blown away, this is the place to be!
-              </p>
-              <a href="https://discord.gg/TKqa8sH" target="_blank" class="btn teamtwister-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
-            </div>
-          </div>
-        </div>
-      </div>
+      <router-view :key="$route.fullPath"></router-view>
       <div class="row" style="height:100px;">
 
       </div>
       <div class="makerteams-footer makerteams-secondary-bg">
-        <h4>If you want your very own team bot and page like these, you can message us on discord (<span class="teamshell-secondary-fg">Liaf#0443</span> or <span class="teamshell-secondary-fg">a_unique_id#6616</span>).</h4>
+        <h4>If you want your very own team bot and page, you can reach us on discord (<span class="teamshell-secondary-fg">Liaf#0443</span> or <span class="teamshell-secondary-fg">a_unique_id#6616</span>).</h4>
       </div>
     </template>
   </div>
@@ -182,7 +113,6 @@
   export default {
     name: 'App',
     mounted() {
-      console.log("mounted");
       if(this.$route.params.team){
         if(this.$store.state[this.$route.params.team].theme === "dark"){
           document.querySelector('html').classList.add('dark');
