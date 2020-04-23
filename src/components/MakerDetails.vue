@@ -190,7 +190,7 @@
 
       $('#table').DataTable({
         "language": {
-        "emptyTable": "Data is loading. You may have to whitelist this site for browser extensions that block third party scripts",
+        "emptyTable": "Data is loading.",
         },
         paging:false,
         responsive:true,

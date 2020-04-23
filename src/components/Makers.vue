@@ -30,6 +30,7 @@
         <th>Likes</th>
         <th>Like/Clear Ratio</th>
         <th>Maker Points</th>
+        <th>Maker ID</th>
       </tr></thead>
     </table>
   </div>
@@ -81,7 +82,7 @@
 
         $('#table').DataTable({
           "language": {
-          "emptyTable": "Data is loading. You may have to whitelist this site for browser extensions that block third party scripts",
+          "emptyTable": "Data is loading. ",
           "info":           "_TOTAL_ records",
           "infoEmpty":      "0 records",
           "infoFiltered":   "/ _MAX_ records",
@@ -105,7 +106,7 @@
               targets:6,
             },
             {
-              "render": function ( data, type ) {
+              "render": function ( data, type ,row ) {
                 if(type!="display") return data
                 let goldsHtml = "";
                 let silversHtml = "";
@@ -153,13 +154,16 @@
                   medalsHtml += '<div class="medals">' + shellsHtml + '</div>';
                 }
 
-                return "<a class='dt-maker-link' href='/" + that.$route.params.team + "/maker/" + encodeURI(data) + "' maker='" + data + "'>" + data + "</a>"+medalsHtml;
+                let badge=row[8]?"<br/><small>(ID:"+row[8]+")</small>":"";
+
+
+                return "<a class='dt-maker-link' href='/" + that.$route.params.team + "/maker/" + encodeURI(data) + "' maker='" + data + "'>" + data + "</a>"+medalsHtml+badge;
               },
               targets: 0
             },
             {
               visible: false,
-              targets:[1,2]
+              targets:[1,2,8]
             }
           ]
         });
@@ -272,11 +276,15 @@
                 "ratio": 0,
                 "points": 0,
                 "shelder": 0,
-                "cult_member": 0
+                "cult_member": 0,
+                "maker_id":"",
+                "badges":"",
               };
             }
             makers[this.data.members[i][0]].shelder = this.data.members[i][1];
             makers[this.data.members[i][0]].cult_member = this.data.members[i][2];
+            makers[this.data.members[i][0]].maker_id = this.data.members[i][3];
+            makers[this.data.members[i][0]].badges = this.data.members[i][4];
           }
 
           var toShow = [];
@@ -296,7 +304,8 @@
               makers[creatorName].clears,
               makers[creatorName].likes,
               makers[creatorName].ratio,
-              makers[creatorName].points
+              makers[creatorName].points,
+              makers[creatorName].maker_id,
             ];
 
             toShow.push(row);
