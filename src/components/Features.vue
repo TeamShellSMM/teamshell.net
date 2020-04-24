@@ -291,8 +291,11 @@
         <ul class="bot-command-list list-group">
           <li class="list-group-item">
             <h5 class="mb-2">Starting the judgement for a level.</h5>
-            <p class="mb-3">
+            <p class="mb-2">
               When a level gets submitted it gets added to the list as "pending". You can use any of these commands in the moderator bot-command text-channel to start the judgement process. IMPORTANT: The quotes at the end of these commands (for the message) are important at the moment, don't forget to close the brackets and try to use the straight brackets (the wavy ones don't work atm).
+            </p>
+            <p class="mb-3">
+              The approve and fix commands can be used with a modifier at the end of the command itself, +c if you want to add a clear and +cl if you want to add a clear and a like (i.e. !approve+c, !fix+cl)
             </p>
             <ul class="bot-command-list list-group">
               <li class="list-group-item">

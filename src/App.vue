@@ -5,7 +5,8 @@
         <div class="d-inline-flex header-flex-container" style="flex-wrap:wrap;">
           <div class="header-logo-div" style="">
             <h1 v-if="$route.params.team == 'teamshell'" ><router-link :to="'/'" class="mt-back-link"><i class="fas fa-chevron-left"></i></router-link><img class="buzzyS" src="/assets/teamshell/buzzySpin.gif"/><span class="teamshell-primary-fg">#Team</span><span class="teamshell-secondary-fg">Shell</span></h1>
-            <h1 v-if="$route.params.team == 'teamjamp'" ><router-link :to="'/'" class="mt-back-link"><i class="fas fa-chevron-left"></i></router-link><img class="buzzyS teamjamp-logo" src="/assets/teamjamp/logo.png"/><span class="teamjamp-primary-fg">#Team</span><span class="teamjamp-secondary-fg">Jamp</span></h1>
+            <h1 v-if="$route.params.team == 'teamjamp'" ><router-link :to="'/'" class="mt-back-link"><i class="fas fa-chevron-left"></i></router-link><img class="buzzyS teamjamp-logo" src="/assets/teamjamp/logo.png"/><span class="teamjamp-primary-fg">Team</span><span class="teamjamp-secondary-fg"> Jamp</span></h1>
+            <h1 v-if="$route.params.team == 'teampipe'" ><router-link :to="'/'" class="mt-back-link"><i class="fas fa-chevron-left"></i></router-link><img class="buzzyS teamjamp-logo" src="/assets/teampipe/logo.png"/><span class="teampipe-primary-fg">#Team</span><span class="teampipe-secondary-fg">Pipe</span></h1>
           </div>
           <div v-if="$route.params.team == 'teamshell'" class="header-comp-div" style="">
             <div class="row comp-winners" >
@@ -59,6 +60,7 @@
         <div class="col-12">
           <h4 v-if="$route.params.team == 'teamshell'">Join the discord for more information: <a href="https://discord.gg/7tQJewa">https://discord.gg/7tQJewa</a></h4>
           <h4 v-if="$route.params.team == 'teamjamp'">Join the discord for more information: <a href="https://discord.gg/rekPFnq">https://discord.gg/rekPFnq</a></h4>
+          <h4 v-if="$route.params.team == 'teampipe'">Join the discord for more information: <a href="https://discord.gg/6QVuY65q">https://discord.gg/6QVuY65</a></h4>
         </div>
       </div>
       <div class="row">

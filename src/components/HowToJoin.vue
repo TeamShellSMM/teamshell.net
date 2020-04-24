@@ -79,43 +79,43 @@
         </p>
         <ul class="bot-command-list list-group">
           <li class="list-group-item">
-            <h5 class="mb-0">modChannel</h5>
+            <h5 class="mb-0">#bot-mod-channel</h5>
             <p class="mt-2 mb-0">
               This is the channel for the mods where they can use moderator-specific bot commands like approve or rerate. This should only be readable and writeable for your mods.
             </p>
           </li>
           <li class="list-group-item">
-            <h5 class="mb-0">initiateChannel</h5>
+            <h5 class="mb-0">#bot-makerteam-initiation</h5>
             <p class="mt-2 mb-0">
               After the first level of a member gets approved, an initiation message gets posted here and they get the member discord role. This should be visible to all, but unwritable.
             </p>
           </li>
           <li class="list-group-item">
-            <h5 class="mb-0">levelChangeNotification</h5>
+            <h5 class="mb-0">#bot-level-updates</h5>
             <p class="mt-2 mb-0">
               This is where level approvals, fix requests, rejections and reratings get posted. The notifications will ping the creator of the level. This should be visible to all, but unwritable.
             </p>
           </li>
           <li class="list-group-item">
-            <h5 class="mb-0">commandFeed</h5>
+            <h5 class="mb-0">#bot-command-feed</h5>
             <p class="mt-2 mb-0">
               This is where clears and likes from the webpage get posted, the clearer of the level will be pinged here. This should be visible to all, but unwritable.
             </p>
           </li>
           <li class="list-group-item">
-            <h5 class="mb-0">levelDiscussionCategory</h5>
+            <h5 class="mb-0">#bot-pending-discussion</h5>
             <p class="mt-2 mb-0">
               This is a category channel where text channels for pending levels will be created that have started their judgement. That is where your mods can discuss about what to do with a certain level and should only be visible and writeable to them.
             </p>
           </li>
           <li class="list-group-item">
-            <h5 class="mb-0">pendingReuploadCategory</h5>
+            <h5 class="mb-0">#bot-pending-reupload</h5>
             <p class="mt-2 mb-0">
               This is a category channel where text-channels for reuploads or fix requests will be created. This should only be visible and writeable to your mods.
             </p>
           </li>
           <li class="list-group-item">
-            <h5 class="mb-0">feedbackChannel</h5>
+            <h5 class="mb-0">#bot-makerteam-feedback</h5>
             <p class="mt-2 mb-0">
               This is where anonymous feedback for the mods gets posted. Who made the post will not be saved but it should show you with an id if a post has been made by the same person. This should be visible only to mods and not writeable.
             </p>

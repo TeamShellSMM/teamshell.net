@@ -26,7 +26,7 @@
           <div class="card team-card teamjamp-primary-bc">
             <img src="/assets/teamjamp/logo.png" class="card-img-top card-img-team-logo card-img-rounded-logo" alt="logo">
             <div class="card-body">
-              <h2 class="card-title"><router-link to="/teamjamp"><span class="teamjamp-primary-fg">#Team</span><span class="teamjamp-secondary-fg">Jamp</span></router-link></h2>
+              <h2 class="card-title"><router-link to="/teamjamp"><span class="teamjamp-primary-fg">Team</span><span class="teamjamp-secondary-fg"> Jamp</span></router-link></h2>
               <p class="card-text">
                 TeamJamp is a relatively new team centered all around platforming.
               </p>
@@ -34,6 +34,21 @@
                 If you want a more traditional platforming kaizo experience without tons of tough tech, you're gonna love this team!
               </p>
               <router-link to="/teamjamp" class="btn teamjamp-primary-bg team-card-nav-button" style="color:white;">Go check it out!</router-link>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 p-1">
+          <div class="card team-card teampipe-primary-bc">
+            <img src="/assets/teampipe/logo.png" class="card-img-top card-img-team-logo card-img-rounded-logo" alt="logo">
+            <div class="card-body">
+              <h2 class="card-title"><router-link to="/teampipe"><span class="teampipe-primary-fg">#Team</span><span class="teampipe-secondary-fg">Pipe</span></router-link></h2>
+              <p class="card-text">
+                TeamPipe is a group of kaizo makers who are all about making hard levels with pipe aesthetics.
+              </p>
+              <p class="card-text">
+                If you're looking to challenge yourself and join the ranks of some expert players, then this is the team for you!
+              </p>
+              <router-link to="/teampipe" class="btn teampipe-primary-bg team-card-nav-button" style="color:white;">Go check it out!</router-link>
             </div>
           </div>
         </div>
@@ -95,14 +110,14 @@
           <div class="card team-card team-card-small">
             <img src="/assets/teamfish/logo.png" class="card-img-top card-img-team-logo card-img-rounded-logo" alt="logo">
             <div class="card-body">
-              <h4 class="card-title"><a href="https://discord.gg/ZDeYXtH"><span class="teamfish-primary-fg">Team</span><span class="teamfish-secondary-fg"> Fish</span></a></h4>
+              <h4 class="card-title"><a href="https://discord.gg/U2XFavm"><span class="teamfish-primary-fg">Team</span><span class="teamfish-secondary-fg"> Fish</span></a></h4>
               <p class="card-text">
                 Team Fish is a team that uses all kinds of fish in their levels.
               </p>
               <p class="card-text">
                 This team accepts all kinds of kaizo, platforming and precision levels as long as there's enough fish in them. If you're a fan of Cheep Cheeps, Fishbones, or Porcupuffers, this is definitely the place for you.
               </p>
-              <a href="https://discord.gg/ZDeYXtH" target="_blank" class="btn teamfish-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
+              <a href="https://discord.gg/U2XFavm" target="_blank" class="btn teamfish-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
             </div>
           </div>
         </div>

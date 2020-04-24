@@ -64,11 +64,20 @@ router.beforeEach((to, from, next) => {
 
       document.querySelector('body').classList.remove('makerteams-body-bg');
     } else if(to.params.team == 'teamjamp'){
-      document.title = "#TeamJamp";
+      document.title = "Team Jamp";
       let link = document.querySelector("link[rel*='icon']") || document.createElement('link');
       link.type = 'image/x-icon';
       link.rel = 'shortcut icon';
       link.href = '/favicon-teamjamp.ico';
+      document.getElementsByTagName('head')[0].appendChild(link);
+
+      document.querySelector('body').classList.remove('makerteams-body-bg');
+    } else if(to.params.team == 'teampipe'){
+      document.title = "#TeamPipe";
+      let link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+      link.type = 'image/x-icon';
+      link.rel = 'shortcut icon';
+      link.href = '/favicon-teampipe.ico';
       document.getElementsByTagName('head')[0].appendChild(link);
 
       document.querySelector('body').classList.remove('makerteams-body-bg');
@@ -158,10 +167,39 @@ const moduleTeamJamp = {
   }
 }
 
+const moduleTeamPipe = {
+  namespaced: true,
+  state: {
+    theme: 'light',
+    token: '',
+    user_info: {}
+  },
+  mutations: {
+    setDark (state) {
+      state.theme = 'dark';
+      document.querySelector('html').classList.add('dark');
+    },
+    setLight (state) {
+      state.theme = 'light';
+      document.querySelector('html').classList.remove('dark');
+    },
+    setToken(state, payload){
+      state.token = payload.token;
+    },
+    setUserInfo(state, payload){
+      state.user_info = payload.user_info;
+    },
+    setLastDiffRange(state, payload){
+      state.last_diff_range = payload;
+    }
+  }
+}
+
 const store = new Vuex.Store({
   modules: {
     teamshell: moduleTeamShell,
-    teamjamp: moduleTeamJamp
+    teamjamp: moduleTeamJamp,
+    teampipe: moduleTeamPipe
   },
   plugins: [vuexLocal.plugin]
 });

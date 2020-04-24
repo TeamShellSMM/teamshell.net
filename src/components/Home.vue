@@ -25,6 +25,9 @@
             <p v-if="$route.params.team == 'teamjamp'">
               in the #bot-spam text-channel to register with your desired name!
             </p>
+            <p v-if="$route.params.team == 'teampipe'">
+              in the bot command text-channel to register with your desired name!
+            </p>
           </div>
         </div>
         <div class="howto-step howto-step-2" :class="$route.params.team + '-secondary-bg'">
@@ -39,6 +42,9 @@
             </p>
             <p v-if="$route.params.team == 'teamjamp'">
               After that you can go to the #bot-spam text-channel and use
+            </p>
+            <p v-if="$route.params.team == 'teampipe'">
+              After that you can go to the bot command text-channel and use
             </p>
             <p class="text-bold">
               !login
@@ -76,6 +82,9 @@
             </p>
             <p v-if="$route.params.team == 'teamjamp'">
               You can also immedately go and submit your very own level with
+            </p>
+            <p v-if="$route.params.team == 'teamjamp'">
+              As soon as you get 10 points from clearing levels you can submit your very own level with
             </p>
             <p class="text-bold">
               !add XXX-XXX-XXX LevelName
@@ -119,6 +128,12 @@
         <h4>We have a twitter now! <a href="https://twitter.com/team_jamp">https://twitter.com/team_jamp</a></h4>
         <div class="embed-responsive-item">
           <Timeline id="team_jamp" sourceType="profile" :key="theme" :options="timelineOptions"></Timeline>
+        </div>
+      </div>
+      <div class="col-md-4" v-if="$route.params.team == 'teampipe'">
+        <h4>We have a twitter now! <a href="https://twitter.com/teamPipe1">https://twitter.com/teamPipe1p</a></h4>
+        <div class="embed-responsive-item">
+          <Timeline id="teamPipe1" sourceType="profile" :key="theme" :options="timelineOptions"></Timeline>
         </div>
       </div>
     </div>
