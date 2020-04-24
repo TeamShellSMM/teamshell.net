@@ -173,7 +173,6 @@
         refresh(){
           this.data=JSON.parse(this.raw_data)
           this.data.levels.shift()
-          this.data.members.shift()
           this.data.points.shift()
           var _points={0:0}
 
