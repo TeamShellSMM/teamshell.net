@@ -305,7 +305,7 @@
               makers[creatorName].likes,
               makers[creatorName].ratio,
               makers[creatorName].points,
-              makers[creatorName].maker_id,
+              makers[creatorName].maker_id || "",
             ];
 
             toShow.push(row);
