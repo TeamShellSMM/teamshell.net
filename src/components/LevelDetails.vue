@@ -229,8 +229,8 @@
                 let copyTitle = "Copy levelcode";
                 return "<div class='text-monospace level-code-div'><a class='dt-level-link' href='/" + that.$route.params.team + "/level/" + encodeURI(data) + "' code='" + data + "'>" + data + "</a></div> <span class='copy' title='" + copyTitle + "'><i class='fa fa-clipboard' aria-hidden='true'></i></span>"
               } else {
-                let copyTitle = "Copy tsclear code";
-                let likeTitle = "Copy tsclear code with like";
+                let copyTitle = "Copy clear code";
+                let likeTitle = "Copy clear code with like";
                 return "<div class='text-monospace level-code-div'><a class='dt-level-link' href='/" + that.$route.params.team + "/level/" + encodeURI(data) + "' code='" + data + "'>" + data + "</a></div> <span class='copy' title='" + copyTitle + "'><i class='fa fa-clipboard' aria-hidden='true'></i></span> <span class='copyLike' title='" + likeTitle + "' data-toggle='tooltip'><i class='fa fa-heart text-danger' aria-hidden='true'></i></span>"
               }
             },
@@ -821,7 +821,7 @@
         $('.copy').click(function(){
           if(!that.$store.state[that.$route.params.team].token){
             let code=$(this).parent().text().substring(0,11);
-            let old_title="Copy tsclear code"
+            let old_title="Copy clear code"
             let new_title="Code copied."
 
             $(this).addClass("text-success")
@@ -840,7 +840,7 @@
                   .tooltip('update')
                   .tooltip('enable')
             },2000)
-            copyClipboard("!tsclear "+code)
+            copyClipboard("!clear "+code)
           } else {
             let code=$(this).parent().text().substring(0,11);
             let old_title="Copy levelcode"
@@ -870,7 +870,7 @@
 
         $('.copyLike').click(function(){
           var code=$(this).parent().text().substring(0,11);
-          var old_title="Copy tsclear code with like"
+          var old_title="Copy clear code with like"
           var new_title="Code copied."
 
           $(this).addClass("text-success")
@@ -889,7 +889,7 @@
                 .tooltip('update')
                 .tooltip('enable')
           },2000)
-          copyClipboard("!tsclear "+code+" like")
+          copyClipboard("!clear "+code+" like")
         });
       },
       getData(){

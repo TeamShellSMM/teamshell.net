@@ -60,7 +60,7 @@
         <div class="col-12">
           <h4 v-if="$route.params.team == 'teamshell'">Join the discord for more information: <a href="https://discord.gg/7tQJewa">https://discord.gg/7tQJewa</a></h4>
           <h4 v-if="$route.params.team == 'teamjamp'">Join the discord for more information: <a href="https://discord.gg/rekPFnq">https://discord.gg/rekPFnq</a></h4>
-          <h4 v-if="$route.params.team == 'teampipe'">Join the discord for more information: <a href="https://discord.gg/6QVuY65q">https://discord.gg/6QVuY65</a></h4>
+          <h4 v-if="$route.params.team == 'teampipe'">Join the discord for more information: <a href="https://discord.gg/PcC5eKp ">https://discord.gg/PcC5eKp</a></h4>
         </div>
       </div>
       <div class="row">
