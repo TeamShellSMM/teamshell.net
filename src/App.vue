@@ -213,7 +213,7 @@
               $('.loader').hide();
               console.log(level);
               if(level){
-                that.$router.push("/" + that.$route.params.team + "/level/" + level.Code);
+                that.$router.push("/" + that.$route.params.team + "/level/" + level.code);
               } else {
                 that.$dialog.alert("<p>Sorry, but we couldn't find a level in the specified difficulty range that you haven't cleared yet!</p>", {html: true});
               }
