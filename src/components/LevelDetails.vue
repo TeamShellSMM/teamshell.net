@@ -639,7 +639,6 @@
         let currentCode=this.$route.params.code;
 
         this.data=JSON.parse(this.raw_data);
-        this.data.levels.shift();
         this.clearers=[];
         this.clears={};
         this.tag_labels=this.data.tags;
