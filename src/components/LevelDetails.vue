@@ -651,8 +651,9 @@
         if(that.data.shellder_comments && that.data.shellder_comments[currentCode]){
           that.data.shellder_comments[currentCode].forEach( comment => {
             if(comment.type=="approve"){
-
               commentHTML+='<li class="list-group-item list-group-item-success"><h5 class="mb-1">'+comment.player+' voted to approve with difficulty '+comment.difficulty_vote+':</h5>'+comment.reason+'</span>'
+            } else if(comment.type=="fix"){
+              commentHTML+='<li class="list-group-item list-group-item-warning"><h5 class="mb-1">'+comment.player+' voted to fix with difficulty '+comment.difficulty_vote+':</h5>'+comment.reason+'</span>'
             } else {
               commentHTML+='<li class="list-group-item list-group-item-danger"><h5 class="mb-1">'+comment.player+' voted to reject:</h5>'+comment.reason+'</span>'
             }

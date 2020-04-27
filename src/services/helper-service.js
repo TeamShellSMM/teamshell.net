@@ -11,6 +11,7 @@ let loadTeamshellApi = function(urlSlug, token,onLoad){
     }
     data["url_slug"] = urlSlug;
     $.post(url,data,function(_data){
+        console.log(_data);
         raw_data=JSON.stringify(_data)
         onLoad(raw_data,noChange)
     })

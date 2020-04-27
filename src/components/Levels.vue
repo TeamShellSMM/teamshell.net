@@ -159,7 +159,7 @@
                 let rownum = $(thatButt).attr('rownum');
                 let tempData = $('#table').DataTable().row(rownum).data();
                 tempData[15] = "1";
-                $('#table').DataTable().row(rownum).data(tempData).draw();
+                $('#table').DataTable().row(rownum).data(tempData).draw(false);
               } else {
                 that.$dialog.alert("Something went wrong buzzyS").then(function() {
                 });
@@ -193,7 +193,7 @@
                 let tempData = $('#table').DataTable().row(rownum).data();
                 tempData[15] = "0";
                 tempData[17] = "0";
-                $('#table').DataTable().row(rownum).data(tempData).draw();
+                $('#table').DataTable().row(rownum).data(tempData).draw(false);
               } else {
                 that.$dialog.alert("Something went wrong buzzyS").then(function() {
                 });
@@ -227,7 +227,7 @@
                 let tempData = $('#table').DataTable().row(rownum).data();
                 tempData[15] = "1";
                 tempData[17] = "1";
-                $('#table').DataTable().row(rownum).data(tempData).draw();
+                $('#table').DataTable().row(rownum).data(tempData).draw(false);
               } else {
                 that.$dialog.alert("Something went wrong buzzyS").then(function() {
                 });
@@ -259,7 +259,7 @@
                 let rownum = $(thatButt).attr('rownum');
                 let tempData = $('#table').DataTable().row(rownum).data();
                 tempData[17] = "0";
-                $('#table').DataTable().row(rownum).data(tempData).draw();
+                $('#table').DataTable().row(rownum).data(tempData).draw(false);
               } else {
                 that.$dialog.alert("Something went wrong buzzyS").then(function() {
                 });
@@ -385,7 +385,7 @@
               tags=tags?tags.split(","):[]
               for(let i=0;i<tags.length;i++){
                 let type2=that.tag_labels[tags[i]]?that.tag_labels[tags[i]]:"secondary"
-                tags[i]='<a href="?tag='+tags[i]+'"><span class="tag badge badge-pill badge-'+type2+'">'+tags[i]+"</span></a>"
+                tags[i]='<a href="#"><span class="tag badge badge-pill badge-'+type2+'">'+tags[i]+"</span></a>"
               }
 
               tags=tags.join("")
@@ -393,17 +393,13 @@
               let votesHtml=""
               if(that.data.vote_counts && that.data.vote_counts[currentCode]){
                 if(that.data.vote_counts[currentCode].approve){
-
-                  votesHtml+='<a class="dt-level-link" href="/level/' + encodeURI(currentCode) + '" code="' + currentCode + '" title="Votes for approval"><span class="tag badge badge-pill badge-success">'+that.data.vote_counts[currentCode].approve+"</span></a>"
-                }
-                if(that.data.vote_counts[currentCode].reject){
-                  votesHtml+='<a class="dt-level-link" href="/level/' + encodeURI(currentCode) + '" code="' + currentCode + '" title="Votes for rejection"><span class="tag badge badge-pill badge-danger">'+that.data.vote_counts[currentCode].reject+"</span></a>"
+                  votesHtml+='<a class="dt-level-link" href="/' + that.$route.params.team + '/level/' + encodeURI(currentCode) + '" code="' + currentCode + '" title="Votes for approval"><span class="tag badge badge-pill badge-success">'+that.data.vote_counts[currentCode].approve+"</span></a>"
+                } else if(that.data.vote_counts[currentCode].fix){
+                  votesHtml+='<a class="dt-level-link" href="/' + that.$route.params.team + '/level/' + encodeURI(currentCode) + '" code="' + currentCode + '" title="Votes for fix"><span class="tag badge badge-pill badge-warning">'+that.data.vote_counts[currentCode].fix+"</span></a>"
+                } else if(that.data.vote_counts[currentCode].reject){
+                  votesHtml+='<a class="dt-level-link" href="/' + that.$route.params.team + '/level/' + encodeURI(currentCode) + '" code="' + currentCode + '" title="Votes for rejection"><span class="tag badge badge-pill badge-danger">'+that.data.vote_counts[currentCode].reject+"</span></a>"
                 }
               }
-
-
-
-
 
               let goldsHtml = "";
               let silversHtml = "";
