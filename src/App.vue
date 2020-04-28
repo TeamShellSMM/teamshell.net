@@ -146,7 +146,7 @@
       },
       userName: function(){
         if(this.$route.params.team){
-          return this.$store.state[this.$route.params.team].user_info.Name;
+          return this.$store.state[this.$route.params.team].user_info.name;
         }
         return "";
       }
