@@ -41,7 +41,8 @@
           'current_season': -1,
           'first_load': true,
           'makers': [],
-          'membershipStatus': 1
+          'membershipStatus': 1,
+          'seasons': []
         }
       },
       mounted(){
@@ -60,8 +61,10 @@
         });
 
         $("#currentSeason").change(function(){
-          that.current_season = this.value;
-          that.getData();
+          if(!that.first_load){
+            that.current_season = this.value;
+            that.getData();
+          }
         });
 
         $('#table').DataTable({
@@ -99,13 +102,87 @@
                 return Math.round(data*100)+"%"
               },
               targets:4,
-            }
+            },
+            {
+            "render": function ( data, type, row ) {
+              if(type!="display") return data
+              let goldsHtml = "";
+              let silversHtml = "";
+              let bronzesHtml = "";
+              let ironsHtml = "";
+              let shellsHtml = "";
+              if(row.wonComps){
+                for(let comp of row.wonComps){
+                  switch(comp.rank){
+                    case "1":
+                      goldsHtml += '<div class="medal" title="Gold medalist of ' + comp.name + '"><div class="coin coin-gold"></div></div>';
+                    break;
+                    case "2":
+                      silversHtml += '<div class="medal" title="Silver medalist of ' + comp.name + '"><div class="coin coin-silver"></div></div>';
+                    break;
+                    case "3":
+                      bronzesHtml += '<div class="medal" title="Bronze medalist of ' + comp.name + '"><div class="coin coin-bronze"></div></div>';
+                    break;
+                    case "4":
+                      ironsHtml += '<div class="medal" title="Runner-up of ' + comp.name + '"><div class="coin coin-iron"></div></div>';
+                    break;
+                    case "5":
+                      shellsHtml += '<div class="medal" title="Honorable Mention for ' + comp.name + '"><div class="coin coin-shell"></div></div>';
+                    break;
+                  }
+
+                }
+
+                var medalsHtml = "";
+                if(goldsHtml != ""){
+                  medalsHtml += '<div class="medals">' + goldsHtml + '</div>';
+                }
+                if(silversHtml != ""){
+                  medalsHtml += '<div class="medals">' + silversHtml + '</div>';
+                }
+                if(bronzesHtml != ""){
+                  medalsHtml += '<div class="medals">' + bronzesHtml + '</div>';
+                }
+                if(ironsHtml != ""){
+                  medalsHtml += '<div class="medals">' + ironsHtml + '</div>';
+                }
+                if(shellsHtml != ""){
+                  medalsHtml += '<div class="medals">' + shellsHtml + '</div>';
+                }
+              }
+
+              return "<div class='creator-name-div'><a class='dt-maker-link' href='/" + that.$route.params.team + "/maker/" + encodeURI(data) + "' maker='" + data + "'>" + data + "</a>"+medalsHtml +"</div>";
+            },
+            targets: 0
+          }
           ]
         });
         this.getData();
       },
       methods: {
         refresh(){
+          if(this.first_load){
+            var selectNode = document.getElementById('currentSeason');
+            while(selectNode.firstChild){
+              selectNode.removeChild(selectNode.firstChild);
+            }
+
+            for(let i = 0; i < this.seasons.length; i++){
+              var opt = document.createElement('option');
+              opt.value = i + 1;
+              opt.innerHTML = this.seasons[i][1];
+              selectNode.appendChild(opt);
+
+              if(this.first_load){
+                this.current_season = i + 1;
+                selectNode.value = this.current_season;
+              }
+            }
+
+            this.first_load = false;
+          }
+
+
           var datatable=$('#table').DataTable()
           datatable.clear();
           datatable.rows.add(this.makers)
@@ -131,6 +208,7 @@
           }, function(_rawData){
             console.log(_rawData);
             that.makers = _rawData.data;
+            that.seasons = _rawData.seasons;
             that.refresh()
           })
         }
