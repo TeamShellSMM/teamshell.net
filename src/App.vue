@@ -65,9 +65,7 @@
       </div>
       <div class="row">
         <div class="col-12">
-          <h4 v-if="$route.params.team == 'teamshell'">Join the discord for more information: <a href="https://discord.gg/7tQJewa">https://discord.gg/7tQJewa</a></h4>
-          <h4 v-if="$route.params.team == 'teamjamp'">Join the discord for more information: <a href="https://discord.gg/rekPFnq">https://discord.gg/rekPFnq</a></h4>
-          <h4 v-if="$route.params.team == 'teampipe'">Join the discord for more information: <a href="https://discord.gg/PcC5eKp ">https://discord.gg/PcC5eKp</a></h4>
+          <h4>Join the discord for more information: <a v-bind:href="team.discord_invite">{{ team.discord_invite }}</a></h4>
         </div>
       </div>
       <router-view :key="$route.fullPath"></router-view>
@@ -143,12 +141,24 @@
         }
         return false;
       },
+      team(){
+        if(this.$route.params.team){
+          return this.$store.state[this.$route.params.team];
+        }
+        return false
+      },
+      url_slug: function(){
+        return this.$route.params.team;
+      },
+      discord_invite:function(){
+        return this.$store.state[this.$route.params.team].discord_invite
+      },
       userName: function(){
         if(this.$route.params.team){
           return this.$store.state[this.$route.params.team].user_info.name;
         }
         return "";
-      }
+      },
     },
     methods: {
       showFeedbackDialog(){
@@ -161,10 +171,9 @@
         }, {
           html: true
         })
-        .then(dialog => {
+        .then(() => { //dialog
           // Triggered when proceed button is clicked
           // Show an alert with the user's input as the message
-          console.log(dialog);
 
           $('.loader').show();
           putFeedback(that.$route.params.team, {
@@ -210,7 +219,6 @@
               maxDifficulty: parseFloat(diffs[1]).toFixed(1)
             }, function(level){
               $('.loader').hide();
-              console.log(level);
               if(level){
                 that.$router.push("/" + that.$route.params.team + "/level/" + level.code);
               } else {

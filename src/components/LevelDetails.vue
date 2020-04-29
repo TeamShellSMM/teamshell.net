@@ -97,7 +97,8 @@
                 tempData[15] = "1";
                 $('#table').DataTable().row(rownum).data(tempData).draw();
               } else {
-                that.$dialog.alert("Something went wrong buzzyS").then(function() {
+                that.$dialog.alert(result.message).then(function() {
+                  $('.loader').hide();
                 });
               }
             });
@@ -131,7 +132,8 @@
                 tempData[17] = "0";
                 $('#table').DataTable().row(rownum).data(tempData).draw();
               } else {
-                that.$dialog.alert("Something went wrong buzzyS").then(function() {
+                that.$dialog.alert(result.message).then(function() {
+                  $('.loader').hide();
                 });
               }
             });
@@ -165,7 +167,8 @@
                 tempData[17] = "1";
                 $('#table').DataTable().row(rownum).data(tempData).draw();
               } else {
-                that.$dialog.alert("Something went wrong buzzyS").then(function() {
+                that.$dialog.alert(result.message).then(function() {
+                  $('.loader').hide();
                 });
               }
             });
@@ -197,7 +200,8 @@
                 tempData[17] = "0";
                 $('#table').DataTable().row(rownum).data(tempData).draw();
               } else {
-                that.$dialog.alert("Something went wrong buzzyS").then(function() {
+                that.$dialog.alert(result.message).then(function() {
+                  $('.loader').hide();
                 });
               }
             });
@@ -790,7 +794,7 @@
 
 
         let that = this;
-        loadTeamshellApi(that.$route.params.team, that.$store.state[that.$route.params.team].token,function(_rawData,dataNoChange){
+        loadTeamshellApi(that,that.$route.params.team, that.$store.state[that.$route.params.team].token,function(_rawData,dataNoChange){
           if(dataNoChange){
             $.notify("No new data was loaded",{
               className:"success",

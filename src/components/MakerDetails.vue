@@ -72,7 +72,8 @@
                 tempData[15] = "1";
                 $('#table').DataTable().row(rownum).data(tempData).draw();
               } else {
-                that.$dialog.alert("Something went wrong buzzyS").then(function() {
+                that.$dialog.alert(result.message).then(function() {
+                  $('.loader').hide();
                 });
               }
             });
@@ -106,7 +107,8 @@
                 tempData[17] = "0";
                 $('#table').DataTable().row(rownum).data(tempData).draw();
               } else {
-                that.$dialog.alert("Something went wrong buzzyS").then(function() {
+                that.$dialog.alert(result.message).then(function() {
+                  $('.loader').hide();
                 });
               }
             });
@@ -140,7 +142,8 @@
                 tempData[17] = "1";
                 $('#table').DataTable().row(rownum).data(tempData).draw();
               } else {
-                that.$dialog.alert("Something went wrong buzzyS").then(function() {
+                that.$dialog.alert(result.message).then(function() {
+                  $('.loader').hide();
                 });
               }
             });
@@ -165,6 +168,7 @@
               code: $(thatButt).attr('code'),
               like: 0
             }, function(result){
+              console.log(result)
               if(result.status == "sucessful"){
                 $('.loader').hide();
                 let rownum = $(thatButt).attr('rownum');
@@ -172,7 +176,8 @@
                 tempData[17] = "0";
                 $('#table').DataTable().row(rownum).data(tempData).draw();
               } else {
-                that.$dialog.alert("Something went wrong buzzyS").then(function() {
+                that.$dialog.alert(result.message).then(function() {
+                  $('.loader').hide();
                 });
               }
             });
@@ -463,7 +468,7 @@
       },
       is_shellder:function(){
         if(this.$route.params.team){
-          return this.$store.state[this.$route.params.team].user_info.shelder ? true : false;
+          return this.$store.state[this.$route.params.team].user_info.is_mod ? true : false;
         }
         return false;
       }
@@ -529,8 +534,16 @@ this.data=JSON.parse(this.raw_data);
             }
           }
 
+
+          let registeredClears={}
+          if(this.data.registeredPlays){
+            this.data.registeredPlays.forEach((play)=>{
+              registeredClears[play.code]=play;
+            })
+          }
+          
           if(include){
-            filtered_levels.push([
+            let row=[
               i+1,
               level.code,
               level.creator,
@@ -546,10 +559,17 @@ this.data=JSON.parse(this.raw_data);
               `${level.vote||0},${level.votetotal||0}`,
               level.likes,
               level.lcd,
-              '-',
-              '-',
-              '-',
-          ])
+          ];
+          if(registeredClears[level.code]){
+            row.push(registeredClears[level.code].completed)
+            row.push(registeredClears[level.code].difficulty_vote )
+            row.push(registeredClears[level.code].liked)
+          } else if(level.creator==that.username){
+            row=row.concat(['1','-','-'])
+          } else {
+            row=row.concat(['-','-','-'])
+          }
+          filtered_levels.push(row)
           }
         } //end main level loops
 
@@ -644,7 +664,7 @@ this.data=JSON.parse(this.raw_data);
         datatable.clear().draw();
 
         let that = this;
-        loadTeamshellApi(that.$route.params.team, that.$store.state.token,function(_rawData,dataNoChange){
+        loadTeamshellApi(that,that.$route.params.team, this.$store.state[this.$route.params.team].token,function(_rawData,dataNoChange){
           if(dataNoChange){
             $.notify("No new data was loaded",{
               className:"success",

@@ -186,7 +186,7 @@
           return this.$store.state[this.$route.params.team].token ? true : false;
         }
         return false;
-      }
+      },
     },
     created(){
       this.$store.subscribe((mutation, state) => {
@@ -199,7 +199,7 @@
       getData(){
         $('.loader').show();
         let that = this;
-        loadTeamshellApi(that.$route.params.team, that.$store.state[that.$route.params.team].token,function(_rawData,dataNoChange){
+        loadTeamshellApi(that,that.$route.params.team, that.$store.state[that.$route.params.team].token,function(_rawData,dataNoChange){
           if(dataNoChange){
             $.notify("No new data was loaded",{
               className:"success",
@@ -213,6 +213,7 @@
         },{ dashboard:true })
       },
       refresh(){
+        console.log(this.team)
         var dashboardData={
           "numApproved":0,
           "numPending":0,

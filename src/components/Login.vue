@@ -20,6 +20,7 @@
       let that = this;
 
       login(this.$route.params.team, this.$route.params.otp, function(data){
+        console.log(data)
         if(data.status == "error"){
           $('.loader').hide();
           alert(data.message);
@@ -34,7 +35,7 @@
           localStorage.setItem('member', data.user_info.name);
           that.$router.push("/" + that.$route.params.team + "/levels");
         }
-      });
+      },{});
 
       /**/
     }

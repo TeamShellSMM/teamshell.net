@@ -50,157 +50,100 @@ const routes = [
 const router = new VueRouter({
   routes,
   mode: 'history'
-})
+});
+
+
+const defaultSetting={
+  title:"MakerTeams",
+  icon:'/favicon.ico',
+  maker:true,
+}
+
+const teams={
+  teamshell:{
+    title:'#TeamShell',
+    icon:'/favicon-teamshell.ico',
+    discord_invite:'https://discord.gg/7tQJewa',
+    twitter:'TeamShellSMM',
+    
+  },
+  teamjamp:{
+    title:'Team Jamp',
+    icon:'/favicon-teamjamp.ico',
+    discord_invite:'https://discord.gg/rekPFnq',
+    twitter:'team_jamp',
+  },
+  teampipe:{
+    title:'#TeamPipe',
+    icon:'/favicon-teampipe.ico',
+    discord_invite:'https://discord.gg/PcC5eKp',
+    twitter:'teamPipe1',
+  }
+}
 
 router.beforeEach((to, from, next) => {
-  if(to.params.team){
-    if(to.params.team == 'teamshell'){
-      document.title = "#TeamShell";
-      let link = document.querySelector("link[rel*='icon']") || document.createElement('link');
-      link.type = 'image/x-icon';
-      link.rel = 'shortcut icon';
-      link.href = '/favicon-teamshell.ico';
-      document.getElementsByTagName('head')[0].appendChild(link);
-
-      document.querySelector('body').classList.remove('makerteams-body-bg');
-    } else if(to.params.team == 'teamjamp'){
-      document.title = "Team Jamp";
-      let link = document.querySelector("link[rel*='icon']") || document.createElement('link');
-      link.type = 'image/x-icon';
-      link.rel = 'shortcut icon';
-      link.href = '/favicon-teamjamp.ico';
-      document.getElementsByTagName('head')[0].appendChild(link);
-
-      document.querySelector('body').classList.remove('makerteams-body-bg');
-    } else if(to.params.team == 'teampipe'){
-      document.title = "#TeamPipe";
-      let link = document.querySelector("link[rel*='icon']") || document.createElement('link');
-      link.type = 'image/x-icon';
-      link.rel = 'shortcut icon';
-      link.href = '/favicon-teampipe.ico';
-      document.getElementsByTagName('head')[0].appendChild(link);
-
-      document.querySelector('body').classList.remove('makerteams-body-bg');
-    } else {
-      document.title = "MakerTeams";
-      let link = document.querySelector("link[rel*='icon']") || document.createElement('link');
-      link.type = 'image/x-icon';
-      link.rel = 'shortcut icon';
-      link.href = '/favicon.ico';
-      document.getElementsByTagName('head')[0].appendChild(link);
-
-      document.querySelector('body').classList.add('makerteams-body-bg');
-    }
-  } else {
-    document.title = "MakerTeams";
     let link = document.querySelector("link[rel*='icon']") || document.createElement('link');
     link.type = 'image/x-icon';
     link.rel = 'shortcut icon';
-    link.href = '/favicon.ico';
-    document.getElementsByTagName('head')[0].appendChild(link);
 
-    document.querySelector('body').classList.add('makerteams-body-bg');
-  }
+    let settings= teams[to.params.team] || defaultSetting
+    document.title=settings.title;
+    link.href=settings.icon;
+    if(settings.maker){
+      document.querySelector('body').classList.add('makerteams-body-bg');
+    } else {
+      document.querySelector('body').classList.remove('makerteams-body-bg');
+    }
+    document.getElementsByTagName('head')[0].appendChild(link);
   next()
 })
 
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 const vuexLocal = new VuexPersistence({
   storage: window.localStorage
 });
 
-const moduleTeamShell = {
-  namespaced: true,
-  state: {
-    theme: 'light',
-    token: '',
-    user_info: {}
-  },
-  mutations: {
-    setDark (state) {
-      state.theme = 'dark';
-      document.querySelector('html').classList.add('dark');
+
+function makeTeam(args){
+  return {
+    namespaced: true,
+    state: {
+      theme: 'light',
+      token: '',
+      user_info: {},
+      ...args
     },
-    setLight (state) {
-      state.theme = 'light';
-      document.querySelector('html').classList.remove('dark');
-    },
-    setToken(state, payload){
-      state.token = payload.token;
-    },
-    setUserInfo(state, payload){
-      state.user_info = payload.user_info;
-    },
-    setLastDiffRange(state, payload){
-      state.last_diff_range = payload;
+    mutations: {
+      setDark (state) {
+        state.theme = 'dark';
+        document.querySelector('html').classList.add('dark');
+      },
+      setLight (state) {
+        state.theme = 'light';
+        document.querySelector('html').classList.remove('dark');
+      },
+      setToken(state, payload){
+        state.token = payload.token;
+      },
+      setUserInfo(state, payload){
+        state.user_info = payload.user_info;
+      },
+      setLastDiffRange(state, payload){
+        state.last_diff_range = payload;
+      }
     }
   }
 }
 
-const moduleTeamJamp = {
-  namespaced: true,
-  state: {
-    theme: 'light',
-    token: '',
-    user_info: {}
-  },
-  mutations: {
-    setDark (state) {
-      state.theme = 'dark';
-      document.querySelector('html').classList.add('dark');
-    },
-    setLight (state) {
-      state.theme = 'light';
-      document.querySelector('html').classList.remove('dark');
-    },
-    setToken(state, payload){
-      state.token = payload.token;
-    },
-    setUserInfo(state, payload){
-      state.user_info = payload.user_info;
-    },
-    setLastDiffRange(state, payload){
-      state.last_diff_range = payload;
-    }
-  }
-}
-
-const moduleTeamPipe = {
-  namespaced: true,
-  state: {
-    theme: 'light',
-    token: '',
-    user_info: {}
-  },
-  mutations: {
-    setDark (state) {
-      state.theme = 'dark';
-      document.querySelector('html').classList.add('dark');
-    },
-    setLight (state) {
-      state.theme = 'light';
-      document.querySelector('html').classList.remove('dark');
-    },
-    setToken(state, payload){
-      state.token = payload.token;
-    },
-    setUserInfo(state, payload){
-      state.user_info = payload.user_info;
-    },
-    setLastDiffRange(state, payload){
-      state.last_diff_range = payload;
-    }
-  }
+const teamModules={}
+for(var url_slug in teams){
+  teamModules[url_slug]=makeTeam(teams[url_slug]);
 }
 
 const store = new Vuex.Store({
-  modules: {
-    teamshell: moduleTeamShell,
-    teamjamp: moduleTeamJamp,
-    teampipe: moduleTeamPipe
-  },
+  modules: teamModules,
   plugins: [vuexLocal.plugin]
 });
 

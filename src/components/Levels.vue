@@ -3,7 +3,7 @@
     <div id="filter_form_cont">
       <div class="form-group row">
         <div class="col-md-6">
-        <label for="searchTerm">Search Term</label>
+        <label for="searchTerm">{{ discord_invite }}Search Term</label>
         <input name="member" type="text" class="form-control" id="searchTerm" autocomplete="off" placeholder="Search Term">
         <small class="form-text text-muted">With this you can search for a certain creator or levelname.</small>
         </div>
@@ -15,7 +15,6 @@
             <option value="2">Uncleared Only</option>
             <option value="3">Cleared Only</option>
           </select>
-          <small class="form-text text-muted">The clears shown are clears registered to ShellBot 2000 in the team's discord.</small>
         </div>
 
 
@@ -145,10 +144,12 @@
                 $('.loader').hide();
                 let rownum = $(thatButt).attr('rownum');
                 let tempData = $('#table').DataTable().row(rownum).data();
-                tempData[15] = "1";
+                console.log(tempData)
+                tempData.completed= "1";
                 $('#table').DataTable().row(rownum).data(tempData).draw(false);
               } else {
-                that.$dialog.alert("Something went wrong buzzyS").then(function() {
+                that.$dialog.alert(result.message).then(function() {
+                  $('.loader').hide();
                 });
               }
             });
@@ -174,15 +175,17 @@
               completed: 0,
               like: 0
             }, function(result){
+              console.log(result)
               if(result.status == "sucessful"){
                 $('.loader').hide();
                 let rownum = $(thatButt).attr('rownum');
                 let tempData = $('#table').DataTable().row(rownum).data();
-                tempData[15] = "0";
-                tempData[17] = "0";
+                tempData.completed = "0";
+                tempData.liked = "0";
                 $('#table').DataTable().row(rownum).data(tempData).draw(false);
               } else {
-                that.$dialog.alert("Something went wrong buzzyS").then(function() {
+                that.$dialog.alert(result.message).then(function() {
+                  $('.loader').hide();
                 });
               }
             });
@@ -197,26 +200,31 @@
         e.stopPropagation();
         e.preventDefault();
         let thatButt = this;
+        let rownum = $(thatButt).attr('rownum');
+        let tempData = $('#table').DataTable().row(rownum).data();
         if(that.loggedIn){
           that.$dialog
           .confirm('Are you sure you want to submit a like and clear for ' + $(thatButt).attr('levelname') + " (" + $(thatButt).attr('code') + ") ?")
           .then(function() {
             $('.loader').show();
-            clear(that.$route.params.team, {
+            let args={
               token: that.$store.state[that.$route.params.team].token,
               code: $(thatButt).attr('code'),
-              completed: 1,
               like: 1
-            }, function(result){
+            };
+            if(!tempData.completed){
+              args.completed=1
+            }
+            clear(that.$route.params.team, args, function(result){
+              console.log(result)
               if(result.status == "sucessful"){
                 $('.loader').hide();
-                let rownum = $(thatButt).attr('rownum');
-                let tempData = $('#table').DataTable().row(rownum).data();
-                tempData[15] = "1";
-                tempData[17] = "1";
+                tempData.completed = "1";
+                tempData.liked = "1";
                 $('#table').DataTable().row(rownum).data(tempData).draw(false);
               } else {
-                that.$dialog.alert("Something went wrong buzzyS").then(function() {
+                that.$dialog.alert(result.message).then(function() {
+                  $('.loader').hide();
                 });
               }
             });
@@ -233,7 +241,7 @@
         let thatButt = this;
         if(that.loggedIn){
           that.$dialog
-          .confirm('Are you sure you want to remove your like for ' + $(thatButt).attr('levelname') + " (" + $(thatButt).attr('code') + ") ?")
+          .confirm(`Are you sure you want to remove your like for ${$(thatButt).attr('levelname')} - ${$(thatButt).attr('code')}?`)
           .then(function() {
             $('.loader').show();
             clear(that.$route.params.team, {
@@ -241,14 +249,16 @@
               code: $(thatButt).attr('code'),
               like: 0
             }, function(result){
+              console.log(result)
               if(result.status == "sucessful"){
                 $('.loader').hide();
                 let rownum = $(thatButt).attr('rownum');
                 let tempData = $('#table').DataTable().row(rownum).data();
-                tempData[17] = "0";
+                tempData.liked = "0";
                 $('#table').DataTable().row(rownum).data(tempData).draw(false);
               } else {
-                that.$dialog.alert("Something went wrong buzzyS").then(function() {
+                that.$dialog.alert(result.message).then(function() {
+                  $('.loader').hide();
                 });
               }
             });
@@ -278,6 +288,26 @@
         "infoEmpty":      "0 levels",
         "infoFiltered":   "(_MAX_ total)",
         },
+        columns:[
+          {data:'no'},
+          {data:'code'},
+          {data:'creator'},
+          {data:'level_name'},
+          {data:'difficulty'},
+          {data:'status'},
+          {data:'new_code'},
+          {data:'videos,'},
+          {data:'created_at,'},
+          {data:'tags,'},
+          {data:'clears'},
+          {data:'code'},
+          {data:'votestr'},
+          {data:'likes'},
+          {data:'lcd'},
+          {data:'completed'},
+          {data:'difficulty_vote '},
+          {data:'liked'},
+        ],
         paging:true,
         pagingType: "simple",
         "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
@@ -355,20 +385,18 @@
               return "<div class='creator-name-div'><a class='dt-maker-link' href='/" + that.$route.params.team + "/maker/" + encodeURI(data) + "' maker='" + data + "'>" + data + "</a>"+medalsHtml +"</div>";
             },
             targets: 2
-          },
-          {
+          },{
             "render": function ( data, type, row ) {
               if(type!="display") return data
-              let currentCode=row[1];
               var videos="";
 
-              if(row[7]){
-                var raw_vids=row[7].split(",")
+              if(row.videos){
+                var raw_vids=row.videos.split(",")
                 for(let j=0;j<raw_vids.length;j++){
                   videos+="<a class='clear-vid-link' target='_blank' data-toggle='tooltip' title='Video clear' href='"+raw_vids[j]+"'><i class='fas fa-video' aria-hidden='true'></i></a> "
                 }
               }
-              var tags=row[9]
+              var tags=row.tags
               tags=tags?tags.split(","):[]
               for(let i=0;i<tags.length;i++){
                 let type2=that.tag_labels[tags[i]]?that.tag_labels[tags[i]]:"secondary"
@@ -376,16 +404,15 @@
               }
 
               tags=tags.join("")
-
               let votesHtml=""
-              if(that.data.vote_counts && that.data.vote_counts[currentCode]){
-                if(that.data.vote_counts[currentCode].approve){
-                  votesHtml+='<a class="dt-level-link" href="/' + that.$route.params.team + '/level/' + encodeURI(currentCode) + '" code="' + currentCode + '" title="Votes for approval"><span class="tag badge badge-pill badge-success">'+that.data.vote_counts[currentCode].approve+"</span></a>"
-                } else if(that.data.vote_counts[currentCode].fix){
-                  votesHtml+='<a class="dt-level-link" href="/' + that.$route.params.team + '/level/' + encodeURI(currentCode) + '" code="' + currentCode + '" title="Votes for fix"><span class="tag badge badge-pill badge-warning">'+that.data.vote_counts[currentCode].fix+"</span></a>"
-                } else if(that.data.vote_counts[currentCode].reject){
-                  votesHtml+='<a class="dt-level-link" href="/' + that.$route.params.team + '/level/' + encodeURI(currentCode) + '" code="' + currentCode + '" title="Votes for rejection"><span class="tag badge badge-pill badge-danger">'+that.data.vote_counts[currentCode].reject+"</span></a>"
-                }
+              if(row.approves){
+                votesHtml+=`<a class="dt-level-link" href="${that.$route.params.team}/level/${encodeURI(row.code)}" code="${row.code}" title="Votes for approval"><span class="tag badge badge-pill badge-success">${row.approves}</span></a>`
+              }
+              if(row.want_fixes){
+                votesHtml+=`<a class="dt-level-link" href="${that.$route.params.team}/level/${encodeURI(row.code)}" code="${row.code}" title="Votes for approval"><span class="tag badge badge-pill badge-warning">${row.want_fixes}</span></a>`
+              }
+              if(row.reject){
+                votesHtml+=`<a class="dt-level-link" href="${that.$route.params.team}/level/${encodeURI(row.code)}" code="${row.code}" title="Votes for approval"><span class="tag badge badge-pill badge-danger">${row.rejects}</span></a>`
               }
 
               let goldsHtml = "";
@@ -396,7 +423,7 @@
 
               if(that.comp_winners){
                 for(let i = 0; i < that.comp_winners.length; i++){
-                  if(row[1] == that.comp_winners[i][0]){
+                  if(row.code == that.comp_winners[i][0]){
                     switch(that.comp_winners[i][3]){
                       case "1":
                         goldsHtml += '<div class="medal" title="Gold medalist of ' + that.comp_winners[i][2] + '"><div class="coin coin-gold"></div></div>';
@@ -443,7 +470,7 @@
               if(that.comp_winners){
                 for(var i = 0; i < that.comp_winners.length; i++){
                   //return "<div class='points'><a href='../levels/?creator="+encodeURI(data)+"' target='_blank'>"+data+"</a></div>"
-                  if(row[2] == that.comp_winners[i][1]){
+                  if(row.player == that.comp_winners[i][1]){
                     switch(that.comp_winners[i][3]){
                       case "1":
                         goldsHtmlCreator += '<div class="medal" title="Gold medalist of ' + that.comp_winners[i][2] + '"><div class="coin coin-gold"></div></div>';
@@ -482,7 +509,7 @@
                 }
               }
 
-              let makerLink = "<div class='creator-name-div diff-text-mobile'><a class='dt-maker-link' href='/" + that.$route.params.team + "/maker/" + encodeURI(row[2]) + "' maker='" + row[2] + "'>" + row[2] + "</a>"+medalsHtmlCreator +"</div>";
+              let makerLink = `<div class='creator-name-div diff-text-mobile'><a class='dt-maker-link' href='/${that.$route.params.team}/maker/${encodeURI(row.creator)}' maker='${row.creator}'>${row.creator}</a>${medalsHtmlCreator}</div>`;
 
               return makerLink + "<div class='font-weight-bold level-name-div'>"+data+medalsHtml +"<br/>"+ votesHtml+" "+videos + " " + tags + "</div>";
             },
@@ -490,7 +517,7 @@
           },
           {
             "render": function ( data, type, row ) {
-              var tags=row[9]
+              var tags=row.tags
               tags=tags?tags.split(","):[]
               if(tags.indexOf("TeamConsistency")!=-1){
                 return "N/A";
@@ -521,7 +548,7 @@
                 return data=="1"?"1":"0";
               } else {
                 if(that.loggedIn){
-                  return (data=="1"?'<i title="You have cleared this level" data-toggle="tooltip" class="fa fa-check text-success dt-unclear-button" aria-hidden="true" code="' + row[1] + '" levelname="' + row[3] + '" rownum="' + meta.row + '"></i>': '<i title="You have not submitted a clear for this level yet" data-toggle="tooltip" class="fa fa-check fa-inactive dt-clear-button" aria-hidden="true" code="' + row[1] + '" levelname="' + row[3] + '" rownum="' + meta.row + '"></i>');
+                  return (data=="1"?'<i title="You have cleared this level" data-toggle="tooltip" class="fa fa-check text-success dt-unclear-button" aria-hidden="true" code="' + row.code + '" levelname="' + row.level_name + '" rownum="' + meta.row + '"></i>': '<i title="You have not submitted a clear for this level yet" data-toggle="tooltip" class="fa fa-check fa-inactive dt-clear-button" aria-hidden="true" code="' + row.code + '" levelname="' + row.level_name + '" rownum="' + meta.row + '"></i>');
                 } else {
                   return (data=="1"?'<i title="Entered player has cleared this level" data-toggle="tooltip" class="fa fa-check text-success" aria-hidden="true"></i>': '');
                 }
@@ -541,7 +568,7 @@
                 return data=="1"?"1":"0";
               } else {
                 if(that.loggedIn){
-                  return (data=="1"?'<i title="You liked this level" data-toggle="tooltip" class="fa fa-heart text-danger dt-unlike-button" aria-hidden="true" code="' + row[1] + '" levelname="' + row[3] + '" rownum="' + meta.row + '"></i>': '<i title="You have not submitted a like for this level yet" data-toggle="tooltip" class="fa fa-heart fa-inactive dt-like-button" aria-hidden="true" code="' + row[1] + '" levelname="' + row[3] + '" rownum="' + meta.row + '"></i>');
+                  return (data=="1"?'<i title="You liked this level" data-toggle="tooltip" class="fa fa-heart text-danger dt-unlike-button" aria-hidden="true" code="' + row.code + '" levelname="' + row.level_name + '" rownum="' + meta.row + '"></i>': '<i title="You have not submitted a like for this level yet" data-toggle="tooltip" class="fa fa-heart fa-inactive dt-like-button" aria-hidden="true" code="' + row.code + '" levelname="' + row.level_name + '" rownum="' + meta.row + '"></i>');
                 } else {
                   return (data=="1"?'<i title="Entered player has liked this level" data-toggle="tooltip" class="fa fa-heart text-danger" aria-hidden="true"></i>': '');
                 }
@@ -567,24 +594,35 @@
       },
       is_shellder:function(){
         if(this.$route.params.team){
-          return this.$store.state[this.$route.params.team].user_info.shelder ? true : false;
+          return this.$store.state[this.$route.params.team].user_info.is_mod? true : false;
         }
         return false;
-      }
+      },
+      username:function(){
+        if(this.$route.params.team){
+          return this.$store.state[this.$route.params.team].user_info.name;
+        }
+        return false;
+      },
+      discord_invite:function(){
+        return this.$store.state[this.$route.params.team].discord_invite
+      },
     },
     methods: {
       refresh(){
+
         let that = this;
 
         this.data=JSON.parse(this.raw_data);
         this.tag_labels=this.data.tags;
         this.tags_list=[];
         this.comp_winners = this.data.comp_winners;
+
+
         let filtered_levels=[];
 
         for(let i=0;i<this.data.levels.length;i++){ //main loop that processes all the stats for the levels
           let level=this.data.levels[i]
-
           //adding automatic tags
           var include=true;
           var curr_tags=level.tags.split(",")
@@ -633,26 +671,7 @@
           }
 
           if(include){
-            filtered_levels.push([
-              i+1,
-              level.code,
-              level.creator,
-              level.level_name,
-              level.difficulty,
-              level.status,
-              level.new_code || '',
-              level.videos || '',
-              level.created_at,
-              level.tags || '',
-              level.is_free_submission || '',
-              level.clear,
-              `${level.vote||0},${level.votetotal||0}`,
-              level.likes,
-              level.lcd,
-              '-',
-              '-',
-              '-',
-          ])
+            filtered_levels.push(level)
           }
         } //end main level loops
 
@@ -796,7 +815,7 @@
         datatable.clear().draw();
 
         let that = this;
-        loadTeamshellApi(that.$route.params.team, that.$store.state[that.$route.params.team].token,function(_rawData,dataNoChange){
+        loadTeamshellApi(that,that.$route.params.team, that.$store.state[that.$route.params.team].token,function(_rawData,dataNoChange){
           if(dataNoChange){
             $.notify("No new data was loaded",{
               className:"success",

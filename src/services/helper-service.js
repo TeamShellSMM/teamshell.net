@@ -2,7 +2,7 @@ import $ from 'jquery';
 
 const backendURL = "/backend/";
 
-let loadTeamshellApi = function(url_slug, token,onLoad,args){
+let loadTeamshellApi = function(that,url_slug, token,onLoad,args){
     args= args || {}
     let raw_data,noChange=false;
     let url= backendURL + 'json';
@@ -12,6 +12,11 @@ let loadTeamshellApi = function(url_slug, token,onLoad,args){
         ...args
     };
     $.post(url,data,function(_data){
+        if(_data.status=="error"){
+            that.$dialog.alert(_data.message).then(function() {
+                $('.loader').hide();
+            });
+        }
         console.log(_data);
         raw_data=JSON.stringify(_data)
         onLoad(raw_data,noChange)
