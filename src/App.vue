@@ -15,9 +15,9 @@
               </div>
               <div class="col-8">
                 <div class="">
-                  <h4 style="text-align:center;">Shell And Tell 1 - SMB1-like</h4>
-                  <h5 style="text-align:center;font-family: 'Bangers', sans-serif"><div class="medal" style="margin-right:10px;padding-top: 2px;"><div class="coin coin-gold"></div></div>Permafrost #ST #TS by TheAnswer (<router-link to="/level/4WD-7GR-TWF">4WD-7GR-TWF</router-link>)</h5>
-                  <h5 style="text-align:center;font-family: 'Bangers', sans-serif; margin-bottom:0px;"><router-link to="/teamshell/shellandtell/1">Check out the other winners here</router-link></h5>
+                  <h4 style="text-align:center;">Shell And Tell 2 - Night Themes</h4>
+                  <h5 style="text-align:center;font-family: 'Bangers', sans-serif"><div class="medal" style="margin-right:10px;padding-top: 2px;"><div class="coin coin-gold"></div></div>Welcome to Midair Canyon by Trakkan (<router-link to="/teamshell/level/1MK-T1C-XGG">1MK-T1C-XGG</router-link>)</h5>
+                  <h5 style="text-align:center;font-family: 'Bangers', sans-serif; margin-bottom:0px;"><router-link to="/teamshell/shellandtell/2">Check out the other winners here</router-link></h5>
                 </div>
               </div>
               <div class="col-2" style="text-align: center;">
@@ -145,7 +145,7 @@
       },
       userName: function(){
         if(this.$route.params.team){
-          return this.$store.state[this.$route.params.team].user_info.Name;
+          return this.$store.state[this.$route.params.team].user_info.name;
         }
         return "";
       }
@@ -212,7 +212,7 @@
               $('.loader').hide();
               console.log(level);
               if(level){
-                that.$router.push("/" + that.$route.params.team + "/level/" + level.Code);
+                that.$router.push("/" + that.$route.params.team + "/level/" + level.code);
               } else {
                 that.$dialog.alert("<p>Sorry, but we couldn't find a level in the specified difficulty range that you haven't cleared yet!</p>", {html: true});
               }

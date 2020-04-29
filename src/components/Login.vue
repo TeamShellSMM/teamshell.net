@@ -31,7 +31,7 @@
         if(data.status == "logged_in"){
           that.$store.commit(that.$route.params.team + '/setToken', { token: data.token });
           that.$store.commit(that.$route.params.team + '/setUserInfo', { user_info: data.user_info });
-          localStorage.setItem('member', data.user_info.Name);
+          localStorage.setItem('member', data.user_info.name);
           that.$router.push("/" + that.$route.params.team + "/levels");
         }
       });
