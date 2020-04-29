@@ -27,13 +27,7 @@
 </template>
 
 <script>
-  import { get_input, removeDups, copyClipboard, loadTeamshellApi, getMakerPoints, clear} from '../services/helper-service';
-
-  const headers={
-    played:{"Code":0,"Player":1,"Completed":2,"Shelder":3,"Liked":4,"DifficultyVote":5,"Timestamp":6},
-    levels:{"No":0,"Code":1,"Creator":2,"LevelName":3,"Difficulty":4,"LevelStatus":5,"NewCode":6,"ClearVideo":7,"Timestamp":8,"Tags":9} //the no. is added in the code itslef.
-  };
-
+  import { get_input, copyClipboard, loadTeamshellApi, clear} from '../services/helper-service';
   export default {
     name: 'MakerDetails',
     mounted(){
@@ -187,6 +181,8 @@
           });
         }
       });
+
+      let hideColumns= that.loggedIn?[2,5,6,7,8,9,10]:[2,5,6,7,8,9,10,15,16,17];
 
       $('#table').DataTable({
         "language": {
@@ -384,7 +380,7 @@
 
               let makerLink = "<div class='creator-name-div diff-text-mobile'><a class='dt-maker-link' href='/" + that.$route.params.team + "/maker/" + encodeURI(row[2]) + "' maker='" + row[2] + "'>" + row[2] + "</a>"+medalsHtmlCreator +"</div>";
 
-              return makerLink + "<div class='font-weight-bold level-name-div'>"+data+medalsHtml +  videos + " " + tags + "</div>";
+              return makerLink + "<div class='font-weight-bold level-name-div'>"+data+medalsHtml + "<br/>"+videos + " " + tags + "</div>";
             },
             targets:3,
           },
@@ -402,7 +398,7 @@
           },
           {
             visible: false,
-            targets:[5,6,7,8,9,10]
+            targets:hideColumns,
           },
           {
             "render": function ( data, type ) {
@@ -476,142 +472,87 @@
       refresh(){
         let that = this;
 
-        this.data=JSON.parse(this.raw_data);
-        this.clearers=[];
-        this.clears={};
+        
+this.data=JSON.parse(this.raw_data);
         this.tag_labels=this.data.tags;
         this.tags_list=[];
-
-        this.data.points.shift()
-        var _points={0:0}
-
         this.comp_winners = this.data.comp_winners;
-
-        for(let i=0;i<this.data.points.length;i++){
-          _points[parseFloat(this.data.points[i][0])]=parseFloat(this.data.points[i][1]);
-        }
-        this.data.points=_points
-
-        var filtered_plays=[];
-        for(let i=0;i<this.data.played.length;i++){
-          if(this.clearers.indexOf(this.data.played[i].player)==-1){ //getting all the people who have submitted clears
-            this.clearers.push(this.data.played[i].player)
-          }
-          if(!this.clears[this.data.played[i].code]) this.clears[this.data.played[i].code]={}
-          this.clears[this.data.played[i].code][this.data.played[i].player]={ //compiling the clears in a [level-code][player] format
-            cleared:this.data.played[i].completed,
-            vote:this.data.played[i].difficulty_vote,
-            liked:this.data.played[i].liked=="1"
-          }
-        }
-
-        $('#registeredName').typeahead({source: this.clearers});
-
-        var filtered_levels=[];
+        let filtered_levels=[];
 
         for(let i=0;i<this.data.levels.length;i++){ //main loop that processes all the stats for the levels
-          this.data.levels[i].unshift(i+1) //adds the id.
-
-          //internal variables
-          var tsclears=0;
-          var votesum=0;
-          var votetotal=0;
-          var likes=0;
-
-          //data definition
-          var current_level=this.data.levels[i][1];
-          let current_creator=this.data.levels[i][2];
-
-
-          if(this.clears[current_level]){
-            for(var player in this.clears[current_level]){
-              if(player!=current_creator){
-                if(this.clears[current_level][player].cleared=="1"){
-                  tsclears++;
-                }
-                if(this.clears[current_level][player].vote){
-                  votetotal++;
-                  votesum+=Number(this.clears[current_level][player].vote)
-                }
-                if(this.clears[current_level][player].liked){
-                  likes++;
-                }
-              }
-            }
-          }
-
-          this.data.levels[i].push(tsclears) //no. of clears
-          this.data.levels[i].push(votetotal>0? ((votesum/votetotal).toFixed(1))+","+votetotal:"0,0") //avg vote, num votes
-          this.data.levels[i].push(likes) //liked
-          this.data.levels[i].push(getMakerPoints(likes, tsclears, this.data.points[this.data.levels[i][4]]).toFixed(1));
-          if(current_creator==get_input("member")){
-              this.data.levels[i].push("1")
-              this.data.levels[i].push("-")
-              this.data.levels[i].push("-")
-          } else if(this.clears[current_level] && this.clears[current_level][get_input("member")]){ //if this clear is made by the current entered user
-              this.data.levels[i].push(this.clears[current_level][get_input("member")].cleared)
-              this.data.levels[i].push(this.clears[current_level][get_input("member")].vote)
-              this.data.levels[i].push(this.clears[current_level][get_input("member")].liked)
-          } else {
-            this.data.levels[i].push("-")
-            this.data.levels[i].push("-")
-            this.data.levels[i].push("-")
-          }
+          let level=this.data.levels[i]
 
           //adding automatic tags
           var include=true;
-          var curr_tags=this.data.levels[i][9].split(",")
-          if(this.data.levels[i][5]=="0"){
+          var curr_tags=level.tags.split(",")
+          if(level.status=="0"){
             curr_tags.unshift("Pending")
           }
-          this.data.levels[i][9]=curr_tags.join(",")
+          level.tags=curr_tags.join(",")
 
-          if(this.data.levels[i][headers.levels.Creator]!=this.$route.params.name){
-            include=false
+          //get all the tags used from the data set
+          for(let k=0;k<curr_tags.length;k++){
+            if(curr_tags[k] && this.tags_list.indexOf(curr_tags[k])=="-1")
+              this.tags_list.push(curr_tags[k])
+          }
+
+          if(this.current_tag){ //if a tag is selected
+            //if the level doen't have the current tag, don't include
+            if(curr_tags.indexOf(this.current_tag)=="-1"){
+              include=false
+            }
+          } else { //default view. default view doesn't select certain tags like TeamConsistency
+            for(let k=0;k<curr_tags.length;k++){
+              if(this.data.seperate.indexOf(curr_tags[k])!="-1"){
+                include=false
+              }
+            }
+          }
+          if(get_input("minDifficulty")){
+            if(parseFloat(level.difficulty)<parseFloat(get_input("minDifficulty"))){
+              include=false
+            }
+          }
+          if(get_input("maxDifficulty")){
+            if(parseFloat(level.difficulty)>parseFloat(get_input("maxDifficulty"))){
+              include=false
+            }
+          }
+
+          if(this.current_search_term){
+            let cName = level.creator.toLowerCase();
+            let lName = level.level_name.toLowerCase();
+
+            let lowerSearchTerm = this.current_search_term.toLowerCase();
+            if(cName.indexOf(lowerSearchTerm) === -1 && lName.indexOf(lowerSearchTerm) === -1){
+              include = false;
+            }
           }
 
           if(include){
-            filtered_levels.push(this.data.levels[i])
+            filtered_levels.push([
+              i+1,
+              level.code,
+              level.creator,
+              level.level_name,
+              level.difficulty,
+              level.status,
+              level.new_code || '',
+              level.videos || '',
+              level.created_at,
+              level.tags || '',
+              level.is_free_submission || '',
+              level.clear,
+              `${level.vote||0},${level.votetotal||0}`,
+              level.likes,
+              level.lcd,
+              '-',
+              '-',
+              '-',
+          ])
           }
         } //end main level loops
 
-        if(filtered_plays){
-        for(let i=0;i<filtered_plays.length;i++){
-            filtered_plays[i].unshift(i+1)
-          }
-        }
-
-        var tempSelect="<option value=''>Default</option>"
-
-
-        //Removing these to put them at the beginning
-        var removeIndexes = [];
-        var removeTags = ["SMB1", "SMB3", "SMW", "NSMBU", "3DW"];
-        for(let i = 0; i < this.tags_list.length; i++){
-          if(removeTags.indexOf(this.tags_list[i].toUpperCase()) !== -1){
-            removeIndexes.push(i);
-          }
-        }
-
-        //Reversing to make splicing simpler
-        removeIndexes = removeIndexes.reverse();
-        for(var i = 0; i < removeIndexes.length; i++){
-          this.tags_list.splice(removeIndexes[i], 1);
-        }
-
-        //Removing duplicates
-        this.tags_list = removeDups(this.tags_list);
-
-        //Sorting tags by Alphabet
-        this.tags_list.sort();
-
-        //Adding Game Types to the beginning
-        this.tags_list.unshift("SMB1", "SMB3", "SMW", "NSMBU", "3DW");
-
-        for(let k=0;k<this.tags_list.length;k++){
-          tempSelect+="<option "+ (this.current_tag==this.tags_list[k]?"selected":"")+">"+this.tags_list[k]+"</option>"
-        }
-        $("#tagSelect").html(tempSelect)
         var datatable=$('#table').DataTable()
         datatable.clear();
         datatable.rows.add(filtered_levels)
@@ -712,7 +653,7 @@
           }
           that.raw_data=_rawData
           that.refresh()
-        })
+        },{ name: that.$route.params.name })
       }
     }
   }

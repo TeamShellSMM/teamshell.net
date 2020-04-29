@@ -2,14 +2,8 @@
   <div class="container">
     <div id="filter_form_cont">
       <div class="form-group row">
-        <div class="col-md-3">
-        <label for="registeredName">Registered Team Name</label>
-        <input name="member" type="text" class="form-control" id="registeredName" autocomplete="off" placeholder="Your registered Team Name" :disabled="loggedIn">
-        <small class="form-text text-muted">This is just to filter out the clears and is optional. Your registered Team Name is case sensitive.</small>
-        </div>
-
-        <div class="col-md-3">
-        <label for="registeredName">Search Term</label>
+        <div class="col-md-6">
+        <label for="searchTerm">Search Term</label>
         <input name="member" type="text" class="form-control" id="searchTerm" autocomplete="off" placeholder="Search Term">
         <small class="form-text text-muted">With this you can search for a certain creator or levelname.</small>
         </div>
@@ -90,12 +84,7 @@
 
 <script>
   //import moment from 'moment/src/moment';
-  import { get_input, removeDups, copyClipboard, store_input, loadTeamshellApi, save_input, getMakerPoints, clear} from '../services/helper-service';
-
-  const headers={
-    played:{"Code":0,"Player":1,"Completed":2,"Shelder":3,"Liked":4,"DifficultyVote":5,"Timestamp":6},
-    levels:{"No":0,"Code":1,"Creator":2,"LevelName":3,"Difficulty":4,"LevelStatus":5,"NewCode":6,"ClearVideo":7,"Timestamp":8,"Tags":9} //the no. is added in the code itslef.
-  };
+  import { get_input, removeDups, copyClipboard, store_input, loadTeamshellApi, save_input, clear} from '../services/helper-service';
 
   export default {
     name: 'Levels',
@@ -106,7 +95,6 @@
         "level_headers" : '',
         "tag_labels" : '',
         "spig_fav" : '',
-        "clearers" : '',
         "clears" : '',
         "current_tag" : '',
         "tags_list" : '',
@@ -114,7 +102,6 @@
       };
     },
     mounted(){
-      store_input(this.$route.query, 'member','#registeredName')
       store_input(this.$route.query, 'cleared','#clearedLevel')
       store_input(this.$route.query, 'approved','#pendingLevel')
       store_input(this.$route.query, 'minDifficulty','#minDifficulty')
@@ -515,11 +502,11 @@
           },
           {
             visible: false,
-            targets:[5,6,7,8,9,10]
+            targets:that.loggedIn?[5,6,7,8,9,10]:[5,6,7,8,9,10,15,16,17],
           },
           {
             "render": function ( data, type ) {
-              data=data.split(",")
+              data=data?data.split(","):[0,0]
               if ( type !="display" ) {
                 return data[0];
               } else {
@@ -590,94 +577,21 @@
         let that = this;
 
         this.data=JSON.parse(this.raw_data);
-        this.clearers=[];
-        this.clears={};
         this.tag_labels=this.data.tags;
         this.tags_list=[];
-
-        this.data.points.shift()
-        var _points={0:0}
-
         this.comp_winners = this.data.comp_winners;
-
-        for(let i=0;i<this.data.points.length;i++){
-          _points[parseFloat(this.data.points[i][0])]=parseFloat(this.data.points[i][1]);
-        }
-        this.data.points=_points
-
-        var filtered_plays=[];
-        for(let i=0;i<this.data.played.length;i++){
-          if(this.clearers.indexOf(this.data.played[i].player)==-1){ //getting all the people who have submitted clears
-            this.clearers.push(this.data.played[i].player)
-          }
-          if(!this.clears[this.data.played[i].code]) this.clears[this.data.played[i].code]={}
-          this.clears[this.data.played[i].code][this.data.played[i].player]={ //compiling the clears in a [level-code][player] format
-            cleared:this.data.played[i].completed,
-            vote:this.data.played[i].difficulty_vote,
-            liked:this.data.played[i].liked=="1"
-          }
-        }
-
-        $('#registeredName').typeahead({source: this.clearers});
-
-        var filtered_levels=[];
+        let filtered_levels=[];
 
         for(let i=0;i<this.data.levels.length;i++){ //main loop that processes all the stats for the levels
-          this.data.levels[i].unshift(i+1) //adds the id.
-
-          //internal variables
-          var tsclears=0;
-          var votesum=0;
-          var votetotal=0;
-          var likes=0;
-
-          //data definition
-          var current_level=this.data.levels[i][1];
-          let current_creator=this.data.levels[i][2];
-
-
-          if(this.clears[current_level]){
-            for(var player in this.clears[current_level]){
-              if(player!=current_creator){
-                if(this.clears[current_level][player].cleared=="1"){
-                  tsclears++;
-                }
-                if(this.clears[current_level][player].vote){
-                  votetotal++;
-                  votesum+=Number(this.clears[current_level][player].vote)
-                }
-                if(this.clears[current_level][player].liked){
-                  likes++;
-                }
-              }
-            }
-          }
-
-          this.data.levels[i].push(tsclears) //no. of clears
-          this.data.levels[i].push(votetotal>0? ((votesum/votetotal).toFixed(1))+","+votetotal:"0,0") //avg vote, num votes
-          this.data.levels[i].push(likes) //liked
-          this.data.levels[i].push(getMakerPoints(likes, tsclears, this.data.points[this.data.levels[i][4]]).toFixed(1));
-          if(current_creator==get_input("member")){
-              this.data.levels[i].push("1")
-              this.data.levels[i].push("-")
-              this.data.levels[i].push("-")
-          } else if(this.clears[current_level] && this.clears[current_level][get_input("member")]){ //if this clear is made by the current entered user
-              this.data.levels[i].push(this.clears[current_level][get_input("member")].cleared)
-              this.data.levels[i].push(this.clears[current_level][get_input("member")].vote)
-              this.data.levels[i].push(this.clears[current_level][get_input("member")].liked)
-          } else {
-            this.data.levels[i].push("-")
-            this.data.levels[i].push("-")
-            this.data.levels[i].push("-")
-          }
+          let level=this.data.levels[i]
 
           //adding automatic tags
           var include=true;
-          var curr_tags=this.data.levels[i][9].split(",")
-          if(this.data.levels[i][5]=="0"){
+          var curr_tags=level.tags.split(",")
+          if(level.status=="0"){
             curr_tags.unshift("Pending")
           }
-          this.data.levels[i][9]=curr_tags.join(",")
+          level.tags=curr_tags.join(",")
 
           //get all the tags used from the data set
           for(let k=0;k<curr_tags.length;k++){
@@ -697,21 +611,20 @@
               }
             }
           }
-
           if(get_input("minDifficulty")){
-            if(parseFloat(this.data.levels[i][headers.levels.Difficulty])<parseFloat(get_input("minDifficulty"))){
+            if(parseFloat(level.difficulty)<parseFloat(get_input("minDifficulty"))){
               include=false
             }
           }
           if(get_input("maxDifficulty")){
-            if(parseFloat(this.data.levels[i][headers.levels.Difficulty])>parseFloat(get_input("maxDifficulty"))){
+            if(parseFloat(level.difficulty)>parseFloat(get_input("maxDifficulty"))){
               include=false
             }
           }
 
           if(this.current_search_term){
-            let cName = this.data.levels[i][headers.levels.Creator].toLowerCase();
-            let lName = this.data.levels[i][headers.levels.LevelName].toLowerCase();
+            let cName = level.creator.toLowerCase();
+            let lName = level.level_name.toLowerCase();
 
             let lowerSearchTerm = this.current_search_term.toLowerCase();
             if(cName.indexOf(lowerSearchTerm) === -1 && lName.indexOf(lowerSearchTerm) === -1){
@@ -720,19 +633,30 @@
           }
 
           if(include){
-            filtered_levels.push(this.data.levels[i])
+            filtered_levels.push([
+              i+1,
+              level.code,
+              level.creator,
+              level.level_name,
+              level.difficulty,
+              level.status,
+              level.new_code || '',
+              level.videos || '',
+              level.created_at,
+              level.tags || '',
+              level.is_free_submission || '',
+              level.clear,
+              `${level.vote||0},${level.votetotal||0}`,
+              level.likes,
+              level.lcd,
+              '-',
+              '-',
+              '-',
+          ])
           }
         } //end main level loops
 
-        if(filtered_plays){
-        for(let i=0;i<filtered_plays.length;i++){
-            filtered_plays[i].unshift(i+1)
-          }
-        }
-
         var tempSelect="<option value=''>Default</option>"
-
-
         //Removing these to put them at the beginning
         var removeIndexes = [];
         var removeTags = ["SMB1", "SMB3", "SMW", "NSMBU", "3DW"];
@@ -764,7 +688,6 @@
         var datatable=$('#table').DataTable()
         datatable.clear();
         datatable.rows.add(filtered_levels)
-
         //
         if(!get_input('approved') || get_input('approved')=="1"||get_input('approved')=="2"){
           datatable.column(5).search( (get_input('approved')=="2"?'"0"':'"1"'),false,true)
@@ -861,7 +784,15 @@
       getData(){
         $('.loader').show();
 
-        var datatable=$('#table').DataTable()
+        let datatable;
+        if ( $.fn.dataTable.isDataTable( '#table' ) ) {
+            datatable = $('#table').DataTable();
+        }
+        else {
+            datatable = $('#table').DataTable( {
+                "deferRender": true,
+            });
+        }
         datatable.clear().draw();
 
         let that = this;
@@ -879,7 +810,6 @@
       filterTable(){
         $('.loader').show();
 
-        save_input('member','#registeredName')
         save_input('cleared','#clearedLevel')
         save_input('approved','#pendingLevel')
         save_input('minDifficulty','#minDifficulty')

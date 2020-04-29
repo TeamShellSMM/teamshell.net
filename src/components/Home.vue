@@ -108,6 +108,7 @@
           <tr><td>Clears</td><td id="numClears">Loading</td></tr>
           <tr><td>Votes</td><td id="numVotes">Loading</td></tr>
           <tr><td>Likes</td><td id="numLikes">Loading</td></tr>
+          <tr><td>Maximum Score</td><td id="maxScore">Loading</td></tr>
           <tr v-if="$route.params.team == 'teamshell'"><td>TeamConsistency Levels</td><td id="numConsistency">Loading</td></tr>
           <tr v-if="$route.params.team == 'teamshell'"><td>Shell Jamps Done</td><td>A Lot</td></tr>
         </table>
@@ -209,7 +210,7 @@
           that.refresh()
 
           $('.loader').hide();
-        })
+        },{ dashboard:true })
       },
       refresh(){
         var dashboardData={
@@ -220,7 +221,8 @@
           "numClears":0,
           "numVotes":0,
           "numLikes":0,
-          "numConsistency":0
+          "numConsistency":0,
+          "maxScore":0,
         }
 
         var all_difficulty=["0.1"]
@@ -239,82 +241,42 @@
         this.tag_labels=this.data.tags
         this.tags_list=[];
 
-        for(let i=0;i<this.data.played.length;i++){
-          if(this.clearers.indexOf(this.data.played[i].player)==-1){ //getting all the people who have submitted clears
-            this.clearers.push(this.data.played[i].player)
-          }
-          if(!this.clears[this.data.played[i].code]) this.clears[this.data.played[i].code]={}
-          this.clears[this.data.played[i].code][this.data.played[i].player]={ //compiling the clears in a [level-code][player] format
-            cleared:this.data.played[i].completed,
-            vote:this.data.played[i].difficulty_vote,
-            liked:this.data.played[i].liked
-          }
-        }
 
-        var filtered_levels=[];
-
+        
         for(let i=0;i<this.data.levels.length;i++){ //main loop that processes all the stats for the levels
-          this.data.levels[i].unshift(i+1) //adds the id.
-
-          //data definition
-          var current_level=this.data.levels[i][1];
-          var current_creator=this.data.levels[i][2];
-
-
-          if(this.clears[current_level]){
-            for(var player in this.clears[current_level]){
-              if(this.clears[current_level][player].cleared=="1" && player!=current_creator){
-                dashboardData.numClears++
-              }
-              if(this.clears[current_level][player].vote){
-                dashboardData.numVotes++
-              }
-              if(this.clears[current_level][player].liked){
-                dashboardData.numLikes++
-              }
-
-            }
-          }
+          let level=this.data.levels[i]
+          dashboardData.numClears+=level.clears
+          dashboardData.numVotes +=level.votetotal
+          dashboardData.numLikes +=level.likes
 
           var include=true;
           //get all the tags used from the data set
-          var curr_tags=this.data.levels[i][9].split(",")
+          var curr_tags=level.tags.split(",")
           for(var k=0;k<curr_tags.length;k++){
             if(this.data.seperate.indexOf(curr_tags[k])!=-1){
               include=false
             }
           }
 
-          if(this.data.levels[i][5]=="0"){
+          if(level.status=="0"){
             dashboardData.numPending++
           }
 
-          if(include && this.data.levels[i][5]=="1"){
-            difficulty_no[this.data.levels[i][4]]++
+          if(include && level.status=="1"){
+            dashboardData.maxScore +=level.score
+            difficulty_no[level.difficulty]++
             dashboardData.numApproved++;
           }
 
-          if(!include && this.data.levels[i][5]=="1"){
+          if(!include && level.status=="1"){
             dashboardData.numConsistency++;
           }
-
-          if(include && this.data.levels[i][5]=="1"){
-            filtered_levels.push(this.data.levels[i])
-          }
-
         }
 
-        for(let i=0;i<this.data.members.length;i++){
-          if(this.data.members[i][2]=="1"){
-            dashboardData.numMembers++
-          } else {
-            dashboardData.numUnofficialMembers++
-          }
-        }
-
-
+        dashboardData.numMembers=this.data.dashboard.members.official;
+        dashboardData.numUnofficialMembers=this.data.dashboard.members.unoffocial;
         for(let i in dashboardData){
-          $("#"+i).html(dashboardData[i])
+          $("#"+i).html(Math.round(dashboardData[i]))
         }
         var difficulty_no_data=[]
         var backgroundColor=[]

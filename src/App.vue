@@ -42,6 +42,13 @@
             <li>
               <router-link :to="'/' + $route.params.team + '/members'">Members</router-link>
             </li>
+            <li>
+          <div class="form-check">
+            
+            <input class="form-check-input" type="checkbox" id="darkmode" v-model="theme" true-value="dark" false-value="light">
+            <label class="form-check-label" for="darkmode"><smalL>Dark Mode</small><i class="fa fa-moon-o" aria-hidden="true"></i></label>
+          </div>
+              </li>
           </ul>
           <ul id="nav" class="login-ul" style="float:right;">
             <li v-if="loggedIn">
@@ -61,14 +68,6 @@
           <h4 v-if="$route.params.team == 'teamshell'">Join the discord for more information: <a href="https://discord.gg/7tQJewa">https://discord.gg/7tQJewa</a></h4>
           <h4 v-if="$route.params.team == 'teamjamp'">Join the discord for more information: <a href="https://discord.gg/rekPFnq">https://discord.gg/rekPFnq</a></h4>
           <h4 v-if="$route.params.team == 'teampipe'">Join the discord for more information: <a href="https://discord.gg/PcC5eKp ">https://discord.gg/PcC5eKp</a></h4>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-12">
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="darkmode" v-model="theme" true-value="dark" false-value="light">
-            <label class="form-check-label" for="darkmode">Dark Mode <i class="fa fa-moon-o" aria-hidden="true"></i></label>
-          </div>
         </div>
       </div>
       <router-view :key="$route.fullPath"></router-view>

@@ -51,12 +51,7 @@
 
 <script>
   import moment from 'moment/src/moment';
-  import { get_input, removeDups, copyClipboard, loadTeamshellApi, getMakerPoints, clear} from '../services/helper-service';
-
-  const headers={
-    played:{"Code":0,"Player":1,"Completed":2,"Shelder":3,"Liked":4,"DifficultyVote":5,"Timestamp":6},
-    levels:{"No":0,"Code":1,"Creator":2,"LevelName":3,"Difficulty":4,"LevelStatus":5,"NewCode":6,"ClearVideo":7,"Timestamp":8,"Tags":9} //the no. is added in the code itslef.
-  };
+  import {  copyClipboard, loadTeamshellApi, clear} from '../services/helper-service';
 
   export default {
     name: 'LevelDetails',
@@ -305,7 +300,7 @@
               var tags=row[9]
               tags=tags?tags.split(","):[]
               for(let i=0;i<tags.length;i++){
-                let type2=that.tag_labels[tags[i]]?that.tag_labels[tags[i]]:"secondary"
+                let type2=that.data.tags[tags[i]]?that.data.tags[tags[i]]:"secondary"
                 tags[i]='<a href="?tag='+tags[i]+'"><span class="tag badge badge-pill badge-'+type2+'">'+tags[i]+"</span></a>"
               }
               tags=tags.join("")
@@ -614,7 +609,7 @@
               if ( type !="display" ) {
                   return data
               } else {
-                  var day=moment.unix(data)
+                  var day=moment(data)
                   return day.fromNow()
               }
             },
@@ -636,20 +631,15 @@
     methods: {
       refresh(){
         let that = this;
-        let currentCode=this.$route.params.code;
 
+
+
+    
         this.data=JSON.parse(this.raw_data);
-        this.clearers=[];
-        this.clears={};
-        this.tag_labels=this.data.tags;
-        this.tags_list=[];
-
-        this.data.points.shift()
-        var _points={0:0}
 
         let commentHTML=""
-        if(that.data.shellder_comments && that.data.shellder_comments[currentCode]){
-          that.data.shellder_comments[currentCode].forEach( comment => {
+        if(that.data.pending_comments){
+          that.data.pending_comments.forEach( comment => {
             if(comment.type=="approve"){
               commentHTML+='<li class="list-group-item list-group-item-success"><h5 class="mb-1">'+comment.player+' voted to approve with difficulty '+comment.difficulty_vote+':</h5>'+comment.reason+'</span>'
             } else if(comment.type=="fix"){
@@ -662,159 +652,56 @@
         }
         $("#commentHTML").html(commentHTML)
         this.comp_winners = this.data.comp_winners;
+        let filtered_levels=[];
+        let level=this.data.level
+        
 
-        for(let i=0;i<this.data.points.length;i++){
-          _points[parseFloat(this.data.points[i][0])]=parseFloat(this.data.points[i][1]);
+        //adding automatic tags
+        var curr_tags=level.tags.split(",")
+        if(level.status=="0"){
+          curr_tags.unshift("Pending")
         }
-        this.data.points=_points
+        level.tags=curr_tags.join(",")
 
-        var filtered_plays=[];
-        for(let i=0;i<this.data.played.length;i++){
-          if(this.$route.params.code==this.data.played[i].code){
-            filtered_plays.push(this.data.played[i])
-          }
-          if(this.clearers.indexOf(this.data.played[i].player)==-1){ //getting all the people who have submitted clears
-            this.clearers.push(this.data.played[i].player)
-          }
-          if(!this.clears[this.data.played[i].code]) this.clears[this.data.played[i].code]={}
-          this.clears[this.data.played[i].code][this.data.played[i].player]={ //compiling the clears in a [level-code][player] format
-            cleared:this.data.played[i].completed,
-            vote:this.data.played[i].difficulty_vote,
-            liked:this.data.played[i].liked=="1"
-          }
-        }
+        filtered_levels.push([
+          '',
+          level.code,
+          level.creator,
+          level.level_name,
+          level.difficulty,
+          level.status,
+          level.new_code || '',
+          level.videos || '',
+          level.created_at,
+          level.tags || '',
+          level.is_free_submission || '',
+          level.clear,
+          `${level.vote||0},${level.votetotal||0}`,
+          level.likes,
+          level.lcd,
+          '-',
+          '-',
+          '-',
+      ])
+    
+      var datatable=$('#table').DataTable()
+      datatable.clear();
+      datatable.rows.add(filtered_levels);
 
-        $('#registeredName').typeahead({source: this.clearers});
-
-        var filtered_levels=[];
-
-        for(let i=0;i<this.data.levels.length;i++){ //main loop that processes all the stats for the levels
-          this.data.levels[i].unshift(i+1) //adds the id.
-
-          //internal variables
-          var tsclears=0;
-          var votesum=0;
-          var votetotal=0;
-          var likes=0;
-
-          //data definition
-          var current_level=this.data.levels[i][1];
-          let current_creator=this.data.levels[i][2];
-
-
-          if(this.clears[current_level]){
-            for(var player in this.clears[current_level]){
-              if(player!=current_creator){
-                if(this.clears[current_level][player].cleared=="1"){
-                  tsclears++;
-                }
-                if(this.clears[current_level][player].vote){
-                  votetotal++;
-                  votesum+=Number(this.clears[current_level][player].vote)
-                }
-                if(this.clears[current_level][player].liked){
-                  likes++;
-                }
-              }
-            }
-          }
-
-          this.data.levels[i].push(tsclears) //no. of clears
-          this.data.levels[i].push(votetotal>0? ((votesum/votetotal).toFixed(1))+","+votetotal:"0,0") //avg vote, num votes
-          this.data.levels[i].push(likes) //liked
-          this.data.levels[i].push(getMakerPoints(likes, tsclears, this.data.points[this.data.levels[i][4]]).toFixed(1));
-          if(current_creator==get_input("member")){
-              this.data.levels[i].push("1")
-              this.data.levels[i].push("-")
-              this.data.levels[i].push("-")
-          } else if(this.clears[current_level] && this.clears[current_level][get_input("member")]){ //if this clear is made by the current entered user
-              this.data.levels[i].push(this.clears[current_level][get_input("member")].cleared)
-              this.data.levels[i].push(this.clears[current_level][get_input("member")].vote)
-              this.data.levels[i].push(this.clears[current_level][get_input("member")].liked)
-          } else {
-            this.data.levels[i].push("-")
-            this.data.levels[i].push("-")
-            this.data.levels[i].push("-")
-          }
-
-          //adding automatic tags
-          var include=true;
-          var curr_tags=this.data.levels[i][9].split(",")
-          if(this.data.levels[i][5]=="0"){
-            curr_tags.unshift("Pending")
-          }
-          this.data.levels[i][9]=curr_tags.join(",")
-
-          if(this.data.levels[i][headers.levels.Code]!=this.$route.params.code){
-            include=false
-          } else {
-            let current_creator=this.data.levels[i][headers.levels.Creator];
-            var to_remove=[]
-            for(let j=0;j<filtered_plays.length;j++){
-              if(filtered_plays[j].player==current_creator){
-                to_remove.push(j)
-              }
-            }
-            for(let j=to_remove.length-1;j>=0;j--){
-              console.log(filtered_plays.splice(j,1))
-            }
-          }
-
-          if(include){
-            filtered_levels.push(this.data.levels[i])
-          }
-        } //end main level loops
-
-        var tempSelect="<option value=''>Default</option>"
-
-
-        //Removing these to put them at the beginning
-        var removeIndexes = [];
-        var removeTags = ["SMB1", "SMB3", "SMW", "NSMBU", "3DW"];
-        for(let i = 0; i < this.tags_list.length; i++){
-          if(removeTags.indexOf(this.tags_list[i].toUpperCase()) !== -1){
-            removeIndexes.push(i);
-          }
-        }
-
-        //Reversing to make splicing simpler
-        removeIndexes = removeIndexes.reverse();
-        for(var i = 0; i < removeIndexes.length; i++){
-          this.tags_list.splice(removeIndexes[i], 1);
-        }
-
-        //Removing duplicates
-        this.tags_list = removeDups(this.tags_list);
-
-        //Sorting tags by Alphabet
-        this.tags_list.sort();
-
-        //Adding Game Types to the beginning
-        this.tags_list.unshift("SMB1", "SMB3", "SMW", "NSMBU", "3DW");
-
-        for(let k=0;k<this.tags_list.length;k++){
-          tempSelect+="<option "+ (this.current_tag==this.tags_list[k]?"selected":"")+">"+this.tags_list[k]+"</option>"
-        }
-        $("#tagSelect").html(tempSelect)
-        var datatable=$('#table').DataTable()
-        datatable.clear();
-        datatable.rows.add(filtered_levels);
-
-        let dataTablePlays = [];
-        let playCounter = 1;
-        for(let play of filtered_plays){
+      let dataTablePlays = [];
+      let playCounter = 1;
+      if(this.data.plays){
+        for(let play of this.data.plays){
           dataTablePlays.push([playCounter++, play.code, play.player, play.completed, play.is_shellder, play.liked, play.difficulty_vote, play.created_at]);
         }
 
-        if(filtered_plays){
-          var datatable2=$('#playedTable').DataTable()
-          datatable2.clear();
-          datatable2.rows.add(dataTablePlays)
-          datatable2.draw();
-        }
-        //
-        datatable.column(5).search("",false,true);
-        datatable.column(14).search("",false,true);
+        var datatable2=$('#playedTable').DataTable()
+        datatable2.clear();
+        datatable2.rows.add(dataTablePlays)
+        datatable2.draw();
+      }
+      datatable.column(5).search("",false,true);
+      datatable.column(14).search("",false,true);
 
         datatable.draw();
         $('[data-toggle="tooltip"],.copy,#refresh,#submitButton,.medal').tooltip()
@@ -899,6 +786,8 @@
         var datatable2=$("#playedTable").DataTable()
         datatable.clear().draw();
         datatable2.clear().draw();
+        console.log(this.currentCode)
+
 
         let that = this;
         loadTeamshellApi(that.$route.params.team, that.$store.state[that.$route.params.team].token,function(_rawData,dataNoChange){
@@ -910,7 +799,7 @@
           }
           that.raw_data=_rawData
           that.refresh()
-        })
+        },{ code:that.$route.params.code })
       }
     }
   }
