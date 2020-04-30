@@ -3,7 +3,7 @@
     <div id="filter_form_cont">
       <div class="form-group row">
         <div class="col-md-6">
-        <label for="searchTerm">{{ discord_invite }}Search Term</label>
+        <label for="searchTerm">Search Term</label>
         <input name="member" type="text" class="form-control" id="searchTerm" autocomplete="off" placeholder="Search Term">
         <small class="form-text text-muted">With this you can search for a certain creator or levelname.</small>
         </div>
@@ -82,7 +82,6 @@
 </template>
 
 <script>
-  //import moment from 'moment/src/moment';
   import { get_input, removeDups, copyClipboard, store_input, loadTeamshellApi, save_input, clear} from '../services/helper-service';
 
   export default {
@@ -145,7 +144,7 @@
                 let rownum = $(thatButt).attr('rownum');
                 let tempData = $('#table').DataTable().row(rownum).data();
                 console.log(tempData)
-                tempData.completed= "1";
+                tempData.completed= 1;
                 $('#table').DataTable().row(rownum).data(tempData).draw(false);
               } else {
                 that.$dialog.alert(result.message).then(function() {
