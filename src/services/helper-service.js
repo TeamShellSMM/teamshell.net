@@ -17,7 +17,6 @@ let loadTeamshellApi = function(that,url_slug, token,onLoad,args){
                 $('.loader').hide();
             });
         }
-        console.log(_data);
         raw_data=JSON.stringify(_data)
         onLoad(raw_data,noChange)
     })

@@ -61,23 +61,25 @@ const defaultSetting={
 
 const teams={
   teamshell:{
-    title:'#TeamShell',
+    TeamName:'#TeamShell',
     icon:'/favicon-teamshell.ico',
     discord_invite:'https://discord.gg/7tQJewa',
     twitter:'TeamShellSMM',
-    
+    ModName:'Shellder',
   },
   teamjamp:{
-    title:'Team Jamp',
+    TeamName:'Team Jamp',
     icon:'/favicon-teamjamp.ico',
     discord_invite:'https://discord.gg/rekPFnq',
     twitter:'team_jamp',
+    ModName:'Jampolice',
   },
   teampipe:{
-    title:'#TeamPipe',
+    TeamName:'#TeamPipe',
     icon:'/favicon-teampipe.ico',
     discord_invite:'https://discord.gg/PcC5eKp',
     twitter:'teamPipe1',
+    ModName:'Admin',
   }
 }
 
@@ -87,7 +89,7 @@ router.beforeEach((to, from, next) => {
     link.rel = 'shortcut icon';
 
     let settings= teams[to.params.team] || defaultSetting
-    document.title=settings.title;
+    document.title=settings.TeamName;
     link.href=settings.icon;
     if(settings.maker){
       document.querySelector('body').classList.add('makerteams-body-bg');
@@ -113,6 +115,7 @@ function makeTeam(args){
       theme: 'light',
       token: '',
       user_info: {},
+      teamvars:args,
       ...args
     },
     mutations: {

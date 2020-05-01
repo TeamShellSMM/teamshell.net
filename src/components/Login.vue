@@ -20,7 +20,6 @@
       let that = this;
 
       login(this.$route.params.team, this.$route.params.otp, function(data){
-        console.log(data)
         if(data.status == "error"){
           $('.loader').hide();
           alert(data.message);

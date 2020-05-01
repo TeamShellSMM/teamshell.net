@@ -308,7 +308,7 @@
             }
             that.raw_data=_rawData
             that.refresh()
-          });
+          },{});
         },
         withinTime(date,clear){
           var varName=clear?"timePeriod2":"timePeriod"

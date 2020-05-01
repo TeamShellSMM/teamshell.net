@@ -5,7 +5,7 @@
         <label for="membershipStatus">Members</label>
         <select name="membershipStatus" id="membershipStatus" class="form-control">
           <option value="1" selected>Members</option>
-          <option value="2">Mods</option>
+          <option value="2">{{ModName}}</option>
           <option value="4">Unoffical</option>
           <option value="5">All</option>
         </select>
@@ -27,10 +27,10 @@
 
 <script>
   import { loadMakers } from '../services/helper-service';
-
   export default {
       name: 'Makers',
       data(){
+        console.log(this.$store)
         return {
           'data': '',
           'level_headers': '',
@@ -42,7 +42,8 @@
           'first_load': true,
           'makers': [],
           'membershipStatus': 1,
-          'seasons': []
+          'seasons': [],
+          ...this.$store.state[this.$route.params.team].teamvars,
         }
       },
       mounted(){
