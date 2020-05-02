@@ -23,7 +23,7 @@
       <div class="bs-callout bs-callout-mini-teams bs-callout-content">
         <ul class="bot-command-list list-group">
           <li class="list-group-item">
-            <h5 class="mb-3">Registering and adding your maker id</h5>
+            <h5 class="mb-3">Registering, adding your maker id/name and setting your world</h5>
             <ul class="bot-command-list list-group">
               <li class="list-group-item bot-command-important">
                 <span class="bot-command-text">!register &lt;Name&gt;</span>
@@ -32,9 +32,21 @@
                 </p>
               </li>
               <li class="list-group-item">
-                <span class="bot-command-text">!makerid &lt;XXX-XXX-XXX&gt;</span>
+                <span class="bot-command-text">!makerid &lt;XXX-XXX-XXX&gt; &lt;Maker Name&gt;</span>
                 <p>
-                  This saves your maker id so we can show it on your page in the future (and for other future stuff like worlds, etc..)
+                  This saves your maker id and maker name so we can show it on your page in the future (and in the world page)
+                </p>
+              </li>
+              <li class="list-group-item">
+                <span class="bot-command-text">!setworld &lt;World Count&gt; &lt;Level Count&gt; &lt;World Name&gt;</span>
+                <p>
+                  This sets your currently active worldname and sets how many worlds and levels are inside it. After setting it it will show up in the worlds page.
+                </p>
+              </li>
+              <li class="list-group-item">
+                <span class="bot-command-text">!unsetworld</span>
+                <p>
+                  This removes your currently active world from the worlds page (in case you want to remove it for now).
                 </p>
               </li>
             </ul>

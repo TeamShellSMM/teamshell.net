@@ -37,6 +37,9 @@
               <router-link :to="'/' + $route.params.team + '/levels'">Levels</router-link>
             </li>
             <li>
+              <router-link :to="'/' + $route.params.team + '/worlds'">Worlds</router-link>
+            </li>
+            <li>
               <router-link :to="'/' + $route.params.team + '/makers'">Makers</router-link>
             </li>
             <li>

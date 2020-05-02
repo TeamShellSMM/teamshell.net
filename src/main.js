@@ -19,6 +19,7 @@ import HowToJoin from './components/HowToJoin';
 import Levels from './components/Levels';
 import LevelDetails from './components/LevelDetails';
 import MakerDetails from './components/MakerDetails';
+import Worlds from './components/Worlds';
 import Makers from './components/Makers';
 import Members from './components/Members';
 import ShellAndTell from './components/ShellAndTell';
@@ -41,6 +42,7 @@ const routes = [
   {path: '/:team/levels', component: Levels},
   {path: '/:team/level/:code', component: LevelDetails},
   {path: '/:team/maker/:name', component: MakerDetails},
+  {path: '/:team/worlds', component: Worlds},
   {path: '/:team/makers', component: Makers},
   {path: '/:team/members', component: Members},
   {path: '/:team/shellandtell/:id', component: ShellAndTell},

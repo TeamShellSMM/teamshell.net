@@ -21,6 +21,12 @@ let loadTeamshellApi = function(that,url_slug, token,onLoad,args){
         onLoad(raw_data,noChange)
     })
 }
+let loadWorlds = function(data,onLoad){
+    let url= backendURL + "json/worlds";
+    $.post(url,data,function(_data){
+        onLoad(_data)
+    })
+}
 
 let loadMembers = function(data,onLoad){
     let url= backendURL + "json/members";
@@ -145,5 +151,5 @@ let getMakerPoints = function(likes, clears, difficultyPoints){
 }
 
 export {
-    loadTeamshellApi, get_input, save_input, store_input, setGetParam, copyClipboard, removeDups, ObjectLength, getMakerPoints, login, clear, random, putFeedback, loadMembers, loadMakers
+    loadTeamshellApi, get_input, save_input, store_input, setGetParam, copyClipboard, removeDups, ObjectLength, getMakerPoints, login, clear, random, putFeedback, loadMembers, loadMakers, loadWorlds
 }
