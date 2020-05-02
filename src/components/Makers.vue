@@ -26,7 +26,7 @@
 </template>
 
 <script>
-  import { loadMakers } from '../services/helper-service';
+  import { loadEndpoint } from '../services/helper-service';
   export default {
       name: 'Makers',
       data(){
@@ -37,7 +37,7 @@
           'tag_labels': '',
           'clears': '',
           'raw_data': '',
-          'comp_winners': '',
+          'competition_winners': '',
           'current_season': -1,
           'first_load': true,
           'makers': [],
@@ -201,16 +201,19 @@
 
           let that = this;
 
-          loadMakers({
-            token: that.$store.state[that.$route.params.team].token,
-            url_slug: that.$route.params.team,
-            membershipStatus: that.membershipStatus,
-            season: that.current_season,
-          }, function(_rawData){
-            console.log(_rawData);
-            that.makers = _rawData.data;
-            that.seasons = _rawData.seasons;
-            that.refresh()
+          loadEndpoint({
+            that,
+            route:'json/makers',
+            data:{
+              membershipStatus: that.membershipStatus,
+              season: that.current_season,
+            },
+            onLoad(_rawData){
+              console.log(_rawData);
+              that.makers = _rawData.data;
+              that.seasons = _rawData.seasons;
+              that.refresh()
+            },
           })
         }
       }

@@ -27,165 +27,13 @@
 </template>
 
 <script>
-  import { get_input, copyClipboard, loadTeamshellApi, clear} from '../services/helper-service';
+  import { get_input, copyClipboard, loadEndpoint, makeRowItems} from '../services/helper-service';
   export default {
     name: 'MakerDetails',
     mounted(){
       let that = this;
-
-      $('th').tooltip()
-
-      $(document).off('click', 'a.dt-level-link');
-      $(document).on('click', 'a.dt-level-link', function(e){
-        e.stopPropagation();
-        e.preventDefault();
-        that.$router.push("/" + that.$route.params.team + "/level/" + this.getAttribute("code"));
-        console.log("level link clicked", this.getAttribute("code"));
-      });
-
-      $(document).off('click', 'a.dt-maker-link');
-      $(document).on('click', 'a.dt-maker-link', function(e){
-        e.stopPropagation();
-        e.preventDefault();
-        that.$router.push("/" + that.$route.params.team + "/maker/" + this.getAttribute("maker"));
-      });
-
-      $(document).off('click', 'i.dt-clear-button');
-      $(document).on('click', 'i.dt-clear-button', function(e){
-        e.stopPropagation();
-        e.preventDefault();
-        let thatButt = this;
-        if(that.loggedIn){
-          that.$dialog
-          .confirm('Are you sure you want to submit a clear for ' + $(thatButt).attr('levelname') + " (" + $(thatButt).attr('code') + ") ?")
-          .then(function() {
-            $('.loader').show();
-            clear(that.$route.params.team, {
-              token: that.$store.state[that.$route.params.team].token,
-              code: $(thatButt).attr('code'),
-              completed: 1
-            }, function(result){
-              if(result.status == "sucessful"){
-                $('.loader').hide();
-                let rownum = $(thatButt).attr('rownum');
-                let tempData = $('#table').DataTable().row(rownum).data();
-                tempData[15] = "1";
-                $('#table').DataTable().row(rownum).data(tempData).draw();
-              } else {
-                that.$dialog.alert(result.message).then(function() {
-                  $('.loader').hide();
-                });
-              }
-            });
-          })
-          .catch(function() {
-          });
-        }
-      });
-
-      $(document).off('click', 'i.dt-unclear-button');
-      $(document).on('click', 'i.dt-unclear-button', function(e){
-        e.stopPropagation();
-        e.preventDefault();
-        let thatButt = this;
-        if(that.loggedIn){
-          that.$dialog
-          .confirm('Are you sure you want to remove your clear and like for ' + $(thatButt).attr('levelname') + " (" + $(thatButt).attr('code') + ") ?")
-          .then(function() {
-            $('.loader').show();
-            clear(that.$route.params.team, {
-              token: that.$store.state[that.$route.params.team].token,
-              code: $(thatButt).attr('code'),
-              completed: 0,
-              like: 0
-            }, function(result){
-              if(result.status == "sucessful"){
-                $('.loader').hide();
-                let rownum = $(thatButt).attr('rownum');
-                let tempData = $('#table').DataTable().row(rownum).data();
-                tempData[15] = "0";
-                tempData[17] = "0";
-                $('#table').DataTable().row(rownum).data(tempData).draw();
-              } else {
-                that.$dialog.alert(result.message).then(function() {
-                  $('.loader').hide();
-                });
-              }
-            });
-          })
-          .catch(function() {
-          });
-        }
-      });
-
-      $(document).off('click', 'i.dt-like-button');
-      $(document).on('click', 'i.dt-like-button', function(e){
-        e.stopPropagation();
-        e.preventDefault();
-        let thatButt = this;
-        if(that.loggedIn){
-          that.$dialog
-          .confirm('Are you sure you want to submit a like and clear for ' + $(thatButt).attr('levelname') + " (" + $(thatButt).attr('code') + ") ?")
-          .then(function() {
-            $('.loader').show();
-            clear(that.$route.params.team, {
-              token: that.$store.state[that.$route.params.team].token,
-              code: $(thatButt).attr('code'),
-              completed: 1,
-              like: 1
-            }, function(result){
-              if(result.status == "sucessful"){
-                $('.loader').hide();
-                let rownum = $(thatButt).attr('rownum');
-                let tempData = $('#table').DataTable().row(rownum).data();
-                tempData[15] = "1";
-                tempData[17] = "1";
-                $('#table').DataTable().row(rownum).data(tempData).draw();
-              } else {
-                that.$dialog.alert(result.message).then(function() {
-                  $('.loader').hide();
-                });
-              }
-            });
-          })
-          .catch(function() {
-          });
-        }
-      });
-
-      $(document).off('click', 'i.dt-unlike-button');
-      $(document).on('click', 'i.dt-unlike-button', function(e){
-        e.stopPropagation();
-        e.preventDefault();
-        let thatButt = this;
-        if(that.loggedIn){
-          that.$dialog
-          .confirm('Are you sure you want to remove your like for ' + $(thatButt).attr('levelname') + " (" + $(thatButt).attr('code') + ") ?")
-          .then(function() {
-            $('.loader').show();
-            clear(that.$route.params.team, {
-              token: that.$store.state[that.$route.params.team].token,
-              code: $(thatButt).attr('code'),
-              like: 0
-            }, function(result){
-              console.log(result)
-              if(result.status == "sucessful"){
-                $('.loader').hide();
-                let rownum = $(thatButt).attr('rownum');
-                let tempData = $('#table').DataTable().row(rownum).data();
-                tempData[17] = "0";
-                $('#table').DataTable().row(rownum).data(tempData).draw();
-              } else {
-                that.$dialog.alert(result.message).then(function() {
-                  $('.loader').hide();
-                });
-              }
-            });
-          })
-          .catch(function() {
-          });
-        }
-      });
+      //$('th').tooltip()
+      makeRowItems(that)
 
       let hideColumns= that.loggedIn?[2,5,6,7,8,9,10]:[2,5,6,7,8,9,10,15,16,17];
 
@@ -223,24 +71,24 @@
               let ironsHtml = "";
               let shellsHtml = "";
 
-              for(var i = 0; i < that.comp_winners.length; i++){
+              for(var i = 0; i < that.competition_winners.length; i++){
                 //return "<div class='points'><a href='../levels/?creator="+encodeURI(data)+"' target='_blank'>"+data+"</a></div>"
-                if(data == that.comp_winners[i][1]){
-                  switch(that.comp_winners[i][3]){
+                if(data == that.competition_winners[i][1]){
+                  switch(that.competition_winners[i][3]){
                     case "1":
-                      goldsHtml += '<div class="medal" title="Gold medalist of ' + that.comp_winners[i][2] + '"><div class="coin coin-gold"></div></div>';
+                      goldsHtml += '<div class="medal" title="Gold medalist of ' + that.competition_winners[i][2] + '"><div class="coin coin-gold"></div></div>';
                     break;
                     case "2":
-                      silversHtml += '<div class="medal" title="Silver medalist of ' + that.comp_winners[i][2] + '"><div class="coin coin-silver"></div></div>';
+                      silversHtml += '<div class="medal" title="Silver medalist of ' + that.competition_winners[i][2] + '"><div class="coin coin-silver"></div></div>';
                     break;
                     case "3":
-                      bronzesHtml += '<div class="medal" title="Bronze medalist of ' + that.comp_winners[i][2] + '"><div class="coin coin-bronze"></div></div>';
+                      bronzesHtml += '<div class="medal" title="Bronze medalist of ' + that.competition_winners[i][2] + '"><div class="coin coin-bronze"></div></div>';
                     break;
                     case "4":
-                      ironsHtml += '<div class="medal" title="Runner-up of ' + that.comp_winners[i][2] + '"><div class="coin coin-iron"></div></div>';
+                      ironsHtml += '<div class="medal" title="Runner-up of ' + that.competition_winners[i][2] + '"><div class="coin coin-iron"></div></div>';
                     break;
                     case "5":
-                      shellsHtml += '<div class="medal" title="Honorable Mention for ' + that.comp_winners[i][2] + '"><div class="coin coin-shell"></div></div>';
+                      shellsHtml += '<div class="medal" title="Honorable Mention for ' + that.competition_winners[i][2] + '"><div class="coin coin-shell"></div></div>';
                     break;
                   }
                 }
@@ -294,25 +142,25 @@
               let ironsHtml = "";
               let shellsHtml = "";
 
-              if(that.comp_winners){
-                for(let i = 0; i < that.comp_winners.length; i++){
+              if(that.competition_winners){
+                for(let i = 0; i < that.competition_winners.length; i++){
                   //return "<div class='points'><a href='../levels/?creator="+encodeURI(data)+"' target='_blank'>"+data+"</a></div>"
-                  if(row[1] == that.comp_winners[i][0]){
-                    switch(that.comp_winners[i][3]){
+                  if(row[1] == that.competition_winners[i][0]){
+                    switch(that.competition_winners[i][3]){
                       case "1":
-                        goldsHtml += '<div class="medal" title="Gold medalist of ' + that.comp_winners[i][2] + '"><div class="coin coin-gold"></div></div>';
+                        goldsHtml += '<div class="medal" title="Gold medalist of ' + that.competition_winners[i][2] + '"><div class="coin coin-gold"></div></div>';
                       break;
                       case "2":
-                        silversHtml += '<div class="medal" title="Silver medalist of ' + that.comp_winners[i][2] + '"><div class="coin coin-silver"></div></div>';
+                        silversHtml += '<div class="medal" title="Silver medalist of ' + that.competition_winners[i][2] + '"><div class="coin coin-silver"></div></div>';
                       break;
                       case "3":
-                        bronzesHtml += '<div class="medal" title="Bronze medalist of ' + that.comp_winners[i][2] + '"><div class="coin coin-bronze"></div></div>';
+                        bronzesHtml += '<div class="medal" title="Bronze medalist of ' + that.competition_winners[i][2] + '"><div class="coin coin-bronze"></div></div>';
                       break;
                       case "4":
-                        ironsHtml += '<div class="medal" title="Runner-up of ' + that.comp_winners[i][2] + '"><div class="coin coin-iron"></div></div>';
+                        ironsHtml += '<div class="medal" title="Runner-up of ' + that.competition_winners[i][2] + '"><div class="coin coin-iron"></div></div>';
                       break;
                       case "5":
-                        shellsHtml += '<div class="medal" title="Honorable Mention for ' + that.comp_winners[i][2] + '"><div class="coin coin-shell"></div></div>';
+                        shellsHtml += '<div class="medal" title="Honorable Mention for ' + that.competition_winners[i][2] + '"><div class="coin coin-shell"></div></div>';
                       break;
                     }
                   }
@@ -341,25 +189,25 @@
               let bronzesHtmlCreator = "";
               let ironsHtmlCreator = "";
               let shellsHtmlCreator = "";
-              if(that.comp_winners){
-                for(let i = 0; i < that.comp_winners.length; i++){
+              if(that.competition_winners){
+                for(let i = 0; i < that.competition_winners.length; i++){
                   //return "<div class='points'><a href='../levels/?creator="+encodeURI(data)+"' target='_blank'>"+data+"</a></div>"
-                  if(row[2] == that.comp_winners[i][1]){
-                    switch(that.comp_winners[i][3]){
+                  if(row[2] == that.competition_winners[i][1]){
+                    switch(that.competition_winners[i][3]){
                       case "1":
-                        goldsHtmlCreator += '<div class="medal" title="Gold medalist of ' + that.comp_winners[i][2] + '"><div class="coin coin-gold"></div></div>';
+                        goldsHtmlCreator += '<div class="medal" title="Gold medalist of ' + that.competition_winners[i][2] + '"><div class="coin coin-gold"></div></div>';
                       break;
                       case "2":
-                        silversHtmlCreator += '<div class="medal" title="Silver medalist of ' + that.comp_winners[i][2] + '"><div class="coin coin-silver"></div></div>';
+                        silversHtmlCreator += '<div class="medal" title="Silver medalist of ' + that.competition_winners[i][2] + '"><div class="coin coin-silver"></div></div>';
                       break;
                       case "3":
-                        bronzesHtmlCreator += '<div class="medal" title="Bronze medalist of ' + that.comp_winners[i][2] + '"><div class="coin coin-bronze"></div></div>';
+                        bronzesHtmlCreator += '<div class="medal" title="Bronze medalist of ' + that.competition_winners[i][2] + '"><div class="coin coin-bronze"></div></div>';
                       break;
                       case "4":
-                        ironsHtmlCreator += '<div class="medal" title="Runner-up of ' + that.comp_winners[i][2] + '"><div class="coin coin-iron"></div></div>';
+                        ironsHtmlCreator += '<div class="medal" title="Runner-up of ' + that.competition_winners[i][2] + '"><div class="coin coin-iron"></div></div>';
                       break;
                       case "5":
-                        shellsHtmlCreator += '<div class="medal" title="Honorable Mention for ' + that.comp_winners[i][2] + '"><div class="coin coin-shell"></div></div>';
+                        shellsHtmlCreator += '<div class="medal" title="Honorable Mention for ' + that.competition_winners[i][2] + '"><div class="coin coin-shell"></div></div>';
                       break;
                     }
                   }
@@ -476,12 +324,9 @@
     methods: {
       refresh(){
         let that = this;
-
-        
-this.data=JSON.parse(this.raw_data);
         this.tag_labels=this.data.tags;
         this.tags_list=[];
-        this.comp_winners = this.data.comp_winners;
+        this.competition_winners = this.data.competition_winners;
         let filtered_levels=[];
 
         for(let i=0;i<this.data.levels.length;i++){ //main loop that processes all the stats for the levels
@@ -664,16 +509,16 @@ this.data=JSON.parse(this.raw_data);
         datatable.clear().draw();
 
         let that = this;
-        loadTeamshellApi(that,that.$route.params.team, this.$store.state[this.$route.params.team].token,function(_rawData,dataNoChange){
-          if(dataNoChange){
-            $.notify("No new data was loaded",{
-              className:"success",
-              position:"top right",
-            });
-          }
-          that.raw_data=_rawData
-          that.refresh()
-        },{ name: that.$route.params.name })
+        loadEndpoint({
+          that,
+          data:{
+            name: that.$route.params.name,
+          },
+          onLoad(_rawData){
+            that.data=_rawData
+            that.refresh()
+          },
+        })
       }
     }
   }

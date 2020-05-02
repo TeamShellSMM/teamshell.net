@@ -5,7 +5,7 @@
 </template>
 
 <script>
-  import { login } from '../services/helper-service';
+  import {loadEndpoint } from '../services/helper-service';
 
   export default {
     name: 'Login',
@@ -19,22 +19,29 @@
 
       let that = this;
 
-      login(this.$route.params.team, this.$route.params.otp, function(data){
-        if(data.status == "error"){
-          $('.loader').hide();
-          alert(data.message);
-          that.$dialog.alert(data.message).then(function(dialog) {
-            console.log(dialog);
-          });
-          that.$router.push("/" + that.$route.params.team + "/levels");
-        }
-        if(data.status == "logged_in"){
-          that.$store.commit(that.$route.params.team + '/setToken', { token: data.token });
-          that.$store.commit(that.$route.params.team + '/setUserInfo', { user_info: data.user_info });
-          localStorage.setItem('member', data.user_info.name);
-          that.$router.push("/" + that.$route.params.team + "/levels");
-        }
-      },{});
+      loadEndpoint({
+        that,
+        route:'json/login',
+        data:{
+          otp:that.$route.params.otp,
+        },
+        onLoad(data){
+          if(data.status == "error"){
+            $('.loader').hide();
+            alert(data.message);
+            that.$dialog.alert(data.message).then(function(dialog) {
+              console.log(dialog);
+            });
+            that.$router.push("/" + that.$route.params.team + "/levels");
+          }
+          if(data.status == "logged_in"){
+            that.$store.commit(that.$route.params.team + '/setToken', { token: data.token });
+            that.$store.commit(that.$route.params.team + '/setUserInfo', { user_info: data.user_info });
+            localStorage.setItem('member', data.user_info.name);
+            that.$router.push("/" + that.$route.params.team + "/levels");
+          }
+        },
+      })
 
       /**/
     }

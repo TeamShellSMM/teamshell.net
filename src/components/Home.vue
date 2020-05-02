@@ -144,7 +144,7 @@
 <script>
   import { Timeline } from 'vue-tweet-embed'
   import { Chart } from 'chart.js';
-  import { loadTeamshellApi } from '../services/helper-service';
+  import { loadEndpoint } from '../services/helper-service';
 
   export default {
     name: 'Home',
@@ -199,18 +199,18 @@
       getData(){
         $('.loader').show();
         let that = this;
-        loadTeamshellApi(that,that.$route.params.team, that.$store.state[that.$route.params.team].token,function(_rawData,dataNoChange){
-          if(dataNoChange){
-            $.notify("No new data was loaded",{
-              className:"success",
-              position:"top right",
-            });
-          }
-          that.raw_data=_rawData
-          that.refresh()
+        loadEndpoint({
+          that,
+          data:{ 
+            dashboard:true,
+          },
+          onLoad(_rawData){
+            that.data=_rawData
+            that.refresh()
 
-          $('.loader').hide();
-        },{ dashboard:true })
+            $('.loader').hide();
+          },
+        })
       },
       refresh(){
         console.log(this.team)
@@ -236,7 +236,6 @@
           difficulty_no[i.toString()]=0
         }
 
-        this.data=JSON.parse(this.raw_data)
         this.clearers=[]
         this.clears={}
         this.tag_labels=this.data.tags
