@@ -30,7 +30,7 @@
   export default {
       name: 'Makers',
       data(){
-        console.log(this.$store)
+
         return {
           'data': '',
           'level_headers': '',
@@ -100,7 +100,7 @@
             },
             {
             "render": function ( data ) {
-                return Math.round(data*100)+"%"
+                return data.toFixed(1)+"%"
               },
               targets:4,
             },

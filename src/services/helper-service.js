@@ -35,7 +35,7 @@ let processLevelList=function(data){
         let level=data.levels[i]
         //adding automatic tags
         let curr_tags=level.tags.split(",")
-        if(level.status=="0"){
+        if(level.status=="0"||level.status=="-10"){
         curr_tags.unshift("Pending")
         }
         level.tags=curr_tags.join(",")
