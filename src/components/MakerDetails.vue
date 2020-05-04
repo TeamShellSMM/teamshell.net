@@ -401,7 +401,7 @@
               level.tags || '',
               level.is_free_submission || '',
               level.clear,
-              `${level.vote||0},${level.votetotal||0}`,
+              `${level.vote||0},${level.num_votes||0}`,
               level.likes,
               level.lcd,
           ];

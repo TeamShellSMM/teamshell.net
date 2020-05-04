@@ -245,9 +245,9 @@
         
         for(let i=0;i<this.data.levels.length;i++){ //main loop that processes all the stats for the levels
           let level=this.data.levels[i]
-          dashboardData.numClears+=level.clears
-          dashboardData.numVotes +=level.votetotal
-          dashboardData.numLikes +=level.likes
+          dashboardData.numClears+= (level.clears||0)
+          dashboardData.numVotes += (level.num_votes||0)
+          dashboardData.numLikes += (level.likes||0)
 
           var include=true;
           //get all the tags used from the data set
@@ -262,17 +262,20 @@
             dashboardData.numPending++
           }
 
-          if(include && level.status=="1"){
-            dashboardData.maxScore +=level.score
+          if(include && level.status===1){
+            dashboardData.maxScore += (level.score||0)
             difficulty_no[level.difficulty]++
             dashboardData.numApproved++;
           }
+
+          
 
           if(!include && level.status=="1"){
             dashboardData.numConsistency++;
           }
         }
 
+        console.log(dashboardData)
         dashboardData.numMembers=this.data.dashboard.members.official;
         dashboardData.numUnofficialMembers=this.data.dashboard.members.unoffocial;
         for(let i in dashboardData){
@@ -298,22 +301,6 @@
                     label: '# of levels with stated difficulty',
                     data: difficulty_no_data,
                     backgroundColor:backgroundColor,
-                    /* backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ], */
                     borderWidth: 1
                 }]
             },
@@ -339,7 +326,6 @@
     }
   }
 </script>
-
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 h3 {

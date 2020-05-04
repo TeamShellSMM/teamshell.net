@@ -100,7 +100,6 @@ let makeMedalsLevels=function(wonComps){
 }
 
 let makeMedalsCreator=function(creator,competition_winners){
-    //if(!competition_winners) return '';
 
     let goldsHtml = "";
     let silversHtml = "";
@@ -336,6 +335,27 @@ let setGetParam = function(key,value) {
   }
 }
 
+let toggleTooltip= (that,old_title,new_title)=>{
+  $(that).addClass("text-success")
+  $(that).tooltip('hide')
+    .attr('title', new_title)
+    .attr('data-original-title', new_title)
+    .tooltip('update')
+    .tooltip('show')
+  console.log(that)
+
+  setTimeout(function(){
+    console.log(that)
+    $(that).removeClass("text-success")
+    $(that).tooltip('hide')
+      .attr('title', old_title)
+      .attr('data-original-title', old_title)
+      .tooltip('update')
+      .tooltip('enable')
+  },2000)
+}
+
+
 let copyClipboard = function(str){
   const el = document.createElement('textarea');
   el.value = str;
@@ -363,5 +383,5 @@ let getMakerPoints = function(likes, clears, difficultyPoints){
 }
 
 export {
-  loadEndpoint, submitClear, makeRowItems, makeMedalsCreator, makeMedalsLevels, processLevelList, get_input, save_input, store_input, setGetParam, copyClipboard, removeDups, getMakerPoints, clear, random, putFeedback
+  loadEndpoint, submitClear, makeRowItems, makeMedalsCreator, makeMedalsLevels, processLevelList, get_input, save_input, store_input, setGetParam, toggleTooltip, copyClipboard, removeDups, getMakerPoints, clear, random, putFeedback
 }

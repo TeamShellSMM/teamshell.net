@@ -81,7 +81,7 @@
 </template>
 
 <script>
-  import { get_input, removeDups, copyClipboard, store_input, loadEndpoint, save_input, makeRowItems, processLevelList, makeMedalsCreator } from '../services/helper-service';
+  import { get_input, toggleTooltip , removeDups, copyClipboard, store_input, loadEndpoint, save_input, makeRowItems, processLevelList, makeMedalsCreator } from '../services/helper-service';
 
   export default {
     name: 'Levels',
@@ -399,9 +399,6 @@
         }
         return false;
       },
-      discord_invite:function(){
-        return this.$store.state[this.$route.params.team].discord_invite
-      },
     },
     methods: {
       refresh(){
@@ -501,86 +498,41 @@
           datatable.column(15).search("",false,true);
         }
 
+
+
+        
         datatable.draw();
+        $('.loader').hide();
+
+
         $('[data-toggle="tooltip"],.copy,#refresh,#submitButton,.medal').tooltip()
         $('.copy').click(function(){
+          let code=$(this).parent().text().substring(0,11);
+          let new_title="Code copied."
           if(!that.$store.state[that.$route.params.team].token){
-            let code=$(this).parent().text().substring(0,11);
             let old_title="Copy clear code"
-            let new_title="Code copied."
-
-            $(this).addClass("text-success")
-              $(this).tooltip('hide')
-                  .attr('title', new_title)
-                  .attr('data-original-title', new_title)
-                  .tooltip('update')
-                  .tooltip('show')
-              let temp=this
-
-            setTimeout(function(){
-              $(temp).removeClass("text-success")
-              $(temp).tooltip('hide')
-                  .attr('title', old_title)
-                  .attr('data-original-title', old_title)
-                  .tooltip('update')
-                  .tooltip('enable')
-            },2000)
+            toggleTooltip(this,old_title,new_title)
             copyClipboard("!clear "+code)
           } else {
-            let code=$(this).parent().text().substring(0,11);
-            let old_title="Copy levelcode"
-            let new_title="Code copied."
-
-            $(this).addClass("text-success")
-              $(this).tooltip('hide')
-                  .attr('title', new_title)
-                  .attr('data-original-title', new_title)
-                  .tooltip('update')
-                  .tooltip('show')
-              let temp=this
-
-            setTimeout(function(){
-              $(temp).removeClass("text-success")
-              $(temp).tooltip('hide')
-                  .attr('title', old_title)
-                  .attr('data-original-title', old_title)
-                  .tooltip('update')
-                  .tooltip('enable')
-            },2000)
+            let old_title="Copy level code"
+            toggleTooltip(this,old_title,new_title)
             copyClipboard(code)
           }
         })
-
-        $('.loader').hide();
 
         $('.copyLike').click(function(){
           if(!that.$store.state[that.$route.params.team].token){
             var code=$(this).parent().text().substring(0,11);
             var old_title="Copy clear code with like"
             var new_title="Code copied."
-
-            $(this).addClass("text-success")
-              $(this).tooltip('hide')
-                  .attr('title', new_title)
-                  .attr('data-original-title', new_title)
-                  .tooltip('update')
-                  .tooltip('show')
-              var temp=this
-
-            setTimeout(function(){
-              $(temp).removeClass("text-success")
-              $(temp).tooltip('hide')
-                  .attr('title', old_title)
-                  .attr('data-original-title', old_title)
-                  .tooltip('update')
-                  .tooltip('enable')
-            },2000)
+            toggleTooltip(this,new_title,old_title)
             copyClipboard("!clear "+code+" like")
           } else {
             console.log("send like post");
           }
         });
       },
+
       getData(){
         $('.loader').show();
 
