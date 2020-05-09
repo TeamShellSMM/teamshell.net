@@ -213,7 +213,6 @@
         })
       },
       refresh(){
-        console.log(this.team)
         var dashboardData={
           "numApproved":0,
           "numPending":0,
@@ -275,7 +274,6 @@
           }
         }
 
-        console.log(dashboardData)
         dashboardData.numMembers=this.data.dashboard.members.official;
         dashboardData.numUnofficialMembers=this.data.dashboard.members.unoffocial;
         for(let i in dashboardData){

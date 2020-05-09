@@ -81,7 +81,7 @@
 </template>
 
 <script>
-  import { get_input, toggleTooltip , removeDups, copyClipboard, store_input, loadEndpoint, save_input, makeRowItems, processLevelList, makeMedalsCreator } from '../services/helper-service';
+  import { get_input,removeDups, store_input, loadEndpoint, save_input, processLevelList, makeLevelsDatatable } from '../services/helper-service';
 
   export default {
     name: 'Levels',
@@ -95,7 +95,8 @@
         "clears" : '',
         "current_tag" : '',
         "tags_list" : '',
-        "current_search_term": ''
+        "current_search_term": '',
+        ...this.$store.state[this.$route.params.team].teamvars,
       };
     },
     mounted(){
@@ -114,282 +115,20 @@
         localStorage.setItem('level_table_length',$(this).val());
       });
 
-      let pageLength = localStorage.getItem('level_table_length');
-      if(!pageLength){
-        pageLength = 10;
+      that.pageLength = localStorage.getItem('level_table_length');
+      if(!that.pageLength){
+        that.pageLength = 10;
       } else {
-        pageLength = parseInt(pageLength);
+        that.pageLength = parseInt(that.pageLength,10);
       }
 
-      const datatable=$('#table').DataTable({
-        "language": {
-        "emptyTable": "Data is loading. ",
-        "info":           "_START_ - _END_ of _TOTAL_ levels",
-        "infoEmpty":      "0 levels",
-        "infoFiltered":   "(_MAX_ total)",
-        },
-        columns:[
-          {data:'no'},
-          {data:'code'},
-          {data:'creator'},
-          {data:'level_name'},
-          {data:'difficulty'},
-          {data:'status'},
-          {data:'new_code'},
-          {data:'videos,'},
-          {data:'created_at,'},
-          {data:'tags'},
-          {data:'clears'},
-          {data:'votestr'},
-          {data:'likes'},
-          {data:'lcd'},
-          {data:'completed'},
-          {data:'difficulty_vote'},
-          {data:'liked'},
-        ],
-        paging:true,
-        pagingType: "simple",
-        "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
-        pageLength:pageLength,
-        responsive: true,
-        dom : "litp",
-        "columnDefs": [
-          { responsivePriority: 1, targets: [0,1,3,4,14,16] },
-          { responsivePriority: 2, targets: [14] },
-          { responsivePriority: 4, targets: [2,5,6,7,8,9,10,11,12,15] },
-          {
-            "render": function ( data) {
-              if(that.loggedIn){
-                let copyTitle = "Copy levelcode";
-                return "<div class='text-monospace level-code-div'><a class='dt-level-link' href='/" + that.$route.params.team + "/level/" + encodeURI(data) + "' code='" + data + "'>" + data + "</a></div> <span class='copy' title='" + copyTitle + "'><i class='fa fa-clipboard' aria-hidden='true'></i></span>"
-              } else {
-                let copyTitle = "Copy clear code";
-                let likeTitle = "Copy clear code with like";
-                return "<div class='text-monospace level-code-div'><a class='dt-level-link' href='/" + that.$route.params.team + "/level/" + encodeURI(data) + "' code='" + data + "'>" + data + "</a></div> <span class='copy' title='" + copyTitle + "'><i class='fa fa-clipboard' aria-hidden='true'></i></span> <span class='copyLike' title='" + likeTitle + "' data-toggle='tooltip'><i class='fa fa-heart text-danger' aria-hidden='true'></i></span>"
-              }
-            },
-            "orderable": false,
-            targets:1,
-          },
-          {
-            "render": function ( data, type ) {
-              if(type!="display") return data
-              const medalsHtml=makeMedalsCreator(data,that.data.competition_winners)
-              return "<div class='creator-name-div'><a class='dt-maker-link' href='/" + that.$route.params.team + "/maker/" + encodeURI(data) + "' maker='" + data + "'>" + data + "</a>"+medalsHtml +"</div>";
-            },
-            targets: 2
-          },{
-            "render": function ( data, type, row ) {
-              if(type!="display") return data
-              var videos="";
-
-              if(row.videos){
-                var raw_vids=row.videos.split(",")
-                for(let j=0;j<raw_vids.length;j++){
-                  videos+="<a class='clear-vid-link' target='_blank' data-toggle='tooltip' title='Video clear' href='"+raw_vids[j]+"'><i class='fas fa-video' aria-hidden='true'></i></a> "
-                }
-              }
-              var tags=row.tags
-              tags=tags?tags.split(","):[]
-              for(let i=0;i<tags.length;i++){
-                let type2=that.tag_labels[tags[i]]?that.tag_labels[tags[i]]:"secondary"
-                tags[i]='<a href="#"><span class="tag badge badge-pill badge-'+type2+'">'+tags[i]+"</span></a>"
-              }
-
-              tags=tags.join("")
-              let votesHtml=""
-              if(row.approves){
-                votesHtml+=`<a class="dt-level-link" href="${that.$route.params.team}/level/${encodeURI(row.code)}" code="${row.code}" title="Votes for approval"><span class="tag badge badge-pill badge-success">${row.approves}</span></a>`
-              }
-              if(row.want_fixes){
-                votesHtml+=`<a class="dt-level-link" href="${that.$route.params.team}/level/${encodeURI(row.code)}" code="${row.code}" title="Votes for approval"><span class="tag badge badge-pill badge-warning">${row.want_fixes}</span></a>`
-              }
-              if(row.reject){
-                votesHtml+=`<a class="dt-level-link" href="${that.$route.params.team}/level/${encodeURI(row.code)}" code="${row.code}" title="Votes for approval"><span class="tag badge badge-pill badge-danger">${row.rejects}</span></a>`
-              }
-
-              let goldsHtml = "";
-              let silversHtml = "";
-              let bronzesHtml = "";
-              let ironsHtml = "";
-              let shellsHtml = "";
-
-              if(that.competition_winners){
-                for(let i = 0; i < that.competition_winners.length; i++){
-                  if(row.code == that.competition_winners[i][0]){
-                    switch(that.competition_winners[i][3]){
-                      case "1":
-                        goldsHtml += '<div class="medal" title="Gold medalist of ' + that.competition_winners[i][2] + '"><div class="coin coin-gold"></div></div>';
-                      break;
-                      case "2":
-                        silversHtml += '<div class="medal" title="Silver medalist of ' + that.competition_winners[i][2] + '"><div class="coin coin-silver"></div></div>';
-                      break;
-                      case "3":
-                        bronzesHtml += '<div class="medal" title="Bronze medalist of ' + that.competition_winners[i][2] + '"><div class="coin coin-bronze"></div></div>';
-                      break;
-                      case "4":
-                        ironsHtml += '<div class="medal" title="Runner-up of ' + that.competition_winners[i][2] + '"><div class="coin coin-iron"></div></div>';
-                      break;
-                      case "5":
-                        shellsHtml += '<div class="medal" title="Honorable Mention for ' + that.competition_winners[i][2] + '"><div class="coin coin-shell"></div></div>';
-                      break;
-                    }
-                  }
-                }
-
-                var medalsHtml = "";
-                if(goldsHtml != ""){
-                  medalsHtml += '<div class="medals">' + goldsHtml + '</div>';
-                }
-                if(silversHtml != ""){
-                  medalsHtml += '<div class="medals">' + silversHtml + '</div>';
-                }
-                if(bronzesHtml != ""){
-                  medalsHtml += '<div class="medals">' + bronzesHtml + '</div>';
-                }
-                if(ironsHtml != ""){
-                  medalsHtml += '<div class="medals">' + ironsHtml + '</div>';
-                }
-                if(shellsHtml != ""){
-                  medalsHtml += '<div class="medals">' + shellsHtml + '</div>';
-                }
-              }
-
-              let goldsHtmlCreator = "";
-              let silversHtmlCreator = "";
-              let bronzesHtmlCreator = "";
-              let ironsHtmlCreator = "";
-              let shellsHtmlCreator = "";
-              if(that.competition_winners){
-                for(var i = 0; i < that.competition_winners.length; i++){
-                  //return "<div class='points'><a href='../levels/?creator="+encodeURI(data)+"' target='_blank'>"+data+"</a></div>"
-                  if(row.player == that.competition_winners[i][1]){
-                    switch(that.competition_winners[i][3]){
-                      case "1":
-                        goldsHtmlCreator += '<div class="medal" title="Gold medalist of ' + that.competition_winners[i][2] + '"><div class="coin coin-gold"></div></div>';
-                      break;
-                      case "2":
-                        silversHtmlCreator += '<div class="medal" title="Silver medalist of ' + that.competition_winners[i][2] + '"><div class="coin coin-silver"></div></div>';
-                      break;
-                      case "3":
-                        bronzesHtmlCreator += '<div class="medal" title="Bronze medalist of ' + that.competition_winners[i][2] + '"><div class="coin coin-bronze"></div></div>';
-                      break;
-                      case "4":
-                        ironsHtmlCreator += '<div class="medal" title="Runner-up of ' + that.competition_winners[i][2] + '"><div class="coin coin-iron"></div></div>';
-                      break;
-                      case "5":
-                        shellsHtmlCreator += '<div class="medal" title="Honorable Mention for ' + that.competition_winners[i][2] + '"><div class="coin coin-shell"></div></div>';
-                      break;
-                    }
-                  }
-                }
-
-                var medalsHtmlCreator = "";
-                if(goldsHtmlCreator != ""){
-                  medalsHtmlCreator += '<div class="medals">' + goldsHtmlCreator + '</div>';
-                }
-                if(silversHtmlCreator != ""){
-                  medalsHtmlCreator += '<div class="medals">' + silversHtmlCreator + '</div>';
-                }
-                if(bronzesHtmlCreator != ""){
-                  medalsHtmlCreator += '<div class="medals">' + bronzesHtmlCreator + '</div>';
-                }
-                if(ironsHtmlCreator != ""){
-                  medalsHtmlCreator += '<div class="medals">' + ironsHtmlCreator + '</div>';
-                }
-                if(shellsHtmlCreator != ""){
-                  medalsHtmlCreator += '<div class="medals">' + shellsHtmlCreator + '</div>';
-                }
-              }
-
-              let makerLink = `<div class='creator-name-div diff-text-mobile'><a class='dt-maker-link' href='/${that.$route.params.team}/maker/${encodeURI(row.creator)}' maker='${row.creator}'>${row.creator}</a>${medalsHtmlCreator}</div>`;
-
-              return makerLink + "<div class='font-weight-bold level-name-div'>"+data+medalsHtml +"<br/>"+ votesHtml+" "+videos + " " + tags + "</div>";
-            },
-            targets:3,
-          },
-          {
-            "render": function ( data, type, row ) {
-              var tags=row.tags
-              tags=tags?tags.split(","):[]
-              if(tags.indexOf("TeamConsistency")!=-1){
-                return "N/A";
-              } else {
-                return Number(data).toFixed(1);
-              }
-            },
-            targets:4,
-          },
-          {
-            visible: false,
-            targets:that.loggedIn?[5,6,7,8,9,10]:[5,6,7,8,9,10,14,15,16],
-          },
-          {
-            "render": function ( data, type ) {
-              data=data?data.split(","):[0,0]
-              if ( type !="display" ) {
-                return data[0];
-              } else {
-                return data[0]+"<br/><span class='tag badge badge-secondary'>"+data[1]+" votes</span>";
-              }
-            },
-            targets:11
-          },
-          {
-            "render": function ( data, type, row, meta ) {
-              if ( type !="display" ) {
-                return data=="1"?"1":"0";
-              } else {
-                if(that.loggedIn){
-                  return (data=="1"?'<i title="You have cleared this level" data-toggle="tooltip" class="fa fa-check text-success dt-unclear-button" aria-hidden="true" code="' + row.code + '" levelname="' + row.level_name + '" rownum="' + meta.row + '"></i>': '<i title="You have not submitted a clear for this level yet" data-toggle="tooltip" class="fa fa-check fa-inactive dt-clear-button" aria-hidden="true" code="' + row.code + '" levelname="' + row.level_name + '" rownum="' + meta.row + '"></i>');
-                } else {
-                  return (data=="1"?'<i title="Entered player has cleared this level" data-toggle="tooltip" class="fa fa-check text-success" aria-hidden="true"></i>': '');
-                }
-              }
-            },
-            targets:14
-          },
-          {
-            "render": function ( data ) {
-              return isNaN(data)||data==0?"":Number(data).toFixed(1);
-            },
-            targets:15
-          },
-          {
-            "render": function ( data, type, row, meta ) {
-              if ( type !="display" ) {
-                return data=="1"?"1":"0";
-              } else {
-                if(that.loggedIn){
-                  return (data=="1"?'<i title="You liked this level" data-toggle="tooltip" class="fa fa-heart text-danger dt-unlike-button" aria-hidden="true" code="' + row.code + '" levelname="' + row.level_name + '" rownum="' + meta.row + '"></i>': '<i title="You have not submitted a like for this level yet" data-toggle="tooltip" class="fa fa-heart fa-inactive dt-like-button" aria-hidden="true" code="' + row.code + '" levelname="' + row.level_name + '" rownum="' + meta.row + '"></i>');
-                } else {
-                  return (data=="1"?'<i title="Entered player has liked this level" data-toggle="tooltip" class="fa fa-heart text-danger" aria-hidden="true"></i>': '');
-                }
-              }
-            },
-            targets:16
-          },
-          {
-            defaultContent:"",
-            targets:[6,7,8,9,10,11,12,13,14,15,16]
-          },
-        ]
-      });
-
-
-      makeRowItems(that,datatable)
+      makeLevelsDatatable({$,id:'#table',that })
       this.getData();
     },
     computed: {
       loggedIn: function(){
         if(this.$route.params.team){
           return this.$store.state[this.$route.params.team].token ? true : false;
-        }
-        return false;
-      },
-      is_shellder:function(){
-        if(this.$route.params.team){
-          return this.$store.state[this.$route.params.team].user_info.is_mod? true : false;
         }
         return false;
       },
@@ -402,14 +141,12 @@
     },
     methods: {
       refresh(){
+        $('th').tooltip()
 
         let that = this;
         this.tag_labels=this.data.tags;
         this.competition_winners = this.data.competition_winners;
-
-
         const { levels, tags_list} = processLevelList(this.data)
-
         this.tags_list=tags_list;
 
         let filtered_levels=levels.filter((level)=>{
@@ -454,7 +191,6 @@
 
 
         var tempSelect="<option value=''>Default</option>"
-        //Removing these to put them at the beginning
         var removeIndexes = [];
         var removeTags = ["SMB1", "SMB3", "SMW", "NSMBU", "3DW"];
         for(let i = 0; i < this.tags_list.length; i++){
@@ -498,54 +234,17 @@
           datatable.column(15).search("",false,true);
         }
 
-
-
         
         datatable.draw();
         $('.loader').hide();
+        $('[data-toggle="tooltip"],#refresh,#submitButton,.medal').tooltip()
 
-
-        $('[data-toggle="tooltip"],.copy,#refresh,#submitButton,.medal').tooltip()
-        $('.copy').click(function(){
-          let code=$(this).parent().text().substring(0,11);
-          let new_title="Code copied."
-          if(!that.$store.state[that.$route.params.team].token){
-            let old_title="Copy clear code"
-            toggleTooltip(this,old_title,new_title)
-            copyClipboard("!clear "+code)
-          } else {
-            let old_title="Copy level code"
-            toggleTooltip(this,old_title,new_title)
-            copyClipboard(code)
-          }
-        })
-
-        $('.copyLike').click(function(){
-          if(!that.$store.state[that.$route.params.team].token){
-            var code=$(this).parent().text().substring(0,11);
-            var old_title="Copy clear code with like"
-            var new_title="Code copied."
-            toggleTooltip(this,new_title,old_title)
-            copyClipboard("!clear "+code+" like")
-          } else {
-            console.log("send like post");
-          }
-        });
+      
+        
       },
 
       getData(){
         $('.loader').show();
-
-        let datatable;
-        if ( $.fn.dataTable.isDataTable( '#table' ) ) {
-            datatable = $('#table').DataTable();
-        }
-        else {
-            datatable = $('#table').DataTable( {
-                "deferRender": true,
-            });
-        }
-        datatable.clear().draw();
 
         let that = this;
         loadEndpoint({

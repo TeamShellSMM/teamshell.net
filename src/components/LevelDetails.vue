@@ -33,26 +33,30 @@
 
 
 
-    <div id="playedTableCont" class="level-detail-played-table">
-      <table id="playedTable" class="compact row-border stripe hover" style="width:100%;">
-        <thead><tr>
-          <th style="width:10px;">No.</th>
-          <th style="width:10em">Code</th>
-          <th>Player</th>
-          <th style="width:10em">Cleared</th>
-          <th style="width:10em">{{ModName}}</th>
-          <th style="width:10px">Liked</th>
-          <th style="width:10px">Difficulty Voted</th>
-          <th style="width:5em">Submitted</th>
-        </tr></thead>
-      </table>
-    </div>
+<div id="playedTableCont" class="level-detail-played-table">
+  <table id="playedTable" class="compact row-border stripe hover" style="width:100%;">
+    <thead><tr>
+      <th style="width:10px;">No.</th>
+      <th style="width:10em">Code</th>
+      <th style="width:10em">Level Name</th>
+      <th style="width:10em">Level Creator</th>
+      <th style="width:10em">Level Difficulty</th>
+      <th>Player</th>
+      <th style="width:10em">Cleared</th>
+      <th style="width:10em">{{ModName}}</th>
+      <th style="width:10px">Liked</th>
+      <th style="width:10px">Difficulty Voted</th>
+      <th style="width:5em">Submitted</th>
+    </tr></thead>
+  </table>
+</div>
+
+
 </div>
 </template>
 
 <script>
-  import moment from 'moment/src/moment';
-  import {  copyClipboard, loadEndpoint, makeRowItems, makeMedalsCreator, processLevelList } from '../services/helper-service';
+  import { loadEndpoint, processLevelList, makeClearDatatable, makeLevelsDatatable } from '../services/helper-service';
 
   export default {
     name: 'LevelDetails',
@@ -64,348 +68,8 @@
     mounted(){
       let that = this;
       $('th').tooltip()
-      const datatable=$('#table').DataTable({
-        "language": {
-        "emptyTable": "Data is loading.",
-        },
-        columns:[
-          {data:'no'},
-          {data:'code'},
-          {data:'creator'},
-          {data:'level_name'},
-          {data:'difficulty'},
-          {data:'status'},
-          {data:'new_code'},
-          {data:'videos'},
-          {data:'created_at'},
-          {data:'tags'},
-          {data:'clears'},
-          {data:'votestr'},
-          {data:'likes'},
-          {data:'lcd'},
-          {data:'completed'},
-          {data:'difficulty_vote'},
-          {data:'liked'},
-        ],
-        paging:false,
-        responsive:true,
-        dom : "t",
-        "columnDefs": [
-          { responsivePriority: 1, targets: [0,1,3,4,14,16] },
-          { responsivePriority: 2, targets: [14] },
-          { responsivePriority: 4, targets: [2,5,6,7,8,9,10,11,12,15] },
-          {
-            "render": function ( data) {
-              if(that.loggedIn){
-                let copyTitle = "Copy levelcode";
-                return "<div class='text-monospace level-code-div'><a class='dt-level-link' href='/" + that.$route.params.team + "/level/" + encodeURI(data) + "' code='" + data + "'>" + data + "</a></div> <span class='copy' title='" + copyTitle + "'><i class='fa fa-clipboard' aria-hidden='true'></i></span>"
-              } else {
-                let copyTitle = "Copy clear code";
-                let likeTitle = "Copy clear code with like";
-                return "<div class='text-monospace level-code-div'><a class='dt-level-link' href='/" + that.$route.params.team + "/level/" + encodeURI(data) + "' code='" + data + "'>" + data + "</a></div> <span class='copy' title='" + copyTitle + "'><i class='fa fa-clipboard' aria-hidden='true'></i></span> <span class='copyLike' title='" + likeTitle + "' data-toggle='tooltip'><i class='fa fa-heart text-danger' aria-hidden='true'></i></span>"
-              }
-            },
-            "orderable": false,
-            targets:1,
-          },
-          {
-            "render": function ( data, type ) {
-              if(type!="display") return data
-              const medalsHtml=makeMedalsCreator(data,that.data.competition_winners);
-              return `<div class='creator-name-div'><a class='dt-maker-link' href='/${that.$route.params.team}/maker/${encodeURI(data)}' maker='${data}'>${data}</a>${medalsHtml}</div>`;
-            },
-            targets: 2
-          },
-          {
-            "render": function ( data, type, row ) {
-              if(type!="display") return data
-              let currentCode=row.code;
-
-              var videos="";
-
-              if(row.videos){
-                var raw_vids=row.videos.split(",")
-                for(let j=0;j<raw_vids.length;j++){
-                  videos+="<a class='clear-vid-link' target='_blank' data-toggle='tooltip' title='Video clear' href='"+raw_vids[j]+"'><i class='fas fa-video' aria-hidden='true'></i></a> "
-                }
-              }
-              var tags=row.tags
-              tags=tags?tags.split(","):[]
-              for(let i=0;i<tags.length;i++){
-                let type2=that.data.tags[tags[i]]?that.data.tags[tags[i]]:"secondary"
-                tags[i]='<a href="?tag='+tags[i]+'"><span class="tag badge badge-pill badge-'+type2+'">'+tags[i]+"</span></a>"
-              }
-              tags=tags.join("")
-
-              let votesHtml=""
-              if(that.data.vote_counts && that.data.vote_counts[currentCode]){
-                if(that.data.vote_counts[currentCode].approve){
-
-                  votesHtml+='<a class="dt-level-link" href="/level/' + encodeURI(currentCode) + '" code="' + currentCode + '" title="Votes for approval"><span class="tag badge badge-pill badge-success">'+that.data.vote_counts[currentCode].approve+"</span></a>"
-                }
-                if(that.data.vote_counts[currentCode].reject){
-                  votesHtml+='<a class="dt-level-link" href="/level/' + encodeURI(currentCode) + '" code="' + currentCode + '" title="Votes for rejection"><span class="tag badge badge-pill badge-danger">'+that.data.vote_counts[currentCode].reject+"</span></a>"
-                }
-              }
-
-
-              let goldsHtml = "";
-              let silversHtml = "";
-              let bronzesHtml = "";
-              let ironsHtml = "";
-              let shellsHtml = "";
-
-              if(that.competition_winners){
-                for(let i = 0; i < that.competition_winners.length; i++){
-                  //return "<div class='points'><a href='../levels/?creator="+encodeURI(data)+"' target='_blank'>"+data+"</a></div>"
-                  if(row.code == that.competition_winners[i][0]){
-                    switch(that.competition_winners[i][3]){
-                      case "1":
-                        goldsHtml += '<div class="medal" title="Gold medalist of ' + that.competition_winners[i][2] + '"><div class="coin coin-gold"></div></div>';
-                      break;
-                      case "2":
-                        silversHtml += '<div class="medal" title="Silver medalist of ' + that.competition_winners[i][2] + '"><div class="coin coin-silver"></div></div>';
-                      break;
-                      case "3":
-                        bronzesHtml += '<div class="medal" title="Bronze medalist of ' + that.competition_winners[i][2] + '"><div class="coin coin-bronze"></div></div>';
-                      break;
-                      case "4":
-                        ironsHtml += '<div class="medal" title="Runner-up of ' + that.competition_winners[i][2] + '"><div class="coin coin-iron"></div></div>';
-                      break;
-                      case "5":
-                        shellsHtml += '<div class="medal" title="Honorable Mention for ' + that.competition_winners[i][2] + '"><div class="coin coin-shell"></div></div>';
-                      break;
-                    }
-                  }
-                }
-
-                var medalsHtml = "";
-                if(goldsHtml != ""){
-                  medalsHtml += '<div class="medals">' + goldsHtml + '</div>';
-                }
-                if(silversHtml != ""){
-                  medalsHtml += '<div class="medals">' + silversHtml + '</div>';
-                }
-                if(bronzesHtml != ""){
-                  medalsHtml += '<div class="medals">' + bronzesHtml + '</div>';
-                }
-                if(ironsHtml != ""){
-                  medalsHtml += '<div class="medals">' + ironsHtml + '</div>';
-                }
-                if(shellsHtml != ""){
-                  medalsHtml += '<div class="medals">' + shellsHtml + '</div>';
-                }
-              }
-
-              let goldsHtmlCreator = "";
-              let silversHtmlCreator = "";
-              let bronzesHtmlCreator = "";
-              let ironsHtmlCreator = "";
-              let shellsHtmlCreator = "";
-              if(that.competition_winners){
-                for(let i = 0; i < that.competition_winners.length; i++){
-                  //return "<div class='points'><a href='../levels/?creator="+encodeURI(data)+"' target='_blank'>"+data+"</a></div>"
-                  if(row.creator == that.competition_winners[i][1]){
-                    switch(that.competition_winners[i][3]){
-                      case "1":
-                        goldsHtmlCreator += '<div class="medal" title="Gold medalist of ' + that.competition_winners[i][2] + '"><div class="coin coin-gold"></div></div>';
-                      break;
-                      case "2":
-                        silversHtmlCreator += '<div class="medal" title="Silver medalist of ' + that.competition_winners[i][2] + '"><div class="coin coin-silver"></div></div>';
-                      break;
-                      case "3":
-                        bronzesHtmlCreator += '<div class="medal" title="Bronze medalist of ' + that.competition_winners[i][2] + '"><div class="coin coin-bronze"></div></div>';
-                      break;
-                      case "4":
-                        ironsHtmlCreator += '<div class="medal" title="Runner-up of ' + that.competition_winners[i][2] + '"><div class="coin coin-iron"></div></div>';
-                      break;
-                      case "5":
-                        shellsHtmlCreator += '<div class="medal" title="Honorable Mention for ' + that.competition_winners[i][2] + '"><div class="coin coin-shell"></div></div>';
-                      break;
-                    }
-                  }
-                }
-
-                var medalsHtmlCreator = "";
-                if(goldsHtmlCreator != ""){
-                  medalsHtmlCreator += '<div class="medals">' + goldsHtmlCreator + '</div>';
-                }
-                if(silversHtmlCreator != ""){
-                  medalsHtmlCreator += '<div class="medals">' + silversHtmlCreator + '</div>';
-                }
-                if(bronzesHtmlCreator != ""){
-                  medalsHtmlCreator += '<div class="medals">' + bronzesHtmlCreator + '</div>';
-                }
-                if(ironsHtmlCreator != ""){
-                  medalsHtmlCreator += '<div class="medals">' + ironsHtmlCreator + '</div>';
-                }
-                if(shellsHtmlCreator != ""){
-                  medalsHtmlCreator += '<div class="medals">' + shellsHtmlCreator + '</div>';
-                }
-              }
-
-              let makerLink = "<div class='creator-name-div diff-text-mobile'><a class='dt-maker-link' href='/" + that.$route.params.team + "/maker/" + encodeURI(row.creator) + "' maker='" + row.creator + "'>" + row.creator + "</a>"+medalsHtmlCreator +"</div>";
-
-              return makerLink + "<div class='font-weight-bold level-name-div'>"+data+medalsHtml +"<br/>"+ votesHtml+" "+ videos + " " + tags + "</div>";
-            },
-            targets:3,
-          },{
-            "render": function ( data, type, row ) {
-              var tags=row.tags
-              tags=tags?tags.split(","):[]
-              if(tags.indexOf("TeamConsistency")!=-1){
-                return "N/A";
-              } else {
-                return Number(data).toFixed(1);
-              }
-            },
-            targets:4,
-          },
-          {
-            visible: false,
-            targets:[5,6,7,8,9,10]
-          },
-          {
-            "render": function ( data, type ) {
-              data=data||"0,0"
-              data=data.split(",")
-              if ( type !="display" ) {
-                return data[0];
-              } else {
-                return data[0]+"<br/><span class='tag badge badge-secondary'>"+data[1]+" votes</span>";
-              }
-            },
-            targets:11
-          },
-          {
-            "render": function ( data, type, row, meta ) {
-              if ( type !="display" ) {
-                return data=="1"?"1":"0";
-              } else {
-                if(that.loggedIn){
-                  return (data=="1"?'<i title="You have cleared this level" data-toggle="tooltip" class="fa fa-check text-success dt-unclear-button" aria-hidden="true" code="' + row.code + '" levelname="' + row.level_name + '" rownum="' + meta.row + '"></i>': '<i title="You have not submitted a clear for this level yet" data-toggle="tooltip" class="fa fa-check fa-inactive dt-clear-button" aria-hidden="true" code="' + row.code + '" levelname="' + row.level_name + '" rownum="' + meta.row + '"></i>');
-                } else {
-                  return (data=="1"?'<i title="Entered player has cleared this level" data-toggle="tooltip" class="fa fa-check text-success" aria-hidden="true"></i>': '');
-                }
-              }
-            },
-            targets:14
-          },
-          {
-            "render": function ( data ) {
-              return isNaN(data)||data==0?"":Number(data).toFixed(1);
-            },
-            targets:15
-          },
-          {
-            "render": function ( data, type, row, meta ) {
-              if ( type !="display" ) {
-                return data=="1"?"1":"0";
-              } else {
-                if(that.loggedIn){
-                  return (data=="1"?'<i title="You liked this level" data-toggle="tooltip" class="fa fa-heart text-danger dt-unlike-button" aria-hidden="true" code="' + row.code + '" levelname="' + row.level_name + '" rownum="' + meta.row + '"></i>': '<i title="You have not submitted a like for this level yet" data-toggle="tooltip" class="fa fa-heart fa-inactive dt-like-button" aria-hidden="true" code="' + row.code + '" levelname="' + row.leven_name + '" rownum="' + meta.row + '"></i>');
-                } else {
-                  return (data=="1"?'<i title="Entered player has liked this level" data-toggle="tooltip" class="fa fa-heart text-danger" aria-hidden="true"></i>': '');
-                }
-              }
-            },
-            targets:16
-          },
-          {
-            defaultContent:"",
-            targets:[6,7,8,9,10,11,12,13,14,15,16]
-          },
-        ]
-      });
-
-      $('#playedTable').DataTable({
-        "language": {
-        "emptyTable": "Data is loading.",
-        "info":           "_TOTAL_ players",
-        "infoEmpty":      "0 rows",
-        "infoFiltered":   "/ _MAX_ rows",
-        },
-        paging:false,
-        responsive:true,
-        dom : "ti",
-        "columnDefs": [
-          {
-            visible: false,
-            targets:[1]
-          },
-          {
-            "render": function ( data, type ) {
-              if(type!="display") return data
-              let medalsHtml=makeMedalsCreator(data,that.competition_winners)
-              return "<a class='dt-maker-link' href='/" + that.$route.params.team + "/maker/" + encodeURI(data) + "' maker='" + data + "'>" + data + "</a>"+medalsHtml;
-            },
-            targets: 2
-          },
-          {
-            "render": function ( data, type ) {
-              if ( type !="display" ) {
-                  return data=="1"?"1":"0";
-              } else {
-                  return (data=="1"?'<i title="Player has cleared this level." data-toggle="tooltip" class="fa fa-check text-success" aria-hidden="true"></i>': "");
-              }
-           },
-            targets:3
-          },
-          {
-            "render": function ( data, type ) {
-              if ( type !="display" ) {
-                  return data=="1"?"1":"0";
-              } else {
-                  return (data=="1"?'<i title="This is a Mod Clear" data-toggle="tooltip" class="fa fa-check text-success" aria-hidden="true"></i>': "");
-              }
-            },
-            targets:4
-          },
-          {
-            "render": function ( data, type ) {
-              if ( type !="display" ) {
-                  return data=="1"?"1":"0";
-              } else {
-                  return (data=="1"?'<i title="This is a Mod Clear" data-toggle="tooltip" class="fa fa-check text-success" aria-hidden="true"></i>': "");
-              }
-            },
-            targets:4
-          },
-          {
-            "render": function ( data, type ) {
-              if ( type !="display" ) {
-                  return data=="1"?"1":"0";
-              } else {
-                  return (data=="1"?'<i title="Player has liked this level" data-toggle="tooltip" class="fa fa-heart text-danger" aria-hidden="true"></i>': "");
-              }
-            },
-            targets:5
-          },
-          {
-            "render": function ( data, type ) {
-              if ( type !="display" ) {
-                  return data
-              } else {
-                  return data?parseFloat(data).toFixed(1):""
-              }
-            },
-            targets:6
-          },
-          {
-            "render": function ( data, type ) {
-              if ( type !="display" ) {
-                  return data
-              } else {
-                  var day=moment(data)
-                  return day.fromNow()
-              }
-            },
-            targets:7
-          }
-        ]
-      });
-
-      makeRowItems(that,datatable)
+      makeLevelsDatatable({$,id:'#table',that })
+      makeClearDatatable($,'#playedTable',this,[1,2,3,4])
       this.getData();
     },
     computed: {
@@ -419,6 +83,7 @@
     methods: {
       refresh(){
         let that = this;
+        this.tag_labels=this.data.tags;
         let commentHTML=""
         if(that.data.pending_comments){
           that.data.pending_comments.forEach( comment => {
@@ -434,118 +99,28 @@
         }
         $("#commentHTML").html(commentHTML)
         this.competition_winners = this.data.competition_winners;
-
         const { levels={} } = processLevelList(that.data)||{}
 
         let filtered_levels=levels;
 
     
-      var datatable=$('#table').DataTable()
-      datatable.clear();
-      datatable.rows.add(filtered_levels);
-
-
-      let dataTablePlays = [];
-      let playCounter = 1;
-      if(this.data.plays){
-        for(let play of this.data.plays){
-          dataTablePlays.push([playCounter++, play.code, play.player, play.completed, play.is_shellder, play.liked, play.difficulty_vote, play.created_at]);
-        }
-
-        var datatable2=$('#playedTable').DataTable()
-        datatable2.clear();
-        datatable2.rows.add(dataTablePlays)
-        datatable2.draw();
-      }
-      datatable.column(5).search("",false,true);
-      datatable.column(14).search("",false,true);
-
+        const datatable=$('#table').DataTable()
+        datatable.clear();
+        datatable.rows.add(filtered_levels);
+        datatable.column(5).search("",false,true);
+        datatable.column(14).search("",false,true);
         datatable.draw();
-        $('[data-toggle="tooltip"],.copy,#refresh,#submitButton,.medal').tooltip()
-        $('.copy').click(function(){
-          if(!that.$store.state[that.$route.params.team].token){
-            let code=$(this).parent().text().substring(0,11);
-            let old_title="Copy clear code"
-            let new_title="Code copied."
 
-            $(this).addClass("text-success")
-              $(this).tooltip('hide')
-                  .attr('title', new_title)
-                  .attr('data-original-title', new_title)
-                  .tooltip('update')
-                  .tooltip('show')
-              let temp=this
-
-            setTimeout(function(){
-              $(temp).removeClass("text-success")
-              $(temp).tooltip('hide')
-                  .attr('title', old_title)
-                  .attr('data-original-title', old_title)
-                  .tooltip('update')
-                  .tooltip('enable')
-            },2000)
-            copyClipboard("!clear "+code)
-          } else {
-            let code=$(this).parent().text().substring(0,11);
-            let old_title="Copy levelcode"
-            let new_title="Code copied."
-
-            $(this).addClass("text-success")
-              $(this).tooltip('hide')
-                  .attr('title', new_title)
-                  .attr('data-original-title', new_title)
-                  .tooltip('update')
-                  .tooltip('show')
-              let temp=this
-
-            setTimeout(function(){
-              $(temp).removeClass("text-success")
-              $(temp).tooltip('hide')
-                  .attr('title', old_title)
-                  .attr('data-original-title', old_title)
-                  .tooltip('update')
-                  .tooltip('enable')
-            },2000)
-            copyClipboard(code)
-          }
-        })
-
+        if(this.data.plays){
+          const datatable2=$('#playedTable').DataTable()
+          datatable2.clear();
+          datatable2.rows.add(this.data.plays)
+          datatable2.draw();
+        }
         $('.loader').hide();
-
-        $('.copyLike').click(function(){
-          var code=$(this).parent().text().substring(0,11);
-          var old_title="Copy clear code with like"
-          var new_title="Code copied."
-
-          $(this).addClass("text-success")
-            $(this).tooltip('hide')
-                .attr('title', new_title)
-                .attr('data-original-title', new_title)
-                .tooltip('update')
-                .tooltip('show')
-            var temp=this
-
-          setTimeout(function(){
-            $(temp).removeClass("text-success")
-            $(temp).tooltip('hide')
-                .attr('title', old_title)
-                .attr('data-original-title', old_title)
-                .tooltip('update')
-                .tooltip('enable')
-          },2000)
-          copyClipboard("!clear "+code+" like")
-        });
       },
       getData(){
         $('.loader').show();
-
-        var datatable=$('#table').DataTable()
-        var datatable2=$("#playedTable").DataTable()
-        datatable.clear().draw();
-        datatable2.clear().draw();
-        console.log(this.currentCode)
-
-
         let that = this;
         loadEndpoint({
           that,

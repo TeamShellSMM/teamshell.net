@@ -171,7 +171,7 @@
             for(let i = 0; i < this.seasons.length; i++){
               var opt = document.createElement('option');
               opt.value = i + 1;
-              opt.innerHTML = this.seasons[i][1];
+              opt.innerHTML = this.seasons[i].Name;
               selectNode.appendChild(opt);
 
               if(this.first_load){
@@ -179,7 +179,6 @@
                 selectNode.value = this.current_season;
               }
             }
-
             this.first_load = false;
           }
 
@@ -209,7 +208,6 @@
               season: that.current_season,
             },
             onLoad(_rawData){
-              console.log(_rawData);
               that.makers = _rawData.data;
               that.seasons = _rawData.seasons;
               that.refresh()

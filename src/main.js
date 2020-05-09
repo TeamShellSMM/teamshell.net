@@ -57,6 +57,7 @@ const router = new VueRouter({
 
 const defaultSetting={
   title:"MakerTeams",
+  TeamName:'MakerTeams',
   icon:'/favicon.ico',
   maker:true,
 }

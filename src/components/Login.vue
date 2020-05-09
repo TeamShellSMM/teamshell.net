@@ -29,9 +29,7 @@
           if(data.status == "error"){
             $('.loader').hide();
             alert(data.message);
-            that.$dialog.alert(data.message).then(function(dialog) {
-              console.log(dialog);
-            });
+            that.$dialog.alert(data.message)
             that.$router.push("/" + that.$route.params.team + "/levels");
           }
           if(data.status == "logged_in"){
