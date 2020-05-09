@@ -18,7 +18,7 @@
 </template>
 
 <script>
-  import { loadWorlds } from '../services/helper-service';
+  import { loadEndpoint } from '../services/helper-service';
 
   export default {
       name: 'Worlds',
@@ -29,7 +29,7 @@
           'tag_labels': '',
           'clears': '',
           'raw_data': '',
-          'comp_winners': '',
+          'competition_winners': '',
           'current_season': -1,
           'first_load': true,
           'worlds': [],
@@ -153,14 +153,19 @@
 
           let that = this;
 
-          loadWorlds({
-            token: that.$store.state[that.$route.params.team].token,
-            url_slug: that.$route.params.team,
-            membershipStatus: that.membershipStatus
-          }, function(_rawData){
-            console.log(_rawData);
-            that.worlds = _rawData.data;
-            that.refresh()
+        
+          loadEndpoint({
+            that,
+            route:'json/worlds',
+            data:{
+              token: that.$store.state[that.$route.params.team].token,
+              url_slug: that.$route.params.team,
+              membershipStatus: that.membershipStatus
+            },
+            onLoad(_rawData){
+              that.worlds = _rawData.data;
+              that.refresh()
+            },
           })
         }
       }
