@@ -36,8 +36,11 @@ let processLevelList=function(data){
         let level=data.levels[i]
         //adding automatic tags
         let curr_tags=level.tags.split(",")
-        if(level.status=="0"||level.status=="-10"){
+        if(level.status=="0"){
         curr_tags.unshift("Pending")
+        }
+        if(level.status=="-10"){
+        curr_tags.unshift("In Fix Request")
         }
         level.tags=curr_tags.join(",")
 
@@ -80,7 +83,7 @@ let makeClearDatatable=($,dt,that,hidden=[],rowLabel='players')=>{
       {data:'liked'},
       {data:'difficulty_vote'},
       {data:'created_at'},
-      
+
     ],
     "columnDefs": [
       {
@@ -200,7 +203,7 @@ let makeMedalsLevels=function(wonComps){
 
     }
 
-    
+
     if(goldsHtml != ""){
       medalsHtml += '<div class="medals">' + goldsHtml + '</div>';
     }
@@ -270,8 +273,8 @@ let makeMedalsCreator=function(creator,competition_winners){
 }
 /**
  * Creates the clear/like buttons
- * @param {VueComponent} that 
- * @param {DataTable} datatable 
+ * @param {VueComponent} that
+ * @param {DataTable} datatable
  */
 let makeRowItems=function(that,datatable){
     $(document).off('click', 'a.dt-level-link');
@@ -359,7 +362,7 @@ let makeRowItems=function(that,datatable){
 
     $(document).off('click', 'i.dt-unlike-button');
     $(document).on('click', 'i.dt-unlike-button', function(e){
-    
+
     e.stopPropagation();
     e.preventDefault();
     const button = this;
@@ -751,7 +754,7 @@ let makeLevelsDatatable=({ $, id, that, hidden=[]})=>{
 }
 
 let makeCodeButtons=($,that)=>{
-          
+
   $(document).off('click', '.copy');
   $(document).on('click', '.copy', function(){
     let code=$(this).parent().text().substring(0,11);

@@ -107,7 +107,7 @@
       store_input(this.$route.query, 'approved','#pendingLevel')
       store_input(this.$route.query, 'minDifficulty','#minDifficulty')
       store_input(this.$route.query, 'maxDifficulty','#maxDifficulty')
-      
+
 
       $(document).off('change', "#table_length select");
       $(document).on("change", "#table_length select", function(){
@@ -223,7 +223,7 @@
         datatable.rows.add(filtered_levels)
         //
         if(!get_input('approved') || get_input('approved')=="1"||get_input('approved')=="2"){
-          datatable.column(5).search( (get_input('approved')=="2"?'"0"':'"1"'),false,true)
+          datatable.column(5).search((get_input('approved')=="2"?'0':'^1$'),true,true)
         } else {
           datatable.column(5).search("",false,true)
         }
@@ -234,13 +234,13 @@
           datatable.column(14).search("",false,true);
         }
 
-        
+
         datatable.draw();
         $('.loader').hide();
         $('[data-toggle="tooltip"],#refresh,#submitButton,.medal').tooltip()
 
-      
-        
+
+
       },
 
       getData(){
@@ -251,6 +251,7 @@
           that,
           onLoad(_rawData){
             that.data=_rawData
+            console.log(that.data);
             that.refresh()
           },
         })
