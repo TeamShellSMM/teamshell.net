@@ -229,9 +229,9 @@
         }
 
         if(get_input("cleared")=="2"||get_input("cleared")=="3"){
-          datatable.column(15).search(get_input('cleared')=="3"?'"1"':'"0"',false,true)
+          datatable.column(14).search(get_input('cleared')=="3"?'"1"':'"0"',false,true)
         } else {
-          datatable.column(15).search("",false,true);
+          datatable.column(14).search("",false,true);
         }
 
         
