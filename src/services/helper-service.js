@@ -528,7 +528,7 @@ let makeLevelsDatatable=({ $, id, that, hidden=[]})=>{
         targets:[6,7,8,9,10,11,12,13,14,15,16]
       },{
         visible: false,
-        targets:that.loggedIn?[5,6,7,8,9,10,...hidden]:[5,6,7,8,9,10,14,15,16,...hidden],
+        targets:that.loggedIn?[5,6,7,8,9,...hidden]:[5,6,7,8,9,14,15,16,...hidden],
       },
       { responsivePriority: 1, targets: [0,1,3,4,14,16] },
       { responsivePriority: 2, targets: [14] },
