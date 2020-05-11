@@ -187,8 +187,8 @@
           if(statusType==='pending' && !this.$constants.PENDING_LEVELS.includes(level.status)) return false;
 
           const clearType=get_input("cleared")
-          if(clearType==="2" && level.cleared===1) return false;
-          if(clearType==="3" && level.cleared!==1) return false;
+          if(clearType==="2" && level.completed===1) return false;
+          if(clearType==="3" && level.completed!==1) return false;
               
 
           if(that.current_search_term){
