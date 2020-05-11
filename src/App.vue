@@ -67,7 +67,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-12">
+        <div class="col-12" v-if="!loggedIn">
           <h4>Join the discord for more information: <a v-bind:href="team.discord_invite">{{ team.discord_invite }}</a></h4>
         </div>
       </div>
