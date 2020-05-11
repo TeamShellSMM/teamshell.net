@@ -34,16 +34,7 @@ let processLevelList=function(data){
     const levels=[];
     for(let i=0;i<data.levels.length;i++){ //main loop that processes all the stats for the levels
         let level=data.levels[i]
-        //adding automatic tags
         let curr_tags=level.tags.split(",")
-        if(level.status=="0"){
-        curr_tags.unshift("Pending")
-        }
-        if(level.status=="-10"){
-        curr_tags.unshift("In Fix Request")
-        }
-        level.tags=curr_tags.join(",")
-
         //get all the tags used from the data set
         for(let k=0;k<curr_tags.length;k++){
         if(curr_tags[k] && tags_list.indexOf(curr_tags[k])=="-1")
@@ -277,6 +268,11 @@ let makeMedalsCreator=function(creator,competition_winners){
  * @param {DataTable} datatable
  */
 let makeRowItems=function(that,datatable){
+  $(document).off('click', 'span.tag');
+  $(document).off('click', 'span.tag',function(){
+    console.log(this.innerHTML)
+  });
+
     $(document).off('click', 'a.dt-level-link');
     $(document).on('click', 'a.dt-level-link', function(e){
     e.stopPropagation();
@@ -573,20 +569,28 @@ let makeLevelsDatatable=({ $, id, that, hidden=[]})=>{
           tags=tags?tags.split(","):[]
           for(let i=0;i<tags.length;i++){
             let type2=that.tag_labels[tags[i]]?that.tag_labels[tags[i]]:"secondary"
-            tags[i]='<a href="#"><span class="tag badge badge-pill badge-'+type2+'">'+tags[i]+"</span></a>"
+            tags[i]=`<a class="tagLink" href="/${that.$route.params.team}/levels/tags/${tags[i]}"><span class="tag badge badge-pill badge-${type2}">${tags[i]}</span></a>`
           }
 
-          tags=tags.join("")
+          let statusStr='';
+          if(that.$constants.PENDING_LEVELS.includes(row.status)){
+            statusStr=`<span class="tag badge badge-pill badge-warning">Pending</span>`
+          }
+          if(row.status===that.$constants.LEVEL_STATUS.NEED_FIX){
+            statusStr=`<span class="tag badge badge-pill badge-warning">In Fix Status</span>`
+          }
+          
+          tags=statusStr+tags.join("")
           let votesHtml=""
           if(row.status!="1"){
             if(row.approves){
-              votesHtml+=`<a class="dt-level-link" href="${that.$route.params.team}/level/${encodeURI(row.code)}" code="${row.code}" title="Votes for approval"><span class="tag badge badge-pill badge-success">${row.approves}</span></a>`
+              votesHtml+=`<a class="dt-level-link" href="/${that.$route.params.team}/level/${encodeURI(row.code)}" code="${row.code}" title="Votes for approval"><span class="tag badge badge-pill badge-success">${row.approves}</span></a>`
             }
             if(row.want_fixes){
-              votesHtml+=`<a class="dt-level-link" href="${that.$route.params.team}/level/${encodeURI(row.code)}" code="${row.code}" title="Votes for approval"><span class="tag badge badge-pill badge-warning">${row.want_fixes}</span></a>`
+              votesHtml+=`<a class="dt-level-link" href="/${that.$route.params.team}/level/${encodeURI(row.code)}" code="${row.code}" title="Votes for approval"><span class="tag badge badge-pill badge-warning">${row.want_fixes}</span></a>`
             }
             if(row.rejects){
-              votesHtml+=`<a class="dt-level-link" href="${that.$route.params.team}/level/${encodeURI(row.code)}" code="${row.code}" title="Votes for approval"><span class="tag badge badge-pill badge-danger">${row.rejects}</span></a>`
+              votesHtml+=`<a class="dt-level-link" href="/${that.$route.params.team}/level/${encodeURI(row.code)}" code="${row.code}" title="Votes for approval"><span class="tag badge badge-pill badge-danger">${row.rejects}</span></a>`
             }
           }
 

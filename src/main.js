@@ -40,6 +40,8 @@ const routes = [
   }, component: HowToJoin},
   {path: '/:team', component: Home},
   {path: '/:team/levels', component: Levels},
+  {path: '/:team/levels/tags/:tags', component: Levels},
+  {path: '/:team/levels/status/:status', component: Levels},
   {path: '/:team/level/:code', component: LevelDetails},
   {path: '/:team/maker/:name', component: MakerDetails},
   {path: '/:team/worlds', component: Worlds},
@@ -152,6 +154,32 @@ const store = new Vuex.Store({
   modules: teamModules,
   plugins: [vuexLocal.plugin]
 });
+
+const LEVEL_STATUS={
+  PENDING:0,
+  PENDING_APPROVED_REUPLOAD:3,
+  PENDING_FIXED_REUPLOAD:4,
+  PENDING_NOT_FIXED_REUPLOAD:5,
+
+  NEED_FIX:-10,
+  APPROVED:1,
+  REJECTED:-1,
+
+  REUPLOADED:2,
+  REMOVED:-2, 
+  USER_REMOVED:-3,
+};
+
+const PENDING_LEVELS=[
+  LEVEL_STATUS.PENDING,
+  LEVEL_STATUS.PENDING_NOT_FIXED_REUPLOAD,
+  LEVEL_STATUS.PENDING_APPROVED_REUPLOAD,
+  LEVEL_STATUS.PENDING_FIXED_REUPLOAD,
+];
+
+Vue.prototype.$constants={
+  LEVEL_STATUS,PENDING_LEVELS
+}
 
 new Vue({
   store,

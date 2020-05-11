@@ -4,11 +4,11 @@
       <div class="form-group row">
         <div class="col-md-6">
         <label for="searchTerm">Search Term</label>
-        <input name="member" type="text" class="form-control" id="searchTerm" autocomplete="off" placeholder="Search Term">
+        <input name="member" type="text" class="form-control" id="searchTerm" autocomplete="off" placeholder="Search Term" @change="clientReload()">
         <small class="form-text text-muted">With this you can search for a certain creator or levelname.</small>
         </div>
 
-        <div class="col-md-3">
+        <div v-if="loggedIn" class="col-md-3" @change="clientReload()">
         <label for="clearedLevel">Cleared</label>
         <select name="cleared" id="clearedLevel" class="form-control">
             <option value="1" selected>All</option>
@@ -18,12 +18,13 @@
         </div>
 
 
-          <div class="col-md-3">
+          <div class="col-md-3" @change="clientReload()">
           <label for="pendingLevel">Levels</label>
           <select name="approved" id="pendingLevel" class="form-control">
-            <option value="1" selected>Approved</option>
-            <option value="2" >Pending</option>
-            <option value="3">All</option>
+            <option value="approved" selected>Approved</option>
+            <option value="pending" >Pending</option>
+            <option value="infix" >In Fix Request</option>
+            <option value="all">All</option>
           </select>
           <small class="form-text text-muted">Approved levels are levels that have been played and approved by a moderator.</small>
         </div>
@@ -31,27 +32,27 @@
       </div>
       <div class="form-group row">
 
-      <div class="col-md-3">
+      <div class="col-md-3" @change="clientReload()">
       <label for="minDifficulty">Min Difficulty</label>
       <input type="number" id="minDifficulty" name="minDifficulty" placeholder="0" step="0.5" min="0" max="12" class="form-control" />
           <small class="form-text text-muted">Minimum difficulty to show.</small>
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-3" @change="clientReload()">
       <label for="maxDifficulty">Max Difficulty</label>
       <input type="number" id="maxDifficulty" name="maxDifficulty" placeholder="10"  step="0.5" min="0" max="12" class="form-control" />
           <small class="form-text text-muted">Maximum difficulty to show.</small>
         </div>
 
 
-      <div class="col-md-4">
+      <div class="col-md-4" @change="clientReload()">
       <label for="tagSelect">Tags</label>
       <select name="tag" id="tagSelect" class="form-control"></select>
           <small class="form-text text-muted">Default view will show all Team Levels.</small>
         </div>
 
 
-        <div class="col-md-2"><label for="submitButton">&nbsp;</label><button id="submitButton" class="btn btn-block" style="color:white;" :class="$route.params.team + '-primary-bg'" v-on:click="filterTable()">Filter</button></div>
+        <div class="col-md-2"><label for="submitButton">&nbsp;</label><button id="submitButton" class="btn btn-block" style="color:white;" :class="$route.params.team + '-primary-bg'" v-on:click="filterTable">Reload</button></div>
       </div>
     </div>
 
@@ -102,6 +103,11 @@
     mounted(){
       let that = this;
 
+   
+      if(this.$route.params.tags){
+        this.current_tag =this.$route.params.tags
+        this.tagOnce=this.$route.params.tags
+      }
 
       store_input(this.$route.query, 'cleared','#clearedLevel')
       store_input(this.$route.query, 'approved','#pendingLevel')
@@ -149,31 +155,41 @@
         const { levels, tags_list} = processLevelList(this.data)
         this.tags_list=tags_list;
 
+
         let filtered_levels=levels.filter((level)=>{
-          let include=true;
           let curr_tags=level.tags.split(',')
           if(that.current_tag){ //if a tag is selected
             //if the level doen't have the current tag, don't include
             if(curr_tags.indexOf(that.current_tag)=="-1"){
-              include=false
+              return false
             }
           } else { //default view. default view doesn't select certain tags like TeamConsistency
             for(let k=0;k<curr_tags.length;k++){
               if(that.data.seperate.indexOf(curr_tags[k])!="-1"){
-                include=false
+                return false
               }
             }
           }
           if(get_input("minDifficulty")){
             if(parseFloat(level.difficulty)<parseFloat(get_input("minDifficulty"))){
-              include=false
+              return false
             }
           }
           if(get_input("maxDifficulty")){
             if(parseFloat(level.difficulty)>parseFloat(get_input("maxDifficulty"))){
-              include=false
+              return false
             }
           }
+
+          const statusType=get_input('approved');
+          if(statusType==='infix' && level.status!==this.$constants.LEVEL_STATUS.NEED_FIX) return false;
+          if(statusType==='approved' && level.status !==this.$constants.LEVEL_STATUS.APPROVED) return false;
+          if(statusType==='pending' && !this.$constants.PENDING_LEVELS.includes(level.status)) return false;
+
+          const clearType=get_input("cleared")
+          if(clearType==="2" && level.cleared===1) return false;
+          if(clearType==="3" && level.cleared!==1) return false;
+              
 
           if(that.current_search_term){
             let cName = level.creator.toLowerCase();
@@ -181,14 +197,12 @@
 
             let lowerSearchTerm = that.current_search_term.toLowerCase();
             if(cName.indexOf(lowerSearchTerm) === -1 && lName.indexOf(lowerSearchTerm) === -1){
-              include = false;
+              return false
             }
           }
 
-          return include;
+          return true;
         })
-
-
 
         var tempSelect="<option value=''>Default</option>"
         var removeIndexes = [];
@@ -218,27 +232,17 @@
           tempSelect+="<option "+ (this.current_tag==this.tags_list[k]?"selected":"")+">"+this.tags_list[k]+"</option>"
         }
         $("#tagSelect").html(tempSelect)
+        if(that.tagOnce){
+          $('#tagSelect').val(that.tagOnce)
+          delete that.tagOnce
+        }
+        
         var datatable=$('#table').DataTable()
         datatable.clear();
         datatable.rows.add(filtered_levels)
-        //
-        if(!get_input('approved') || get_input('approved')=="1"||get_input('approved')=="2"){
-          datatable.column(5).search((get_input('approved')=="2"?'0':'^1$'),true,true)
-        } else {
-          datatable.column(5).search("",false,true)
-        }
-
-        if(get_input("cleared")=="2"||get_input("cleared")=="3"){
-          datatable.column(14).search(get_input('cleared')=="3"?'"1"':'"0"',false,true)
-        } else {
-          datatable.column(14).search("",false,true);
-        }
-
-
         datatable.draw();
         $('.loader').hide();
         $('[data-toggle="tooltip"],#refresh,#submitButton,.medal').tooltip()
-
 
 
       },
@@ -250,22 +254,29 @@
         loadEndpoint({
           that,
           onLoad(_rawData){
+            that.cachedData=JSON.stringify(_rawData)
             that.data=_rawData
             console.log(that.data);
             that.refresh()
           },
         })
       },
-      filterTable(){
-        $('.loader').show();
-
+      clientReload(){
+        this.filterSave()
+        this.data=JSON.parse(this.cachedData)
+        this.refresh()
+      },
+      filterSave(){
         save_input('cleared','#clearedLevel')
         save_input('approved','#pendingLevel')
         save_input('minDifficulty','#minDifficulty')
         save_input('maxDifficulty','#maxDifficulty')
         this.current_tag = $('#tagSelect').val();
         this.current_search_term = $('#searchTerm').val();
-
+      },
+      filterTable(){
+        $('.loader').show();
+        this.filterSave();
         let that = this;
         setTimeout(function(){
           that.getData();
