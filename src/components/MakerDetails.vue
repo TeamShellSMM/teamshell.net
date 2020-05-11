@@ -69,6 +69,12 @@
         }
         return false;
       },
+      username:function(){
+        if(this.$route.params.team){
+          return this.$store.state[this.$route.params.team].user_info.name;
+        }
+        return false;
+      },
     },
     methods: {
       refresh(){

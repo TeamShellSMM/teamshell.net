@@ -148,12 +148,12 @@
     methods: {
       refresh(){
         $('th').tooltip()
-
         let that = this;
         this.tag_labels=this.data.tags;
         this.competition_winners = this.data.competition_winners;
         const { levels, tags_list} = processLevelList(this.data)
         this.tags_list=tags_list;
+        
 
 
         let filtered_levels=levels.filter((level)=>{
@@ -187,8 +187,9 @@
           if(statusType==='pending' && !this.$constants.PENDING_LEVELS.includes(level.status)) return false;
 
           const clearType=get_input("cleared")
-          if(clearType==="2" && level.completed===1) return false;
-          if(clearType==="3" && level.completed!==1) return false;
+          const completed=level.completed===1 || level.creator===this.username
+          if(clearType==="2" && completed) return false;
+          if(clearType==="3" && !completed) return false;
               
 
           if(that.current_search_term){

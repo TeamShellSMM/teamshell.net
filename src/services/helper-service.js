@@ -721,18 +721,22 @@ let makeLevelsDatatable=({ $, id, that, hidden=[]})=>{
           if ( type !="display" ) {
             return data=="1"?"1":"0";
           } else {
-            if(that.loggedIn){
-              return (data=="1"?'<i title="You have cleared this level" data-toggle="tooltip" class="fa fa-check text-success dt-unclear-button" aria-hidden="true" code="' + row.code + '" levelname="' + row.level_name + '" rownum="' + meta.row + '"></i>': '<i title="You have not submitted a clear for this level yet" data-toggle="tooltip" class="fa fa-check fa-inactive dt-clear-button" aria-hidden="true" code="' + row.code + '" levelname="' + row.level_name + '" rownum="' + meta.row + '"></i>');
+            if(that.loggedIn && row.creator!==that.username){
+                return (data=="1"?'<i title="You have cleared this level" data-toggle="tooltip" class="fa fa-check text-success dt-unclear-button" aria-hidden="true" code="' + row.code + '" levelname="' + row.level_name + '" rownum="' + meta.row + '"></i>': '<i title="You have not submitted a clear for this level yet" data-toggle="tooltip" class="fa fa-check fa-inactive dt-clear-button" aria-hidden="true" code="' + row.code + '" levelname="' + row.level_name + '" rownum="' + meta.row + '"></i>');
             } else {
-              return (data=="1"?'<i title="Entered player has cleared this level" data-toggle="tooltip" class="fa fa-check text-success" aria-hidden="true"></i>': '');
+              return '';
             }
           }
         },
         targets:14
       },
       {
-        "render": function ( data ) {
-          return isNaN(data)||data==0?"":Number(data).toFixed(1);
+        "render": function ( data,type,row ) {
+          if(that.loggedIn && row.creator!==that.username){
+            return isNaN(data)||data==0?"":Number(data).toFixed(1)
+          } else {
+            return '';
+          }
         },
         targets:15
       },
@@ -741,10 +745,10 @@ let makeLevelsDatatable=({ $, id, that, hidden=[]})=>{
           if ( type !="display" ) {
             return data=="1"?"1":"0";
           } else {
-            if(that.loggedIn){
+            if(that.loggedIn && row.creator!==that.username){
               return (data=="1"?'<i title="You liked this level" data-toggle="tooltip" class="fa fa-heart text-danger dt-unlike-button" aria-hidden="true" code="' + row.code + '" levelname="' + row.level_name + '" rownum="' + meta.row + '"></i>': '<i title="You have not submitted a like for this level yet" data-toggle="tooltip" class="fa fa-heart fa-inactive dt-like-button" aria-hidden="true" code="' + row.code + '" levelname="' + row.level_name + '" rownum="' + meta.row + '"></i>');
             } else {
-              return (data=="1"?'<i title="Entered player has liked this level" data-toggle="tooltip" class="fa fa-heart text-danger" aria-hidden="true"></i>': '');
+              return '';
             }
           }
         },
