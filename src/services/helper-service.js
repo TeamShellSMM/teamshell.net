@@ -3,15 +3,17 @@ import moment from 'moment/src/moment';
 
 const backendURL = "/backend/";
 
-let loadEndpoint = function({route='json',that,onLoad,data={}}){
+let loadEndpoint = function({type='post',route='json',that,onLoad,data={}}){
   let url= backendURL + route;
-  $.post(url,{
+  $.ajax({
+    url,
+    type,
+    data:{
     token:that.$store.state[that.$route.params.team].token,
     url_slug:that.$route.params.team,
     ...data
     },
-    function(_data){
-        console.log(_data)
+    success(_data){
       if(_data.status==="error"){
         if(_data.message==="Authentication error"){
           that.$store.commit(that.$route.params.team + '/setToken', {  });
@@ -24,8 +26,10 @@ let loadEndpoint = function({route='json',that,onLoad,data={}}){
           });
         }
       } else {
+        that.$store.commit(that.$route.params.team + '/setTeamAdmin', _data.teamAdmin);
         onLoad(_data)
       }
+    },
   })
 }
 

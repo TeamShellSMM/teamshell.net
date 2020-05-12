@@ -59,7 +59,13 @@
               <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Logged in as {{userName}}</span>
               <div class="dropdown-menu">
                 <a class="dropdown-item" href="#" v-on:click="showFeedbackDialog()">Submit feedback</a>
-                <a class="dropdown-item" href="#" v-on:click="logout()">Logout</a>
+                <div v-if="teamAdmin">
+                <div class="dropdown-divider"></div>
+                <router-link :to="'/'+$route.params.team+'/admin/settings/'"><button type='button' class='btn btn-block btn-primary'>Team Settings</button></router-link>
+                </div>
+                <div class="dropdown-divider"></div>
+                <button class='btn btn-info btn-block' v-on:click="logout()">Logout</button>
+
               </div>
             </li>
 
@@ -155,6 +161,9 @@
       },
       discord_invite:function(){
         return this.$store.state[this.$route.params.team].discord_invite
+      },
+      teamAdmin:function(){
+        return this.$route.params.team && this.$store.state[this.$route.params.team].teamAdmin
       },
       userName: function(){
         if(this.$route.params.team){

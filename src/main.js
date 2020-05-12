@@ -24,6 +24,7 @@ import Makers from './components/Makers';
 import Members from './components/Members';
 import ShellAndTell from './components/ShellAndTell';
 import Login from './components/Login';
+import TeamSettings from './components/TeamSettings';
 
 const routes = [
   {path: '/', beforeEnter: (to, from, next) => {
@@ -48,7 +49,8 @@ const routes = [
   {path: '/:team/makers', component: Makers},
   {path: '/:team/members', component: Members},
   {path: '/:team/shellandtell/:id', component: ShellAndTell},
-  {path: '/:team/login/:otp', component: Login}
+  {path: '/:team/login/:otp', component: Login},
+  {path: '/:team/admin/settings', component: TeamSettings},
 ];
 
 const router = new VueRouter({
@@ -140,6 +142,9 @@ function makeTeam(args){
       },
       setLastDiffRange(state, payload){
         state.last_diff_range = payload;
+      },
+      setTeamAdmin(state,payload){
+        state.teamAdmin=payload;
       }
     }
   }
