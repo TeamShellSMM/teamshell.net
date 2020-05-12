@@ -122,6 +122,7 @@ function makeTeam(args){
       theme: 'light',
       token: '',
       user_info: {},
+      teamAdmin: false,
       teamvars:args,
       ...args
     },
