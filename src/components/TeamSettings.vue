@@ -8,9 +8,9 @@
       class="form-group row">
       <label for="" class="col-sm-2 col-form-label">{{d.caption}}</label>
       <div class="col-sm-10">
-        <input :id="d.name" v-model="d.value" @change="inputChange" v-if="d.type=='text'" type="text" class="form-control">
-        <input :id="d.name" v-model="d.value" @change="inputChange" v-if="d.type=='number'" v-bind:step="d.step || 1" type="number" class="form-control">
-        <input :id="d.name" v-model="d.value" @change="inputChange" v-if="d.type=='boolean'" type="checkbox" class="form-control">
+        <input :id="d.name" v-model="d.value" v-if="d.type=='text'" type="text" class="form-control">
+        <input :id="d.name" v-model="d.value" v-if="d.type=='number'" v-bind:step="d.step || 1" type="number" class="form-control">
+        <input :id="d.name" v-model="d.value" v-if="d.type=='boolean'" type="checkbox" class="form-control">
         <small>{{d.description}}</small>
       </div>
     </div>
@@ -53,9 +53,6 @@
       refresh(){
         $('.loader').hide()
       },
-      inputChange(){
-        console.log(this.data.map((d)=> { return { name:d.name,value:d.value } }))
-      },
       onSubmit(){
         let that=this
         this.$dialog
@@ -82,7 +79,6 @@
           route:'teams/settings',
           that,
           onLoad(_rawData){
-            console.log(_rawData)
             that.data=_rawData.settings
             that.refresh()
           },

@@ -15,7 +15,7 @@
       <div class="col-md-6" v-if="hasSeasons">
         <label for="currentSeason">Season</label>
         <select name="currentSeason" id="currentSeason" class="form-control" v-model="current_season" @change="getData">
-          <option v-for="(s,key) of seasons" v-bind:value="key+1" :key="key+1">{{s.Name}}</option>
+          <option v-for="(s,key) of seasons" v-bind:value="key+1" :key="key+1">{{s.name}}</option>
         </select>
         <small class="form-text text-muted">Includes only the levels submitted within that season</small>
       </div>
@@ -110,10 +110,10 @@
               targets:4,
             },
             {
-            "render": function ( data, type) {
+            "render": function ( data, type,row) {
               
               if(type!="display") return data
-              const medalsHtml=makeMedalsCreator(data,that.competition_winners)
+              const medalsHtml=makeMedalsCreator(row.creator_id,that.competition_winners)
 
               return "<div class='creator-name-div'><a class='dt-maker-link' href='/" + that.$route.params.team + "/maker/" + encodeURI(data) + "' maker='" + data + "'>" + data + "</a>"+medalsHtml +"</div>";
             },

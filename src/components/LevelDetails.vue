@@ -128,7 +128,6 @@
             code:that.$route.params.code
           },
           onLoad(_rawData){
-            console.log(_rawData)
             that.data=_rawData
             that.refresh()
           },

@@ -87,9 +87,7 @@
   export default {
     name: 'Levels',
     data() {
-      return {
-        "raw_data" : '',
-        "data" : '',
+      return {  
         "level_headers" : '',
         "tag_labels" : '',
         "spig_fav" : '',
@@ -143,7 +141,7 @@
           return this.$store.state[this.$route.params.team].user_info.name;
         }
         return false;
-      },
+    },
     },
     methods: {
       refresh(){
@@ -257,7 +255,6 @@
           onLoad(_rawData){
             that.cachedData=JSON.stringify(_rawData)
             that.data=_rawData
-            console.log(that.data);
             that.refresh()
           },
         })

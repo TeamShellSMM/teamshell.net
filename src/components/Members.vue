@@ -42,7 +42,7 @@
 </template>
 
 <script>
-  import { loadEndpoint} from '../services/helper-service';
+  import { loadEndpoint, makeMedalsCreator} from '../services/helper-service';
 
   export default {
       name: 'Members',
@@ -120,51 +120,7 @@
             {
             "render": function ( data, type, row ) {
               if(type!="display") return data
-              let goldsHtml = "";
-              let silversHtml = "";
-              let bronzesHtml = "";
-              let ironsHtml = "";
-              let shellsHtml = "";
-              if(row.wonComps){
-                for(let comp of row.wonComps){
-                  switch(comp.rank){
-                    case "1":
-                      goldsHtml += '<div class="medal" title="Gold medalist of ' + comp.name + '"><div class="coin coin-gold"></div></div>';
-                    break;
-                    case "2":
-                      silversHtml += '<div class="medal" title="Silver medalist of ' + comp.name + '"><div class="coin coin-silver"></div></div>';
-                    break;
-                    case "3":
-                      bronzesHtml += '<div class="medal" title="Bronze medalist of ' + comp.name + '"><div class="coin coin-bronze"></div></div>';
-                    break;
-                    case "4":
-                      ironsHtml += '<div class="medal" title="Runner-up of ' + comp.name + '"><div class="coin coin-iron"></div></div>';
-                    break;
-                    case "5":
-                      shellsHtml += '<div class="medal" title="Honorable Mention for ' + comp.name + '"><div class="coin coin-shell"></div></div>';
-                    break;
-                  }
-
-                }
-
-                var medalsHtml = "";
-                if(goldsHtml != ""){
-                  medalsHtml += '<div class="medals">' + goldsHtml + '</div>';
-                }
-                if(silversHtml != ""){
-                  medalsHtml += '<div class="medals">' + silversHtml + '</div>';
-                }
-                if(bronzesHtml != ""){
-                  medalsHtml += '<div class="medals">' + bronzesHtml + '</div>';
-                }
-                if(ironsHtml != ""){
-                  medalsHtml += '<div class="medals">' + ironsHtml + '</div>';
-                }
-                if(shellsHtml != ""){
-                  medalsHtml += '<div class="medals">' + shellsHtml + '</div>';
-                }
-              }
-
+              const medalsHtml=makeMedalsCreator(row.id,that.competition_winners)
               return "<div class='creator-name-div'><a class='dt-maker-link' href='/" + that.$route.params.team + "/maker/" + encodeURI(data) + "' maker='" + data + "'>" + data + "</a>"+medalsHtml +"</div>";
             },
             targets: 1

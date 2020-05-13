@@ -57,9 +57,9 @@
     },
     mounted(){
       let that = this;
-      $('th').tooltip()
-      makeClearDatatable($,'#playedTable',this,[5,7],'plays')
-      makeLevelsDatatable({$,id:'#table',that,hidden:[2] })
+      $('th').tooltip();
+      makeClearDatatable($,'#playedTable',this,[5,7],'plays');
+      makeLevelsDatatable({$,id:'#table',that,hidden:[2] });
       this.getData();
     },
     computed: {

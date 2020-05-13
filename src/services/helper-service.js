@@ -26,6 +26,7 @@ let loadEndpoint = function({type='post',route='json',that,onLoad,data={}}){
           });
         }
       } else {
+        console.log(_data)
         that.$store.commit(that.$route.params.team + '/setTeamAdmin', _data.teamAdmin);
         onLoad(_data)
       }
@@ -33,6 +34,10 @@ let loadEndpoint = function({type='post',route='json',that,onLoad,data={}}){
   })
 }
 
+/**
+ * Processes level list to compile the tags
+ * @param {Object[]} data json from web api
+ */
 let processLevelList=function(data){
     const tags_list=[];
     const levels=[];
@@ -41,7 +46,7 @@ let processLevelList=function(data){
         let curr_tags=level.tags.split(",")
         //get all the tags used from the data set
         for(let k=0;k<curr_tags.length;k++){
-        if(curr_tags[k] && tags_list.indexOf(curr_tags[k])=="-1")
+        if(curr_tags[k] && tags_list.indexOf(curr_tags[k])===-1)
             tags_list.push(curr_tags[k])
         }
         levels.push(level)
@@ -105,17 +110,17 @@ let makeClearDatatable=($,dt,that,hidden=[],rowLabel='players')=>{
         },
         targets:2,
       },{
-        "render": function ( data, type ) {
+        "render": function ( data, type, row ) {
           if(type!="display") return data
-          let medalsHtml=makeMedalsCreator(data,that.competition_winners)
+          let medalsHtml=makeMedalsCreator(row.creator_id,that.competition_winners)
           return "<a class='dt-maker-link' href='/" + that.$route.params.team + "/maker/" + encodeURI(data) + "' maker='" + data + "'>" + data + "</a>"+medalsHtml;
         },
         targets: 3
       },
       {
-        "render": function ( data, type ) {
+        "render": function ( data, type,row ) {
           if(type!="display") return data
-          let medalsHtml=makeMedalsCreator(data,that.competition_winners)
+          let medalsHtml=makeMedalsCreator(row.player_id,that.competition_winners)
           return "<a class='dt-maker-link' href='/" + that.$route.params.team + "/maker/" + encodeURI(data) + "' maker='" + data + "'>" + data + "</a>"+medalsHtml;
         },
         targets: 5
@@ -175,30 +180,35 @@ let makeClearDatatable=($,dt,that,hidden=[],rowLabel='players')=>{
 
 }
 
-let makeMedalsLevels=function(code,competition_winners){
+/**
+ * Generate the medals for levels
+ * @param {number} code 
+ * @param {object[]} competition_winners 
+ */
+let makeMedalsLevels=function(code,competition_winners=[]){
   let goldsHtml = "";
   let silversHtml = "";
   let bronzesHtml = "";
   let ironsHtml = "";
   let shellsHtml = "";
 
-  for(let i = 0; i < competition_winners.length; i++){
-      if(code == competition_winners[i].Code){
-      switch(competition_winners[i].Rank){
-          case "1":
-              goldsHtml += '<div class="medal" title="Gold medalist of ' + competition_winners[i]['Competiton Name'] + '"><div class="coin coin-gold"></div></div>';
+  for(const comp of competition_winners){
+      if(code == comp.code){
+      switch(comp.rank){
+          case 1:
+              goldsHtml += '<div class="medal" title="Gold medalist of ' + comp.details + '"><div class="coin coin-gold"></div></div>';
           break;
-          case "2":
-              silversHtml += '<div class="medal" title="Silver medalist of ' + competition_winners[i]['Competiton Name'] + '"><div class="coin coin-silver"></div></div>';
+          case 2:
+              silversHtml += '<div class="medal" title="Silver medalist of ' + comp.details + '"><div class="coin coin-silver"></div></div>';
           break;
-          case "3":
-              bronzesHtml += '<div class="medal" title="Bronze medalist of ' + competition_winners[i]['Competiton Name'] + '"><div class="coin coin-bronze"></div></div>';
+          case 3:
+              bronzesHtml += '<div class="medal" title="Bronze medalist of ' + comp.details + '"><div class="coin coin-bronze"></div></div>';
           break;
-          case "4":
-              ironsHtml += '<div class="medal" title="Runner-up of ' + competition_winners[i]['Competiton Name'] + '"><div class="coin coin-iron"></div></div>';
+          case 4:
+              ironsHtml += '<div class="medal" title="Runner-up of ' + comp.details + '"><div class="coin coin-iron"></div></div>';
           break;
-          case "5":
-              shellsHtml += '<div class="medal" title="Honorable Mention for ' + competition_winners[i]['Competiton Name'] + '"><div class="coin coin-shell"></div></div>';
+          case 5:
+              shellsHtml += '<div class="medal" title="Honorable Mention for ' + comp.details + '"><div class="coin coin-shell"></div></div>';
           break;
           }
       }
@@ -224,30 +234,30 @@ let makeMedalsLevels=function(code,competition_winners){
 }
 
 
-let makeMedalsCreator=function(creator,competition_winners){
+let makeMedalsCreator=function(creator,competition_winners=[]){
     let goldsHtml = "";
     let silversHtml = "";
     let bronzesHtml = "";
     let ironsHtml = "";
     let shellsHtml = "";
 
-    for(let i = 0; i < competition_winners.length; i++){
-        if(creator == competition_winners[i].Creator){
-        switch(competition_winners[i].Rank){
-            case "1":
-                goldsHtml += '<div class="medal" title="Gold medalist of ' + competition_winners[i]['Competiton Name'] + '"><div class="coin coin-gold"></div></div>';
+    for(const comp of competition_winners){
+        if(creator == comp.creator){
+        switch(comp.rank){
+            case 1:
+                goldsHtml += '<div class="medal" title="Gold medalist of ' + comp.details + '"><div class="coin coin-gold"></div></div>';
             break;
-            case "2":
-                silversHtml += '<div class="medal" title="Silver medalist of ' + competition_winners[i]['Competiton Name'] + '"><div class="coin coin-silver"></div></div>';
+            case 2:
+                silversHtml += '<div class="medal" title="Silver medalist of ' + comp.details + '"><div class="coin coin-silver"></div></div>';
             break;
-            case "3":
-                bronzesHtml += '<div class="medal" title="Bronze medalist of ' + competition_winners[i]['Competiton Name'] + '"><div class="coin coin-bronze"></div></div>';
+            case 3:
+                bronzesHtml += '<div class="medal" title="Bronze medalist of ' + comp.details + '"><div class="coin coin-bronze"></div></div>';
             break;
-            case "4":
-                ironsHtml += '<div class="medal" title="Runner-up of ' + competition_winners[i]['Competiton Name'] + '"><div class="coin coin-iron"></div></div>';
+            case 4:
+                ironsHtml += '<div class="medal" title="Runner-up of ' + comp.details + '"><div class="coin coin-iron"></div></div>';
             break;
-            case "5":
-                shellsHtml += '<div class="medal" title="Honorable Mention for ' + competition_winners[i]['Competiton Name'] + '"><div class="coin coin-shell"></div></div>';
+            case 5:
+                shellsHtml += '<div class="medal" title="Honorable Mention for ' + comp.details + '"><div class="coin coin-shell"></div></div>';
             break;
             }
         }
@@ -279,7 +289,6 @@ let makeMedalsCreator=function(creator,competition_winners){
 let makeRowItems=function(that,datatable){
   $(document).off('click', 'span.tag');
   $(document).off('click', 'span.tag',function(){
-    console.log(this.innerHTML)
   });
 
     $(document).off('click', 'a.dt-level-link');
@@ -508,7 +517,8 @@ let makeLevelName=({ row,that })=>{
   var tags=row.tags
   tags=tags?tags.split(","):[]
   for(let i=0;i<tags.length;i++){
-    let type2=that.tag_labels[tags[i]]?that.tag_labels[tags[i]]:"secondary"
+    let type2=that.tag_labels.find( t=> t.name==tags[i] )
+    type2=type2?type2.type:'secondary'
     tags[i]=`<a class="tagLink" href="/${that.$route.params.team}/levels/tags/${tags[i]}"><span class="tag badge badge-pill badge-${type2}">${tags[i]}</span></a>`
   }
 
@@ -533,8 +543,8 @@ let makeLevelName=({ row,that })=>{
   
   tags=statusStr+tags.join("")
   
-  let medalsHtmlCreator=makeMedalsCreator(row.creator,that.competition_winners)
-  let medalsHtml=makeMedalsLevels(row.code,that.competition_winners)
+  let medalsHtmlCreator=makeMedalsCreator(row.creator_id,that.competition_winners)
+  let medalsHtml=makeMedalsLevels(row.id,that.competition_winners)
 
   let makerLink = `<div class='creator-name-div diff-text-mobile'><a class='dt-maker-link' href='/${that.$route.params.team}/maker/${encodeURI(row.creator)}' maker='${row.creator}'>${row.creator}</a>${medalsHtmlCreator}</div>`;
 
@@ -600,9 +610,9 @@ let makeLevelsDatatable=({ $, id, that, hidden=[]})=>{
         targets:1,
       },
       {
-        "render": function ( data, type ) {
+        "render": function ( data, type, row) {
           if(type!="display") return data
-          const medalsHtml=makeMedalsCreator(data,that.data.competition_winners)
+          const medalsHtml=makeMedalsCreator(row.creator_id,that.data.competition_winners)
           return "<div class='creator-name-div'><a class='dt-maker-link' href='/" + that.$route.params.team + "/maker/" + encodeURI(data) + "' maker='" + data + "'>" + data + "</a>"+medalsHtml +"</div>";
         },
         targets: 2
