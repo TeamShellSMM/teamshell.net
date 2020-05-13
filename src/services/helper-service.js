@@ -99,6 +99,12 @@ let makeClearDatatable=($,dt,that,hidden=[],rowLabel='players')=>{
         "orderable": false,
         targets:1,
       },{
+        "render": function ( data, type, row ) {
+          if(type!="display") return data
+          return makeLevelName({row, that});
+        },
+        targets:2,
+      },{
         "render": function ( data, type ) {
           if(type!="display") return data
           let medalsHtml=makeMedalsCreator(data,that.competition_winners)
@@ -169,57 +175,56 @@ let makeClearDatatable=($,dt,that,hidden=[],rowLabel='players')=>{
 
 }
 
-let makeMedalsLevels=function(wonComps){
-  var medalsHtml = "";
+let makeMedalsLevels=function(code,competition_winners){
   let goldsHtml = "";
   let silversHtml = "";
   let bronzesHtml = "";
   let ironsHtml = "";
   let shellsHtml = "";
-  if(wonComps){
-    for(let comp of wonComps){
-      switch(comp.rank){
-        case "1":
-          goldsHtml += '<div class="medal" title="Gold medalist of ' + comp.name + '"><div class="coin coin-gold"></div></div>';
-        break;
-        case "2":
-          silversHtml += '<div class="medal" title="Silver medalist of ' + comp.name + '"><div class="coin coin-silver"></div></div>';
-        break;
-        case "3":
-          bronzesHtml += '<div class="medal" title="Bronze medalist of ' + comp.name + '"><div class="coin coin-bronze"></div></div>';
-        break;
-        case "4":
-          ironsHtml += '<div class="medal" title="Runner-up of ' + comp.name + '"><div class="coin coin-iron"></div></div>';
-        break;
-        case "5":
-          shellsHtml += '<div class="medal" title="Honorable Mention for ' + comp.name + '"><div class="coin coin-shell"></div></div>';
-        break;
+
+  for(let i = 0; i < competition_winners.length; i++){
+      if(code == competition_winners[i].Code){
+      switch(competition_winners[i].Rank){
+          case "1":
+              goldsHtml += '<div class="medal" title="Gold medalist of ' + competition_winners[i]['Competiton Name'] + '"><div class="coin coin-gold"></div></div>';
+          break;
+          case "2":
+              silversHtml += '<div class="medal" title="Silver medalist of ' + competition_winners[i]['Competiton Name'] + '"><div class="coin coin-silver"></div></div>';
+          break;
+          case "3":
+              bronzesHtml += '<div class="medal" title="Bronze medalist of ' + competition_winners[i]['Competiton Name'] + '"><div class="coin coin-bronze"></div></div>';
+          break;
+          case "4":
+              ironsHtml += '<div class="medal" title="Runner-up of ' + competition_winners[i]['Competiton Name'] + '"><div class="coin coin-iron"></div></div>';
+          break;
+          case "5":
+              shellsHtml += '<div class="medal" title="Honorable Mention for ' + competition_winners[i]['Competiton Name'] + '"><div class="coin coin-shell"></div></div>';
+          break;
+          }
       }
-
-    }
-
-
-    if(goldsHtml != ""){
-      medalsHtml += '<div class="medals">' + goldsHtml + '</div>';
-    }
-    if(silversHtml != ""){
-      medalsHtml += '<div class="medals">' + silversHtml + '</div>';
-    }
-    if(bronzesHtml != ""){
-      medalsHtml += '<div class="medals">' + bronzesHtml + '</div>';
-    }
-    if(ironsHtml != ""){
-      medalsHtml += '<div class="medals">' + ironsHtml + '</div>';
-    }
-    if(shellsHtml != ""){
-      medalsHtml += '<div class="medals">' + shellsHtml + '</div>';
-    }
   }
-  return medalsHtml;
+
+  let medalsHtml = "";
+  if(goldsHtml != ""){
+  medalsHtml += '<div class="medals">' + goldsHtml + '</div>';
+  }
+  if(silversHtml != ""){
+  medalsHtml += '<div class="medals">' + silversHtml + '</div>';
+  }
+  if(bronzesHtml != ""){
+  medalsHtml += '<div class="medals">' + bronzesHtml + '</div>';
+  }
+  if(ironsHtml != ""){
+  medalsHtml += '<div class="medals">' + ironsHtml + '</div>';
+  }
+  if(shellsHtml != ""){
+  medalsHtml += '<div class="medals">' + shellsHtml + '</div>';
+  }
+  return medalsHtml
 }
 
-let makeMedalsCreator=function(creator,competition_winners){
 
+let makeMedalsCreator=function(creator,competition_winners){
     let goldsHtml = "";
     let silversHtml = "";
     let bronzesHtml = "";
@@ -227,22 +232,22 @@ let makeMedalsCreator=function(creator,competition_winners){
     let shellsHtml = "";
 
     for(let i = 0; i < competition_winners.length; i++){
-        if(creator == competition_winners[i][1]){
-        switch(competition_winners[i][3]){
+        if(creator == competition_winners[i].Creator){
+        switch(competition_winners[i].Rank){
             case "1":
-                goldsHtml += '<div class="medal" title="Gold medalist of ' + competition_winners[i][2] + '"><div class="coin coin-gold"></div></div>';
+                goldsHtml += '<div class="medal" title="Gold medalist of ' + competition_winners[i]['Competiton Name'] + '"><div class="coin coin-gold"></div></div>';
             break;
             case "2":
-                silversHtml += '<div class="medal" title="Silver medalist of ' + competition_winners[i][2] + '"><div class="coin coin-silver"></div></div>';
+                silversHtml += '<div class="medal" title="Silver medalist of ' + competition_winners[i]['Competiton Name'] + '"><div class="coin coin-silver"></div></div>';
             break;
             case "3":
-                bronzesHtml += '<div class="medal" title="Bronze medalist of ' + competition_winners[i][2] + '"><div class="coin coin-bronze"></div></div>';
+                bronzesHtml += '<div class="medal" title="Bronze medalist of ' + competition_winners[i]['Competiton Name'] + '"><div class="coin coin-bronze"></div></div>';
             break;
             case "4":
-                ironsHtml += '<div class="medal" title="Runner-up of ' + competition_winners[i][2] + '"><div class="coin coin-iron"></div></div>';
+                ironsHtml += '<div class="medal" title="Runner-up of ' + competition_winners[i]['Competiton Name'] + '"><div class="coin coin-iron"></div></div>';
             break;
             case "5":
-                shellsHtml += '<div class="medal" title="Honorable Mention for ' + competition_winners[i][2] + '"><div class="coin coin-shell"></div></div>';
+                shellsHtml += '<div class="medal" title="Honorable Mention for ' + competition_winners[i]['Competiton Name'] + '"><div class="coin coin-shell"></div></div>';
             break;
             }
         }
@@ -492,6 +497,49 @@ let toggleTooltip= ($,that,old_title,new_title)=>{
   },2000)
 }
 
+let makeLevelName=({ row,that })=>{
+  var videos="";
+  if(row.videos){
+    var raw_vids=row.videos.split(",")
+    for(let j=0;j<raw_vids.length;j++){
+      videos+="<a class='clear-vid-link' target='_blank' data-toggle='tooltip' title='Video clear' href='"+raw_vids[j]+"'><i class='fas fa-video' aria-hidden='true'></i></a> "
+    }
+  }
+  var tags=row.tags
+  tags=tags?tags.split(","):[]
+  for(let i=0;i<tags.length;i++){
+    let type2=that.tag_labels[tags[i]]?that.tag_labels[tags[i]]:"secondary"
+    tags[i]=`<a class="tagLink" href="/${that.$route.params.team}/levels/tags/${tags[i]}"><span class="tag badge badge-pill badge-${type2}">${tags[i]}</span></a>`
+  }
+
+  let votesHtml='';
+  let statusStr='';
+  if(that.$constants.PENDING_LEVELS.includes(row.status)){
+    statusStr=`<span class="tag badge badge-pill badge-warning">Pending</span>`
+    if(row.approves){
+      votesHtml+=`<a class="dt-level-link" href="/${that.$route.params.team}/level/${encodeURI(row.code)}" code="${row.code}" title="Votes for approval"><span class="tag badge badge-pill badge-success">${row.approves}</span></a>`
+    }
+    if(row.want_fixes){
+      votesHtml+=`<a class="dt-level-link" href="/${that.$route.params.team}/level/${encodeURI(row.code)}" code="${row.code}" title="Votes for approval"><span class="tag badge badge-pill badge-warning">${row.want_fixes}</span></a>`
+    }
+    if(row.rejects){
+      votesHtml+=`<a class="dt-level-link" href="/${that.$route.params.team}/level/${encodeURI(row.code)}" code="${row.code}" title="Votes for approval"><span class="tag badge badge-pill badge-danger">${row.rejects}</span></a>`
+    }
+  }
+
+  if(row.status===that.$constants.LEVEL_STATUS.NEED_FIX){
+    statusStr=`<span class="tag badge badge-pill badge-warning">In Fix Status</span>`
+  }
+  
+  tags=statusStr+tags.join("")
+  
+  let medalsHtmlCreator=makeMedalsCreator(row.creator,that.competition_winners)
+  let medalsHtml=makeMedalsLevels(row.code,that.competition_winners)
+
+  let makerLink = `<div class='creator-name-div diff-text-mobile'><a class='dt-maker-link' href='/${that.$route.params.team}/maker/${encodeURI(row.creator)}' maker='${row.creator}'>${row.creator}</a>${medalsHtmlCreator}</div>`;
+
+  return makerLink + "<div class='font-weight-bold level-name-div'>"+row.level_name+medalsHtml +"<br/>"+ votesHtml+" "+videos + " " + tags + "</div>";
+}
 
 let makeLevelsDatatable=({ $, id, that, hidden=[]})=>{
   const datatable=$(id).DataTable({
@@ -561,140 +609,7 @@ let makeLevelsDatatable=({ $, id, that, hidden=[]})=>{
       },{
         "render": function ( data, type, row ) {
           if(type!="display") return data
-          var videos="";
-
-          if(row.videos){
-            var raw_vids=row.videos.split(",")
-            for(let j=0;j<raw_vids.length;j++){
-              videos+="<a class='clear-vid-link' target='_blank' data-toggle='tooltip' title='Video clear' href='"+raw_vids[j]+"'><i class='fas fa-video' aria-hidden='true'></i></a> "
-            }
-          }
-          var tags=row.tags
-          tags=tags?tags.split(","):[]
-          for(let i=0;i<tags.length;i++){
-            let type2=that.tag_labels[tags[i]]?that.tag_labels[tags[i]]:"secondary"
-            tags[i]=`<a class="tagLink" href="/${that.$route.params.team}/levels/tags/${tags[i]}"><span class="tag badge badge-pill badge-${type2}">${tags[i]}</span></a>`
-          }
-
-          let statusStr='';
-          if(that.$constants.PENDING_LEVELS.includes(row.status)){
-            statusStr=`<span class="tag badge badge-pill badge-warning">Pending</span>`
-          }
-          if(row.status===that.$constants.LEVEL_STATUS.NEED_FIX){
-            statusStr=`<span class="tag badge badge-pill badge-warning">In Fix Status</span>`
-          }
-          
-          tags=statusStr+tags.join("")
-          let votesHtml=""
-          if(row.status!="1"){
-            if(row.approves){
-              votesHtml+=`<a class="dt-level-link" href="/${that.$route.params.team}/level/${encodeURI(row.code)}" code="${row.code}" title="Votes for approval"><span class="tag badge badge-pill badge-success">${row.approves}</span></a>`
-            }
-            if(row.want_fixes){
-              votesHtml+=`<a class="dt-level-link" href="/${that.$route.params.team}/level/${encodeURI(row.code)}" code="${row.code}" title="Votes for approval"><span class="tag badge badge-pill badge-warning">${row.want_fixes}</span></a>`
-            }
-            if(row.rejects){
-              votesHtml+=`<a class="dt-level-link" href="/${that.$route.params.team}/level/${encodeURI(row.code)}" code="${row.code}" title="Votes for approval"><span class="tag badge badge-pill badge-danger">${row.rejects}</span></a>`
-            }
-          }
-
-          let goldsHtml = "";
-          let silversHtml = "";
-          let bronzesHtml = "";
-          let ironsHtml = "";
-          let shellsHtml = "";
-
-          if(that.competition_winners){
-            for(let i = 0; i < that.competition_winners.length; i++){
-              if(row.code == that.competition_winners[i][0]){
-                switch(that.competition_winners[i][3]){
-                  case "1":
-                    goldsHtml += '<div class="medal" title="Gold medalist of ' + that.competition_winners[i][2] + '"><div class="coin coin-gold"></div></div>';
-                  break;
-                  case "2":
-                    silversHtml += '<div class="medal" title="Silver medalist of ' + that.competition_winners[i][2] + '"><div class="coin coin-silver"></div></div>';
-                  break;
-                  case "3":
-                    bronzesHtml += '<div class="medal" title="Bronze medalist of ' + that.competition_winners[i][2] + '"><div class="coin coin-bronze"></div></div>';
-                  break;
-                  case "4":
-                    ironsHtml += '<div class="medal" title="Runner-up of ' + that.competition_winners[i][2] + '"><div class="coin coin-iron"></div></div>';
-                  break;
-                  case "5":
-                    shellsHtml += '<div class="medal" title="Honorable Mention for ' + that.competition_winners[i][2] + '"><div class="coin coin-shell"></div></div>';
-                  break;
-                }
-              }
-            }
-
-            var medalsHtml = "";
-            if(goldsHtml != ""){
-              medalsHtml += '<div class="medals">' + goldsHtml + '</div>';
-            }
-            if(silversHtml != ""){
-              medalsHtml += '<div class="medals">' + silversHtml + '</div>';
-            }
-            if(bronzesHtml != ""){
-              medalsHtml += '<div class="medals">' + bronzesHtml + '</div>';
-            }
-            if(ironsHtml != ""){
-              medalsHtml += '<div class="medals">' + ironsHtml + '</div>';
-            }
-            if(shellsHtml != ""){
-              medalsHtml += '<div class="medals">' + shellsHtml + '</div>';
-            }
-          }
-
-          let goldsHtmlCreator = "";
-          let silversHtmlCreator = "";
-          let bronzesHtmlCreator = "";
-          let ironsHtmlCreator = "";
-          let shellsHtmlCreator = "";
-          if(that.competition_winners){
-            for(var i = 0; i < that.competition_winners.length; i++){
-              //return "<div class='points'><a href='../levels/?creator="+encodeURI(data)+"' target='_blank'>"+data+"</a></div>"
-              if(row.player == that.competition_winners[i][1]){
-                switch(that.competition_winners[i][3]){
-                  case "1":
-                    goldsHtmlCreator += '<div class="medal" title="Gold medalist of ' + that.competition_winners[i][2] + '"><div class="coin coin-gold"></div></div>';
-                  break;
-                  case "2":
-                    silversHtmlCreator += '<div class="medal" title="Silver medalist of ' + that.competition_winners[i][2] + '"><div class="coin coin-silver"></div></div>';
-                  break;
-                  case "3":
-                    bronzesHtmlCreator += '<div class="medal" title="Bronze medalist of ' + that.competition_winners[i][2] + '"><div class="coin coin-bronze"></div></div>';
-                  break;
-                  case "4":
-                    ironsHtmlCreator += '<div class="medal" title="Runner-up of ' + that.competition_winners[i][2] + '"><div class="coin coin-iron"></div></div>';
-                  break;
-                  case "5":
-                    shellsHtmlCreator += '<div class="medal" title="Honorable Mention for ' + that.competition_winners[i][2] + '"><div class="coin coin-shell"></div></div>';
-                  break;
-                }
-              }
-            }
-
-            var medalsHtmlCreator = "";
-            if(goldsHtmlCreator != ""){
-              medalsHtmlCreator += '<div class="medals">' + goldsHtmlCreator + '</div>';
-            }
-            if(silversHtmlCreator != ""){
-              medalsHtmlCreator += '<div class="medals">' + silversHtmlCreator + '</div>';
-            }
-            if(bronzesHtmlCreator != ""){
-              medalsHtmlCreator += '<div class="medals">' + bronzesHtmlCreator + '</div>';
-            }
-            if(ironsHtmlCreator != ""){
-              medalsHtmlCreator += '<div class="medals">' + ironsHtmlCreator + '</div>';
-            }
-            if(shellsHtmlCreator != ""){
-              medalsHtmlCreator += '<div class="medals">' + shellsHtmlCreator + '</div>';
-            }
-          }
-
-          let makerLink = `<div class='creator-name-div diff-text-mobile'><a class='dt-maker-link' href='/${that.$route.params.team}/maker/${encodeURI(row.creator)}' maker='${row.creator}'>${row.creator}</a>${medalsHtmlCreator}</div>`;
-
-          return makerLink + "<div class='font-weight-bold level-name-div'>"+data+medalsHtml +"<br/>"+ votesHtml+" "+videos + " " + tags + "</div>";
+          return makeLevelName({row, that});
         },
         targets:3,
       },

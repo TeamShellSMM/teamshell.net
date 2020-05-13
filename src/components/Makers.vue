@@ -12,10 +12,10 @@
         <small class="form-text text-muted">Filtered records with zero points will be hidden.</small>
       </div>
 
-      <div class="col-md-6">
+      <div class="col-md-6" v-if="hasSeasons">
         <label for="currentSeason">Season</label>
-        <select name="currentSeason" id="currentSeason" class="form-control">
-          <option disabled selected value="1">Loading Seasons...</option>
+        <select name="currentSeason" id="currentSeason" class="form-control" v-model="current_season" @change="getData">
+          <option v-for="(s,key) of seasons" v-bind:value="key+1" :key="key+1">{{s.Name}}</option>
         </select>
         <small class="form-text text-muted">Includes only the levels submitted within that season</small>
       </div>
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-  import { loadEndpoint } from '../services/helper-service';
+  import { loadEndpoint, makeMedalsCreator } from '../services/helper-service';
   export default {
       name: 'Makers',
       data(){
@@ -37,14 +37,19 @@
           'tag_labels': '',
           'clears': '',
           'raw_data': '',
-          'competition_winners': '',
-          'current_season': -1,
+          'competition_winners': [],
+          'current_season': null,
           'first_load': true,
           'makers': [],
           'membershipStatus': 1,
           'seasons': [],
           ...this.$store.state[this.$route.params.team].teamvars,
         }
+      },
+      computed:{
+        hasSeasons(){
+          return this.seasons.length>1
+        },
       },
       mounted(){
         let that = this;
@@ -105,52 +110,10 @@
               targets:4,
             },
             {
-            "render": function ( data, type, row ) {
+            "render": function ( data, type) {
+              
               if(type!="display") return data
-              let goldsHtml = "";
-              let silversHtml = "";
-              let bronzesHtml = "";
-              let ironsHtml = "";
-              let shellsHtml = "";
-              if(row.wonComps){
-                for(let comp of row.wonComps){
-                  switch(comp.rank){
-                    case "1":
-                      goldsHtml += '<div class="medal" title="Gold medalist of ' + comp.name + '"><div class="coin coin-gold"></div></div>';
-                    break;
-                    case "2":
-                      silversHtml += '<div class="medal" title="Silver medalist of ' + comp.name + '"><div class="coin coin-silver"></div></div>';
-                    break;
-                    case "3":
-                      bronzesHtml += '<div class="medal" title="Bronze medalist of ' + comp.name + '"><div class="coin coin-bronze"></div></div>';
-                    break;
-                    case "4":
-                      ironsHtml += '<div class="medal" title="Runner-up of ' + comp.name + '"><div class="coin coin-iron"></div></div>';
-                    break;
-                    case "5":
-                      shellsHtml += '<div class="medal" title="Honorable Mention for ' + comp.name + '"><div class="coin coin-shell"></div></div>';
-                    break;
-                  }
-
-                }
-
-                var medalsHtml = "";
-                if(goldsHtml != ""){
-                  medalsHtml += '<div class="medals">' + goldsHtml + '</div>';
-                }
-                if(silversHtml != ""){
-                  medalsHtml += '<div class="medals">' + silversHtml + '</div>';
-                }
-                if(bronzesHtml != ""){
-                  medalsHtml += '<div class="medals">' + bronzesHtml + '</div>';
-                }
-                if(ironsHtml != ""){
-                  medalsHtml += '<div class="medals">' + ironsHtml + '</div>';
-                }
-                if(shellsHtml != ""){
-                  medalsHtml += '<div class="medals">' + shellsHtml + '</div>';
-                }
-              }
+              const medalsHtml=makeMedalsCreator(data,that.competition_winners)
 
               return "<div class='creator-name-div'><a class='dt-maker-link' href='/" + that.$route.params.team + "/maker/" + encodeURI(data) + "' maker='" + data + "'>" + data + "</a>"+medalsHtml +"</div>";
             },
@@ -162,41 +125,13 @@
       },
       methods: {
         refresh(){
-          if(this.first_load){
-            var selectNode = document.getElementById('currentSeason');
-            while(selectNode.firstChild){
-              selectNode.removeChild(selectNode.firstChild);
-            }
-
-            for(let i = 0; i < this.seasons.length; i++){
-              var opt = document.createElement('option');
-              opt.value = i + 1;
-              opt.innerHTML = this.seasons[i].Name;
-              selectNode.appendChild(opt);
-
-              if(this.first_load){
-                this.current_season = i + 1;
-                selectNode.value = this.current_season;
-              }
-            }
-            this.first_load = false;
-          }
-
-
-          var datatable=$('#table').DataTable()
-          datatable.clear();
-          datatable.rows.add(this.makers)
-
-          datatable.draw();
+          $('#table').DataTable().clear().rows.add(this.makers).draw();
           $('[data-toggle="tooltip"],.copy,#refresh,#submitButton,.medal').tooltip()
-
           $('.loader').hide();
         },
         getData(){
           $('.loader').show();
-
-          var datatable=$('#table').DataTable()
-          datatable.clear().draw();
+          $('#table').DataTable().clear().draw()
 
           let that = this;
 
@@ -210,6 +145,8 @@
             onLoad(_rawData){
               that.makers = _rawData.data;
               that.seasons = _rawData.seasons;
+              that.competition_winners=_rawData.competition_winners;
+              if(!that.current_season) that.current_season=that.seasons.length
               that.refresh()
             },
           })
