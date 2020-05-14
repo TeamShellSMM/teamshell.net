@@ -80,6 +80,9 @@ html.dark body {
     background:#121212;
     color:#FFF;
 }
+html.dark .table {
+    color:#FEFEFE;
+}
 
 html.dark .text-muted {
     color: #aaa !important

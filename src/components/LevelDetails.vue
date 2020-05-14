@@ -56,7 +56,7 @@
 </template>
 
 <script>
-  import { loadEndpoint, processLevelList, makeClearDatatable, makeLevelsDatatable } from '../services/helper-service';
+  import { loadEndpoint, makeClearDatatable, makeLevelsDatatable } from '../services/helper-service';
 
   export default {
     name: 'LevelDetails',
@@ -99,9 +99,8 @@
         }
         $("#commentHTML").html(commentHTML)
         this.competition_winners = this.data.competition_winners;
-        const { levels={} } = processLevelList(that.data)||{}
 
-        let filtered_levels=levels;
+        let filtered_levels=that.data.levels;
 
     
         const datatable=$('#table').DataTable()

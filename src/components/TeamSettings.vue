@@ -24,7 +24,7 @@
   import { loadEndpoint } from '../services/helper-service';
 
   export default {
-    name: 'Levels',
+    name: 'TeamSettings',
     data() {
       return {
         data:[],

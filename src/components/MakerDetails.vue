@@ -47,7 +47,7 @@
 </template>
 
 <script>
-  import {  processLevelList , loadEndpoint, makeClearDatatable, makeLevelsDatatable} from '../services/helper-service';
+  import { loadEndpoint, makeClearDatatable, makeLevelsDatatable} from '../services/helper-service';
   export default {
     name: 'MakerDetails',
     data(){
@@ -80,11 +80,9 @@
       refresh(){
         this.tag_labels=this.data.tags;
         this.competition_winners = this.data.competition_winners;
-        const { levels } = processLevelList(this.data)
-
         var datatable=$('#table').DataTable()
         datatable.clear();
-        datatable.rows.add(levels)
+        datatable.rows.add(this.data.levels)
         datatable.draw();
 
         if(this.data.plays){

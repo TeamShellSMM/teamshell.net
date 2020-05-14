@@ -35,26 +35,6 @@ let loadEndpoint = function({type='post',route='json',that,onLoad,data={}}){
 }
 
 /**
- * Processes level list to compile the tags
- * @param {Object[]} data json from web api
- */
-let processLevelList=function(data){
-    const tags_list=[];
-    const levels=[];
-    for(let i=0;i<data.levels.length;i++){ //main loop that processes all the stats for the levels
-        let level=data.levels[i]
-        let curr_tags=level.tags.split(",")
-        //get all the tags used from the data set
-        for(let k=0;k<curr_tags.length;k++){
-        if(curr_tags[k] && tags_list.indexOf(curr_tags[k])===-1)
-            tags_list.push(curr_tags[k])
-        }
-        levels.push(level)
-    }
-    return { tags_list, levels }
-}
-
-/**
  * Create a clear database
  * @param {JQuery} $ for now we pass the $ here
  * @param {Table} dt the table obj
@@ -517,8 +497,8 @@ let makeLevelName=({ row,that })=>{
   var tags=row.tags
   tags=tags?tags.split(","):[]
   for(let i=0;i<tags.length;i++){
-    let type2=that.tag_labels.find( t=> t.name==tags[i] )
-    type2=type2?type2.type:'secondary'
+    let type2=that.tag_labels.find( t=> t.name==tags[i] ) 
+    type2=type2 && type2.type?type2.type:'secondary'
     tags[i]=`<a class="tagLink" href="/${that.$route.params.team}/levels/tags/${tags[i]}"><span class="tag badge badge-pill badge-${type2}">${tags[i]}</span></a>`
   }
 
@@ -749,5 +729,5 @@ let getMakerPoints = function(likes, clears, difficultyPoints){
 }
 
 export {
-  loadEndpoint, submitClear, makeRowItems, makeLevelsDatatable,  makeClearDatatable, makeMedalsCreator, makeMedalsLevels, processLevelList, get_input, save_input, store_input, setGetParam, toggleTooltip, makeCodeButtons, l, removeDups, getMakerPoints, clear, random, putFeedback
+  loadEndpoint, submitClear, makeRowItems, makeLevelsDatatable,  makeClearDatatable, makeMedalsCreator, makeMedalsLevels, get_input, save_input, store_input, setGetParam, toggleTooltip, makeCodeButtons, l, removeDups, getMakerPoints, clear, random, putFeedback
 }

@@ -60,10 +60,9 @@
               <div class="dropdown-menu">
                 <a class="dropdown-item" href="#" v-on:click="showFeedbackDialog()">Submit feedback</a>
                 <div v-if="teamAdmin">
-                <div class="dropdown-divider"></div>
                 <router-link :to="'/'+$route.params.team+'/admin/settings/'"><button type='button' class='btn btn-block btn-primary'>Team Settings</button></router-link>
+                <router-link :to="'/'+$route.params.team+'/admin/tags/'"><button type='button' class='btn btn-block btn-success'>Team Tags</button></router-link>
                 </div>
-                <div class="dropdown-divider"></div>
                 <button class='btn btn-info btn-block' v-on:click="logout()">Logout</button>
 
               </div>

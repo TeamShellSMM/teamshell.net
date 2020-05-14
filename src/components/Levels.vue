@@ -82,7 +82,7 @@
 </template>
 
 <script>
-  import { get_input,removeDups, store_input, loadEndpoint, save_input, processLevelList, makeLevelsDatatable } from '../services/helper-service';
+  import { get_input,removeDups, store_input, loadEndpoint, save_input, makeLevelsDatatable } from '../services/helper-service';
 
   export default {
     name: 'Levels',
@@ -149,12 +149,11 @@
         let that = this;
         this.tag_labels=this.data.tags;
         this.competition_winners = this.data.competition_winners;
-        const { levels, tags_list} = processLevelList(this.data)
-        this.tags_list=tags_list;
+        this.tags_list=this.data.tags.map(t=>t.name);
         
 
 
-        let filtered_levels=levels.filter((level)=>{
+        let filtered_levels=this.data.levels.filter((level)=>{
           let curr_tags=level.tags.split(',')
           if(that.current_tag){ //if a tag is selected
             //if the level doen't have the current tag, don't include

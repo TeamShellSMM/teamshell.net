@@ -25,6 +25,7 @@ import Members from './components/Members';
 import ShellAndTell from './components/ShellAndTell';
 import Login from './components/Login';
 import TeamSettings from './components/TeamSettings';
+import AdminTags from './components/AdminTags';
 
 const routes = [
   {path: '/', beforeEnter: (to, from, next) => {
@@ -51,6 +52,7 @@ const routes = [
   {path: '/:team/shellandtell/:id', component: ShellAndTell},
   {path: '/:team/login/:otp', component: Login},
   {path: '/:team/admin/settings', component: TeamSettings},
+  {path: '/:team/admin/tags', component: AdminTags},
 ];
 
 const router = new VueRouter({
