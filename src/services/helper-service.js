@@ -15,7 +15,7 @@ let loadEndpoint = function({type='post',route='json',that,onLoad,data={}}){
     },
     success(_data){
       if(_data.status==="error"){
-        if(_data.message==="Authentication error"){
+        if(_data.message==="Authentication error" || _data.message==="Token expired. Need to relogin" ){
           that.$store.commit(that.$route.params.team + '/setToken', {  });
           that.$store.commit(that.$route.params.team + '/setUserInfo', { });
           localStorage.setItem('member','');
@@ -23,6 +23,7 @@ let loadEndpoint = function({type='post',route='json',that,onLoad,data={}}){
         if(that){
           that.$dialog.alert(_data.message).then(function() {
             $('.loader').hide();
+            that.$router.go()
           });
         }
       } else {
