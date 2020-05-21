@@ -526,7 +526,7 @@ let makeLevelName=({ row,that })=>{
   let medalsHtmlCreator=makeMedalsCreator(row.creator_id,that.competition_winners)
   let medalsHtml=makeMedalsLevels(row.id,that.competition_winners)
 
-  let makerLink = `<div class='creator-name-div diff-text-mobile'><a class='dt-maker-link' href='/${that.$route.params.team}/maker/${encodeURI(row.creator)}' maker='${row.creator}'>${row.creator}</a>${medalsHtmlCreator}</div>`;
+  let makerLink = `<div class='creator-name-div diff-text-mobile'><a class='dt-maker-link' href='/${that.$route.params.team}/maker/${encodeURI(row.creator || row.creator_name)}' maker='${row.creator || row.creator_name}'>${row.creator || row.creator_name}</a>${medalsHtmlCreator}</div>`;
 
   return makerLink + "<div class='font-weight-bold level-name-div'>"+row.level_name+medalsHtml +"<br/>"+ votesHtml+" "+videos + " " + tags + "</div>";
 }
