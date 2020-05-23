@@ -89,7 +89,14 @@ const teams={
     discord_invite:'https://discord.gg/PcC5eKp',
     twitter:'teamPipe1',
     ModName:'Admin',
-  }
+  }, 
+  teamconsistency:{
+    TeamName:'Team Consistency',
+    icon:'/favicon.ico',
+    discord_invite:'https://discord.gg/RAV7qkd',
+    twitter:'',
+    ModName:'Consistency Czar',
+  },
 }
 
 router.beforeEach((to, from, next) => {
