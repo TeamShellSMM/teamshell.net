@@ -2,7 +2,7 @@
   <div class="row">
     <div class="container">
       <div id="filter_form_cont">
-        <div class="form-group row mb-1">
+        <div class="form-group row">
           <div class="col-md-4">
             <label for="active_comp_group">Competition Category</label>
             <select id="active_comp_group" v-model="active_competition_group" class="form-control" @change="refresh()">
@@ -17,6 +17,12 @@
           </div>
         </div>
       </div>
+    </div>
+    <div class="container competition-info">
+      <h4>{{active_competition_group.name}} - {{active_competition_group.description}}</h4>
+      <p v-html="active_competition_group.rules"></p>
+      <h4 class="mt-4">#{{active_competition.comp_number}} {{active_competition.description}}</h4>
+      <p v-html="active_competition.rules" class="mb-1"></p>
     </div>
     <div class="container mb-5">
       <table id="table" class="compact row-border stripe hover" style="width:100%">
@@ -120,8 +126,18 @@
         }
 
         if(!this.active_competition){
-          this.active_competition = this.competitions.slice(-1).pop();
-          this.active_competition_group = this.active_competition.competition_group[0];
+          if(this.$route.params.id){
+            for(let comp of this.competitions){
+              if(comp.id == this.$route.params.id){
+                this.active_competition = comp;
+                this.active_competition_group = this.active_competition.competition_group[0];
+                break;
+              }
+            }
+          } else {
+            this.active_competition = this.competitions.slice(-1).pop();
+            this.active_competition_group = this.active_competition.competition_group[0];
+          }
         }
         if(this.active_competition.competition_group_id != this.active_competition_group.id){
           this.active_competition = this.filteredCompetitions.slice(-1).pop();

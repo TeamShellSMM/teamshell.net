@@ -17,7 +17,7 @@
                 <div class="">
                   <h4 style="text-align:center;">{{$store.state[$route.params.team].teamLastCompWinner.details}}</h4>
                   <h5 style="text-align:center;font-family: 'Bangers', sans-serif"><div class="medal" style="margin-right:10px;padding-top: 2px;"><div class="coin coin-gold"></div></div>{{$store.state[$route.params.team].teamLastCompWinner.level.level_name}} by <router-link :to="'/' + $route.params.team + '/maker/' + $store.state[$route.params.team].teamLastCompWinner.level.creator">{{$store.state[$route.params.team].teamLastCompWinner.level.creator}}</router-link> (<router-link :to="'/' + $route.params.team + '/level/' + $store.state[$route.params.team].teamLastCompWinner.level.code">{{$store.state[$route.params.team].teamLastCompWinner.level.code}}</router-link>)</h5>
-                  <h5 style="text-align:center;font-family: 'Bangers', sans-serif; margin-bottom:0px;"><router-link to="/teamshell/competitions">Check out the other winners here</router-link></h5>
+                  <h5 style="text-align:center;font-family: 'Bangers', sans-serif; margin-bottom:0px;"><router-link :to="'/' + $route.params.team + '/competitions/' + $store.state[$route.params.team].teamLastCompWinner.competition_id">Check out the other winners here</router-link></h5>
                 </div>
               </div>
               <div class="col-2" style="text-align: center;">

@@ -50,6 +50,7 @@ const routes = [
   {path: '/:team/makers', component: Makers},
   {path: '/:team/members', component: Members},
   {path: '/:team/competitions', component: ShellAndTell},
+  {path: '/:team/competitions/:id', component: ShellAndTell},
   {path: '/:team/login/:otp', component: Login},
   {path: '/:team/admin/settings', component: TeamSettings},
   {path: '/:team/admin/tags', component: AdminTags},
@@ -89,7 +90,7 @@ const teams={
     discord_invite:'https://discord.gg/PcC5eKp',
     twitter:'teamPipe1',
     ModName:'Admin',
-  }, 
+  },
   teamconsistency:{
     TeamName:'Team Consistency',
     icon:'/favicon.ico',
