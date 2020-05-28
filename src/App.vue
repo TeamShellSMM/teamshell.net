@@ -8,7 +8,7 @@
             <h1 v-if="$route.params.team == 'teamjamp'" ><router-link :to="'/'" class="mt-back-link"><i class="fas fa-chevron-left"></i></router-link><img class="buzzyS teamjamp-logo" src="/assets/teamjamp/logo.png"/><span class="teamjamp-primary-fg">Team</span><span class="teamjamp-secondary-fg"> Jamp</span></h1>
             <h1 v-if="$route.params.team == 'teampipe'" ><router-link :to="'/'" class="mt-back-link"><i class="fas fa-chevron-left"></i></router-link><img class="buzzyS teamjamp-logo" src="/assets/teampipe/logo.png"/><span class="teampipe-primary-fg">#Team</span><span class="teampipe-secondary-fg">Pipe</span></h1>
           </div>
-          <div v-if="$store.state[$route.params.team].teamLastCompWinner" class="header-comp-div" style="">
+          <div v-if="$store.state[$route.params.team].teamLastCompWinner && $store.state[$route.params.team].teamLastCompWinner.level" class="header-comp-div" style="">
             <div class="row comp-winners" >
               <div class="col-2" style="text-align: center;">
                 <img src="/assets/teamshell/bam.png">
