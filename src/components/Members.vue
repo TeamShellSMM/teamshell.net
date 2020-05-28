@@ -12,7 +12,7 @@
         <small class="form-text text-muted">Filtered records with zero points will be hidden.</small>
       </div>
 
-      <div class="col-md-3 invisible">
+      <div class="col-md-3">
         <label for="timePeriod">Level Time Period</label>
         <select name="timePeriod" id="timePeriod" class="form-control">
           <option value="1" selected>All-Time</option>
@@ -23,7 +23,7 @@
         <small class="form-text text-muted">Include only the levels submitted within the stated time period.</small>
       </div>
 
-      <div class="col-md-3 invisible">
+      <div class="col-md-3">
         <label for="timePeriod2">Clear Time Period</label>
         <select name="timePeriod2" id="timePeriod2" class="form-control">
             <option value="1" selected>All-Time</option>

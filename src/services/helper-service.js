@@ -15,7 +15,7 @@ let loadEndpoint = function({type='post',route='json',that,onLoad,data={}}){
     },
     success(_data){
       if(_data.status==="error"){
-        if(_data.message==="Authentication error"){
+        if(_data.message==="Authentication error" || _data.message==="Token expired. Need to relogin" ){
           that.$store.commit(that.$route.params.team + '/setToken', {  });
           that.$store.commit(that.$route.params.team + '/setUserInfo', { });
           localStorage.setItem('member','');
@@ -23,6 +23,7 @@ let loadEndpoint = function({type='post',route='json',that,onLoad,data={}}){
         if(that){
           that.$dialog.alert(_data.message).then(function() {
             $('.loader').hide();
+            that.$router.go()
           });
         }
       } else {
@@ -530,7 +531,7 @@ let makeLevelName=({ row,that })=>{
   let medalsHtmlCreator=makeMedalsCreator(row.creator_id,that.competition_winners)
   let medalsHtml=makeMedalsLevels(row.id,that.competition_winners)
 
-  let makerLink = `<div class='creator-name-div diff-text-mobile'><a class='dt-maker-link' href='/${that.$route.params.team}/maker/${encodeURI(row.creator)}' maker='${row.creator}'>${row.creator}</a>${medalsHtmlCreator}</div>`;
+  let makerLink = `<div class='creator-name-div diff-text-mobile'><a class='dt-maker-link' href='/${that.$route.params.team}/maker/${encodeURI(row.creator || row.creator_name)}' maker='${row.creator || row.creator_name}'>${row.creator || row.creator_name}</a>${medalsHtmlCreator}</div>`;
 
   return makerLink + "<div class='font-weight-bold level-name-div'>"+medalsHtml+row.level_name +"<br/>"+ votesHtml+" "+videos + " " + tags + "</div>";
 }
