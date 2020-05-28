@@ -18,7 +18,7 @@
         </div>
       </div>
     </div>
-    <div class="container competition-info">
+    <div class="container competition-info" v-if="active_competition_group">
       <h4>{{active_competition_group.name}} - {{active_competition_group.description}}</h4>
       <p v-html="active_competition_group.rules"></p>
       <h4 class="mt-4">#{{active_competition.comp_number}} {{active_competition.description}}</h4>
