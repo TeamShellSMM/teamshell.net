@@ -83,7 +83,7 @@
             <p v-if="$route.params.team == 'teamjamp'">
               You can also immedately go and submit your very own level with
             </p>
-            <p v-if="$route.params.team == 'teamjamp'">
+            <p v-if="$route.params.team == 'teampipe'">
               As soon as you get 10 points from clearing levels you can submit your very own level with
             </p>
             <p class="text-bold">
@@ -201,7 +201,7 @@
         let that = this;
         loadEndpoint({
           that,
-          data:{ 
+          data:{
             dashboard:true,
           },
           onLoad(_rawData){
@@ -241,7 +241,7 @@
         this.tags_list=[];
 
 
-        
+
         for(let i=0;i<this.data.levels.length;i++){ //main loop that processes all the stats for the levels
           let level=this.data.levels[i]
           dashboardData.numClears+= (level.clears||0)
@@ -267,7 +267,7 @@
             dashboardData.numApproved++;
           }
 
-          
+
 
           if(!include && level.status=="1"){
             dashboardData.numConsistency++;

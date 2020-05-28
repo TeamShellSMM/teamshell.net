@@ -8,16 +8,16 @@
             <h1 v-if="$route.params.team == 'teamjamp'" ><router-link :to="'/'" class="mt-back-link"><i class="fas fa-chevron-left"></i></router-link><img class="buzzyS teamjamp-logo" src="/assets/teamjamp/logo.png"/><span class="teamjamp-primary-fg">Team</span><span class="teamjamp-secondary-fg"> Jamp</span></h1>
             <h1 v-if="$route.params.team == 'teampipe'" ><router-link :to="'/'" class="mt-back-link"><i class="fas fa-chevron-left"></i></router-link><img class="buzzyS teamjamp-logo" src="/assets/teampipe/logo.png"/><span class="teampipe-primary-fg">#Team</span><span class="teampipe-secondary-fg">Pipe</span></h1>
           </div>
-          <div v-if="$route.params.team == 'teamshell'" class="header-comp-div" style="">
+          <div v-if="$store.state[$route.params.team].teamLastCompWinner" class="header-comp-div" style="">
             <div class="row comp-winners" >
               <div class="col-2" style="text-align: center;">
                 <img src="/assets/teamshell/bam.png">
               </div>
               <div class="col-8">
                 <div class="">
-                  <h4 style="text-align:center;">Shell And Tell 2 - Night Themes</h4>
-                  <h5 style="text-align:center;font-family: 'Bangers', sans-serif"><div class="medal" style="margin-right:10px;padding-top: 2px;"><div class="coin coin-gold"></div></div>Welcome to Midair Canyon by Trakkan (<router-link to="/teamshell/level/1MK-T1C-XGG">1MK-T1C-XGG</router-link>)</h5>
-                  <h5 style="text-align:center;font-family: 'Bangers', sans-serif; margin-bottom:0px;"><router-link to="/teamshell/shellandtell/2">Check out the other winners here</router-link></h5>
+                  <h4 style="text-align:center;">{{$store.state[$route.params.team].teamLastCompWinner.details}}</h4>
+                  <h5 style="text-align:center;font-family: 'Bangers', sans-serif"><div class="medal" style="margin-right:10px;padding-top: 2px;"><div class="coin coin-gold"></div></div>{{$store.state[$route.params.team].teamLastCompWinner.level.level_name}} by <router-link :to="'/' + $route.params.team + '/maker/' + $store.state[$route.params.team].teamLastCompWinner.level.creator">{{$store.state[$route.params.team].teamLastCompWinner.level.creator}}</router-link> (<router-link :to="'/' + $route.params.team + '/level/' + $store.state[$route.params.team].teamLastCompWinner.level.code">{{$store.state[$route.params.team].teamLastCompWinner.level.code}}</router-link>)</h5>
+                  <h5 style="text-align:center;font-family: 'Bangers', sans-serif; margin-bottom:0px;"><router-link to="/teamshell/competitions">Check out the other winners here</router-link></h5>
                 </div>
               </div>
               <div class="col-2" style="text-align: center;">
@@ -39,6 +39,9 @@
             <li>
               <router-link :to="'/' + $route.params.team + '/worlds'">Worlds</router-link>
             </li>
+            <li v-if="$store.state[$route.params.team].teamCompetitions">
+              <router-link :to="'/' + $route.params.team + '/competitions'">Competitions</router-link>
+            </li>
             <li>
               <router-link :to="'/' + $route.params.team + '/makers'">Makers</router-link>
             </li>
@@ -47,7 +50,7 @@
             </li>
             <li>
           <div class="form-check">
-            
+
             <input class="form-check-input" type="checkbox" id="darkmode" v-model="theme" true-value="dark" false-value="light">
             <label class="form-check-label" for="darkmode"><smalL>Dark Mode</small><i class="fa fa-moon-o" aria-hidden="true"></i></label>
           </div>

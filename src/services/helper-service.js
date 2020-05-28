@@ -28,6 +28,10 @@ let loadEndpoint = function({type='post',route='json',that,onLoad,data={}}){
       } else {
         console.log(_data)
         that.$store.commit(that.$route.params.team + '/setTeamAdmin', _data.teamAdmin);
+        if(data.competitions){
+          that.$store.commit(that.$route.params.team + '/setTeamCompetitions', _data.competitions);
+          that.$store.commit(that.$route.params.team + '/setTeamLastCompWinner', _data);
+        }
         onLoad(_data)
       }
     },
@@ -162,8 +166,8 @@ let makeClearDatatable=($,dt,that,hidden=[],rowLabel='players')=>{
 
 /**
  * Generate the medals for levels
- * @param {number} code 
- * @param {object[]} competition_winners 
+ * @param {number} code
+ * @param {object[]} competition_winners
  */
 let makeMedalsLevels=function(code,competition_winners=[]){
   let goldsHtml = "";
@@ -196,19 +200,19 @@ let makeMedalsLevels=function(code,competition_winners=[]){
 
   let medalsHtml = "";
   if(goldsHtml != ""){
-  medalsHtml += '<div class="medals">' + goldsHtml + '</div>';
+  medalsHtml += '<div class="level-medals">' + goldsHtml + '</div>';
   }
   if(silversHtml != ""){
-  medalsHtml += '<div class="medals">' + silversHtml + '</div>';
+  medalsHtml += '<div class="level-medals">' + silversHtml + '</div>';
   }
   if(bronzesHtml != ""){
-  medalsHtml += '<div class="medals">' + bronzesHtml + '</div>';
+  medalsHtml += '<div class="level-medals">' + bronzesHtml + '</div>';
   }
   if(ironsHtml != ""){
-  medalsHtml += '<div class="medals">' + ironsHtml + '</div>';
+  medalsHtml += '<div class="level-medals">' + ironsHtml + '</div>';
   }
   if(shellsHtml != ""){
-  medalsHtml += '<div class="medals">' + shellsHtml + '</div>';
+  medalsHtml += '<div class="level-medals">' + shellsHtml + '</div>';
   }
   return medalsHtml
 }
@@ -497,7 +501,7 @@ let makeLevelName=({ row,that })=>{
   var tags=row.tags
   tags=tags?tags.split(","):[]
   for(let i=0;i<tags.length;i++){
-    let type2=that.tag_labels.find( t=> t.name==tags[i] ) 
+    let type2=that.tag_labels.find( t=> t.name==tags[i] )
     type2=type2 && type2.type?type2.type:'secondary'
     tags[i]=`<a class="tagLink" href="/${that.$route.params.team}/levels/tags/${tags[i]}"><span class="tag badge badge-pill badge-${type2}">${tags[i]}</span></a>`
   }
@@ -520,18 +524,18 @@ let makeLevelName=({ row,that })=>{
   if(row.status===that.$constants.LEVEL_STATUS.NEED_FIX){
     statusStr=`<span class="tag badge badge-pill badge-warning">In Fix Status</span>`
   }
-  
+
   tags=statusStr+tags.join("")
-  
+
   let medalsHtmlCreator=makeMedalsCreator(row.creator_id,that.competition_winners)
   let medalsHtml=makeMedalsLevels(row.id,that.competition_winners)
 
   let makerLink = `<div class='creator-name-div diff-text-mobile'><a class='dt-maker-link' href='/${that.$route.params.team}/maker/${encodeURI(row.creator)}' maker='${row.creator}'>${row.creator}</a>${medalsHtmlCreator}</div>`;
 
-  return makerLink + "<div class='font-weight-bold level-name-div'>"+row.level_name+medalsHtml +"<br/>"+ votesHtml+" "+videos + " " + tags + "</div>";
+  return makerLink + "<div class='font-weight-bold level-name-div'>"+medalsHtml+row.level_name +"<br/>"+ votesHtml+" "+videos + " " + tags + "</div>";
 }
 
-let makeLevelsDatatable=({ $, id, that, hidden=[]})=>{
+let makeLevelsDatatable=({ $, id, that, hidden=[], compMode = false})=>{
   const datatable=$(id).DataTable({
     "language": {
     "emptyTable": "Data is loading. ",
@@ -558,7 +562,8 @@ let makeLevelsDatatable=({ $, id, that, hidden=[]})=>{
       {data:'difficulty_vote'},
       {data:'liked'},
     ],
-    paging:true,
+    paging:!compMode,
+    ordering:!compMode,
     pagingType: "simple",
     "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
     pageLength:that.pageLength,
@@ -593,7 +598,7 @@ let makeLevelsDatatable=({ $, id, that, hidden=[]})=>{
         "render": function ( data, type, row) {
           if(type!="display") return data
           const medalsHtml=makeMedalsCreator(row.creator_id,that.data.competition_winners)
-          return "<div class='creator-name-div'><a class='dt-maker-link' href='/" + that.$route.params.team + "/maker/" + encodeURI(data) + "' maker='" + data + "'>" + data + "</a>"+medalsHtml +"</div>";
+          return "<div class='creator-name-div'><a class='dt-maker-link' href='/" + that.$route.params.team + "/maker/" + encodeURI(data) + "' maker='" + data + "'>" + data + "</a>"+ (compMode ? '' : medalsHtml) +"</div>";
         },
         targets: 2
       },{

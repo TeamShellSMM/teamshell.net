@@ -49,7 +49,7 @@ const routes = [
   {path: '/:team/worlds', component: Worlds},
   {path: '/:team/makers', component: Makers},
   {path: '/:team/members', component: Members},
-  {path: '/:team/shellandtell/:id', component: ShellAndTell},
+  {path: '/:team/competitions', component: ShellAndTell},
   {path: '/:team/login/:otp', component: Login},
   {path: '/:team/admin/settings', component: TeamSettings},
   {path: '/:team/admin/tags', component: AdminTags},
@@ -125,6 +125,8 @@ function makeTeam(args){
       token: '',
       user_info: {},
       teamAdmin: false,
+      teamCompetitions: false,
+      teamLastCompWinner: null,
       teamvars:args,
       ...args
     },
@@ -148,6 +150,30 @@ function makeTeam(args){
       },
       setTeamAdmin(state,payload){
         state.teamAdmin=payload;
+      },
+      setTeamCompetitions(state,payload){
+        if(payload){
+          state.teamCompetitions=payload.length > 0;
+        } else {
+          state.teamCompetitions = false;
+        }
+      },
+      setTeamLastCompWinner(state,payload){
+        let last_comp_winner = null;
+        for(let comp_winner of payload.competition_winners){
+          if(comp_winner.rank == 1){
+            if(last_comp_winner == null || comp_winner.id > last_comp_winner.id){
+              last_comp_winner = comp_winner;
+            }
+          }
+        }
+
+        if(last_comp_winner){
+          last_comp_winner.level = payload.levels.find(x => x.id == last_comp_winner.code);
+        }
+
+        state.teamLastCompWinner = last_comp_winner;
+        console.log("set last", last_comp_winner);
       }
     }
   }
@@ -174,7 +200,7 @@ const LEVEL_STATUS={
   REJECTED:-1,
 
   REUPLOADED:2,
-  REMOVED:-2, 
+  REMOVED:-2,
   USER_REMOVED:-3,
 };
 

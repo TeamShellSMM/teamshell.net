@@ -188,11 +188,22 @@ ul#nav li a.router-link-exact-active:hover {
 }
 
 .medals {
-display:inline-block;
-margin-left:-10px;
+    display:inline-block;
+    margin-left:-10px;
 }
 .medals:first-of-type {
-margin-left:10px;
+    margin-left:10px;
+}
+
+.level-medals {
+    display:inline-block;
+    margin-left:-10px;
+}
+.level-medals:first-of-type {
+    margin-left:0px;
+}
+.level-medals:last-of-type {
+    margin-right:5px;
 }
 
 .medal {
@@ -796,5 +807,12 @@ box-shadow: 0 0 0 3px #21c0ae;
     }
     .medals:first-of-type {
         margin-left:5px;
+    }
+
+    .level-medals {
+        margin-left:-5px;
+    }
+    .level-medals:last-of-type {
+        margin-right:2.5px;
     }
 }
