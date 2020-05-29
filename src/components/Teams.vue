@@ -136,6 +136,21 @@
             </div>
           </div>
         </div>
+        <div class="col-md-3 col-sm-6 p-1">
+          <div class="card team-card team-card-small">
+            <img src="/assets/teamghost/logo.jpg" class="card-img-top card-img-team-logo card-img-rounded-logo" alt="logo">
+            <div class="card-body">
+              <h4 class="card-title"><a href="https://discord.gg/ejHzcm"><span class="teamghost-primary-fg">Team</span><span class="teamghost-secondary-fg"> Ghost</span></a></h4>
+              <p class="card-text">
+                Team Ghost is a Super Mario Maker 2 team which is centered around using dead (but cool-looking) enemies like boos, dry bones and fish bones.
+              </p>
+              <p class="card-text">
+                Like most of the other teams, their main genre for level design is Kaizo and Kaizo-lite.
+              </p>
+              <a href="https://discord.gg/ejHzcm" target="_blank" class="btn teamghost-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
