@@ -80,6 +80,16 @@ img {width: 36px}
 .teamghost-secondary-bg {background-color:#f90606;}
 .teamghost-secondary-bc {border-color:#f90606;}
 
+.teamboomboom-primary-fg {color:#FF911D;}
+.teamboomboom-primary-bg {background-color:#FF911D;}
+.teamboomboom-primary-bc {border-color:#FF911D;}
+.teamboomboom-secondary-fg {color:#FFC99E;}
+.teamboomboom-secondary-bg {background-color:#FFC99E;}
+.teamboomboom-secondary-bc {border-color:#FFC99E;}
+
+
+
+
 .logo-shadow { text-shadow: 2px 2px #888888;}
 
 /* Dark Mode */

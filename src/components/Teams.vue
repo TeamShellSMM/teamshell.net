@@ -151,6 +151,21 @@
             </div>
           </div>
         </div>
+        <div class="col-md-3 col-sm-6 p-1">
+          <div class="card team-card team-card-small">
+            <img src="/assets/teamboomboom/logo.png" class="card-img-top card-img-team-logo" alt="logo">
+            <div class="card-body">
+              <h4 class="card-title"><a href="https://discord.gg/j9Y5NM"><span class="teamboomboom-primary-fg">Team</span><span class="teamboomboom-secondary-fg"> Boom Boom</span></a></h4>
+              <p class="card-text">
+                This is a team that's centered around boom boom and all the fun stuff you can do with the guy.
+              </p>
+              <p class="card-text">
+                If you can't get enough of the mad lad, this is the place for you.
+              </p>
+              <a href="https://discord.gg/j9Y5NM" target="_blank" class="btn teamboomboom-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
