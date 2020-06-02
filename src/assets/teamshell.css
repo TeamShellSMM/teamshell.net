@@ -87,8 +87,12 @@ img {width: 36px}
 .teamboomboom-secondary-bg {background-color:#FFC99E;}
 .teamboomboom-secondary-bc {border-color:#FFC99E;}
 
-
-
+.teampowerup-primary-fg {color:#FF0000;}
+.teampowerup-primary-bg {background-color:#FF0000;}
+.teampowerup-primary-bc {border-color:#FF0000;}
+.teampowerup-secondary-fg {color:#00FF00;}
+.teampowerup-secondary-bg {background-color:#00FF00;}
+.teampowerup-secondary-bc {border-color:#00FF00;}
 
 .logo-shadow { text-shadow: 2px 2px #888888;}
 
