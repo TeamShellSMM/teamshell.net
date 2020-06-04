@@ -181,6 +181,21 @@
             </div>
           </div>
         </div>
+        <div class="col-md-3 col-sm-6 p-1">
+          <div class="card team-card team-card-small">
+            <img src="/assets/teamnocloudabuse/logo.png" class="card-img-top card-img-team-logo" alt="logo">
+            <div class="card-body">
+              <h4 class="card-title"><a href="https://discord.gg/H48dXPu"><span class="teamnocloudabuse-primary-fg">Team</span><span class="teamnocloudabuse-secondary-fg"> #NoCloudAbuse</span></a></h4>
+              <p class="card-text">
+                Team #NoCloudAbuse is a Super Mario Maker 2 team which consists of sky levels and cloudy adventures.
+              </p>
+              <p class="card-text">
+                Similar to Yoshi Protectors this team creates ceave gaming-like contraptions to stop smb2 mario from tearing clouds out of their home.
+              </p>
+              <a href="https://discord.gg/H48dXPu" target="_blank" class="btn teamnocloudabuse-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

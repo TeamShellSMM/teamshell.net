@@ -94,6 +94,13 @@ img {width: 36px}
 .teampowerup-secondary-bg {background-color:#00FF00;}
 .teampowerup-secondary-bc {border-color:#00FF00;}
 
+.teamnocloudabuse-primary-fg {color:#186CB4;}
+.teamnocloudabuse-primary-bg {background-color:#186CB4;}
+.teamnocloudabuse-primary-bc {border-color:#186CB4;}
+.teamnocloudabuse-secondary-fg {color:#88D8D8;}
+.teamnocloudabuse-secondary-bg {background-color:#88D8D8;}
+.teamnocloudabuse-secondary-bc {border-color:#88D8D8;}
+
 .logo-shadow { text-shadow: 2px 2px #888888;}
 
 /* Dark Mode */
