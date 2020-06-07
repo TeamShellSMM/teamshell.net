@@ -99,7 +99,7 @@ const teams={
     ModName:'Consistency Czar',
   },
   teamprecision:{
-    TeamName:'TeamConsistency',
+    TeamName:'#TeamPrecision',
     icon:'/favicon-teamprecision.ico',
     discord_invite:'https://discord.gg/CQD8Cs',
     twitter:'',
