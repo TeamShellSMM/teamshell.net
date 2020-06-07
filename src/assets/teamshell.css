@@ -24,6 +24,13 @@ img {width: 36px}
 .teamjamp-secondary-bg {background-color:#ffbb00;}
 .teamjamp-secondary-bc {border-color:#ffbb00;}
 
+.teamprecision-primary-fg {color:#AAAAAA;}
+.teamprecision-primary-bg {background-color:#AAAAAA;}
+.teamprecision-primary-bc {border-color:#AAAAAA;}
+.teamprecision-secondary-fg {color:#BBBBBB;}
+.teamprecision-secondary-bg {background-color:#BBBBBB;}
+.teamprecision-secondary-bc {border-color:#BBBBBB;}
+
 .makerteams-primary-fg {color: #f9db00;}
 .makerteams-primary-bg {background-color: #f9db00;}
 .makerteams-primary-bc {border-color: #f9db00;}

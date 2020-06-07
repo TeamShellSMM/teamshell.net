@@ -98,6 +98,13 @@ const teams={
     twitter:'',
     ModName:'Consistency Czar',
   },
+  teamprecision:{
+    TeamName:'TeamConsistency',
+    icon:'/favicon-teamprecision.ico',
+    discord_invite:'https://discord.gg/CQD8Cs',
+    twitter:'',
+    ModName:'Moderator',
+  },
 }
 
 router.beforeEach((to, from, next) => {

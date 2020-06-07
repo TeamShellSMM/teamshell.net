@@ -52,6 +52,21 @@
             </div>
           </div>
         </div>
+        <div class="col-md-4 col-sm-6 p-1">
+          <div class="card team-card teamprecision-primary-bc">
+            <img src="/assets/teamprecision/logo.png" class="card-img-top card-img-team-logo card-img-rounded-logo" alt="logo">
+            <div class="card-body">
+              <h2 class="card-title"><router-link to="/teamprecision"><span class="teamprecision-primary-fg">#Team</span><span class="teamprecision-secondary-fg">Precision</span></router-link></h2>
+              <p class="card-text">
+                #TeamPrecision is a group of players who like to play the precision genre of Mario Maker.
+              </p>
+              <p class="card-text">
+                Precision levels are usually short levels consisting of a series of fairly tight jumps between sprites or spikes. If that sounds like your type of level give them a look.
+              </p>
+              <router-link to="/teamprecision" class="btn teamprecision-primary-bg team-card-nav-button" style="color:white;">Go check it out!</router-link>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="row mt-3">

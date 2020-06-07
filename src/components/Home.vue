@@ -28,6 +28,9 @@
             <p v-if="$route.params.team == 'teampipe'">
               in the bot command text-channel to register with your desired name!
             </p>
+            <p v-if="$route.params.team == 'teamprecision'">
+              in the bot command text-channel to register with your desired name!
+            </p>
           </div>
         </div>
         <div class="howto-step howto-step-2" :class="$route.params.team + '-secondary-bg'">
@@ -44,6 +47,9 @@
               After that you can go to the #bot-spam text-channel and use
             </p>
             <p v-if="$route.params.team == 'teampipe'">
+              After that you can go to the bot command text-channel and use
+            </p>
+            <p v-if="$route.params.team == 'teamprecision'">
               After that you can go to the bot command text-channel and use
             </p>
             <p class="text-bold">
@@ -85,6 +91,9 @@
             </p>
             <p v-if="$route.params.team == 'teampipe'">
               As soon as you get 10 points from clearing levels you can submit your very own level with
+            </p>
+            <p v-if="$route.params.team == 'teampipe'">
+              As soon as you get 25 points from clearing levels you can submit your very own level with
             </p>
             <p class="text-bold">
               !add XXX-XXX-XXX LevelName
