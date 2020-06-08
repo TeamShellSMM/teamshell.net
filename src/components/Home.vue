@@ -31,6 +31,9 @@
             <p v-if="$route.params.team == 'teamprecision'">
               in the bot command text-channel to register with your desired name!
             </p>
+            <p v-if="$route.params.team == 'teamicicle'">
+              in the bot command text-channel to register with your desired name!
+            </p>
           </div>
         </div>
         <div class="howto-step howto-step-2" :class="$route.params.team + '-secondary-bg'">
@@ -50,6 +53,9 @@
               After that you can go to the bot command text-channel and use
             </p>
             <p v-if="$route.params.team == 'teamprecision'">
+              After that you can go to the bot command text-channel and use
+            </p>
+            <p v-if="$route.params.team == 'teamicicle'">
               After that you can go to the bot command text-channel and use
             </p>
             <p class="text-bold">
@@ -92,8 +98,11 @@
             <p v-if="$route.params.team == 'teampipe'">
               As soon as you get 10 points from clearing levels you can submit your very own level with
             </p>
-            <p v-if="$route.params.team == 'teampipe'">
-              As soon as you get 25 points from clearing levels you can submit your very own level with
+            <p v-if="$route.params.team == 'teamprecision'">
+              As soon as you get 25 points from clearing levels (and after clearing a 3+ and a 4+ level) you can submit your very own level with
+            </p>
+            <p v-if="$route.params.team == 'teamicicle'">
+              As soon as you get 5 points from clearing levels you can submit your very own level with
             </p>
             <p class="text-bold">
               !add XXX-XXX-XXX LevelName
@@ -104,7 +113,7 @@
           </div>
         </div>
       </div>
-      <p class="howto-footer">If you need any help you can always ask in one of the text channels or you can just message a {{$route.params.team == 'teamshell' ? "shellder" : "moderator"}}. Hope you have fun and keep on {{$route.params.team == 'teamshell' ? "shelling" : "jamping"}}!</p>
+      <p class="howto-footer">If you need any help you can always ask in one of the text channels or you can just message a {{$route.params.team == 'teamshell' ? "shellder" : "moderator"}}. Hope you have fun and keep on {{$route.params.team == 'teamshell' ? "shelling" : "jumping"}}!</p>
     </div>
     <div class="row">
       <div class="col-md-6">

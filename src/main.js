@@ -105,6 +105,13 @@ const teams={
     twitter:'',
     ModName:'Moderator',
   },
+  teamicicle:{
+    TeamName:'Team Icicle',
+    icon:'/favicon-teamicicle.ico',
+    discord_invite:'https://discord.gg/pEd8X3N',
+    twitter:'',
+    ModName:'Justicle',
+  },
 }
 
 router.beforeEach((to, from, next) => {

@@ -67,6 +67,21 @@
             </div>
           </div>
         </div>
+        <div class="col-md-4 col-sm-6 p-1">
+          <div class="card team-card teamicicle-primary-bc">
+            <img src="/assets/teamicicle/logo.png" class="card-img-top card-img-team-logo card-img-rounded-logo" alt="logo">
+            <div class="card-body">
+              <h2 class="card-title"><router-link to="/teamicicle"><span class="teamicicle-primary-fg">Team</span><span class="teamicicle-secondary-fg">Icicle</span></router-link></h2>
+              <p class="card-text">
+                TeamIcicle is a group of icicle fanatics who enjoy all things icicle!
+              </p>
+              <p class="card-text">
+                If icicles are the focal point in your levels, join TeamIcicle today and share YOUR icetastic levels!
+              </p>
+              <router-link to="/teamicicle" class="btn teamicicle-primary-bg team-card-nav-button" style="color:white;">Go check it out!</router-link>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="row mt-3">
