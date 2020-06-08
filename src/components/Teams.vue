@@ -69,7 +69,7 @@
         </div>
         <div class="col-md-4 col-sm-6 p-1">
           <div class="card team-card teamicicle-primary-bc">
-            <img src="/assets/teamicicle/logo.png" class="card-img-top card-img-team-logo card-img-rounded-logo" alt="logo">
+            <img src="/assets/teamicicle/logo.png" class="card-img-top card-img-team-logo" alt="logo">
             <div class="card-body">
               <h2 class="card-title"><router-link to="/teamicicle"><span class="teamicicle-primary-fg">Team</span><span class="teamicicle-secondary-fg">Icicle</span></router-link></h2>
               <p class="card-text">
