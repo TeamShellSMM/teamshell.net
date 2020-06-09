@@ -82,6 +82,19 @@
             </div>
           </div>
         </div>
+          <div class="col-md-4 col-sm-6 p-1">
+          <div class="card team-card teamconsistency-primary-bc">
+            <img src="/assets/teamconsistency/logo.png" class="card-img-top card-img-team-logo" alt="logo">
+            <div class="card-body">
+              <h2 class="card-title"><router-link to="/teamconsistency"><span class="teamconsistency-primary-fg">#Team</span><span class="teamconsistency-secondary-fg">Consistency</span></router-link></h2>
+              <p class="card-text">
+                Team Consistency. Striving for perfection.
+              </p>
+              <p class="card-text">We welcome all consistency, practice and Uno Más levels</p>
+              <router-link to="/teamconsistency" class="btn teamconsistency-primary-bg team-card-nav-button" style="color:white;">Go check it out!</router-link>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="row mt-3">

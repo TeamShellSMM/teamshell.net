@@ -38,6 +38,13 @@ img {width: 36px}
 .teamicicle-secondary-bg {background-color:#00BCD4;}
 .teamicicle-secondary-bc {border-color:#00BCD4;}
 
+.teamconsistency-primary-fg {color:#6b81a1;}
+.teamconsistency-primary-bg {background-color:#6b81a1;}
+.teamconsistency-primary-bc {border-color:#6b81a1;}
+.teamconsistency-secondary-fg {color:#c14600;}
+.teamconsistency-secondary-bg {background-color:#c14600;}
+.teamconsistency-secondary-bc {border-color:#c14600;}
+
 .makerteams-primary-fg {color: #f9db00;}
 .makerteams-primary-bg {background-color: #f9db00;}
 .makerteams-primary-bc {border-color: #f9db00;}
