@@ -1,7 +1,10 @@
 <template>
   <div class="container">
-    <h2 id="table_title" :class="$route.params.team + '-secondary-fg maker-detail-title'">{{$route.params.name}}'s Levels</h2>
-    
+    <h2 v-if="data" id="table_title" class="maker-detail-title" v-bind:style="{ color: data.maker.hexColor }" ><img v-bind:src="data.maker.avatarURL" class="maker-avatar" /> {{$route.params.name}}</h2>
+    <h2 v-if="!data" id="table_title" class="maker-detail-title"><img src="/assets/defaults/discord-default-avatar.png" class="maker-avatar" /> {{$route.params.name}}</h2>
+
+    <h3 id="table_title" class="maker-detail-title">Levels</h3>
+
     <table id="table" class="compact row-border stripe hover" style="width:100%">
       <thead><tr>
         <th class="all" style="width:10px;">No.</th>
@@ -24,7 +27,7 @@
       </tr></thead>
     </table>
 
-    <h2 id="table_title" :class="$route.params.team + '-secondary-fg maker-detail-title'">{{$route.params.name}}'s Plays</h2>
+    <h3 id="table_title" class="maker-detail-title">Plays</h3>
 
     <div id="playedTableCont" class="level-detail-played-table">
       <table id="playedTable" class="compact row-border stripe hover" style="width:100%;">
@@ -52,6 +55,7 @@
     name: 'MakerDetails',
     data(){
       return{
+        data: null,
         ...this.$store.state[this.$route.params.team].teamvars,
       }
     },
@@ -91,7 +95,7 @@
           datatable2.rows.add(this.data.plays)
           datatable2.draw();
         }
-        
+
         $('.loader').hide();
         $('[data-toggle="tooltip"],#refresh,#submitButton,.medal').tooltip()
 
