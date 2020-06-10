@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h2 v-if="data" id="table_title" class="maker-detail-title" v-bind:style="{ color: data.maker.hexColor }" ><img v-bind:src="data.maker.avatarURL" class="maker-avatar" /> {{$route.params.name}}</h2>
+    <h2 v-if="data" id="table_title" class="maker-detail-title" v-bind:style="{ color: data.maker.hexColor }" ><img v-bind:src="data.maker.avatarURL ? data.maker.avatarURL : '/assets/defaults/discord-default-avatar.png'" class="maker-avatar" /> {{$route.params.name}}</h2>
     <h2 v-if="!data" id="table_title" class="maker-detail-title"><img src="/assets/defaults/discord-default-avatar.png" class="maker-avatar" /> {{$route.params.name}}</h2>
 
     <h3 id="table_title" class="maker-detail-title">Levels</h3>
