@@ -101,7 +101,7 @@ const teams={
   teamprecision:{
     TeamName:'#TeamPrecision',
     icon:'/favicon-teamprecision.ico',
-    discord_invite:'https://discord.gg/CQD8Cs',
+    discord_invite:'https://discord.gg/4VMnCwu',
     twitter:'',
     ModName:'Moderator',
   },
