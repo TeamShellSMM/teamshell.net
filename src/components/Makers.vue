@@ -43,7 +43,6 @@
           'makers': [],
           'membershipStatus': 1,
           'seasons': [],
-          ...this.$store.state[this.$route.params.team].teamvars,
         }
       },
       computed:{

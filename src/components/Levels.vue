@@ -40,7 +40,7 @@
 
         <div class="col-md-3" @change="clientReload()">
       <label for="maxDifficulty">Max Difficulty</label>
-      <input type="number" id="maxDifficulty" name="maxDifficulty" placeholder="10"  step="0.5" min="0" max="12" class="form-control" />
+      <input type="number" id="maxDifficulty" name="maxDifficulty" v-bind:placeholder="$store.state[$route.params.team].teamSettings.maxDifficulty"  step="0.5" min="0" v-bind:max="$store.state[$route.params.team].teamSettings.maxDifficulty" class="form-control" />
           <small class="form-text text-muted">Maximum difficulty to show.</small>
         </div>
 
