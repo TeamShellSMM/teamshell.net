@@ -79,7 +79,7 @@
       </div>
       <div class="row">
         <div class="col-12" v-if="!loggedIn">
-          <h4>Join the discord for more information: <a v-bind:href="team.discord_invite">{{ team.discord_invite }}</a></h4>
+          <h4>Join the discord for more information: <a v-bind:href="$store.state[$route.params.team].teamSettings.DiscordInvite">{{ $store.state[$route.params.team].teamSettings.DiscordInvite }}</a></h4>
         </div>
       </div>
       <router-view :key="$route.fullPath"></router-view>
@@ -163,9 +163,6 @@
       },
       url_slug: function(){
         return this.$route.params.team;
-      },
-      discord_invite:function(){
-        return this.$store.state[this.$route.params.team].discord_invite
       },
       teamAdmin:function(){
         return this.$route.params.team && this.$store.state[this.$route.params.team].teamAdmin

@@ -5,7 +5,7 @@
         <label for="membershipStatus">Members</label>
         <select name="membershipStatus" id="membershipStatus" class="form-control">
           <option value="1" selected>Members</option>
-          <option value="2">{{ModName}}</option>
+          <option value="2">{{$store.state[$route.params.team].teamSettings.ModName}}</option>
           <option value="4">Unoffical</option>
           <option value="5">All</option>
         </select>

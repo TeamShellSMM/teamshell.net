@@ -43,7 +43,7 @@
       <th style="width:10em">Level Difficulty</th>
       <th>Player</th>
       <th style="width:10em">Cleared</th>
-      <th style="width:10em">{{ModName}}</th>
+      <th style="width:10em">{{$store.state[$route.params.team].teamSettings.ModName}}</th>
       <th style="width:10px">Liked</th>
       <th style="width:10px">Difficulty Voted</th>
       <th style="width:5em">Submitted</th>

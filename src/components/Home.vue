@@ -19,23 +19,8 @@
             <p class="text-bold">
               !register YourName
             </p>
-            <p v-if="$route.params.team == 'teamshell'">
-              in the #registration text-channel to register with your desired name!
-            </p>
-            <p v-if="$route.params.team == 'teamjamp'">
-              in the #bot-spam text-channel to register with your desired name!
-            </p>
-            <p v-if="$route.params.team == 'teampipe'">
-              in the bot command text-channel to register with your desired name!
-            </p>
-            <p v-if="$route.params.team == 'teamprecision'">
-              in the bot command text-channel to register with your desired name!
-            </p>
-            <p v-if="$route.params.team == 'teamicicle'">
-              in the bot command text-channel to register with your desired name!
-            </p>
-            <p v-if="$route.params.team == 'teamconsistency'">
-              in the bot command text-channel to register with your desired name!
+            <p>
+              in the #{{$store.state[$route.params.team].teamSettings.RegistrationChannel || 'bot-command'}} text-channel to register with your desired name!
             </p>
           </div>
         </div>
@@ -46,23 +31,8 @@
           <i class='fas fa-sign-in-alt howto-icon'></i>
           <div class="howto-text-container">
             <h4>Step #2</h4>
-            <p v-if="$route.params.team == 'teamshell'">
-              After that you can go to the #misc-commands text-channel and use
-            </p>
-            <p v-if="$route.params.team == 'teamjamp'">
-              After that you can go to the #bot-spam text-channel and use
-            </p>
-            <p v-if="$route.params.team == 'teampipe'">
-              After that you can go to the bot command text-channel and use
-            </p>
-            <p v-if="$route.params.team == 'teamprecision'">
-              After that you can go to the bot command text-channel and use
-            </p>
-            <p v-if="$route.params.team == 'teamicicle'">
-              After that you can go to the bot command text-channel and use
-            </p>
-            <p v-if="$route.params.team == 'teamconsistency'">
-              After that you can go to the bot command text-channel and use
+            <p>
+              After that you can go to the #{{$store.state[$route.params.team].teamSettings.MiscChannel || 'bot-command'}} text-channel and use
             </p>
             <p class="text-bold">
               !login
@@ -95,34 +65,17 @@
           <i class='fas fa-thumbs-up howto-icon'></i>
           <div class="howto-text-container">
             <h4>Step #4</h4>
-            <p v-if="$route.params.team == 'teamshell'">
-              As soon as you get 10 points from clearing levels you can submit your very own level with
-            </p>
-            <p v-if="$route.params.team == 'teamjamp'">
-              You can also immedately go and submit your very own level with
-            </p>
-            <p v-if="$route.params.team == 'teampipe'">
-              As soon as you get 10 points from clearing levels you can submit your very own level with
-            </p>
-            <p v-if="$route.params.team == 'teamprecision'">
-              As soon as you get 25 points from clearing levels (and after clearing a 3+ and a 4+ level) you can submit your very own level with
-            </p>
-            <p v-if="$route.params.team == 'teamicicle'">
-              As soon as you get 5 points from clearing levels you can submit your very own level with
-            </p>
-            <p v-if="$route.params.team == 'teamconsistency'">
-              You can immediately submit your very own level with
-            </p>
+            <p>{{$store.state[$route.params.team].teamSettings.AddLevelRequirements}}</p>
             <p class="text-bold">
               !add XXX-XXX-XXX LevelName
             </p>
             <p>
-              As soon as it's approved by the {{$route.params.team == 'teamshell' ? "shellders" : "moderators"}} you're done and you'll get your official initiation into the team!
+              As soon as it's approved by the {{$store.state[$route.params.team].teamSettings.ModName}} you're done and you'll get your official initiation into the team!
             </p>
           </div>
         </div>
       </div>
-      <p class="howto-footer">If you need any help you can always ask in one of the text channels or you can just message a {{$route.params.team == 'teamshell' ? "shellder" : "moderator"}}. Hope you have fun and keep on {{$route.params.team == 'teamshell' ? "shelling" : "jumping"}}!</p>
+      <p class="howto-footer">If you need any help you can always ask in one of the text channels or you can just message a {{$store.state[$route.params.team].teamSettings.ModName}}. {{$store.state[$route.params.team].teamSettings.HaveFun}}</p>
     </div>
     <div class="row">
       <div class="col-md-6">
@@ -136,7 +89,6 @@
           <tr><td>Votes</td><td id="numVotes">Loading</td></tr>
           <tr><td>Likes</td><td id="numLikes">Loading</td></tr>
           <tr><td>Maximum Score</td><td id="maxScore">Loading</td></tr>
-          <tr v-if="$route.params.team == 'teamshell'"><td>TeamConsistency Levels</td><td id="numConsistency">Loading</td></tr>
           <tr v-if="$route.params.team == 'teamshell'"><td>Shell Jamps Done</td><td>A Lot</td></tr>
         </table>
         <h4>Levels by difficulty</h4>
@@ -146,22 +98,10 @@
       </div>
       <div class="col-md-2">
       </div>
-      <div class="col-md-4" v-if="$route.params.team == 'teamshell'">
-        <h4>We have a twitter now! <a href="https://twitter.com/TeamShellSMM">https://twitter.com/TeamShellSMM</a></h4>
+      <div class="col-md-4" v-if="$store.state[$route.params.team].teamSettings.TwitterUser">
+        <h4>We have a twitter now! <a v-bind:href="'https://twitter.com/'+$store.state[$route.params.team].teamSettings.TwitterUser">https://twitter.com/{{$store.state[$route.params.team].teamSettings.TwitterUser}}</a></h4>
         <div class="embed-responsive-item">
-          <Timeline id="teamshellsmm" sourceType="profile" :key="theme" :options="timelineOptions"></Timeline>
-        </div>
-      </div>
-      <div class="col-md-4" v-if="$route.params.team == 'teamjamp'">
-        <h4>We have a twitter now! <a href="https://twitter.com/team_jamp">https://twitter.com/team_jamp</a></h4>
-        <div class="embed-responsive-item">
-          <Timeline id="team_jamp" sourceType="profile" :key="theme" :options="timelineOptions"></Timeline>
-        </div>
-      </div>
-      <div class="col-md-4" v-if="$route.params.team == 'teampipe'">
-        <h4>We have a twitter now! <a href="https://twitter.com/teamPipe1">https://twitter.com/teamPipe1p</a></h4>
-        <div class="embed-responsive-item">
-          <Timeline id="teamPipe1" sourceType="profile" :key="theme" :options="timelineOptions"></Timeline>
+          <Timeline v-bind:id="$store.state[$route.params.team].teamSettings.TwitterUser" sourceType="profile" :key="theme" :options="timelineOptions"></Timeline>
         </div>
       </div>
     </div>
@@ -248,7 +188,6 @@
           "numClears":0,
           "numVotes":0,
           "numLikes":0,
-          "numConsistency":0,
           "maxScore":0,
         }
 
@@ -257,7 +196,9 @@
           "0.1":0
         }
 
-        for(var i=0.5 ;i<=12;i+=0.5){
+        const maxDifficulty=Number(this.$store.state[this.$route.params.team].teamSettings.maxDifficulty) || 10
+
+        for(var i=0.5 ;i<=maxDifficulty;i+=0.5){
           all_difficulty.push(i.toString())
           difficulty_no[i.toString()]=0
         }
@@ -294,11 +235,6 @@
             dashboardData.numApproved++;
           }
 
-
-
-          if(!include && level.status=="1"){
-            dashboardData.numConsistency++;
-          }
         }
 
         dashboardData.numMembers=this.data.dashboard.members.official;
