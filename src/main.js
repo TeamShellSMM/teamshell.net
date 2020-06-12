@@ -73,52 +73,27 @@ const router = new VueRouter({
 const defaultSetting={
   title:"MakerTeams",
   TeamName:'MakerTeams',
-  icon:'/favicon.ico',
   maker:true,
 }
 
 const teams={
   teamshell:{
     TeamName:'#TeamShell',
-    icon:'/favicon-teamshell.ico',
-    discord_invite:'https://discord.gg/7tQJewa',
-    twitter:'TeamShellSMM',
-    ModName:'Shellder',
   },
   teamjamp:{
     TeamName:'Team Jamp',
-    icon:'/favicon-teamjamp.ico',
-    discord_invite:'https://discord.gg/rekPFnq',
-    twitter:'team_jamp',
-    ModName:'Jampolice',
   },
   teampipe:{
     TeamName:'#TeamPipe',
-    icon:'/favicon-teampipe.ico',
-    discord_invite:'https://discord.gg/PcC5eKp',
-    twitter:'teamPipe1',
-    ModName:'Admin',
   },
   teamconsistency:{
     TeamName:'Team Consistency',
-    icon:'/favicon.ico',
-    discord_invite:'https://discord.gg/RAV7qkd',
-    twitter:'',
-    ModName:'Consistency Czar',
   },
   teamprecision:{
     TeamName:'#TeamPrecision',
-    icon:'/favicon-teamprecision.ico',
-    discord_invite:'https://discord.gg/CQD8Cs',
-    twitter:'',
-    ModName:'Moderator',
   },
   teamicicle:{
     TeamName:'Team Icicle',
-    icon:'/favicon-teamicicle.ico',
-    discord_invite:'https://discord.gg/pEd8X3N',
-    twitter:'',
-    ModName:'Justicle',
   },
 }
 
@@ -129,7 +104,7 @@ router.beforeEach((to, from, next) => {
 
     let settings= teams[to.params.team] || defaultSetting
     document.title=settings.TeamName;
-    link.href=settings.icon;
+    link.href=`/favicon-${to.params.team}-.ico`;
     if(settings.maker){
       document.querySelector('body').classList.add('makerteams-body-bg');
     } else {
@@ -155,6 +130,7 @@ function makeTeam(args){
       token: '',
       user_info: {},
       teamAdmin: false,
+      teamSettings:{},
       teamCompetitions: false,
       teamLastCompWinner: null,
       teamvars:args,
@@ -180,6 +156,9 @@ function makeTeam(args){
       },
       setTeamAdmin(state,payload){
         state.teamAdmin=payload;
+      },
+      setTeamSettings(state,payload){
+        state.teamSettings=payload;
       },
       setTeamCompetitions(state,payload){
         if(payload){

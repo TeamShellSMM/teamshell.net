@@ -29,6 +29,7 @@ let loadEndpoint = function({type='post',route='json',that,onLoad,data={}}){
       } else {
         console.log(_data)
         that.$store.commit(that.$route.params.team + '/setTeamAdmin', _data.teamAdmin);
+        that.$store.commit(that.$route.params.team + '/setTeamSettings', _data.teamSettings);
         if(_data.competitions){
           that.$store.commit(that.$route.params.team + '/setTeamCompetitions', _data.competitions);
           that.$store.commit(that.$route.params.team + '/setTeamLastCompWinner', _data);
