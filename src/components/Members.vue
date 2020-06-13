@@ -120,7 +120,8 @@
             {
             "render": function ( data, type, row ) {
               if(type!="display") return data
-              const medalsHtml=makeMedalsCreator(row.id,that.competition_winners)
+              console.log(that.data.competition_winners)
+              const medalsHtml=makeMedalsCreator(row.member_id,that.data.competition_winners)
               return "<div class='creator-name-div'><a class='dt-maker-link' href='/" + that.$route.params.team + "/maker/" + encodeURI(data) + "' maker='" + data + "'>" + data + "</a>"+medalsHtml +"</div>";
             },
             targets: 1
@@ -157,7 +158,8 @@
               timePeriod2: that.timePeriod2
             },
             onLoad(_rawData){
-              that.members = _rawData;
+              that.members = _rawData.data;
+              that.data=_rawData;
               that.refresh()
             },
           });
