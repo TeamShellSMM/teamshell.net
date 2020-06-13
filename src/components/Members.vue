@@ -120,7 +120,6 @@
             {
             "render": function ( data, type, row ) {
               if(type!="display") return data
-              console.log(that.data.competition_winners)
               const medalsHtml=makeMedalsCreator(row.member_id,that.data.competition_winners)
               return "<div class='creator-name-div'><a class='dt-maker-link' href='/" + that.$route.params.team + "/maker/" + encodeURI(data) + "' maker='" + data + "'>" + data + "</a>"+medalsHtml +"</div>";
             },
