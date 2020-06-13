@@ -834,6 +834,7 @@ box-shadow: 0 0 0 3px #21c0ae;
     font-size: 24px;
     line-height: 1.33;
     color:white;
+    margin-left:10px;
 }
 .new-race-button {
     float:right;
@@ -844,6 +845,7 @@ box-shadow: 0 0 0 3px #21c0ae;
     font-size: 24px;
     line-height: 1.33;
     color:white;
+    margin-left:10px;
 }
 .race-time-remaining {
     float:left;
@@ -909,6 +911,10 @@ box-shadow: 0 0 0 3px #21c0ae;
 
 .race-dialog .dg-title {
     font-size:30px;
+}
+
+.race-chosen-level {
+    font-weight:bold;
 }
 
 /*

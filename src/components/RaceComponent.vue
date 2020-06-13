@@ -5,8 +5,11 @@
         <h2 :class="$route.params.team + '-primary-fg'" class="race-title">{{race.name}}</h2>
         <h3 class="race-date">{{formattedStartDate}}</h3>
         <h3 class="race-type">{{race.race_type}} Race<template v-if="lengthMinutes"> ({{lengthMinutes}} minutes)</template></h3>
-        <p class="mt-2 mb-4">
+        <p class="mt-2">
           {{levelFilters}}<template v-if="race.level_filter_tag">, <span class='tag badge badge-pill' :class="'badge-' + race.level_filter_tag.type">{{race.level_filter_tag.name}}</span></template>
+        </p>
+        <p class="mt-2 mb-4 race-chosen-level" v-if="race.level">
+          Chosen level: <router-link :to="'/' + $route.params.team + '/level/' + race.level.code">{{race.level.level_name}} ({{race.level.code}})</router-link> by <router-link :to="'/' + $route.params.team + '/maker/' + race.level.creator.name">{{race.level.creator.name}}</router-link> - {{race.level.difficulty.toFixed(1)}}
         </p>
         <template v-if="race.status == 'upcoming'">
           <h4 class="race-type">Registered Participants ({{finishedEntrants + unfinishedEntrants}})</h4>
@@ -43,11 +46,14 @@
         <h3 v-if="race.status == 'upcoming' && startsSoon && currentTimeMillis <= startDateMillis" class="race-time-remaining mt-3"><template v-if="race.level_filter_failed">Postponed (No level could be found) - Trying again</template><template v-if="!race.level_filter_failed">Race is starting</template> in: {{timeRemainingStart}}</h3>
         <h3 v-if="race.status == 'active' && currentTimeMillis <= endDateMillis" class="race-time-remaining mt-3">Race is ending in: {{timeRemainingEnd}}</h3>
         <template v-if="race.status == 'upcoming' && !race.level_filter_failed">
-          <button v-if="participating" type="button" class="btn btn-circle race-button" :class="$route.params.team + '-primary-bg'" title="Leave Race"><i class="fa fa-sign-out-alt"></i></button>
-          <button v-if="!participating" type="button" class="btn btn-circle race-button" :class="$route.params.team + '-primary-bg'" :title="loginName ? 'Enter Race' : 'You must login first to enter the race!'" :disabled="!loginName"><i class="fa fa-sign-in-alt"></i></button>
+          <button v-if="participating" type="button" class="btn btn-circle race-button" :class="$route.params.team + '-primary-bg'" title="Leave Race" v-on:click="leaveRace()"><i class="fa fa-sign-out-alt"></i></button>
+          <button v-if="!participating" type="button" class="btn btn-circle race-button" :class="$route.params.team + '-primary-bg'" :title="loginName ? 'Enter Race' : 'You must login first to enter the race!'" :disabled="!loginName" v-on:click="enterRace()"><i class="fa fa-sign-in-alt"></i></button>
         </template>
         <template v-if="race.status == 'active' && race.race_type == 'FC'">
-          <button v-if="participating" type="button" class="btn btn-circle race-button" :class="$route.params.team + '-primary-bg'" title="Finish Race"><i class="fa fa-flag-checkered"></i></button>
+          <button v-if="participating" type="button" class="btn btn-circle race-button" :class="$route.params.team + '-primary-bg'" title="Finish Race" v-on:click="finishRace()"><i class="fa fa-flag-checkered"></i></button>
+        </template>
+        <template v-if="race.status != 'finished' && teamAdmin">
+          <button type="button" class="btn btn-circle new-race-button" :class="$route.params.team + '-primary-bg'" title="Edit Race" v-on:click="editRace()"><i class="fa fa-edit"></i></button>
         </template>
       </div>
       <h2 v-if="race.status == 'finished'" class="race-ribbon" :class="$route.params.team + '-primary-bg'"><i class="fa fa-flag-checkered"></i></h2>
@@ -57,12 +63,14 @@
 
 <script>
   import moment from 'moment';
+  import { loadEndpoint } from '../services/helper-service'
 
   export default {
     name: 'race-component',
     props: {
       race: Object,
-      serverTimeDifferenceMillis: Number
+      serverTimeOffset: Number,
+      tags: Array
     },
     data(){
       return {
@@ -102,12 +110,14 @@
       let duration = moment.duration(end_date.diff(start_date));
       this.lengthMinutes = duration.asMinutes();
 
-      if(this.serverTimeDifferenceMillis){
+      if(this.serverTimeOffset){
         //We're sending the current moment time to the web api and it gives back the time difference between that and the server time, then we add this here so we are in sync with the server
-        this.currentTimeMillis = moment().valueOf() + this.serverTimeDifferenceMillis - 1000; //Minus 1 second to be safe (so it doesn't refresh before the server has started the race)
+        console.log("setting server time offset", this.serverTimeOffset);
+        this.currentTimeMillis = moment().valueOf() + this.serverTimeOffset - 1000; //Minus 1 second to be safe (so it doesn't refresh before the server has started the race)
       } else {
         this.currentTimeMillis = moment().valueOf();
       }
+      console.log(this.race.start_date);
       this.startDateMillis = start_date.valueOf();
       this.endDateMillis = end_date.valueOf();
 
@@ -126,7 +136,7 @@
     computed: {
       formattedStartDate(){
         let startDate = moment(this.race.start_date)
-        let strFormatted = startDate.format("YYYY/MM/DD HH:mm:ss") + " UTC";
+        let strFormatted = startDate.format("YYYY/MM/DD HH:mm:ss");
         if(this.race.status == "upcoming" && !this.startsSoon){
           strFormatted += " (" + startDate.fromNow() + ")";
         }
@@ -140,7 +150,7 @@
           levelType = "Random Uncleared";
         } else if (this.race.level_type == "random") {
           levelType = "Random Cleared & Uncleared";
-        } else if (this.race.level_type == "specific-level"){
+        } else if (this.race.level_type == "specific"){
           levelType = "Specific Level";
         }
 
@@ -165,6 +175,9 @@
         }
 
         return vars.join(", ");
+      },
+      teamAdmin(){
+        return this.$route.params.team && this.$store.state[this.$route.params.team].teamAdmin
       }
     },
     methods: {
@@ -176,7 +189,7 @@
         }
 
         if(this.currentTimeMillis >= this.startDateMillis && this.readyForReload){
-          //TODO: trigger reload
+          this.$emit('after-update');
           console.log("triggering reload, race has started");
           this.readyForReload = false;
         }
@@ -185,11 +198,101 @@
         this.timeRemainingEnd = moment.utc(this.endDateMillis - this.currentTimeMillis).format("HH:mm:ss");
 
         if(this.currentTimeMillis >= this.endDateMillis && this.readyForReload){
-          //TODO: trigger reload
+          this.$emit('after-update');
           console.log("triggering reload, race has ended");
           this.readyForReload = false;
         }
-      }
+      },
+      editRace(){
+        this.$dialog.alert(this.$route.params.team, {
+          view: 'race-edit-component', // can be set globally too
+          html: true,
+          animation: 'fade',
+          customClass: "race-dialog",
+          race: this.race,
+          tags: this.tags
+        })
+        .then((obj) => {
+          $('.loader').show();
+
+          let that = this;
+          loadEndpoint({
+            that,
+            type: "patch",
+            route: "race",
+            data: obj.data,
+            reloadOnError: false,
+            onLoad(){
+              that.$emit('after-update');
+              console.log("triggering reload, race has been updated");
+            },
+          });
+        })
+        .catch(() => {
+          // Triggered when dialog is dismissed by user
+          console.log('Prompt dismissed');
+        });
+      },
+      enterRace(){
+        if(this.loginName){
+          $('.loader').show();
+
+          let that = this;
+          loadEndpoint({
+            that,
+            type: "post",
+            route: "race/enter",
+            data: {
+              raceId: this.race.id
+            },
+            reloadOnError: false,
+            onLoad(){
+              that.$emit('after-update');
+              console.log("triggering reload, race has been entered");
+            },
+          });
+        }
+      },
+      leaveRace(){
+        if(this.loginName){
+          $('.loader').show();
+
+          let that = this;
+          loadEndpoint({
+            that,
+            type: "post",
+            route: "race/leave",
+            data: {
+              raceId: this.race.id
+            },
+            reloadOnError: false,
+            onLoad(){
+              that.$emit('after-update');
+              console.log("triggering reload, race has been left");
+            },
+          });
+        }
+      },
+      finishRace(){
+        if(this.loginName){
+          $('.loader').show();
+
+          let that = this;
+          loadEndpoint({
+            that,
+            type: "post",
+            route: "race/finish",
+            data: {
+              raceId: this.race.id
+            },
+            reloadOnError: false,
+            onLoad(){
+              that.$emit('after-update');
+              console.log("triggering reload, race has been finished");
+            },
+          });
+        }
+      },
     },
     watch: {
       currentTimeMillis: {

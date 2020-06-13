@@ -1,6 +1,7 @@
 <template>
     <div class="custom-view-wrapper">
-        <h2 class="dg-title">Add new Race</h2>
+        <h2 v-if="edit" class="dg-title">Edit Race</h2>
+        <h2 v-if="!edit" class="dg-title">Add new Race</h2>
 
         <div class="dg-content">
           <div class="form-group row">
@@ -11,19 +12,19 @@
             </div>
             <div class="col-6 mt-3">
               <label for="startDate">Start Date</label>
-              <datetime v-model="startDate" name="startDate" placeholder="Start Date" format="YYYY-MM-DD H:i" readonly="readonly"></datetime>
-              <small class="form-text text-muted">The UTC date and time of when the race should start.</small>
+              <datetime v-model="startDate" :value="startDate" name="startDate" placeholder="Start Date" format="YYYY-MM-DD H:i" readonly="readonly"></datetime>
+              <small class="form-text text-muted">The date and time of when the race should start.</small>
             </div>
             <div class="col-6 mt-3">
-              <label for="endDate">End Date</label>
-              <datetime v-model="endDate" name="endDate" placeholder="End Date" format="YYYY-MM-DD H:i" readonly="readonly"></datetime>
-              <small class="form-text text-muted">The UTC date and time of when the race should end.</small>
+              <label for="length">Race Length</label>
+              <input name="length" type="text" class="form-control" autocomplete="off" placeholder="Race Length" v-model="length">
+              <small class="form-text text-muted">The length of the race in minutes.</small>
             </div>
             <div class="col-6 mt-3">
               <label for="raceType">Race Type</label>
               <select name="raceType" v-model="raceType" class="form-control">
                 <option value="FC" selected>First Clear Race</option>
-                <option value="WR">World Record Race</option>
+                <option v-if="false" value="WR">World Record Race</option>
               </select>
               <small class="form-text text-muted">What kind of race it should be.</small>
             </div>
@@ -51,7 +52,8 @@
             <div class="col-6 mt-3" v-show="levelType != 'specific'">
               <label for="levelTag">Tags</label>
               <select name="levelTag" v-model="levelTag" class="form-control">
-                <option value="-1" selected>All</option>
+                <option :value="null" selected>All</option>
+                <option v-for="tag in tags" :key="tag.id" :value='tag' >Shell And Tell</option>
               </select>
               <small class="form-text text-muted">Use this to only select levels with a certain tag.</small>
             </div>
@@ -77,6 +79,8 @@
 import DialogMixin from 'vuejs-dialog/dist/vuejs-dialog-mixin.min.js';
 import datetime from 'vuejs-datetimepicker';
 import noUiSlider from 'nouislider';
+import moment from 'moment';
+
 import 'nouislider/distribute/nouislider.css';
 
 export default {
@@ -89,11 +93,17 @@ export default {
       raceType: "FC",
       levelType: "random-uncleared",
       levelCode: null,
-      levelTag: "-1",
-      submissionTimeType: "all"
+      levelTag: null,
+      submissionTimeType: "all",
+      tags: [],
+      edit: false,
+      raceId: null,
+      length: 60,
     };
   },
   mounted(){
+    console.log("race is", this.options.race);
+
     let slider = document.getElementById('race-dialog-difficulty-range-slider');
 
     let formatNumber = {
@@ -120,11 +130,36 @@ export default {
             density: 4
         }
     });
+
+    if(this.options.race){
+      slider.noUiSlider.set([this.options.race.level_filter_diff_from.toFixed(2), this.options.race.level_filter_diff_to.toFixed(2)]);
+
+      this.name = this.options.race.name;
+      this.startDate = moment(this.options.race.start_date).format("YYYY-MM-DD HH:mm");
+      this.endDate = moment(this.options.race.end_date).format("YYYY-MM-DD HH:mm");
+      this.raceType = this.options.race.race_type;
+      this.levelType = this.options.race.level_type;
+      if(this.options.race.level){
+        this.levelCode = this.options.race.level.code;
+      }
+      this.levelTag = this.options.race.level_filter_tag;
+      this.submissionTimeType = this.options.race.level_filter_submission_time_type;
+
+      this.length = moment.duration(moment(this.options.race.end_date).diff(moment(this.options.race.start_date))).asMinutes();
+
+      this.edit = true;
+      this.raceId = this.options.race.id;
+    }
+    if(this.options.tags){
+      this.tags = this.options.tags;
+    }
   },
   methods: {
     handleOk() {
       let slider = document.getElementById('race-dialog-difficulty-range-slider');
       let diffs = slider.noUiSlider.get();
+
+      this.endDate = moment(this.startDate, "YYYY-MM-DD HH:mm").add(this.length, 'minute').format("YYYY-MM-DD HH:mm");
 
       let raceData = {
         "name": this.name,
@@ -133,11 +168,18 @@ export default {
         "raceType": this.raceType,
         "levelType": this.levelType,
         "levelCode": this.levelCode,
-        "levelTag": this.levelTag,
         "submissionTimeType": this.submissionTimeType,
         "minDifficulty": parseFloat(diffs[0]).toFixed(1),
         "maxDifficulty": parseFloat(diffs[1]).toFixed(1)
       };
+
+      if(this.levelTag){
+        raceData["levelTagId"] = this.levelTag.id;
+      }
+
+      if(this.edit){
+        raceData["id"] = this.raceId;
+      }
 
       this.proceed(raceData);
     },
