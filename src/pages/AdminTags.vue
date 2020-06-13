@@ -80,7 +80,7 @@
                 that.$dialog.alert('Tags saved')
                 that.$router.push("/" + that.$route.params.team + "/levels");
               }
-            }) 
+            })
           })
       },
       addRow(){

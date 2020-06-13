@@ -12,20 +12,26 @@ Vue.use(Vuex);
 Vue.use(VueRouter);
 Vue.use(VuejsDialog);
 
-import Home from './components/Home';
-import Teams from './components/Teams';
-import Features from './components/Features';
-import HowToJoin from './components/HowToJoin';
-import Levels from './components/Levels';
-import LevelDetails from './components/LevelDetails';
-import MakerDetails from './components/MakerDetails';
-import Worlds from './components/Worlds';
-import Makers from './components/Makers';
-import Members from './components/Members';
-import ShellAndTell from './components/ShellAndTell';
-import Login from './components/Login';
-import TeamSettings from './components/TeamSettings';
-import AdminTags from './components/AdminTags';
+import RaceEditComponent from './components/RaceEditComponent';
+
+Vue.dialog.registerComponent('race-edit-component', RaceEditComponent);
+
+import Home from './pages/Home';
+import Teams from './pages/Teams';
+import Features from './pages/Features';
+import HowToJoin from './pages/HowToJoin';
+import Levels from './pages/Levels';
+import LevelDetails from './pages/LevelDetails';
+import MakerDetails from './pages/MakerDetails';
+import Worlds from './pages/Worlds';
+import Makers from './pages/Makers';
+import Members from './pages/Members';
+import ShellAndTell from './pages/ShellAndTell';
+import Login from './pages/Login';
+import TeamSettings from './pages/TeamSettings';
+import AdminTags from './pages/AdminTags';
+import Races from './pages/Races';
+import RaceHistory from './pages/RaceHistory';
 
 const routes = [
   {path: '/', beforeEnter: (to, from, next) => {
@@ -51,6 +57,8 @@ const routes = [
   {path: '/:team/members', component: Members},
   {path: '/:team/competitions', component: ShellAndTell},
   {path: '/:team/competitions/:id', component: ShellAndTell},
+  {path: '/:team/races', component: Races},
+  {path: '/:team/races/history', component: RaceHistory},
   {path: '/:team/login/:otp', component: Login},
   {path: '/:team/admin/settings', component: TeamSettings},
   {path: '/:team/admin/tags', component: AdminTags},

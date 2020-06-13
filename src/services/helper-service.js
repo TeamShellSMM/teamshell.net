@@ -3,7 +3,7 @@ import moment from 'moment/src/moment';
 
 const backendURL = "/backend/";
 
-let loadEndpoint = function({type='post',route='json',that,onLoad,data={}}){
+let loadEndpoint = function({type='post',route='json',that,onLoad,data={},reloadOnError=true}){
   let url= backendURL + route;
   $.ajax({
     url,
@@ -23,7 +23,9 @@ let loadEndpoint = function({type='post',route='json',that,onLoad,data={}}){
         if(that){
           that.$dialog.alert(_data.message).then(function() {
             $('.loader').hide();
-            that.$router.go()
+            if(reloadOnError){
+              that.$router.go()
+            }
           });
         }
       } else {

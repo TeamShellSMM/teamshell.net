@@ -34,7 +34,7 @@
         <div class="col-12">
           <ul id="nav" style="float:left;">
             <li>
-              <router-link :to="'/' + $route.params.team + '/'">Home</router-link>
+              <router-link :to="'/' + $route.params.team + '/'" exact>Home</router-link>
             </li>
             <li>
               <router-link :to="'/' + $route.params.team + '/levels'">Levels</router-link>
@@ -44,6 +44,9 @@
             </li>
             <li v-if="$store.state[$route.params.team].teamCompetitions">
               <router-link :to="'/' + $route.params.team + '/competitions'">Competitions</router-link>
+            </li>
+            <li>
+              <router-link :to="'/' + $route.params.team + '/races'">Races</router-link>
             </li>
             <li>
               <router-link :to="'/' + $route.params.team + '/makers'">Makers</router-link>

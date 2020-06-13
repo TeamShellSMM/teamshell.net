@@ -2,7 +2,7 @@ module.exports = {
   devServer: {
     proxy: {
       '/backend': {
-        target: 'http://makerteams.net:4000' ,
+        target: 'http://localhost:8080' ,
         //target: 'https://makerteams.net/backend' ,
         pathRewrite: {'^/backend' : ''},
         changeOrigin: true,
