@@ -15,7 +15,8 @@
     <div class="row">
       <div class="container">
         <h3 id="table_title" class="maker-detail-title">Finished Races</h3>
-        <p>There are currently no finished races.</p>
+        <p v-if="races.finished.length == 0">There are currently no finished races.</p>
+        <race-component v-for="race in races.finished" :key="race.vueKey" :race="race" :tags="tags" :serverTimeOffset="serverTimeOffset"></race-component>
       </div>
     </div>
   </div>
@@ -23,35 +24,69 @@
 
 <script>
   import { loadEndpoint } from '../services/helper-service';
+  import raceComponent from '../components/RaceComponent';
+  import moment from 'moment';
 
   export default {
     name: 'RaceHistory',
+    components: {
+      raceComponent
+    },
     data() {
       return {
-        "data": null
+        "data": null,
+        "races": {
+          "active": [],
+          "upcoming": [],
+          "finished": []
+        },
+        tags: [],
+        serverTimeOffset: 0,
+        globalKey: 0
       };
     },
     mounted(){
       //let that = this;
+      this.getData();
     },
     computed: {
     },
     methods: {
       getData(){
+        console.log("getting data");
         $('.loader').show();
 
         let that = this;
         loadEndpoint({
           that,
-          onLoad(_rawData){
-            that.data=_rawData
-            that.refresh()
+          route: "json/races",
+          data: {
+            mode: "history",
+            currentTimeMillis: moment().valueOf()
+          },
+          reloadOnError: false,
+          onLoad(data){
+            console.log("setting data", data);
+            $('.loader').hide();
+            for(let race of data.data["active"]){
+              race.vueKey = that.globalKey;
+              that.globalKey++;
+            }
+            for(let race of data.data["upcoming"]){
+              race.vueKey = that.globalKey;
+              that.globalKey++;
+            }
+            for(let race of data.data["finished"]){
+              race.vueKey = that.globalKey;
+              that.globalKey++;
+            }
+
+            that.races = data.data;
+            that.tags = data.tags;
+            that.serverTimeOffset = data.serverTimeOffset;
           },
         })
       },
-      refresh(){
-
-      }
     }
   }
 </script>

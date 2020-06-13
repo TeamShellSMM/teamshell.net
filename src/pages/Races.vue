@@ -19,6 +19,7 @@
         <p v-if="races.active.length == 0">There are currently no active races.</p>
         <race-component v-for="race in races.active" :key="race.vueKey" :race="race" :tags="tags" :serverTimeOffset="serverTimeOffset" v-on:after-update="getData()"></race-component>
         <h3 id="table_title" class="maker-detail-title">Upcoming Races</h3>
+        <p v-if="races.upcoming.length == 0">There are currently no upcoming races.</p>
         <race-component v-for="race in races.upcoming" :key="race.vueKey" :race="race" :tags="tags" :serverTimeOffset="serverTimeOffset" v-on:after-update="getData()"></race-component>
       </div>
     </div>

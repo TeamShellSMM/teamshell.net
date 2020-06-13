@@ -149,6 +149,8 @@ export default {
 
       this.edit = true;
       this.raceId = this.options.race.id;
+    } else {
+      this.startDate = moment().format("YYYY-MM-DD HH:mm");
     }
     if(this.options.tags){
       this.tags = this.options.tags;
