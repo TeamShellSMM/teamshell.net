@@ -50,7 +50,7 @@
           <button v-if="!participating" type="button" class="btn btn-circle race-button" :class="$route.params.team + '-primary-bg'" :title="loginName ? 'Enter Race' : 'You must login first to enter the race!'" :disabled="!loginName" v-on:click="enterRace()"><i class="fa fa-sign-in-alt"></i></button>
         </template>
         <template v-if="race.status == 'active' && race.race_type == 'FC'">
-          <button v-if="participating" type="button" class="btn btn-circle race-button" :class="$route.params.team + '-primary-bg'" title="Finish Race" v-on:click="finishRace()"><i class="fa fa-flag-checkered"></i></button>
+          <button v-if="participating && !participatingAndFinished" type="button" class="btn btn-circle race-button" :class="$route.params.team + '-primary-bg'" title="Finish Race" v-on:click="finishRace()"><i class="fa fa-flag-checkered"></i></button>
         </template>
         <template v-if="race.status != 'finished' && teamAdmin">
           <button type="button" class="btn btn-circle new-race-button" :class="$route.params.team + '-primary-bg'" title="Edit Race" v-on:click="editRace()"><i class="fa fa-edit"></i></button>
@@ -85,7 +85,8 @@
         timeRemainingEnd: "00:00:00",
         unfinishedEntrants: 0,
         finishedEntrants: 0,
-        readyForReload: false
+        readyForReload: false,
+        participatingAndFinished: false
       };
     },
     mounted(){
@@ -96,6 +97,9 @@
       for(let entrant of this.race.race_entrants){
         if(entrant.member.name == this.loginName){
           this.participating = true;
+          if(entrant.finished_date){
+            this.participatingAndFinished = true;
+          }
         }
         if(entrant.finished_date){
           this.finishedEntrants++;

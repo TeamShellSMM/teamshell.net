@@ -879,7 +879,11 @@ box-shadow: 0 0 0 3px #21c0ae;
 
 .date-picker-form-control {
     background-color:#fff !important;
-    color:#000 !important;
+}
+
+.dark .date-picker-form-control {
+    background-color:#666 !important;
+
 }
 
 .race-dialog .dg-main-content {
