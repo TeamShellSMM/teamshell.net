@@ -60,7 +60,6 @@
     },
     methods: {
       getData(){
-        console.log("getting data");
         $('.loader').show();
 
         let that = this;
@@ -73,7 +72,6 @@
           },
           reloadOnError: false,
           onLoad(data){
-            console.log("setting data", data);
             $('.loader').hide();
             for(let race of data.data["active"]){
               race.vueKey = that.globalKey;
@@ -118,7 +116,7 @@
           });
         })
         .catch(() => {
-          console.log('Prompt dismissed');
+
         });
       }
     }

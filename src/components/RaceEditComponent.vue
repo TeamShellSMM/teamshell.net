@@ -102,8 +102,6 @@ export default {
     };
   },
   mounted(){
-    console.log("race is", this.options.race);
-
     let slider = document.getElementById('race-dialog-difficulty-range-slider');
 
     let formatNumber = {
@@ -142,7 +140,9 @@ export default {
       if(this.options.race.level){
         this.levelCode = this.options.race.level.code;
       }
-      this.levelTag = this.options.race.level_filter_tag;
+      if(this.options.race.level_filter_tag){
+        this.levelTag = this.options.race.level_filter_tag;
+      }
       this.submissionTimeType = this.options.race.level_filter_submission_time_type;
 
       this.length = moment.duration(moment(this.options.race.end_date).diff(moment(this.options.race.start_date))).asMinutes();

@@ -112,12 +112,10 @@
 
       if(this.serverTimeOffset){
         //We're sending the current moment time to the web api and it gives back the time difference between that and the server time, then we add this here so we are in sync with the server
-        console.log("setting server time offset", this.serverTimeOffset);
         this.currentTimeMillis = moment().valueOf() + this.serverTimeOffset - 1000; //Minus 1 second to be safe (so it doesn't refresh before the server has started the race)
       } else {
         this.currentTimeMillis = moment().valueOf();
       }
-      console.log(this.race.start_date);
       this.startDateMillis = start_date.valueOf();
       this.endDateMillis = end_date.valueOf();
 
@@ -230,7 +228,6 @@
         })
         .catch(() => {
           // Triggered when dialog is dismissed by user
-          console.log('Prompt dismissed');
         });
       },
       enterRace(){
