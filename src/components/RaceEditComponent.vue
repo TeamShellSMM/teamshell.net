@@ -53,7 +53,7 @@
               <label for="levelTag">Tags</label>
               <select name="levelTag" v-model="levelTag" class="form-control">
                 <option :value="null" selected>All</option>
-                <option v-for="tag in tags" :key="tag.id" :value='tag' >Shell And Tell</option>
+                <option v-for="tag in tags" :key="tag.id" :value='tag' >{{tag.name}}</option>
               </select>
               <small class="form-text text-muted">Use this to only select levels with a certain tag.</small>
             </div>
