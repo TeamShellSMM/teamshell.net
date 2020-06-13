@@ -722,6 +722,10 @@ box-shadow: 0 0 0 3px #21c0ae;
     background-color: white;
 }
 
+.dark .bs-callout-title {
+    background-color: #212121;
+}
+
 .bs-callout-title-box {
     border-radius: 10px;
     border-bottom: 3px solid #eee;
@@ -875,6 +879,7 @@ box-shadow: 0 0 0 3px #21c0ae;
 
 .date-picker-form-control {
     background-color:#fff !important;
+    color:#000 !important;
 }
 
 .race-dialog .dg-main-content {
