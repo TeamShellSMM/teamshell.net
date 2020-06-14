@@ -217,6 +217,8 @@
         .then((obj) => {
           $('.loader').show();
 
+          console.log(obj);
+
           let that = this;
           loadEndpoint({
             that,

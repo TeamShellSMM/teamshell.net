@@ -161,12 +161,13 @@ export default {
       let slider = document.getElementById('race-dialog-difficulty-range-slider');
       let diffs = slider.noUiSlider.get();
 
-      this.endDate = moment(this.startDate, "YYYY-MM-DD HH:mm").add(this.length, 'minute').format("YYYY-MM-DD HH:mm");
+      let startMillis = moment(this.startDate, "YYYY-MM-DD HH:mm").valueOf();
+      let endMillis = moment(this.startDate, "YYYY-MM-DD HH:mm").add(this.length, 'minute').valueOf();
 
       let raceData = {
         "name": this.name,
-        "startDate": this.startDate,
-        "endDate": this.endDate,
+        "startDate": startMillis,
+        "endDate": endMillis,
         "raceType": this.raceType,
         "levelType": this.levelType,
         "levelCode": this.levelCode,
