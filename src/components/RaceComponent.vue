@@ -158,12 +158,14 @@
 
         vars.push(levelType);
 
-        let diffString = this.race.level_filter_diff_from.toFixed(1);
-        if(this.race.level_filter_diff_from < this.race.level_filter_diff_to){
-          diffString += " - " + this.race.level_filter_diff_to.toFixed(1)
-        }
+        if(this.race.level_filter_diff_from){
+          let diffString = this.race.level_filter_diff_from.toFixed(1);
+          if(this.race.level_filter_diff_from < this.race.level_filter_diff_to){
+            diffString += " - " + this.race.level_filter_diff_to.toFixed(1)
+          }
 
-        vars.push(diffString);
+          vars.push(diffString);
+        }
 
         let submissionFilter = "";
         if (this.race.level_filter_submission_time_type == "month"){
