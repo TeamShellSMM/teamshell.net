@@ -46,12 +46,22 @@
         },
         tags: [],
         serverTimeOffset: 0,
-        globalKey: 0
+        globalKey: 0,
+        secondCounter: 0
       };
     },
     mounted(){
       //let that = this;
       this.getData();
+
+      let that = this;
+
+      setInterval(function(){
+        that.secondCounter+= 10;
+        if(that.secondCounter > 5*60){
+          that.getData();
+        }
+      }, 10000)
     },
     computed: {
       teamAdmin:function(){
@@ -60,6 +70,7 @@
     },
     methods: {
       getData(){
+        this.secondCounter = 0;
         $('.loader').show();
 
         let that = this;
