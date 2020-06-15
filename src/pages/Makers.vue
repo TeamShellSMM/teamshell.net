@@ -89,6 +89,7 @@
             { "name": "clears", data:"clears", title: "Clears"},
             { "name": "likes", data:"likes", title: "Likes"},
             { "name": "clear_like_ratio", data:"clear_like_ratio", title: "Like/Clear Ratio"},
+            { "name": "avg_lcd", title: "Avg LCD"},
             { "name": "maker_points", data:"maker_points", title: "Maker Points"},
           ],
           "columnDefs": [
@@ -100,6 +101,12 @@
                 }
                 return "<div class='points'></div>"
               },
+              targets:6,
+            },
+            {
+            "render": function ( data, type, row ) {
+                return (row.maker_points / row.levels_created).toFixed(1);
+              },
               targets:5,
             },
             {
@@ -110,7 +117,7 @@
             },
             {
             "render": function ( data, type,row) {
-              
+
               if(type!="display") return data
               const medalsHtml=makeMedalsCreator(row.creator_id,that.competition_winners)
 
