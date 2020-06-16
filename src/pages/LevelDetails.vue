@@ -1,6 +1,8 @@
 <template>
   <div class="container">
     <h2 id="table_title" :class="$route.params.team + '-secondary-fg level-detail-title'">Level Details</h2>
+    <h2 id="table_title" :class="$route.params.team + '-primary-fg level-detail-title'">{{level.level_name}} by <span :class="$route.params.team + '-secondary-fg level-detail-title'">{{level.creator}}</span></h2>
+    <span>Submitted: {{level.created_at}}</span>
     <table id="table" class="compact row-border stripe hover" style="width:100%">
       <thead>
         <tr>
@@ -56,19 +58,21 @@
 </template>
 
 <script>
+  import moment from 'moment';
   import { loadEndpoint, makeClearDatatable, makeLevelsDatatable } from '../services/helper-service';
 
   export default {
     name: 'LevelDetails',
     data(){
       return{
+        level:{},
         ...this.$store.state[this.$route.params.team].teamvars,
       }
     },
     mounted(){
       let that = this;
       $('th').tooltip()
-      makeLevelsDatatable({$,id:'#table',that })
+      makeLevelsDatatable({$,id:'#table',that,args:{'paging': false,"info":''} })
       makeClearDatatable($,'#playedTable',this,[1,2,3,4])
       this.getData();
     },
@@ -128,6 +132,8 @@
           },
           onLoad(_rawData){
             that.data=_rawData
+            that.level=_rawData.levels[0]
+            that.level.created_at=moment(that.level.created_at).fromNow();
             that.refresh()
           },
         })

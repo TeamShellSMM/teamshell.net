@@ -545,7 +545,7 @@ let makeLevelName=({ row,that })=>{
   return makerLink + "<div class='font-weight-bold level-name-div'>"+medalsHtml+row.level_name +"<br/>"+ votesHtml+" "+videos + " " + tags + "</div>";
 }
 
-let makeLevelsDatatable=({ $, id, that, hidden=[], compMode = false})=>{
+let makeLevelsDatatable=({ $, id, that, hidden=[], compMode = false, args})=>{
   const datatable=$(id).DataTable({
     "language": {
     "emptyTable": "Data is loading. ",
@@ -678,7 +678,8 @@ let makeLevelsDatatable=({ $, id, that, hidden=[], compMode = false})=>{
         },
         targets:16
       },
-    ]
+    ],
+    ...args,
   });
   makeCodeButtons($,that)
   makeRowItems(that,datatable)
