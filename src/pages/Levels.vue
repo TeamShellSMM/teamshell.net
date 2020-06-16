@@ -113,6 +113,11 @@
       store_input(this.$route.query, 'maxDifficulty','#maxDifficulty')
 
 
+      if(this.$route.params.status){
+        console.log(this.$route.params.status)
+        store_input({approved:this.$route.params.status}, 'approved','#pendingLevel')
+      }
+
       $(document).off('change', "#table_length select");
       $(document).on("change", "#table_length select", function(){
         // for persistant data
@@ -177,8 +182,9 @@
               return false
             }
           }
+          
+          const statusType=get_input('approved')
 
-          const statusType=get_input('approved');
           if(statusType==='infix' && level.status!==this.$constants.LEVEL_STATUS.NEED_FIX) return false;
           if(statusType==='approved' && level.status !==this.$constants.LEVEL_STATUS.APPROVED) return false;
           if(statusType==='pending' && !this.$constants.PENDING_LEVELS.includes(level.status)) return false;
