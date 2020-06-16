@@ -67,6 +67,7 @@
               <button :class="$route.params.team + '-primary-bg'" class="btn random-button" title="Random Level" @click="randomLevel()"><i class="fa fa-random"></i></button>
               <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Logged in as {{userName}}</span>
               <div class="dropdown-menu">
+                <router-link :to="'/'+$route.params.team+'/maker/'+userName"><button type='button' class='btn btn-block btn-primary'>Your Profile</button></router-link>
                 <a class="dropdown-item" href="#" v-on:click="showFeedbackDialog()">Submit feedback</a>
                 <div v-if="teamAdmin">
                 <router-link :to="'/'+$route.params.team+'/admin/settings/'"><button type='button' class='btn btn-block btn-primary'>Team Settings</button></router-link>
