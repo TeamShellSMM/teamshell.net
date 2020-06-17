@@ -52,13 +52,6 @@
               <input name="levelCode" type="text" class="form-control" autocomplete="off" placeholder="Level Code" v-model="levelCode">
               <small class="form-text text-muted">The ingame code of the specific level you want to use for the race.</small>
             </div>
-            <div class="col-12 mt-3" v-show="levelType != 'specific'">
-              <label for="difficultyRange">Difficulty Range</label>
-                <div class='race-dialog-diff-range-container'>
-                  <div id='race-dialog-difficulty-range-slider'></div>
-                </div>
-              <small class="form-text text-muted">The difficulty range in which to look for a random level.</small>
-            </div>
             <div class="col-md-6 mt-3" v-show="levelType != 'specific'">
               <label for="levelTag">Tags</label>
               <select name="levelTag" v-model="levelTag" class="form-control">
@@ -92,6 +85,13 @@
                 <option value="weighted_lcd">Weighted (LCD)</option>
               </select>
               <small class="form-text text-muted">Use this to favor certain levels in the random selection. Can only be used with approved levels.</small>
+            </div>
+            <div class="col-12 mt-3" v-show="levelType != 'specific' && levelStatusType == 'approved'">
+              <label for="difficultyRange">Difficulty Range</label>
+                <div class='race-dialog-diff-range-container'>
+                  <div id='race-dialog-difficulty-range-slider'></div>
+                </div>
+              <small class="form-text text-muted">The difficulty range in which to look for a random level.</small>
             </div>
           </div>
         </div>
@@ -228,6 +228,15 @@ export default {
       let startMillis = moment(this.startDate, "YYYY-MM-DD HH:mm").valueOf();
       let endMillis = moment(this.startDate, "YYYY-MM-DD HH:mm").add(this.length, 'minute').valueOf();
 
+      let minDiff = parseFloat(diffs[0]).toFixed(1);
+      let maxDiff = parseFloat(diffs[1]).toFixed(1);
+
+      if(this.levelStatusType != 'approved'){
+        minDiff = 0;
+        maxDiff = 100;
+        this.weightingType = 'unweighted';
+      }
+
       let raceData = {
         "name": this.name,
         "startDate": startMillis,
@@ -236,8 +245,8 @@ export default {
         "levelType": this.levelType,
         "levelCode": this.levelCode,
         "submissionTimeType": this.submissionTimeType,
-        "minDifficulty": parseFloat(diffs[0]).toFixed(1),
-        "maxDifficulty": parseFloat(diffs[1]).toFixed(1),
+        "minDifficulty": minDiff,
+        "maxDifficulty": maxDiff,
         "unofficial": this.unofficial,
         "weightingType": this.weightingType,
         "levelStatusType": this.levelStatusType,
