@@ -4,13 +4,16 @@
       <div class="col-12">
         <ul id="nav" style="float:left;">
           <li>
-            <router-link :to="'/' + $route.params.team + '/races'" exact>Current</router-link>
+            <router-link :to="'/' + $route.params.team + '/races'" exact>Official</router-link>
+          </li>
+          <li>
+            <router-link :to="'/' + $route.params.team + '/races/unofficial'" exact>Unofficial</router-link>
           </li>
           <li>
             <router-link :to="'/' + $route.params.team + '/races/history'">History</router-link>
           </li>
         </ul>
-        <button v-if="teamAdmin" type="button" class="btn btn-circle new-race-button" :class="$route.params.team + '-primary-bg'" title="New Race" v-on:click="newRace()"><i class="fa fa-plus"></i></button>
+        <button v-if="teamAdmin || (raceCreator)" type="button" class="btn btn-circle new-race-button" :class="$route.params.team + '-primary-bg'" title="New Race" v-on:click="newRace()"><i class="fa fa-plus"></i></button>
       </div>
     </div>
     <div class="row">
@@ -47,11 +50,15 @@
         tags: [],
         serverTimeOffset: 0,
         globalKey: 0,
-        secondCounter: 0
+        secondCounter: 0,
+        unofficial: false,
       };
     },
     mounted(){
-      //let that = this;
+      if(this.$route.path.endsWith("unofficial")){
+        this.unofficial = true;
+      }
+
       this.getData();
 
       let that = this;
@@ -62,10 +69,15 @@
           that.getData();
         }
       }, 10000)
+
+      console.log(this.$route);
     },
     computed: {
       teamAdmin:function(){
         return this.$route.params.team && this.$store.state[this.$route.params.team].teamAdmin
+      },
+      raceCreator(){
+        return this.$route.params.team && this.$store.state[this.$route.params.team].raceCreator
       }
     },
     methods: {
@@ -78,7 +90,7 @@
           that,
           route: "json/races",
           data: {
-            mode: "current",
+            mode: that.unofficial ? "unofficial" : "current",
             currentTimeMillis: moment().valueOf()
           },
           reloadOnError: false,
@@ -115,6 +127,10 @@
         })
         .then((obj) => {
           $('.loader').show();
+
+          if(that.unofficial){
+            obj.data.unofficial = 1;
+          }
 
           loadEndpoint({
             that,

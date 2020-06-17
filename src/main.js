@@ -58,6 +58,7 @@ const routes = [
   {path: '/:team/competitions', component: ShellAndTell},
   {path: '/:team/competitions/:id', component: ShellAndTell},
   {path: '/:team/races', component: Races},
+  {path: '/:team/races/unofficial', component: Races},
   {path: '/:team/races/history', component: RaceHistory},
   {path: '/:team/login/:otp', component: Login},
   {path: '/:team/admin/settings', component: TeamSettings},
@@ -134,6 +135,7 @@ function makeTeam(args){
       teamCompetitions: false,
       teamLastCompWinner: null,
       teamvars:args,
+      raceCreator: false,
       ...args
     },
     mutations: {
@@ -156,6 +158,9 @@ function makeTeam(args){
       },
       setTeamAdmin(state,payload){
         state.teamAdmin=payload;
+      },
+      setRaceCreator(state,payload){
+        state.raceCreator=payload;
       },
       setTeamSettings(state,payload){
         state.teamSettings=payload;

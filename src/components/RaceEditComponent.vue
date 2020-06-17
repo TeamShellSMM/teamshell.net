@@ -37,12 +37,22 @@
               </select>
               <small class="form-text text-muted">How the level for the race should be selected. If no level can be found, the race will be postponed.</small>
             </div>
+            <div class="col-6 mt-3">
+              <label for="clearScoreFrom">Minimum Clear Score</label>
+              <input name="clearScoreFrom" type="text" class="form-control" autocomplete="off" placeholder="Minimum Clear Score" v-model="clearScoreFrom">
+              <small class="form-text text-muted">The minimum clear score people need to enter the race (leave empty for no minimum).</small>
+            </div>
+            <div class="col-6 mt-3">
+              <label for="clearScoreTo">Maximum Clear Score</label>
+              <input name="clearScoreTo" type="text" class="form-control" autocomplete="off" placeholder="Maximum Clear Score" v-model="clearScoreTo">
+              <small class="form-text text-muted">The maximum clear score people can have to enter the race (leave empty for no maximum).</small>
+            </div>
             <div class="col-12" v-show="levelType == 'specific'">
               <label for="levelCode">Level Code</label>
               <input name="levelCode" type="text" class="form-control" autocomplete="off" placeholder="Level Code" v-model="levelCode">
               <small class="form-text text-muted">The ingame code of the specific level you want to use for the race.</small>
             </div>
-            <div class="col-12" v-show="levelType != 'specific'">
+            <div class="col-12 mt-3" v-show="levelType != 'specific'">
               <label for="difficultyRange">Difficulty Range</label>
                 <div class='race-dialog-diff-range-container'>
                   <div id='race-dialog-difficulty-range-slider'></div>
@@ -65,6 +75,23 @@
                 <option value="week">Within the last 7 days</option>
               </select>
               <small class="form-text text-muted">Use this to only select levels that have been recently submitted.</small>
+            </div>
+            <div class="col-6 mt-3" v-show="levelType != 'specific'">
+              <label for="levelStatusType">Level Status</label>
+              <select name="levelStatusType" v-model="levelStatusType" class="form-control">
+                <option value="approved" selected>Approved</option>
+                <option value="pending">Pending</option>
+                <option value="all">All</option>
+              </select>
+              <small class="form-text text-muted">Use this to select levels that are approved/pending or both.</small>
+            </div>
+            <div class="col-6 mt-3" v-show="levelType != 'specific' && levelStatusType == 'approved'">
+              <label for="weightingType">Weighting</label>
+              <select name="weightingType" v-model="weightingType" class="form-control">
+                <option value="unweighted" selected>Unweighted</option>
+                <option value="weighted_lcd">Weighted (LCD)</option>
+              </select>
+              <small class="form-text text-muted">Use this to favor certain levels in the random selection. Can only be used with approved levels.</small>
             </div>
           </div>
         </div>
@@ -99,6 +126,11 @@ export default {
       edit: false,
       raceId: null,
       length: 60,
+      unofficial: 0,
+      weightingType: "unweighted",
+      levelStatusType: "approved",
+      clearScoreFrom: null,
+      clearScoreTo: null
     };
   },
   mounted(){
@@ -137,6 +169,11 @@ export default {
       this.endDate = moment(this.options.race.end_date).format("YYYY-MM-DD HH:mm");
       this.raceType = this.options.race.race_type;
       this.levelType = this.options.race.level_type;
+      this.unofficial = this.options.race.unofficial;
+      this.weightingType = this.options.race.weighting_type;
+      this.levelStatusType = this.options.race.level_status_type;
+      this.clearScoreFrom = this.options.race.clear_score_from;
+      this.clearScoreTo = this.options.race.clear_score_to;
       if(this.options.race.level){
         this.levelCode = this.options.race.level.code;
       }
@@ -161,6 +198,33 @@ export default {
       let slider = document.getElementById('race-dialog-difficulty-range-slider');
       let diffs = slider.noUiSlider.get();
 
+
+      if(!this.name){
+        this.$dialog.alert("<p>You have to enter a race name.</p>", {html: true});
+        return;
+      }
+      console.log("start date", this.startDate);
+      if(!this.startDate || !moment(this.startDate, "YYYY-MM-DD HH:mm").isValid()){
+        this.$dialog.alert("<p>You have to enter a valid start date.</p>", {html: true});
+        return;
+      }
+      if(!this.length || isNaN(this.length)){
+        this.$dialog.alert("<p>You have to enter a valid length.</p>", {html: true});
+        return;
+      }
+      if(this.levelType == 'specific' && this.levelCode){
+        this.$dialog.alert("<p>You have to enter a level code.</p>", {html: true});
+        return;
+      }
+      if(this.clearScoreFrom && isNaN(this.clearScoreFrom)){
+        this.$dialog.alert("<p>You didn't enter a valid Minimum Clear Score.</p>", {html: true});
+        return;
+      }
+      if(this.clearScoreTo && isNaN(this.clearScoreTo)){
+        this.$dialog.alert("<p>You didn't enter a valid Maximum Clear Score.</p>", {html: true});
+        return;
+      }
+
       let startMillis = moment(this.startDate, "YYYY-MM-DD HH:mm").valueOf();
       let endMillis = moment(this.startDate, "YYYY-MM-DD HH:mm").add(this.length, 'minute').valueOf();
 
@@ -173,7 +237,12 @@ export default {
         "levelCode": this.levelCode,
         "submissionTimeType": this.submissionTimeType,
         "minDifficulty": parseFloat(diffs[0]).toFixed(1),
-        "maxDifficulty": parseFloat(diffs[1]).toFixed(1)
+        "maxDifficulty": parseFloat(diffs[1]).toFixed(1),
+        "unofficial": this.unofficial,
+        "weightingType": this.weightingType,
+        "levelStatusType": this.levelStatusType,
+        "clearScoreFrom": this.clearScoreFrom,
+        "clearScoreTo": this.clearScoreTo
       };
 
       if(this.levelTag){

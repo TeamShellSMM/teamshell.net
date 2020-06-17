@@ -31,13 +31,14 @@ let loadEndpoint = function({type='post',route='json',that,onLoad,data={},reload
       } else {
         console.log(_data)
         that.$store.commit(that.$route.params.team + '/setTeamAdmin', _data.teamAdmin);
+        that.$store.commit(that.$route.params.team + '/setRaceCreator', _data.raceCreator);
         if(_data.teamSettings){
           that.$store.commit(that.$route.params.team + '/setTeamSettings', _data.teamSettings);
           document.title=_data.teamSettings.TeamName || 'MakerTeams'
         } else {
           document.title='MakerTeams'
         }
-        
+
         if(_data.competitions){
           that.$store.commit(that.$route.params.team + '/setTeamCompetitions', _data.competitions);
           that.$store.commit(that.$route.params.team + '/setTeamLastCompWinner', _data);

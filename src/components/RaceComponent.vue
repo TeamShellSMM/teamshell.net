@@ -8,6 +8,9 @@
         <p class="mt-2">
           {{levelFilters}}<template v-if="race.level_filter_tag">, <span class='tag badge badge-pill' :class="'badge-' + race.level_filter_tag.type">{{race.level_filter_tag.name}}</span></template>
         </p>
+        <p v-if="participantFilters" class="mt-2">
+          {{participantFilters}}
+        </p>
         <p class="mt-2 mb-4 race-chosen-level" v-if="race.level">
           Chosen level: <router-link :to="'/' + $route.params.team + '/level/' + race.level.code">{{race.level.level_name}} ({{race.level.code}})</router-link> by <router-link :to="'/' + $route.params.team + '/maker/' + race.level.creator.name">{{race.level.creator.name}}</router-link> - {{race.level.difficulty.toFixed(1)}}
         </p>
@@ -45,14 +48,15 @@
         </template>
         <h3 v-if="race.status == 'upcoming' && startsSoon && currentTimeMillis <= startDateMillis" class="race-time-remaining mt-3"><template v-if="race.level_filter_failed">Postponed (No level could be found) - Trying again</template><template v-if="!race.level_filter_failed">Race is starting</template> in: {{timeRemainingStart}}</h3>
         <h3 v-if="race.status == 'active' && currentTimeMillis <= endDateMillis" class="race-time-remaining mt-3">Race is ending in: {{timeRemainingEnd}}</h3>
-        <template v-if="race.status == 'upcoming' && !race.level_filter_failed">
+        <template v-if="race.status == 'upcoming'">
           <button v-if="participating" type="button" class="btn btn-circle race-button" :class="$route.params.team + '-primary-bg'" title="Leave Race" v-on:click="leaveRace()"><i class="fa fa-sign-out-alt"></i></button>
           <button v-if="!participating" type="button" class="btn btn-circle race-button" :class="$route.params.team + '-primary-bg'" :title="loginName ? 'Enter Race' : 'You must login first to enter the race!'" :disabled="!loginName" v-on:click="enterRace()"><i class="fa fa-sign-in-alt"></i></button>
         </template>
         <template v-if="race.status == 'active' && race.race_type == 'FC'">
+          <button v-if="participating && !participatingAndFinished" type="button" class="btn btn-circle race-button" :class="$route.params.team + '-primary-bg'" title="Leave Race" v-on:click="leaveRace()"><i class="fa fa-sign-out-alt"></i></button>
           <button v-if="participating && !participatingAndFinished" type="button" class="btn btn-circle race-button" :class="$route.params.team + '-primary-bg'" title="Finish Race" v-on:click="finishRace()"><i class="fa fa-flag-checkered"></i></button>
         </template>
-        <template v-if="race.status != 'finished' && teamAdmin">
+        <template v-if="race.status != 'finished' && (teamAdmin || (race.unofficial && raceCreator && raceOwner))">
           <button type="button" class="btn btn-circle new-race-button" :class="$route.params.team + '-primary-bg'" title="Edit Race" v-on:click="editRace()"><i class="fa fa-edit"></i></button>
         </template>
       </div>
@@ -158,14 +162,36 @@
 
         vars.push(levelType);
 
+        let levelStatusType = "MISSING LEVEL STATUS TYPE";
+        if(this.race.level_status_type == "approved"){
+          levelStatusType = "Approved";
+        } else if (this.race.level_status_type == "pending") {
+          levelStatusType = "Pending";
+        } else if(this.race.level_status_type == "all"){
+          levelStatusType = "Approved/Pending";
+        }
+
+        vars.push(levelStatusType);
+
+        if(this.race.level_status_type == 'approved'){
+          let weightingType = "MISSING WEIGHTING TYPE";
+          if(this.race.weighting_type == "unweighted"){
+            weightingType = "Unweighted";
+          } else if (this.race.weighting_type == "weighted_lcd") {
+            weightingType = "Weighted (LCD)";
+          }
+          vars.push(weightingType);
+        }
+
         if(this.race.level_filter_diff_from){
           let diffString = this.race.level_filter_diff_from.toFixed(1);
           if(this.race.level_filter_diff_from < this.race.level_filter_diff_to){
             diffString += " - " + this.race.level_filter_diff_to.toFixed(1)
           }
 
-          vars.push(diffString);
+          vars.push("Diff: " + diffString);
         }
+
 
         let submissionFilter = "";
         if (this.race.level_filter_submission_time_type == "month"){
@@ -180,8 +206,24 @@
 
         return vars.join(", ");
       },
+      participantFilters(){
+        if(this.race.clear_score_from && this.race.clear_score_to){
+          return "Needed Clear Score to enter: " + this.race.clear_score_from + " - " + this.race.clear_score_to + " points";
+        } else if (this.race.clear_score_from){
+          return "Minimum Clear Score needed to enter: " + this.race.clear_score_from + " points";
+        } else if (this.race.clear_score_to){
+          return "Maximum Clear Score needed to enter: " + this.race.clear_score_to + " points";
+        }
+        return "";
+      },
       teamAdmin(){
-        return this.$route.params.team && this.$store.state[this.$route.params.team].teamAdmin
+        return this.$route.params.team && this.$store.state[this.$route.params.team].teamAdmin;
+      },
+      raceCreator(){
+        return this.$route.params.team && this.$store.state[this.$route.params.team].raceCreator;
+      },
+      raceOwner(){
+        return this.$route.params.team && this.$store.state[this.$route.params.team].user_info.id == this.race.creator.id;
       }
     },
     methods: {
