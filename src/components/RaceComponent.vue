@@ -2,7 +2,7 @@
   <div class="mb-2 feature-box">
     <div class="bs-callout bs-callout-race bs-callout-title" :class="$route.params.team + (race.status == 'upcoming' ? '-primary-blc' : '-secondary-blc')">
       <div class="bs-callout-title-box">
-        <h2 :class="$route.params.team + '-primary-fg'" class="race-title">{{race.name}}</h2>
+        <h2 class="race-title"><span :class="$route.params.team + '-primary-fg'">{{race.name}}</span><span v-if="race.creator" class="race-title-small"> by {{race.creator.name}}</span></h2>
         <h3 class="race-date">{{formattedStartDate}}</h3>
         <h3 class="race-type">{{race.race_type}} Race<template v-if="lengthMinutes"> ({{lengthMinutes}} minutes)</template></h3>
         <p class="mt-2">
