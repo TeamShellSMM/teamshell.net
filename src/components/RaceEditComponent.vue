@@ -10,17 +10,17 @@
               <input name="name" type="text" class="form-control" autocomplete="off" placeholder="Race Name" v-model="name">
               <small class="form-text text-muted">The name you want to set for the race.</small>
             </div>
-            <div class="col-6 mt-3">
+            <div class="col-md-6 mt-3">
               <label for="startDate">Start Date</label>
               <datetime v-model="startDate" :value="startDate" name="startDate" placeholder="Start Date" format="YYYY-MM-DD H:i" readonly="readonly"></datetime>
               <small class="form-text text-muted">The date and time of when the race should start.</small>
             </div>
-            <div class="col-6 mt-3">
+            <div class="col-md-6 mt-3">
               <label for="length">Race Length</label>
               <input name="length" type="text" class="form-control" autocomplete="off" placeholder="Race Length" v-model="length">
               <small class="form-text text-muted">The length of the race in minutes.</small>
             </div>
-            <div class="col-6 mt-3">
+            <div class="col-md-6 mt-3">
               <label for="raceType">Race Type</label>
               <select name="raceType" v-model="raceType" class="form-control">
                 <option value="FC" selected>First Clear Race</option>
@@ -28,7 +28,7 @@
               </select>
               <small class="form-text text-muted">What kind of race it should be.</small>
             </div>
-            <div class="col-6 mt-3">
+            <div class="col-md-6 mt-3">
               <label for="levelType">Level Selection</label>
               <select name="levelType" v-model="levelType" class="form-control">
                 <option value="random-uncleared" selected>Random Uncleared (of all participants)</option>
@@ -37,12 +37,12 @@
               </select>
               <small class="form-text text-muted">How the level for the race should be selected. If no level can be found, the race will be postponed.</small>
             </div>
-            <div class="col-6 mt-3">
+            <div class="col-md-6 mt-3">
               <label for="clearScoreFrom">Minimum Clear Score</label>
               <input name="clearScoreFrom" type="text" class="form-control" autocomplete="off" placeholder="Minimum Clear Score" v-model="clearScoreFrom">
               <small class="form-text text-muted">The minimum clear score people need to enter the race (leave empty for no minimum).</small>
             </div>
-            <div class="col-6 mt-3">
+            <div class="col-md-6 mt-3">
               <label for="clearScoreTo">Maximum Clear Score</label>
               <input name="clearScoreTo" type="text" class="form-control" autocomplete="off" placeholder="Maximum Clear Score" v-model="clearScoreTo">
               <small class="form-text text-muted">The maximum clear score people can have to enter the race (leave empty for no maximum).</small>
@@ -59,7 +59,7 @@
                 </div>
               <small class="form-text text-muted">The difficulty range in which to look for a random level.</small>
             </div>
-            <div class="col-6 mt-3" v-show="levelType != 'specific'">
+            <div class="col-md-6 mt-3" v-show="levelType != 'specific'">
               <label for="levelTag">Tags</label>
               <select name="levelTag" v-model="levelTag" class="form-control">
                 <option :value="null" selected>All</option>
@@ -67,7 +67,7 @@
               </select>
               <small class="form-text text-muted">Use this to only select levels with a certain tag.</small>
             </div>
-            <div class="col-6 mt-3" v-show="levelType != 'specific'">
+            <div class="col-md-6 mt-3" v-show="levelType != 'specific'">
               <label for="submissionTimeType">Submission Time</label>
               <select name="submissionTimeType" v-model="submissionTimeType" class="form-control">
                 <option value="all" selected>All</option>
@@ -76,7 +76,7 @@
               </select>
               <small class="form-text text-muted">Use this to only select levels that have been recently submitted.</small>
             </div>
-            <div class="col-6 mt-3" v-show="levelType != 'specific'">
+            <div class="col-md-6 mt-3" v-show="levelType != 'specific'">
               <label for="levelStatusType">Level Status</label>
               <select name="levelStatusType" v-model="levelStatusType" class="form-control">
                 <option value="approved" selected>Approved</option>
@@ -85,7 +85,7 @@
               </select>
               <small class="form-text text-muted">Use this to select levels that are approved/pending or both.</small>
             </div>
-            <div class="col-6 mt-3" v-show="levelType != 'specific' && levelStatusType == 'approved'">
+            <div class="col-md-6 mt-3" v-show="levelType != 'specific' && levelStatusType == 'approved'">
               <label for="weightingType">Weighting</label>
               <select name="weightingType" v-model="weightingType" class="form-control">
                 <option value="unweighted" selected>Unweighted</option>

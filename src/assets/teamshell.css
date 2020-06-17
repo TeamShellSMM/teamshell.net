@@ -685,6 +685,26 @@ box-shadow: 0 0 0 3px #21c0ae;
     border: 1px solid grey;
 }
 
+.dg-main-content {
+    width:95% !important;
+}
+
+.race-dialog .dg-main-content {
+    max-width: 700px;
+    max-height: calc(90%);
+    overflow: auto;
+    transform: translate(-50%,-50%);
+    top: 50%;
+    position: absolute;
+    left: 50%;
+    margin:0px 0px;
+}
+
+.race-dialog .dg-content-cont--floating {
+    height: 100%;
+    width: 100%;
+}
+
 .makerteams-footer {
     border-top: 2px solid #b8a100;
     border-radius: 10px 10px 0px 0px;

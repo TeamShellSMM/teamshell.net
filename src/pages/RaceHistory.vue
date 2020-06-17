@@ -7,6 +7,9 @@
             <router-link :to="'/' + $route.params.team + '/races'" exact>Current</router-link>
           </li>
           <li>
+            <router-link :to="'/' + $route.params.team + '/races/unofficial'" exact>Unofficial</router-link>
+          </li>
+          <li>
             <router-link :to="'/' + $route.params.team + '/races/history'">History</router-link>
           </li>
         </ul>

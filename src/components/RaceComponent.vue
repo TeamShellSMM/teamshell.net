@@ -53,8 +53,8 @@
           <button v-if="!participating" type="button" class="btn btn-circle race-button" :class="$route.params.team + '-primary-bg'" :title="loginName ? 'Enter Race' : 'You must login first to enter the race!'" :disabled="!loginName" v-on:click="enterRace()"><i class="fa fa-sign-in-alt"></i></button>
         </template>
         <template v-if="race.status == 'active' && race.race_type == 'FC'">
-          <button v-if="participating && !participatingAndFinished" type="button" class="btn btn-circle race-button" :class="$route.params.team + '-primary-bg'" title="Leave Race" v-on:click="leaveRace()"><i class="fa fa-sign-out-alt"></i></button>
           <button v-if="participating && !participatingAndFinished" type="button" class="btn btn-circle race-button" :class="$route.params.team + '-primary-bg'" title="Finish Race" v-on:click="finishRace()"><i class="fa fa-flag-checkered"></i></button>
+          <button v-if="participating && !participatingAndFinished" type="button" class="btn btn-circle race-button" :class="$route.params.team + '-primary-bg'" title="Leave Race" v-on:click="leaveRace()"><i class="fa fa-sign-out-alt"></i></button>
         </template>
         <template v-if="race.status != 'finished' && (teamAdmin || (race.unofficial && raceCreator && raceOwner))">
           <button type="button" class="btn btn-circle new-race-button" :class="$route.params.team + '-primary-bg'" title="Edit Race" v-on:click="editRace()"><i class="fa fa-edit"></i></button>
