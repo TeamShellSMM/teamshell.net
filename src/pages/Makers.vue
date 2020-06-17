@@ -82,7 +82,7 @@
           //responsive:true,
           paging:false,
           dom : "iti",
-          "order": [[ 5, "desc" ]],
+          "order": [[ 6, "desc" ]],
           "columns": [
             { "name": "name", data:"name", title: "Name"},
             { "name": "levels_created", data:"levels_created", title: "Levels Created"},
