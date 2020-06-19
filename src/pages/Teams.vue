@@ -100,7 +100,7 @@
           <div class="card team-card teampswitch-primary-bc">
             <img src="/assets/teampswitch/logo.png" class="card-img-top card-img-team-logo" alt="logo">
             <div class="card-body">
-              <h4 class="card-title"><a href="https://discord.gg/vrVfkbF"><span class="teampswitch-primary-fg">#Team</span><span class="teampswitch-secondary-fg"> P-Switch</span></a></h4>
+              <h2><router-link to="/teampswitch" class="btn teampswitch-primary-bg team-card-nav-button" ><span class="teampswitch-primary-fg">#Team</span><span class="teampswitch-secondary-fg"> P-Switch</span></router-link></h2>
               <p class="card-text">
                 Team P-Switch is all about P-Switches and everything around them.
               </p>
