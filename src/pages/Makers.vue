@@ -82,7 +82,7 @@
           //responsive:true,
           paging:false,
           dom : "iti",
-          "order": [[ 6, "desc" ]],
+          "order": [[ 7, "desc" ]],
           "columns": [
             { "name": "name", data:"name", title: "Name"},
             { "name": "levels_created", data:"levels_created", title: "Levels Created"},
@@ -90,6 +90,7 @@
             { "name": "likes", data:"likes", title: "Likes"},
             { "name": "clear_like_ratio", data:"clear_like_ratio", title: "Like/Clear Ratio"},
             { "name": "avg_lcd", title: "Avg LCD"},
+            { "name": "maker_skill", title: "Maker Rating"},
             { "name": "maker_points", data:"maker_points", title: "Maker Points"},
           ],
           "columnDefs": [
@@ -100,6 +101,19 @@
                   return "<div class='points'>"+data.toFixed(1)+"</div>"
                 }
                 return "<div class='points'></div>"
+              },
+              targets:7,
+            },
+            {
+            "render": function ( data, type, row ) {
+                if(row.clears == 0){
+                  return 0.0;
+                }
+                let multi = 1.0;
+                if(row.levels_created < 5){
+                  multi = row.levels_created/5;
+                }
+                return (row.maker_points / row.levels_created * multi * (Math.pow(row.likes / row.clears, 1.5))).toFixed(1);
               },
               targets:6,
             },

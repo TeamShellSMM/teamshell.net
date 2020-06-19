@@ -81,7 +81,19 @@
           }
           return false;
         })
-      }
+      },
+      loggedIn: function(){
+        if(this.$route.params.team){
+          return this.$store.state[this.$route.params.team].token ? true : false;
+        }
+        return false;
+      },
+      username:function(){
+        if(this.$route.params.team){
+          return this.$store.state[this.$route.params.team].user_info.name;
+        }
+        return false;
+      },
     },
     methods: {
       getHighestActiveCompRankForLevel(level_id){

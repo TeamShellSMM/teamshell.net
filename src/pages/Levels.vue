@@ -87,7 +87,7 @@
   export default {
     name: 'Levels',
     data() {
-      return {  
+      return {
         "level_headers" : '',
         "tag_labels" : '',
         "spig_fav" : '',
@@ -101,7 +101,7 @@
     mounted(){
       let that = this;
 
-   
+
       if(this.$route.params.tags){
         this.current_tag =this.$route.params.tags
         this.tagOnce=this.$route.params.tags
@@ -155,7 +155,7 @@
         this.tag_labels=this.data.tags;
         this.competition_winners = this.data.competition_winners;
         this.tags_list=this.data.tags.map(t=>t.name);
-        
+
 
 
         let filtered_levels=this.data.levels.filter((level)=>{
@@ -182,7 +182,7 @@
               return false
             }
           }
-          
+
           const statusType=get_input('approved')
 
           if(statusType==='infix' && level.status!==this.$constants.LEVEL_STATUS.NEED_FIX) return false;
@@ -193,7 +193,7 @@
           const completed=level.completed===1 || level.creator===this.username
           if(clearType==="2" && completed) return false;
           if(clearType==="3" && !completed) return false;
-              
+
 
           if(that.current_search_term){
             let cName = level.creator.toLowerCase();
@@ -240,7 +240,7 @@
           $('#tagSelect').val(that.tagOnce)
           delete that.tagOnce
         }
-        
+
         var datatable=$('#table').DataTable()
         datatable.clear();
         datatable.rows.add(filtered_levels)
