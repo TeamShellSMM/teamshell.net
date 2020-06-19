@@ -95,17 +95,9 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="row mt-3">
-      <div class="bs-callout bs-callout-mini-teams bs-callout-title">
-        <div class="bs-callout-title-box">
-          <h4>These teams are currently a bit too small to be hosted, so if you like what you see go check them out and show them some love!</h4>
-        </div>
-      </div>
-      <div class="bs-callout bs-callout-mini-teams bs-callout-content">
-        <div class="col-md-3 col-sm-6 p-1">
-          <div class="card team-card team-card-small">
+
+        <div class="col-md-4 col-sm-6 p-1">
+          <div class="card team-card teampswitch-primary-bc">
             <img src="/assets/teampswitch/logo.png" class="card-img-top card-img-team-logo" alt="logo">
             <div class="card-body">
               <h4 class="card-title"><a href="https://discord.gg/vrVfkbF"><span class="teampswitch-primary-fg">#Team</span><span class="teampswitch-secondary-fg"> P-Switch</span></a></h4>
@@ -115,10 +107,20 @@
               <p class="card-text">
                 If you're a fan of these items and any of their associated mechanics, this is the place for you.
               </p>
-              <a href="https://discord.gg/vrVfkbF" target="_blank" class="btn teampswitch-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
+              <router-link to="/teampswitch" class="btn teampswitch-primary-bg team-card-nav-button" style="color:white;">Go check it out!</router-link>
             </div>
           </div>
+          </div>
+
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="bs-callout bs-callout-mini-teams bs-callout-title">
+        <div class="bs-callout-title-box">
+          <h4>These teams are currently a bit too small to be hosted, so if you like what you see go check them out and show them some love!</h4>
         </div>
+      </div>
+      <div class="bs-callout bs-callout-mini-teams bs-callout-content">
         <div class="col-md-3 col-sm-6 p-1">
           <div class="card team-card team-card-small">
             <img src="/assets/teampspeed/logo.png" class="card-img-top card-img-team-logo" alt="logo">

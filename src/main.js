@@ -96,6 +96,9 @@ const teams={
   teamicicle:{
     TeamName:'Team Icicle',
   },
+  teampswitch:{
+    TeamName:'Team P-Switch!',
+  },
 }
 
 router.beforeEach((to, from, next) => {
