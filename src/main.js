@@ -70,49 +70,27 @@ const router = new VueRouter({
   mode: 'history'
 });
 
-
-const defaultSetting={
-  title:"MakerTeams",
-  TeamName:'MakerTeams',
-  maker:true,
-}
-
-const teams={
-  teamshell:{
-    TeamName:'#TeamShell',
-  },
-  teamjamp:{
-    TeamName:'Team Jamp',
-  },
-  teampipe:{
-    TeamName:'#TeamPipe',
-  },
-  teamconsistency:{
-    TeamName:'Team Consistency',
-  },
-  teamprecision:{
-    TeamName:'#TeamPrecision',
-  },
-  teamicicle:{
-    TeamName:'Team Icicle',
-  },
-  teampswitch:{
-    TeamName:'Team P-Switch!',
-  },
-}
-
+const loaded={}
 router.beforeEach((to, from, next) => {
     let link = document.querySelector("link[rel*='icon']") || document.createElement('link');
     link.type = 'image/x-icon';
     link.rel = 'shortcut icon';
 
-    let settings= teams[to.params.team] || defaultSetting
-    document.title=settings.TeamName;
-    link.href=`/favicon-${to.params.team}-.ico`;
-    if(settings.maker){
-      document.querySelector('body').classList.add('makerteams-body-bg');
-    } else {
+    const keys=Object.keys(JSON.parse(localStorage.getItem('vuex') || '{}' ))
+    if(to.params.team && !loaded[to.params.team]){
+      store.registerModule(to.params.team,makeTeam(to.params.team),{
+        preserveState:keys.includes(to.params.team),
+      })
+      console.log('here')
+      loaded[to.params.team]=true;
+    }
+
+    document.title='Maker teams';
+    link.href=`/favicon.ico`;
+    if(to.params.team){
       document.querySelector('body').classList.remove('makerteams-body-bg');
+    } else {
+      document.querySelector('body').classList.add('makerteams-body-bg');
     }
     document.getElementsByTagName('head')[0].appendChild(link);
   next()
@@ -196,13 +174,7 @@ function makeTeam(args){
   }
 }
 
-const teamModules={}
-for(var url_slug in teams){
-  teamModules[url_slug]=makeTeam(teams[url_slug]);
-}
-
 const store = new Vuex.Store({
-  modules: teamModules,
   plugins: [vuexLocal.plugin]
 });
 

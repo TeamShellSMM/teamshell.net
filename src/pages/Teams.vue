@@ -9,7 +9,7 @@
       <div class="bs-callout bs-callout-maker-teams bs-callout-content">
         <div class="col-md-4 col-sm-6 p-1">
           <div class="card team-card teamshell-primary-bc">
-            <img src="/assets/teamshell/buzzySpin.gif" class="card-img-top card-img-team-logo" alt="logo">
+            <img src="/assets/teams/teamshell/logo.png" class="card-img-top card-img-team-logo" alt="logo">
             <div class="card-body">
               <h2 class="card-title"><router-link to="/teamshell"><span class="teamshell-primary-fg">#Team</span><span class="teamshell-secondary-fg">Shell</span></router-link></h2>
               <p class="card-text">
@@ -24,7 +24,7 @@
         </div>
         <div class="col-md-4 col-sm-6 p-1">
           <div class="card team-card teamjamp-primary-bc">
-            <img src="/assets/teamjamp/logo.png" class="card-img-top card-img-team-logo card-img-rounded-logo" alt="logo">
+            <img src="/assets/teams/teamjamp/logo.png" class="card-img-top card-img-team-logo card-img-rounded-logo" alt="logo">
             <div class="card-body">
               <h2 class="card-title"><router-link to="/teamjamp"><span class="teamjamp-primary-fg">Team</span><span class="teamjamp-secondary-fg"> Jamp</span></router-link></h2>
               <p class="card-text">
@@ -39,7 +39,7 @@
         </div>
         <div class="col-md-4 col-sm-6 p-1">
           <div class="card team-card teampipe-primary-bc">
-            <img src="/assets/teampipe/logo.png" class="card-img-top card-img-team-logo card-img-rounded-logo" alt="logo">
+            <img src="/assets/teams/teampipe/logo.png" class="card-img-top card-img-team-logo card-img-rounded-logo" alt="logo">
             <div class="card-body">
               <h2 class="card-title"><router-link to="/teampipe"><span class="teampipe-primary-fg">#Team</span><span class="teampipe-secondary-fg">Pipe</span></router-link></h2>
               <p class="card-text">
@@ -54,7 +54,7 @@
         </div>
         <div class="col-md-4 col-sm-6 p-1">
           <div class="card team-card teamprecision-primary-bc">
-            <img src="/assets/teamprecision/logo.png" class="card-img-top card-img-team-logo card-img-rounded-logo" alt="logo">
+            <img src="/assets/teams/teamprecision/logo.png" class="card-img-top card-img-team-logo card-img-rounded-logo" alt="logo">
             <div class="card-body">
               <h2 class="card-title"><router-link to="/teamprecision"><span class="teamprecision-primary-fg">#Team</span><span class="teamprecision-secondary-fg">Precision</span></router-link></h2>
               <p class="card-text">
@@ -69,7 +69,7 @@
         </div>
         <div class="col-md-4 col-sm-6 p-1">
           <div class="card team-card teamicicle-primary-bc">
-            <img src="/assets/teamicicle/logo.png" class="card-img-top card-img-team-logo" alt="logo">
+            <img src="/assets/teams/teamicicle/logo.png" class="card-img-top card-img-team-logo" alt="logo">
             <div class="card-body">
               <h2 class="card-title"><router-link to="/teamicicle"><span class="teamicicle-primary-fg">Team</span><span class="teamicicle-secondary-fg">Icicle</span></router-link></h2>
               <p class="card-text">
@@ -84,7 +84,7 @@
         </div>
           <div class="col-md-4 col-sm-6 p-1">
           <div class="card team-card teamconsistency-primary-bc">
-            <img src="/assets/teamconsistency/logo.png" class="card-img-top card-img-team-logo" alt="logo">
+            <img src="/assets/teams/teamconsistency/logo.png" class="card-img-top card-img-team-logo" alt="logo">
             <div class="card-body">
               <h2 class="card-title"><router-link to="/teamconsistency"><span class="teamconsistency-primary-fg">#Team</span><span class="teamconsistency-secondary-fg">Consistency</span></router-link></h2>
               <p class="card-text">
@@ -98,7 +98,7 @@
 
         <div class="col-md-4 col-sm-6 p-1">
           <div class="card team-card teampswitch-primary-bc">
-            <img src="/assets/teampswitch/logo.png" class="card-img-top card-img-team-logo" alt="logo">
+            <img src="/assets/teams/teampswitch/logo.png" class="card-img-top card-img-team-logo" alt="logo">
             <div class="card-body">
               <h2><router-link to="/teampswitch" class="btn teampswitch-primary-bg team-card-nav-button" ><span class="teampswitch-primary-fg">#Team</span><span class="teampswitch-secondary-fg"> P-Switch</span></router-link></h2>
               <p class="card-text">
@@ -123,7 +123,7 @@
       <div class="bs-callout bs-callout-mini-teams bs-callout-content">
         <div class="col-md-3 col-sm-6 p-1">
           <div class="card team-card team-card-small">
-            <img src="/assets/teampspeed/logo.png" class="card-img-top card-img-team-logo" alt="logo">
+            <img src="/assets/teams/teampspeed/logo.png" class="card-img-top card-img-team-logo" alt="logo">
             <div class="card-body">
               <h4 class="card-title"><a href="https://discord.gg/q584b65"><span class="teampspeed-primary-fg">#Team</span><span class="teampspeed-secondary-fg"> P-Speed</span></a></h4>
               <p class="card-text">
@@ -138,7 +138,7 @@
         </div>
         <div class="col-md-3 col-sm-6 p-1">
         <div class="card team-card team-card-small">
-          <img src="/assets/teamtwister/logo.png" class="card-img-top card-img-team-logo" alt="logo">
+          <img src="/assets/teams/teamtwister/logo.png" class="card-img-top card-img-team-logo" alt="logo">
           <div class="card-body">
             <h4 class="card-title"><a href="https://discord.gg/TKqa8sH"><span class="teamtwister-primary-fg">#Team</span><span class="teamtwister-secondary-fg">Twister</span></a></h4>
             <p class="card-text">
@@ -153,7 +153,7 @@
         </div>
         <div class="col-md-3 col-sm-6 p-1">
           <div class="card team-card team-card-small">
-            <img src="/assets/teamfish/logo.png" class="card-img-top card-img-team-logo card-img-rounded-logo" alt="logo">
+            <img src="/assets/teams/teamfish/logo.png" class="card-img-top card-img-team-logo card-img-rounded-logo" alt="logo">
             <div class="card-body">
               <h4 class="card-title"><a href="https://discord.gg/U2XFavm"><span class="teamfish-primary-fg">Team</span><span class="teamfish-secondary-fg"> Fish</span></a></h4>
               <p class="card-text">
@@ -168,7 +168,7 @@
         </div>
         <div class="col-md-3 col-sm-6 p-1">
           <div class="card team-card team-card-small">
-            <img src="/assets/teamhat/logo.png" class="card-img-top card-img-team-logo" alt="logo">
+            <img src="/assets/teams/teamhat/logo.png" class="card-img-top card-img-team-logo" alt="logo">
             <div class="card-body">
               <h4 class="card-title"><a href="https://discord.gg/ZDeYXtH"><span class="teamhat-primary-fg">Team</span><span class="teamhat-secondary-fg"> Hat!</span></a></h4>
               <p class="card-text">
@@ -183,7 +183,7 @@
         </div>
         <div class="col-md-3 col-sm-6 p-1">
           <div class="card team-card team-card-small">
-            <img src="/assets/teamghost/logo.jpg" class="card-img-top card-img-team-logo card-img-rounded-logo" alt="logo">
+            <img src="/assets/teams/teamghost/logo.jpg" class="card-img-top card-img-team-logo card-img-rounded-logo" alt="logo">
             <div class="card-body">
               <h4 class="card-title"><a href="https://discord.gg/ejHzcm"><span class="teamghost-primary-fg">Team</span><span class="teamghost-secondary-fg"> Ghost</span></a></h4>
               <p class="card-text">
@@ -198,7 +198,7 @@
         </div>
         <div class="col-md-3 col-sm-6 p-1">
           <div class="card team-card team-card-small">
-            <img src="/assets/teamboomboom/logo.png" class="card-img-top card-img-team-logo" alt="logo">
+            <img src="/assets/teams/teamboomboom/logo.png" class="card-img-top card-img-team-logo" alt="logo">
             <div class="card-body">
               <h4 class="card-title"><a href="https://discord.gg/j9Y5NM"><span class="teamboomboom-primary-fg">Team</span><span class="teamboomboom-secondary-fg"> Boom Boom</span></a></h4>
               <p class="card-text">
@@ -213,7 +213,7 @@
         </div>
         <div class="col-md-3 col-sm-6 p-1">
           <div class="card team-card team-card-small">
-            <img src="/assets/teampowerup/logo.png" class="card-img-top card-img-team-logo card-img-rounded-logo" alt="logo">
+            <img src="/assets/teams/teampowerup/logo.png" class="card-img-top card-img-team-logo card-img-rounded-logo" alt="logo">
             <div class="card-body">
               <h4 class="card-title"><a href="https://discord.gg/hjZeG7C"><span class="teampowerup-primary-fg">#Team</span><span class="teampowerup-secondary-fg"> Power Up</span></a></h4>
               <p class="card-text">
@@ -228,7 +228,7 @@
         </div>
         <div class="col-md-3 col-sm-6 p-1">
           <div class="card team-card team-card-small">
-            <img src="/assets/teamnocloudabuse/logo.png" class="card-img-top card-img-team-logo" alt="logo">
+            <img src="/assets/teams/teamnocloudabuse/logo.png" class="card-img-top card-img-team-logo" alt="logo">
             <div class="card-body">
               <h4 class="card-title"><a href="https://discord.gg/H48dXPu"><span class="teamnocloudabuse-primary-fg">Team</span><span class="teamnocloudabuse-secondary-fg"> #NoCloudAbuse</span></a></h4>
               <p class="card-text">

@@ -35,6 +35,10 @@ let loadEndpoint = function({type='post',route='json',that,onLoad,data={},reload
         if(_data.teamSettings){
           that.$store.commit(that.$route.params.team + '/setTeamSettings', _data.teamSettings);
           document.title=_data.teamSettings.TeamName || 'MakerTeams'
+          const link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+          link.type = 'image/x-icon';
+          link.rel = 'shortcut icon';
+          link.href=`/assets/teams/${that.$route.params.team}/favicon.ico`;
         } else {
           document.title='MakerTeams'
         }

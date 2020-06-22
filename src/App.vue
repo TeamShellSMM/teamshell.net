@@ -4,12 +4,12 @@
       <div class="row header-row">
         <div class="d-inline-flex header-flex-container" style="flex-wrap:wrap;">
           <div class="header-logo-div" style="">
-            <h1><router-link :to="'/'" class="mt-back-link"><i class="fas fa-chevron-left"></i></router-link><img :class="'buzzyS '+$route.params.team+'-logo'" :src="'/assets/'+$route.params.team+'/logo.png'"/><span :class="$route.params.team + '-primary-fg'">{{$store.state[$route.params.team].teamSettings.FirstPart}}</span><span :class="$route.params.team + '-secondary-fg'">{{$store.state[$route.params.team].teamSettings.SecondPart}}</span></h1>
+            <h1><router-link :to="'/'" class="mt-back-link"><i class="fas fa-chevron-left"></i></router-link><img :class="'buzzyS '+$route.params.team+'-logo'" :src="'/assets/teams/'+$route.params.team+'/logo.png'"/><span :class="$route.params.team + '-primary-fg'">{{$store.state[$route.params.team].teamSettings.FirstPart}}</span><span :class="$route.params.team + '-secondary-fg'">{{$store.state[$route.params.team].teamSettings.SecondPart}}</span></h1>
           </div>
           <div v-if="$store.state[$route.params.team].teamLastCompWinner && $store.state[$route.params.team].teamLastCompWinner.level" class="header-comp-div" style="">
             <div class="row comp-winners" >
               <div class="col-2" style="text-align: center;">
-                <img src="/assets/teamshell/bam.png">
+                <img src="/assets/defaults/bam.png">
               </div>
               <div class="col-8">
                 <div class="">
@@ -19,7 +19,7 @@
                 </div>
               </div>
               <div class="col-2" style="text-align: center;">
-                <img src="/assets/teamshell/bam.png">
+                <img src="/assets/defaults/bam.png">
               </div>
             </div>
           </div>
