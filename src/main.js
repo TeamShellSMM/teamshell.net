@@ -28,6 +28,7 @@ import Makers from './pages/Makers';
 import Members from './pages/Members';
 import ShellAndTell from './pages/ShellAndTell';
 import Login from './pages/Login';
+import ClearAll from './pages/ClearAll';
 import TeamSettings from './pages/TeamSettings';
 import AdminTags from './pages/AdminTags';
 import Races from './pages/Races';
@@ -46,6 +47,7 @@ const routes = [
     document.querySelector('html').classList.remove('dark');
     next();
   }, component: HowToJoin},
+  {path: '/ClearAll', component: ClearAll},
   {path: '/:team', component: Home},
   {path: '/:team/levels', component: Levels},
   {path: '/:team/levels/tags/:tags', component: Levels},
