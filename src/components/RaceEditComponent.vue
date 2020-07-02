@@ -162,7 +162,9 @@ export default {
     });
 
     if(this.options.race){
-      slider.noUiSlider.set([this.options.race.level_filter_diff_from.toFixed(2), this.options.race.level_filter_diff_to.toFixed(2)]);
+      if(this.options.race.level_filter_diff_from){
+        slider.noUiSlider.set([this.options.race.level_filter_diff_from.toFixed(2), this.options.race.level_filter_diff_to.toFixed(2)]);
+      }
 
       this.name = this.options.race.name;
       this.startDate = moment(this.options.race.start_date).format("YYYY-MM-DD HH:mm");
@@ -212,7 +214,7 @@ export default {
         this.$dialog.alert("<p>You have to enter a valid length.</p>", {html: true});
         return;
       }
-      if(this.levelType == 'specific' && this.levelCode){
+      if(this.levelType == 'specific' && !this.levelCode){
         this.$dialog.alert("<p>You have to enter a level code.</p>", {html: true});
         return;
       }
@@ -228,8 +230,12 @@ export default {
       let startMillis = moment(this.startDate, "YYYY-MM-DD HH:mm").valueOf();
       let endMillis = moment(this.startDate, "YYYY-MM-DD HH:mm").add(this.length, 'minute').valueOf();
 
-      let minDiff = parseFloat(diffs[0]).toFixed(1);
-      let maxDiff = parseFloat(diffs[1]).toFixed(1);
+      let minDiff = null;
+      let maxDiff = null;
+      if(diffs && diffs.length > 1){
+        minDiff = parseFloat(diffs[0]).toFixed(1);
+        maxDiff = parseFloat(diffs[1]).toFixed(1);
+      }
 
       if(this.levelStatusType != 'approved'){
         minDiff = 0;

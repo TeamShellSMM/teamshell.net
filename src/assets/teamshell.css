@@ -871,6 +871,11 @@ box-shadow: 0 0 0 3px #21c0ae;
     color:white;
     margin-left:10px;
 }
+
+.like-finish-button {
+    position:relative;
+}
+
 .race-time-remaining {
     float:left;
 }

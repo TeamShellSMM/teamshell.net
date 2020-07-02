@@ -54,6 +54,10 @@
         </template>
         <template v-if="race.status == 'active' && race.race_type == 'FC'">
           <button v-if="participating && !participatingAndFinished" type="button" class="btn btn-circle race-button" :class="$route.params.team + '-primary-bg'" title="Finish Race" v-on:click="finishRace()"><i class="fa fa-flag-checkered"></i></button>
+          <button v-if="participating && !participatingAndFinished" type="button" class="btn btn-circle race-button like-finish-button" :class="$route.params.team + '-primary-bg'" title="Finish Race & Like the level" v-on:click="finishRace(true)">
+            <i class="fas fa-flag-checkered" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:15;"></i>
+            <i style="position:absolute;top:80%;left:70%;transform:translate(-50%,-50%);z-index:14;font-size:12px;" class="fas fa-heart"></i>
+          </button>
           <button v-if="participating && !participatingAndFinished" type="button" class="btn btn-circle race-button" :class="$route.params.team + '-primary-bg'" title="Leave Race" v-on:click="leaveRace()"><i class="fa fa-sign-out-alt"></i></button>
         </template>
         <template v-if="race.status != 'finished' && (teamAdmin || (race.unofficial && raceCreator && raceOwner))">
@@ -162,45 +166,48 @@
 
         vars.push(levelType);
 
-        let levelStatusType = "MISSING LEVEL STATUS TYPE";
-        if(this.race.level_status_type == "approved"){
-          levelStatusType = "Approved";
-        } else if (this.race.level_status_type == "pending") {
-          levelStatusType = "Pending";
-        } else if(this.race.level_status_type == "all"){
-          levelStatusType = "Approved/Pending";
-        }
-
-        vars.push(levelStatusType);
-
-        if(this.race.level_status_type == 'approved'){
-          let weightingType = "MISSING WEIGHTING TYPE";
-          if(this.race.weighting_type == "unweighted"){
-            weightingType = "Unweighted";
-          } else if (this.race.weighting_type == "weighted_lcd") {
-            weightingType = "Weighted (LCD)";
+        if(this.race.level_type != "specific"){
+          let levelStatusType = "MISSING LEVEL STATUS TYPE";
+          if(this.race.level_status_type == "approved"){
+            levelStatusType = "Approved";
+          } else if (this.race.level_status_type == "pending") {
+            levelStatusType = "Pending";
+          } else if(this.race.level_status_type == "all"){
+            levelStatusType = "Approved/Pending";
           }
-          vars.push(weightingType);
 
-          if(this.race.level_filter_diff_from){
-            let diffString = this.race.level_filter_diff_from.toFixed(1);
-            if(this.race.level_filter_diff_from < this.race.level_filter_diff_to){
-              diffString += " - " + this.race.level_filter_diff_to.toFixed(1)
+          vars.push(levelStatusType);
+
+          if(this.race.level_status_type == 'approved'){
+            let weightingType = "MISSING WEIGHTING TYPE";
+            if(this.race.weighting_type == "unweighted"){
+              weightingType = "Unweighted";
+            } else if (this.race.weighting_type == "weighted_lcd") {
+              weightingType = "Weighted (LCD)";
             }
+            vars.push(weightingType);
 
-            vars.push("Diff: " + diffString);
+            if(this.race.level_filter_diff_from){
+              let diffString = this.race.level_filter_diff_from.toFixed(1);
+              if(this.race.level_filter_diff_from < this.race.level_filter_diff_to){
+                diffString += " - " + this.race.level_filter_diff_to.toFixed(1)
+              }
+
+              vars.push("Diff: " + diffString);
+            }
           }
-        }
 
-        let submissionFilter = "";
-        if (this.race.level_filter_submission_time_type == "month"){
-          submissionFilter = "submitted in the last 30 days";
-        } else if(this.race.level_filter_submission_time_type == "week") {
-          submissionFilter = "submitted in the last 7 days";
-        }
+          let submissionFilter = "";
+          if (this.race.level_filter_submission_time_type == "month"){
+            submissionFilter = "submitted in the last 30 days";
+          } else if(this.race.level_filter_submission_time_type == "week") {
+            submissionFilter = "submitted in the last 7 days";
+          }
 
-        if(submissionFilter){
-          vars.push(submissionFilter);
+          if(submissionFilter){
+            vars.push(submissionFilter);
+          }
+
         }
 
         return vars.join(", ");
@@ -211,7 +218,7 @@
         } else if (this.race.clear_score_from){
           return "Minimum Clear Score needed to enter: " + this.race.clear_score_from + " points";
         } else if (this.race.clear_score_to){
-          return "Maximum Clear Score needed to enter: " + this.race.clear_score_to + " points";
+          return "Maximum Clear Score allowed: " + this.race.clear_score_to + " points";
         }
         return "";
       },
@@ -319,7 +326,7 @@
           });
         }
       },
-      finishRace(){
+      finishRace(like = false){
         if(this.loginName){
           $('.loader').show();
 
@@ -329,7 +336,8 @@
             type: "post",
             route: "race/finish",
             data: {
-              raceId: this.race.id
+              raceId: this.race.id,
+              like: like ? 1 : 0
             },
             reloadOnError: false,
             onLoad(){
