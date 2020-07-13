@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <div class="row" v-if="!loggedIn">
+    <div class="row" v-if="!loggedIn && $store.state[$route.params.team].teamSettings.hideJoinTeamInstructions !== 'true'">
       <h2 class="howto-header">How to become a part of the team</h2>
       <div class="howto-content">
         <div class="howto-bg-element">

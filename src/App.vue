@@ -40,13 +40,13 @@
             <li v-if="$store.state[$route.params.team].teamCompetitions">
               <router-link :to="'/' + $route.params.team + '/competitions'">Competitions</router-link>
             </li>
-            <li>
+            <li v-if="$store.state[$route.params.team].teamSettings.hideRacesTab !== 'true'">
               <router-link :to="'/' + $route.params.team + '/races'">Races</router-link>
             </li>
             <li>
               <router-link :to="'/' + $route.params.team + '/makers'">Makers</router-link>
             </li>
-            <li>
+            <li v-if="$store.state[$route.params.team].teamSettings.hideMembersTab !== 'true'">
               <router-link :to="'/' + $route.params.team + '/members'">Members</router-link>
             </li>
             <li>
