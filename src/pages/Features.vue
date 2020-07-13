@@ -392,6 +392,40 @@
               </li>
             </ul>
           </li>
+          <li class="list-group-item">
+            <h5 class="mb-3">Adding temporary members and adding levels/clears for members.</h5>
+            <ul class="bot-command-list list-group">
+              <li class="list-group-item">
+                <span class="bot-command-text">!modaddmember &lt;Name&gt;</span>
+                <p>
+                  Use this to create a member so you can add levels/clears for them.
+                </p>
+              </li>
+              <li class="list-group-item">
+                <span class="bot-command-text">!modaddlevel &lt;MemberName&gt; &lt;XXX-XXX-XXX&gt; &lt;LevelName&gt;</span>
+                <p>
+                  Use this to add a level for a member.
+                </p>
+              </li>
+              <li class="list-group-item">
+                <span class="bot-command-text">!modaddclear &lt;MemberName&gt; &lt;XXX-XXX-XXX&gt; ...</span>
+                <p>
+                  Use this to add/update a play/like for a certain member and level. The parameters are the same as for the normal clear command (after the member name), so check out !clear if you wanna know more.
+                </p>
+              </li>
+            </ul>
+          </li>
+          <li class="list-group-item">
+            <h5 class="mb-3">Linking a temporary member you added with an actual user after they joined the discord server.</h5>
+            <ul class="bot-command-list list-group">
+              <li class="list-group-item">
+                <span class="bot-command-text">!modsetdiscordid &lt;MemberName&gt; &lt;DiscordId&gt;</span>
+                <p>
+                  Use this to link a temporary member you added with an actual user by putting in their discord id. (You can get that by activating developer mode in your discord settings and right clicking their user)
+                </p>
+              </li>
+            </ul>
+          </li>
         </ul>
       </div>
     </div>

@@ -154,6 +154,15 @@ img {width: 36px}
 .teamnocloudabuse-secondary-bc {border-color:#88D8D8 !important;}
 .teamnocloudabuse-secondary-blc {border-left-color:#88D8D8 !important;}
 
+.curatedtrolls-primary-fg {color:#E09010 !important;}
+.curatedtrolls-primary-bg {background-color:#E09010 !important;}
+.curatedtrolls-primary-bc {border-color:#E09010 !important;}
+.curatedtrolls-primary-blc {border-left-color:#E09010 !important;}
+.curatedtrolls-secondary-fg {color:#00B050 !important;}
+.curatedtrolls-secondary-bg {background-color:#00B050 !important;}
+.curatedtrolls-secondary-bc {border-color:#00B050 !important;}
+.curatedtrolls-secondary-blc {border-left-color:#00B050 !important;}
+
 .logo-shadow { text-shadow: 2px 2px #888888;}
 
 /* Dark Mode */

@@ -124,7 +124,7 @@
 
       if(this.serverTimeOffset){
         //We're sending the current moment time to the web api and it gives back the time difference between that and the server time, then we add this here so we are in sync with the server
-        this.currentTimeMillis = moment().valueOf() + this.serverTimeOffset - 1000; //Minus 1 second to be safe (so it doesn't refresh before the server has started the race)
+        this.currentTimeMillis = moment().valueOf() + this.serverTimeOffset - 500; //Minus 0.5 seconds to be safe (so it doesn't refresh before the server has started the race)
       } else {
         this.currentTimeMillis = moment().valueOf();
       }

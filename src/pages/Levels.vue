@@ -143,7 +143,12 @@
       },
       username:function(){
         if(this.$route.params.team){
-          return this.$store.state[this.$route.params.team].user_info.name;
+          try {
+            return this.$store.state[this.$route.params.team].user_info.name;
+          } catch (ex){
+            //just in case the error gets thrown we clear the local storage, hopefully this doesn't break anything
+            localStorage.clear();
+          }
         }
         return false;
     },

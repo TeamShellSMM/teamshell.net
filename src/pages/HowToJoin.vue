@@ -120,6 +120,12 @@
               This is where anonymous feedback for the mods gets posted. Who made the post will not be saved but it should show you with an id if a post has been made by the same person. This should be visible only to mods and not writeable.
             </p>
           </li>
+          <li class="list-group-item">
+            <h5 class="mb-0">#bot-race-channel</h5>
+            <p class="mt-2 mb-0">
+              This is where the bot will post race updates. By default this is visible and writable for everyone.
+            </p>
+          </li>
         </ul>
       </div>
     </div>
@@ -144,18 +150,6 @@
       <div class="bs-callout bs-callout-maker-teams bs-callout-content">
         <p>
           For all the normal chat channels where you don't want the bot to react to a command (to prevent the command spam there), you can just take read permissions from the bot role.
-        </p>
-      </div>
-    </div>
-    <div class="row mb-2 feature-box">
-      <div class="bs-callout bs-callout-mini-teams bs-callout-title">
-        <div class="bs-callout-title-box">
-          <h4>Step #5 - Finally you can go through the messages the bot throws out there to add your own touch to the bots replies (like your server emotes, etc...)</h4>
-        </div>
-      </div>
-      <div class="bs-callout bs-callout-mini-teams bs-callout-content">
-        <p>
-          We'll send you a google sheet where you can replace the messages the bot uses to give them your own touch. If you want to add a server emote, post the emote somewhere and put a backslash (\) before it, you should get the actual code of the emote then so you can just copy the whole thing into the messages (without the backslash)
         </p>
       </div>
     </div>
