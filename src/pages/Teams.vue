@@ -229,7 +229,7 @@
           <div class="card team-card team-card-small">
             <img src="/assets/teams/teamnocloudabuse/logo.png" class="card-img-top card-img-team-logo" alt="logo">
             <div class="card-body">
-              <h4 class="card-title"><a href="https://discord.gg/H48dXPu"><span class="teamnocloudabuse-primary-fg">Team</span><span class="teamnocloudabuse-secondary-fg"> Bomb</span></a></h4>
+              <h4 class="card-title"><a href="https://discord.gg/H48dXPu"><span class="teamnocloudabuse-primary-fg">Team</span><span class="teamnocloudabuse-secondary-fg"> #NoCloudAbuse</span></a></h4>
               <p class="card-text">
                 Team #NoCloudAbuse is a Super Mario Maker 2 team which consists of sky levels and cloudy adventures.
               </p>
@@ -244,7 +244,7 @@
           <div class="card team-card team-card-small">
             <img src="/assets/teams/teambomb/logo.jpeg" class="card-img-top card-img-team-logo" alt="logo">
             <div class="card-body">
-              <h4 class="card-title"><a href="https://discord.gg/xFcKGYD"><span class="teambomb-primary-fg">Team</span><span class="teambomb-secondary-fg"> #NoCloudAbuse</span></a></h4>
+              <h4 class="card-title"><a href="https://discord.gg/xFcKGYD"><span class="teambomb-primary-fg">Team</span><span class="teambomb-secondary-fg"> Bomb</span></a></h4>
               <p class="card-text">
                 Team Bomb is centered all around Bob-Ombs. Kaizo and platforming stages revolving around them are all welcome here.
               </p>
