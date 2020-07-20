@@ -163,6 +163,15 @@ img {width: 36px}
 .curatedtrolls-secondary-bc {border-color:#00B050 !important;}
 .curatedtrolls-secondary-blc {border-left-color:#00B050 !important;}
 
+.teambomb-primary-fg {color:black !important;}
+.teambomb-primary-bg {background-color:black !important;}
+.teambomb-primary-bc {border-color:black !important;}
+.teambomb-primary-blc {border-left-color:black !important;}
+.teambomb-secondary-fg {color:lightgray !important;}
+.teambomb-secondary-bg {background-color:lightgray !important;}
+.teambomb-secondary-bc {border-color:lightgray !important;}
+.teambomb-secondary-blc {border-left-color:lightgray !important;}
+
 .logo-shadow { text-shadow: 2px 2px #888888;}
 
 /* Dark Mode */

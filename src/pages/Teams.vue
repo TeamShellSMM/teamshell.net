@@ -240,6 +240,21 @@
             </div>
           </div>
         </div>
+        <div class="col-md-3 col-sm-6 p-1">
+          <div class="card team-card team-card-small">
+            <img src="/assets/teams/teambomb/logo.jpeg" class="card-img-top card-img-team-logo" alt="logo">
+            <div class="card-body">
+              <h4 class="card-title"><a href="https://discord.gg/xFcKGYD"><span class="teambomb-primary-fg">Team</span><span class="teambomb-secondary-fg"> #NoCloudAbuse</span></a></h4>
+              <p class="card-text">
+                Team Bomb is centered all around Bob-Ombs. Kaizo and platforming stages revolving around them are all welcome here.
+              </p>
+              <p class="card-text">
+                They support creative ways to use bombs in 3DW, SMB3, and SMB1, so don't feel like you need to make an NSMB or SMW bomb surfing level. If you enjoy bomb kaizo and platforming, this is the team for you.
+              </p>
+              <a href="https://discord.gg/xFcKGYD" target="_blank" class="btn teambomb-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
