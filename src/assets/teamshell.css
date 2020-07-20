@@ -163,10 +163,10 @@ img {width: 36px}
 .curatedtrolls-secondary-bc {border-color:#00B050 !important;}
 .curatedtrolls-secondary-blc {border-left-color:#00B050 !important;}
 
-.teambomb-primary-fg {color:black !important;}
-.teambomb-primary-bg {background-color:black !important;}
-.teambomb-primary-bc {border-color:black !important;}
-.teambomb-primary-blc {border-left-color:black !important;}
+.teambomb-primary-fg {color:#111111 !important;}
+.teambomb-primary-bg {background-color:#111111 !important;}
+.teambomb-primary-bc {border-color:#111111 !important;}
+.teambomb-primary-blc {border-left-color:#111111 !important;}
 .teambomb-secondary-fg {color:lightgray !important;}
 .teambomb-secondary-bg {background-color:lightgray !important;}
 .teambomb-secondary-bc {border-color:lightgray !important;}
