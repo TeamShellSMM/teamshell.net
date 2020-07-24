@@ -540,7 +540,7 @@ let makeLevelName=({ row,that })=>{
     statusStr=`<span class="tag badge badge-pill badge-warning">In Fix Status</span>`
   }
 
-  tags=statusStr+tags.join("")
+  tags=statusStr+tags.join("") + (row.needs_clear_verification ? `<span class="tag badge badge-pill badge-danger">Clear Verification Required</span>` : "");
 
   let medalsHtmlCreator=makeMedalsCreator(row.creator_id,that.competition_winners)
   let medalsHtml=makeMedalsLevels(row.id,that.competition_winners)
