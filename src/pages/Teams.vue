@@ -38,21 +38,6 @@
           </div>
         </div>
         <div class="col-md-4 col-sm-6 p-1">
-          <div class="card team-card teampipe-primary-bc">
-            <img src="/assets/teams/teampipe/logo.png" class="card-img-top card-img-team-logo card-img-rounded-logo" alt="logo">
-            <div class="card-body">
-              <h2 class="card-title"><router-link to="/teampipe"><span class="teampipe-primary-fg">#Team</span><span class="teampipe-secondary-fg">Pipe</span></router-link></h2>
-              <p class="card-text">
-                TeamPipe is a group of kaizo makers who are all about making hard levels with pipe aesthetics.
-              </p>
-              <p class="card-text">
-                If you're looking to challenge yourself and join the ranks of some expert players, then this is the team for you!
-              </p>
-              <router-link to="/teampipe" class="btn teampipe-primary-bg team-card-nav-button" style="color:white;">Go check it out!</router-link>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-6 p-1">
           <div class="card team-card teamprecision-primary-bc">
             <img src="/assets/teams/teamprecision/logo.png" class="card-img-top card-img-team-logo card-img-rounded-logo" alt="logo">
             <div class="card-body">
@@ -64,6 +49,21 @@
                 Precision levels are usually short levels consisting of a series of fairly tight jumps between sprites or spikes. If that sounds like your type of level give them a look.
               </p>
               <router-link to="/teamprecision" class="btn teamprecision-primary-bg team-card-nav-button" style="color:white;">Go check it out!</router-link>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 p-1">
+          <div class="card team-card teampipe-primary-bc">
+            <img src="/assets/teams/teampipe/logo.png" class="card-img-top card-img-team-logo card-img-rounded-logo" alt="logo">
+            <div class="card-body">
+              <h2 class="card-title"><router-link to="/teampipe"><span class="teampipe-primary-fg">#Team</span><span class="teampipe-secondary-fg">Pipe</span></router-link></h2>
+              <p class="card-text">
+                TeamPipe is a group of kaizo makers who are all about making hard levels with pipe aesthetics.
+              </p>
+              <p class="card-text">
+                If you're looking to challenge yourself and join the ranks of some expert players, then this is the team for you!
+              </p>
+              <router-link to="/teampipe" class="btn teampipe-primary-bg team-card-nav-button" style="color:white;">Go check it out!</router-link>
             </div>
           </div>
         </div>
@@ -82,20 +82,6 @@
             </div>
           </div>
         </div>
-          <div class="col-md-4 col-sm-6 p-1">
-          <div class="card team-card teamconsistency-primary-bc">
-            <img src="/assets/teams/teamconsistency/logo.png" class="card-img-top card-img-team-logo" alt="logo">
-            <div class="card-body">
-              <h2 class="card-title"><router-link to="/teamconsistency"><span class="teamconsistency-primary-fg">#Team</span><span class="teamconsistency-secondary-fg">Consistency</span></router-link></h2>
-              <p class="card-text">
-                Team Consistency. Striving for perfection.
-              </p>
-              <p class="card-text">We welcome all consistency, practice and Uno Más levels</p>
-              <router-link to="/teamconsistency" class="btn teamconsistency-primary-bg team-card-nav-button" style="color:white;">Go check it out!</router-link>
-            </div>
-          </div>
-        </div>
-
         <div class="col-md-4 col-sm-6 p-1">
           <div class="card team-card teampswitch-primary-bc">
             <img src="/assets/teams/teampswitch/logo.png" class="card-img-top card-img-team-logo" alt="logo">
@@ -111,6 +97,19 @@
             </div>
           </div>
         </div>
+        <div class="col-md-4 col-sm-6 p-1">
+          <div class="card team-card teamconsistency-primary-bc">
+            <img src="/assets/teams/teamconsistency/logo.png" class="card-img-top card-img-team-logo" alt="logo">
+            <div class="card-body">
+              <h2 class="card-title"><router-link to="/teamconsistency"><span class="teamconsistency-primary-fg">#Team</span><span class="teamconsistency-secondary-fg">Consistency</span></router-link></h2>
+              <p class="card-text">
+                Team Consistency. Striving for perfection.
+              </p>
+              <p class="card-text">We welcome all consistency, practice and Uno Más levels</p>
+              <router-link to="/teamconsistency" class="btn teamconsistency-primary-bg team-card-nav-button" style="color:white;">Go check it out!</router-link>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="row mt-3">
@@ -122,91 +121,16 @@
       <div class="bs-callout bs-callout-mini-teams bs-callout-content">
         <div class="col-md-3 col-sm-6 p-1">
           <div class="card team-card team-card-small">
-            <img src="/assets/teams/teampspeed/logo.png" class="card-img-top card-img-team-logo" alt="logo">
-            <div class="card-body">
-              <h4 class="card-title"><a href="https://discord.gg/q584b65"><span class="teampspeed-primary-fg">#Team</span><span class="teampspeed-secondary-fg"> P-Speed</span></a></h4>
-              <p class="card-text">
-                Team P-Speed is all about fast-paced platforming, kaizo, precision, whatever, as long as you don't have time to slow down.
-              </p>
-              <p class="card-text">
-                If you're trying to see how quickly you can read this post, this is the team for you.
-              </p>
-              <a href="https://discord.gg/q584b65" target="_blank" class="btn teampspeed-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3 col-sm-6 p-1">
-        <div class="card team-card team-card-small">
-          <img src="/assets/teams/teamtwister/logo.png" class="card-img-top card-img-team-logo" alt="logo">
-          <div class="card-body">
-            <h4 class="card-title"><a href="https://discord.gg/TKqa8sH"><span class="teamtwister-primary-fg">#Team</span><span class="teamtwister-secondary-fg">Twister</span></a></h4>
-            <p class="card-text">
-              TeamTwister is a team revolving around the uses of twisters, for the good or bad of humanity.
-            </p>
-            <p class="card-text">
-                All types of levels are accepted as long as they use twisters and have no checkpoints. If you want to get blown away, this is the place to be!
-            </p>
-            <a href="https://discord.gg/TKqa8sH" target="_blank" class="btn teamtwister-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3 col-sm-6 p-1">
-          <div class="card team-card team-card-small">
-            <img src="/assets/teams/teamfish/logo.png" class="card-img-top card-img-team-logo card-img-rounded-logo" alt="logo">
-            <div class="card-body">
-              <h4 class="card-title"><a href="https://discord.gg/U2XFavm"><span class="teamfish-primary-fg">Team</span><span class="teamfish-secondary-fg"> Fish</span></a></h4>
-              <p class="card-text">
-                Team Fish is a team that uses all kinds of fish in their levels.
-              </p>
-              <p class="card-text">
-                This team accepts all kinds of kaizo, platforming and precision levels as long as there's enough fish in them. If you're a fan of Cheep Cheeps, Fishbones, or Porcupuffers, this is definitely the place for you.
-              </p>
-              <a href="https://discord.gg/U2XFavm" target="_blank" class="btn teamfish-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3 col-sm-6 p-1">
-          <div class="card team-card team-card-small">
-            <img src="/assets/teams/teamhat/logo.png" class="card-img-top card-img-team-logo" alt="logo">
-            <div class="card-body">
-              <h4 class="card-title"><a href="https://discord.gg/ZDeYXtH"><span class="teamhat-primary-fg">Team</span><span class="teamhat-secondary-fg"> Hat!</span></a></h4>
-              <p class="card-text">
-                Team Hat! is all about Mario Maker's newest part, the new hat powerups.
-              </p>
-              <p class="card-text">
-                If you wanna see what you can do with propellor-, cannon-, pow-, goomba- or bullet bill hats, check out this new team.
-              </p>
-              <a href="https://discord.gg/ZDeYXtH" target="_blank" class="btn teamhat-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3 col-sm-6 p-1">
-          <div class="card team-card team-card-small">
             <img src="/assets/teams/teamghost/logo.jpg" class="card-img-top card-img-team-logo card-img-rounded-logo" alt="logo">
             <div class="card-body">
-              <h4 class="card-title"><a href="https://discord.gg/ejHzcm"><span class="teamghost-primary-fg">Team</span><span class="teamghost-secondary-fg"> Ghost</span></a></h4>
+              <h4 class="card-title"><a href="https://discord.gg/sGcCAp8"><span class="teamghost-primary-fg">Team</span><span class="teamghost-secondary-fg"> Ghost</span></a></h4>
               <p class="card-text">
                 Team Ghost is a Super Mario Maker 2 team which is centered around using dead (but cool-looking) enemies like boos, dry bones and fish bones.
               </p>
               <p class="card-text">
                 Like most of the other teams, their main genre for level design is Kaizo and Kaizo-lite.
               </p>
-              <a href="https://discord.gg/ejHzcm" target="_blank" class="btn teamghost-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3 col-sm-6 p-1">
-          <div class="card team-card team-card-small">
-            <img src="/assets/teams/teamboomboom/logo.png" class="card-img-top card-img-team-logo" alt="logo">
-            <div class="card-body">
-              <h4 class="card-title"><a href="https://discord.gg/j9Y5NM"><span class="teamboomboom-primary-fg">Team</span><span class="teamboomboom-secondary-fg"> Boom Boom</span></a></h4>
-              <p class="card-text">
-                This is a team that's centered around boom boom and all the fun stuff you can do with the guy.
-              </p>
-              <p class="card-text">
-                If you can't get enough of the mad lad, this is the place for you.
-              </p>
-              <a href="https://discord.gg/j9Y5NM" target="_blank" class="btn teamboomboom-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
+              <a href="https://discord.gg/sGcCAp8" target="_blank" class="btn teamghost-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
             </div>
           </div>
         </div>
@@ -227,6 +151,66 @@
         </div>
         <div class="col-md-3 col-sm-6 p-1">
           <div class="card team-card team-card-small">
+            <img src="/assets/teams/teamhat/logo.png" class="card-img-top card-img-team-logo" alt="logo">
+            <div class="card-body">
+              <h4 class="card-title"><a href="https://discord.gg/ZDeYXtH"><span class="teamhat-primary-fg">Team</span><span class="teamhat-secondary-fg"> Hat!</span></a></h4>
+              <p class="card-text">
+                Team Hat! is all about Mario Maker's newest part, the new hat powerups.
+              </p>
+              <p class="card-text">
+                If you wanna see what you can do with propellor-, cannon-, pow-, goomba- or bullet bill hats, check out this new team.
+              </p>
+              <a href="https://discord.gg/ZDeYXtH" target="_blank" class="btn teamhat-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6 p-1">
+          <div class="card team-card team-card-small">
+            <img src="/assets/teams/teamtwister/logo.png" class="card-img-top card-img-team-logo" alt="logo">
+            <div class="card-body">
+              <h4 class="card-title"><a href="https://discord.gg/TKqa8sH"><span class="teamtwister-primary-fg">#Team</span><span class="teamtwister-secondary-fg">Twister</span></a></h4>
+              <p class="card-text">
+                TeamTwister is a team revolving around the uses of twisters, for the good or bad of humanity.
+              </p>
+              <p class="card-text">
+                  All types of levels are accepted as long as they use twisters and have no checkpoints. If you want to get blown away, this is the place to be!
+              </p>
+              <a href="https://discord.gg/TKqa8sH" target="_blank" class="btn teamtwister-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6 p-1">
+          <div class="card team-card team-card-small">
+            <img src="/assets/teams/teampspeed/logo.png" class="card-img-top card-img-team-logo" alt="logo">
+            <div class="card-body">
+              <h4 class="card-title"><a href="https://discord.gg/q584b65"><span class="teampspeed-primary-fg">#Team</span><span class="teampspeed-secondary-fg"> P-Speed</span></a></h4>
+              <p class="card-text">
+                Team P-Speed is all about fast-paced platforming, kaizo, precision, whatever, as long as you don't have time to slow down.
+              </p>
+              <p class="card-text">
+                If you're trying to see how quickly you can read this post, this is the team for you.
+              </p>
+              <a href="https://discord.gg/q584b65" target="_blank" class="btn teampspeed-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6 p-1">
+          <div class="card team-card team-card-small">
+            <img src="/assets/teams/teamfish/logo.png" class="card-img-top card-img-team-logo card-img-rounded-logo" alt="logo">
+            <div class="card-body">
+              <h4 class="card-title"><a href="https://discord.gg/U2XFavm"><span class="teamfish-primary-fg">Team</span><span class="teamfish-secondary-fg"> Fish</span></a></h4>
+              <p class="card-text">
+                Team Fish is a team that uses all kinds of fish in their levels.
+              </p>
+              <p class="card-text">
+                This team accepts all kinds of kaizo, platforming and precision levels as long as there's enough fish in them. If you're a fan of Cheep Cheeps, Fishbones, or Porcupuffers, this is definitely the place for you.
+              </p>
+              <a href="https://discord.gg/U2XFavm" target="_blank" class="btn teamfish-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6 p-1">
+          <div class="card team-card team-card-small">
             <img src="/assets/teams/teamnocloudabuse/logo.png" class="card-img-top card-img-team-logo" alt="logo">
             <div class="card-body">
               <h4 class="card-title"><a href="https://discord.gg/H48dXPu"><span class="teamnocloudabuse-primary-fg">Team</span><span class="teamnocloudabuse-secondary-fg"> #NoCloudAbuse</span></a></h4>
@@ -237,6 +221,21 @@
                 Similar to Yoshi Protectors this team creates ceave gaming-like contraptions to stop smb2 mario from tearing clouds out of their home.
               </p>
               <a href="https://discord.gg/H48dXPu" target="_blank" class="btn teamnocloudabuse-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6 p-1">
+          <div class="card team-card team-card-small">
+            <img src="/assets/teams/teamlemmysballs/logo.png" class="card-img-top card-img-team-logo" alt="logo">
+            <div class="card-body">
+              <h4 class="card-title"><a href="https://discord.gg/uCgnYVG"><span class="teamlemmysballs-primary-fg">#Team</span><span class="teamlemmysballs-secondary-fg">Lemmy'sBalls</span></a></h4>
+              <p class="card-text">
+                The team #TeamLemmy'sBalls is a team all about Lemmy's balls in Super Mario Maker 2.
+              </p>
+              <p class="card-text">
+                Many people think of Roy and his shades but Lemmy and his balls need more love.
+              </p>
+              <a href="https://discord.gg/uCgnYVG" target="_blank" class="btn teamlemmysballs-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
             </div>
           </div>
         </div>

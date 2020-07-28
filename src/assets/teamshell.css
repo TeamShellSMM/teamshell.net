@@ -172,6 +172,15 @@ img {width: 36px}
 .teambomb-secondary-bc {border-color:lightgray !important;}
 .teambomb-secondary-blc {border-left-color:lightgray !important;}
 
+.teamlemmysballs-primary-fg {color:#E49330 !important;}
+.teamlemmysballs-primary-bg {background-color:#E49330 !important;}
+.teamlemmysballs-primary-bc {border-color:#E49330 !important;}
+.teamlemmysballs-primary-blc {border-left-color:#E49330 !important;}
+.teamlemmysballs-secondary-fg {color:#CBD115 !important;}
+.teamlemmysballs-secondary-bg {background-color:#CBD115 !important;}
+.teamlemmysballs-secondary-bc {border-color:#CBD115 !important;}
+.teamlemmysballs-secondary-blc {border-left-color:#CBD115 !important;}
+
 .logo-shadow { text-shadow: 2px 2px #888888;}
 
 /* Dark Mode */
@@ -658,9 +667,11 @@ box-shadow: 0 0 0 3px #21c0ae;
 }
 
 .card-img-team-logo {
-    width: 50%;
+    width: 100px;
+    height:100px;
     margin: auto;
     max-width: 100px;
+    max-height: 100px;
 }
 
 .card-img-rounded-logo {
