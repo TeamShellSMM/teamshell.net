@@ -228,14 +228,14 @@
           <div class="card team-card team-card-small">
             <img src="/assets/teams/teamlemmysballs/logo.png" class="card-img-top card-img-team-logo" alt="logo">
             <div class="card-body">
-              <h4 class="card-title"><a href="https://discord.gg/uCgnYVG"><span class="teamlemmysballs-primary-fg">#Team</span><span class="teamlemmysballs-secondary-fg">Lemmy'sBalls</span></a></h4>
+              <h4 class="card-title"><a href="https://discord.gg/qsYK9Tz"><span class="teamlemmysballs-primary-fg">#Team</span><span class="teamlemmysballs-secondary-fg">Lemmy'sBalls</span></a></h4>
               <p class="card-text">
                 The team #TeamLemmy'sBalls is a team all about Lemmy's balls in Super Mario Maker 2.
               </p>
               <p class="card-text">
                 Many people think of Roy and his shades but Lemmy and his balls need more love.
               </p>
-              <a href="https://discord.gg/uCgnYVG" target="_blank" class="btn teamlemmysballs-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
+              <a href="https://discord.gg/qsYK9Tz" target="_blank" class="btn teamlemmysballs-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
             </div>
           </div>
         </div>
