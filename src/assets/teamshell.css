@@ -181,6 +181,15 @@ img {width: 36px}
 .teamlemmysballs-secondary-bc {border-color:#CBD115 !important;}
 .teamlemmysballs-secondary-blc {border-left-color:#CBD115 !important;}
 
+.teamfrostysquad-primary-fg {color:#012E34 !important;}
+.teamfrostysquad-primary-bg {background-color:#012E34 !important;}
+.teamfrostysquad-primary-bc {border-color:#012E34 !important;}
+.teamfrostysquad-primary-blc {border-left-color:#012E34 !important;}
+.teamfrostysquad-secondary-fg {color:#36A998 !important;}
+.teamfrostysquad-secondary-bg {background-color:#36A998 !important;}
+.teamfrostysquad-secondary-bc {border-color:#36A998 !important;}
+.teamfrostysquad-secondary-blc {border-left-color:#36A998 !important;}
+
 .logo-shadow { text-shadow: 2px 2px #888888;}
 
 /* Dark Mode */

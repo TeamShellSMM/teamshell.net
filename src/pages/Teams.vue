@@ -241,6 +241,21 @@
         </div>
         <div class="col-md-3 col-sm-6 p-1">
           <div class="card team-card team-card-small">
+            <img src="/assets/teams/teamfrostysquad/logo.jpg" class="card-img-top card-img-team-logo card-img-rounded-logo" alt="logo">
+            <div class="card-body">
+              <h4 class="card-title"><a href="https://discord.gg/PBxzsNa"><span class="teamfrostysquad-primary-fg">Team</span><span class="teamfrostysquad-secondary-fg"> Frosty Squad</span></a></h4>
+              <p class="card-text">
+                The team frosty squad consists of snow and ice themed levels.
+              </p>
+              <p class="card-text">
+                If you're cool with that this is the team for you!
+              </p>
+              <a href="https://discord.gg/PBxzsNa" target="_blank" class="btn teamfrostysquad-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6 p-1">
+          <div class="card team-card team-card-small">
             <img src="/assets/teams/teambomb/logo.jpeg?v1" class="card-img-top card-img-team-logo" alt="logo">
             <div class="card-body">
               <h4 class="card-title"><a href="https://discord.gg/xFcKGYD"><span class="teambomb-primary-fg">Team</span><span class="teambomb-secondary-fg"> Bomb</span></a></h4>
