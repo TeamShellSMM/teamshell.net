@@ -612,8 +612,9 @@ let makeLevelsDatatable=({ $, id, that, hidden=[], compMode = false, args})=>{
       {
         "render": function ( data, type, row) {
           if(type!="display") return data
+          console.log(row, data);
           const medalsHtml=makeMedalsCreator(row.creator_id,that.data.competition_winners)
-          return "<div class='creator-name-div'><a class='dt-maker-link' href='/" + that.$route.params.team + "/maker/" + encodeURI(data) + "' maker='" + data + "'>" + data + "</a>"+ (compMode ? '' : medalsHtml) +"</div>";
+          return "<div class='creator-name-div'><a class='dt-maker-link' href='/" + that.$route.params.team + "/maker/" + encodeURI(data) + "' maker='" + data + "'>" + (!row.creator_is_member ? "🔰" : "") + data + "</a>"+ (compMode ? '' : medalsHtml) +"</div>";
         },
         targets: 2
       },{
