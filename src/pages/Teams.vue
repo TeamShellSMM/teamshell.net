@@ -181,6 +181,21 @@
         </div>
         <div class="col-md-3 col-sm-6 p-1">
           <div class="card team-card team-card-small">
+            <img src="/assets/teams/teamspeedrun/logo.jpg" class="card-img-top card-img-team-logo card-img-rounded-logo" alt="logo">
+            <div class="card-body">
+              <h4 class="card-title"><a href="https://discord.gg/qXhzxnk"><span class="teamspeedrun-primary-fg">Team</span><span class="teamspeedrun-secondary-fg"> Speedrun</span></a></h4>
+              <p class="card-text">
+                Team Speedrun is a group focused on making action packed levels with little time left to spare.
+              </p>
+              <p class="card-text">
+                From traditional-styled levels, to insane on/off shenanigans, as long as the timer is tight, this team has what you need!
+              </p>
+              <a href="https://discord.gg/qXhzxnk" target="_blank" class="btn teamspeedrun-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6 p-1">
+          <div class="card team-card team-card-small">
             <img src="/assets/teams/teampspeed/logo.png" class="card-img-top card-img-team-logo" alt="logo">
             <div class="card-body">
               <h4 class="card-title"><a href="https://discord.gg/q584b65"><span class="teampspeed-primary-fg">#Team</span><span class="teampspeed-secondary-fg"> P-Speed</span></a></h4>
@@ -266,6 +281,21 @@
                 They support creative ways to use bombs in 3DW, SMB3, and SMB1, so don't feel like you need to make an NSMB or SMW bomb surfing level. If you enjoy bomb kaizo and platforming, this is the team for you.
               </p>
               <a href="https://discord.gg/xFcKGYD" target="_blank" class="btn teambomb-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6 p-1">
+          <div class="card team-card team-card-small">
+            <img src="/assets/teams/teambattle/logo.jpg" class="card-img-top card-img-team-logo card-img-rounded-logo" alt="logo">
+            <div class="card-body">
+              <h4 class="card-title"><a href="https://discord.gg/6fxmmyu"><span class="teambattle-primary-fg">#Team</span><span class="teambattle-secondary-fg"> Battle</span></a></h4>
+              <p class="card-text">
+                Team Battle is a team where you can get ideas or learn how make all kinds of battle stages.
+              </p>
+              <p class="card-text">
+                If you want to share your battle stages or play some fun and interesting levels against other people, you will not regret joining this team!
+              </p>
+              <a href="https://discord.gg/6fxmmyu" target="_blank" class="btn teambattle-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
             </div>
           </div>
         </div>
