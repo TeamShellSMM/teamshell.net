@@ -31,6 +31,7 @@ import Login from './pages/Login';
 import ClearAll from './pages/ClearAll';
 import TeamSettings from './pages/TeamSettings';
 import AdminTags from './pages/AdminTags';
+import AdminCommands from './pages/AdminCommands';
 import Races from './pages/Races';
 import RaceHistory from './pages/RaceHistory';
 
@@ -65,6 +66,7 @@ const routes = [
   {path: '/:team/login/:otp', component: Login},
   {path: '/:team/admin/settings', component: TeamSettings},
   {path: '/:team/admin/tags', component: AdminTags},
+  {path: '/:team/admin/commands', component: AdminCommands},
 ];
 
 const router = new VueRouter({
