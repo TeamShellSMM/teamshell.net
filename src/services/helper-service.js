@@ -510,7 +510,7 @@ let makeLevelName=({ row,that })=>{
   if(row.videos){
     var raw_vids=row.videos.split(",")
     for(let j=0;j<raw_vids.length;j++){
-      videos+="<a class='clear-vid-link' target='_blank' data-toggle='tooltip' title='Video clear' href='"+encodeURI(raw_vids[j])+"'><i class='fas fa-video' aria-hidden='true'></i></a> "
+      videos+="<a class='clear-vid-link' target='_blank' data-toggle='tooltip' title='Video clear' href='"+raw_vids[j].replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")+"'><i class='fas fa-video' aria-hidden='true'></i></a> "
     }
   }
   var tags=row.tags
@@ -518,7 +518,7 @@ let makeLevelName=({ row,that })=>{
   for(let i=0;i<tags.length;i++){
     let type2=that.tag_labels.find( t=> t.name==tags[i] )
     type2=type2 && type2.type?type2.type:'secondary'
-    tags[i]=`<a class="tagLink" href="/${that.$route.params.team}/levels/tags/${tags[i]}"><span class="tag badge badge-pill badge-${type2}">${encodeURI(tags[i])}</span></a>`
+    tags[i]=`<a class="tagLink" href="/${that.$route.params.team}/levels/tags/${tags[i]}"><span class="tag badge badge-pill badge-${type2}">${tags[i].replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")}</span></a>`
   }
 
   let votesHtml='';
@@ -545,9 +545,9 @@ let makeLevelName=({ row,that })=>{
   let medalsHtmlCreator=makeMedalsCreator(row.creator_id,that.competition_winners)
   let medalsHtml=makeMedalsLevels(row.id,that.competition_winners)
 
-  let makerLink = `<div class='creator-name-div diff-text-mobile'><a class='dt-maker-link' href='/${that.$route.params.team}/maker/${encodeURI(row.creator || row.creator_name)}' maker='${row.creator || row.creator_name}'>${row.creator || row.creator_name}</a>${medalsHtmlCreator}</div>`;
+  let makerLink = `<div class='creator-name-div diff-text-mobile'><a class='dt-maker-link' href='/${that.$route.params.team}/maker/${encodeURI(row.creator || row.creator_name)}' maker='${row.creator || row.creator_name}'>${(row.creator || row.creator_name).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")}</a>${medalsHtmlCreator}</div>`;
 
-  return makerLink + "<div class='font-weight-bold level-name-div'>"+medalsHtml+encodeURI(row.level_name) +"<br/>"+ votesHtml+" "+videos + " " + tags + "</div>";
+  return makerLink + "<div class='font-weight-bold level-name-div'>"+medalsHtml+row.level_name.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;") +"<br/>"+ votesHtml+" "+videos + " " + tags + "</div>";
 }
 
 let makeLevelsDatatable=({ $, id, that, hidden=[], compMode = false, args})=>{
