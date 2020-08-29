@@ -561,6 +561,16 @@ box-shadow: 0 0 0 3px #21c0ae;
     margin-right:10px;
 }
 
+.teampipe-logo {
+    border-radius: 20px;
+    margin-right:10px;
+}
+
+.teampowerup-logo {
+    border-radius: 20px;
+    margin-right:10px;
+}
+
 .howto-header {
     margin-left: auto;
     margin-right: auto;
