@@ -116,9 +116,9 @@
             <div class="card-body">
               <h2 class="card-title"><router-link to="/teampowerup"><span class="teampowerup-primary-fg">Team</span><span class="teampowerup-secondary-fg"> Power Up</span></router-link></h2>
               <p class="card-text">
-                Team Power Up makes kaizo levels which are focused around one or more power ups (Yoshi, shellmets, goomba shoes and hats excluded).
+                Team Power Up makes kaizo levels which are focused around one or more power ups (Yoshi, shellmets, goomba shoes and buckets excluded).
               </p>
-              <p class="card-text">Their motto right now is: "Feeling Powerful", so if that gets you powered up, check them out.</p>
+              <p class="card-text">Come and join if you have what it takes to master all the power-ups!</p>
               <router-link to="/teampowerup" class="btn teampowerup-primary-bg team-card-nav-button" style="color:white;">Go check it out!</router-link>
             </div>
           </div>
@@ -144,21 +144,6 @@
                 Like most of the other teams, their main genre for level design is Kaizo and Kaizo-lite.
               </p>
               <a href="https://discord.gg/sGcCAp8" target="_blank" class="btn teamghost-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3 col-sm-6 p-1">
-          <div class="card team-card team-card-small">
-            <img src="/assets/teams/teampowerup/logo.png" class="card-img-top card-img-team-logo card-img-rounded-logo" alt="logo">
-            <div class="card-body">
-              <h4 class="card-title"><a href="https://discord.gg/hjZeG7C"><span class="teampowerup-primary-fg">#Team</span><span class="teampowerup-secondary-fg"> Power Up</span></a></h4>
-              <p class="card-text">
-                Team Power Up makes kaizo levels which are focused around one or more power ups (Yoshi, shellmets, goomba shoes and hats excluded).
-              </p>
-              <p class="card-text">
-                Their motto right now is: "Feeling Powerful", so if that gets you powered up, check them out.
-              </p>
-              <a href="https://discord.gg/hjZeG7C" target="_blank" class="btn teampowerup-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
             </div>
           </div>
         </div>
