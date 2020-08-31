@@ -208,6 +208,14 @@ img {width: 36px}
 .teamspeedrun-secondary-bc {border-color:black !important;}
 .teamspeedrun-secondary-blc {border-left-color:black !important;}
 
+.teamego-primary-fg {color:#0070C0 !important;}
+.teamego-primary-bg {background-color:#0070C0 !important;}
+.teamego-primary-bc {border-color:#0070C0 !important;}
+.teamego-primary-blc {border-left-color:#0070C0 !important;}
+.teamego-secondary-fg {color:#C00000 !important;}
+.teamego-secondary-bg {background-color:#C00000 !important;}
+.teamego-secondary-bc {border-color:#C00000 !important;}
+.teamego-secondary-blc {border-left-color:#C00000 !important;}
 .logo-shadow { text-shadow: 2px 2px #888888;}
 
 /* Dark Mode */
