@@ -98,7 +98,7 @@
             <li>
               <router-link :to="'/'">Teams</router-link>
             </li>
-            <li>
+            <li style="display:none;">
               <router-link :to="'/features'">Features</router-link>
             </li>
             <li>
