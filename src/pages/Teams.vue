@@ -73,7 +73,7 @@
             <div class="card-body">
               <h2 class="card-title"><router-link to="/teamflight"><span class="teamflight-primary-fg">Team</span><span class="teamflight-secondary-fg"> Flight</span></router-link></h2>
               <p class="card-text">
-                Team Flight is one of the oldest teams around, no matter if you prefer cape, tanooki, propeller, acorn or whatever else can take to the skies, they got something for you.
+                Team Flight is one of the oldest teams around. No matter if you prefer cape, tanooki, propeller, acorn or whatever else that can take to the skies, they got something for you.
               </p>
               <p class="card-text">If you want to fly away to victory, then this is where you can spread your wings.</p>
               <router-link to="/teamflight" class="btn teamflight-primary-bg team-card-nav-button" style="color:white;">Go check it out!</router-link>
