@@ -68,6 +68,19 @@
           </div>
         </div>
         <div class="col-md-4 col-sm-6 p-1">
+          <div class="card team-card teamflight-primary-bc">
+            <img src="/assets/teams/teamflight/logo.png" class="card-img-top card-img-team-logo card-img-rounded-logo" alt="logo">
+            <div class="card-body">
+              <h2 class="card-title"><router-link to="/teamflight"><span class="teamflight-primary-fg">Team</span><span class="teamflight-secondary-fg"> Flight</span></router-link></h2>
+              <p class="card-text">
+                Team Flight is one of the oldest teams around, no matter if you prefer cape, tanooki, propeller, acorn or whatever else can take to the skies, they got something for you.
+              </p>
+              <p class="card-text">If you want to fly away to victory, then this is where you can spread your wings.</p>
+              <router-link to="/teamflight" class="btn teamflight-primary-bg team-card-nav-button" style="color:white;">Go check it out!</router-link>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 p-1">
           <div class="card team-card teamicicle-primary-bc">
             <img src="/assets/teams/teamicicle/logo.png" class="card-img-top card-img-team-logo" alt="logo">
             <div class="card-body">
@@ -303,7 +316,7 @@
             <div class="card-body">
               <h4 class="card-title"><a href="https://discord.gg/4f3GXjK"><span class="teamego-primary-fg">#Team</span><span class="teamego-secondary-fg">Ego</span></a></h4>
               <p class="card-text">
-                TeamEgo is trying to create a home for everybody who likes fun level. Puzzle, troll, Kaizo, you name it.
+                TeamEgo is trying to create a home for everybody who likes fun levels. Puzzle, troll, Kaizo, you name it.
               </p>
               <p class="card-text">
                 If you like all kinds of levels, as long as they're creative and fun to play, this is the place for you.

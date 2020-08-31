@@ -216,6 +216,16 @@ img {width: 36px}
 .teamego-secondary-bg {background-color:#C00000 !important;}
 .teamego-secondary-bc {border-color:#C00000 !important;}
 .teamego-secondary-blc {border-left-color:#C00000 !important;}
+
+.teamflight-primary-fg {color:#FF314A !important;}
+.teamflight-primary-bg {background-color:#FF314A !important;}
+.teamflight-primary-bc {border-color:#FF314A !important;}
+.teamflight-primary-blc {border-left-color:#FF314A !important;}
+.teamflight-secondary-fg {color:#CCCCCC !important;}
+.teamflight-secondary-bg {background-color:#CCCCCC !important;}
+.teamflight-secondary-bc {border-color:#CCCCCC !important;}
+.teamflight-secondary-blc {border-left-color:#CCCCCC !important;}
+
 .logo-shadow { text-shadow: 2px 2px #888888;}
 
 /* Dark Mode */
