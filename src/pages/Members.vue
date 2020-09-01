@@ -40,7 +40,7 @@
             <option :value="null" selected>Default</option>
             <option v-for="tag in rankedTags" :key="tag.id" :value="tag.id">{{tag.name}}</option>
         </select>
-        <small class="form-text text-muted">Include only the clears registered within the stated time period.</small>
+        <small class="form-text text-muted">Include only the clears of levels with the selected tag.</small>
       </div>
     </div>
 
