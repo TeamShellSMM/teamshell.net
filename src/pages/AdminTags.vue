@@ -4,7 +4,16 @@
     <form v-on:submit.prevent="onSubmit">
     <table class='table'>
     <thead>
-      <tr><th>Tag Name</th><th>Color</th><th>Seperate</th><th>Add Lock</th><th>Remove Lock</th><th>Hidden</th><th>Verify Clears</th></tr>
+      <tr>
+        <th>Tag Name</th>
+        <th>Color</th>
+        <th>Seperate</th>
+        <th>Add Lock</th>
+        <th>Remove Lock</th>
+        <th>Hidden</th>
+        <th>Verify Clears</th>
+        <th>Ranked</th>
+      </tr>
     </thead>
     <tr
       v-for="d in data"
@@ -25,8 +34,9 @@
       <td><input class="form-control" type="checkbox" v-model="d.remove_lock"/></td>
       <td><input class="form-control" type="checkbox" v-model="d.is_hidden"/></td>
       <td><input class="form-control" type="checkbox" v-model="d.verify_clears"/></td>
+      <td><input class="form-control" type="checkbox" v-model="d.ranked"/></td>
     </tr>
-    <tr><td colspan="7"><button type="button" class="btn btn-success btn-lg btn-block" @click="addRow">Add Row</button></td></tr>
+    <tr><td colspan="8"><button type="button" class="btn btn-success btn-lg btn-block" @click="addRow">Add Row</button></td></tr>
     </table>
     <button type="submit" class="btn btn-primary btn-lg btn-block">Save Settings</button>
 </form>

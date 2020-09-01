@@ -33,6 +33,15 @@
         </select>
         <small class="form-text text-muted">Include only the clears registered within the stated time period.</small>
       </div>
+
+      <div class="col-md-3" v-if="rankedTags.length > 0">
+        <label for="selectedTag">Category</label>
+        <select v-model="selectedTag" v-on:change="getData()" class="form-control">
+            <option :value="null" selected>Default</option>
+            <option v-for="tag in rankedTags" :key="tag.id" :value="tag.id">{{tag.name}}</option>
+        </select>
+        <small class="form-text text-muted">Include only the clears registered within the stated time period.</small>
+      </div>
     </div>
 
     <table id="table" class="compact row-border stripe hover" style="width:100%">
@@ -56,7 +65,9 @@
           'raw_data': '',
           'timePeriod': '1',
           'timePeriod2': '1',
-          'membershipStatus': '1'
+          'membershipStatus': '1',
+          'selectedTag': null,
+          'rankedTags': []
         }
       },
       mounted(){
@@ -81,6 +92,12 @@
 
         $("#timePeriod2").change(function(){
           that.timePeriod2 = this.value;
+          that.getData();
+        });
+
+        $("#selectedTag").change(function(){
+          console.log("should refresh");
+          that.selectedTag = this.value;
           that.getData();
         });
 
@@ -154,11 +171,13 @@
             data:{
               membershipStatus: that.membershipStatus,
               timePeriod: that.timePeriod,
-              timePeriod2: that.timePeriod2
+              timePeriod2: that.timePeriod2,
+              selectedTagId: that.selectedTag
             },
             onLoad(_rawData){
               that.members = _rawData.data;
               that.data=_rawData;
+              that.rankedTags = _rawData.rankedTags;
               that.refresh()
             },
           });
