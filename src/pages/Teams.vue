@@ -325,6 +325,21 @@
             </div>
           </div>
         </div>
+        <div class="col-md-3 col-sm-6 p-1">
+          <div class="card team-card team-card-small">
+            <img src="/assets/teams/teamjuggle/logo.png" class="card-img-top card-img-team-logo card-img-rounded-logo" alt="logo">
+            <div class="card-body">
+              <h4 class="card-title"><a href="https://discord.gg/KsSVezu"><span class="teamjuggle-primary-fg">Team</span><span class="teamjuggle-secondary-fg"> Juggle</span></a></h4>
+              <p class="card-text">
+                Team Juggle is a Super Mario Maker 2 team that consists of levels involving item and shell juggling.
+              </p>
+              <p class="card-text">
+                Whether you like simple juggling levels or very complex ones, all levels are welcome here.
+              </p>
+              <a href="https://discord.gg/KsSVezu" target="_blank" class="btn teamjuggle-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

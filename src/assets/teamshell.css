@@ -226,6 +226,15 @@ img {width: 36px}
 .teamflight-secondary-bc {border-color:#CCCCCC !important;}
 .teamflight-secondary-blc {border-left-color:#CCCCCC !important;}
 
+.teamjuggle-primary-fg {color:rgb(32, 172, 219) !important;}
+.teamjuggle-primary-bg {background-color:rgb(32, 172, 219) !important;}
+.teamjuggle-primary-bc {border-color:rgb(32, 172, 219) !important;}
+.teamjuggle-primary-blc {border-left-color:rgb(32, 172, 219) !important;}
+.teamjuggle-secondary-fg {color:rgb(80, 233, 80) !important;}
+.teamjuggle-secondary-bg {background-color:rgb(80, 233, 80) !important;}
+.teamjuggle-secondary-bc {border-color:rgb(80, 233, 80) !important;}
+.teamjuggle-secondary-blc {border-left-color:rgb(80, 233, 80) !important;}
+
 .logo-shadow { text-shadow: 2px 2px #888888;}
 
 /* Dark Mode */
