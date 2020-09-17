@@ -766,6 +766,25 @@ box-shadow: 0 0 0 3px #21c0ae;
     align-items: center;
 }
 
+.video-card {
+    text-align: center;
+    padding: 5px;
+    height: 100%;
+    border-radius: 10px;
+    box-shadow: 3px 3px #5A5A5A;
+    border-width: 3px;
+}
+
+.video-card .twitter-tweet {
+    margin: 0px !important;
+}
+
+.video-card-loader {
+    width:30%;
+    margin-top:20px;
+    margin-bottom:20px;
+}
+
 .mt-back-link {
     color: rgb(173, 181, 189);
     margin-right:10px;

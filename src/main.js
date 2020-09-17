@@ -34,6 +34,7 @@ import AdminTags from './pages/AdminTags';
 import AdminCommands from './pages/AdminCommands';
 import Races from './pages/Races';
 import RaceHistory from './pages/RaceHistory';
+import Videos from './pages/Videos';
 
 const routes = [
   {path: '/', beforeEnter: (to, from, next) => {
@@ -63,6 +64,7 @@ const routes = [
   {path: '/:team/races', component: Races},
   {path: '/:team/races/unofficial', component: Races},
   {path: '/:team/races/history', component: RaceHistory},
+  {path: '/:team/videos', component: Videos},
   {path: '/:team/login/:otp', component: Login},
   {path: '/:team/admin/settings', component: TeamSettings},
   {path: '/:team/admin/tags', component: AdminTags},

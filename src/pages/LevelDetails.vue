@@ -47,6 +47,7 @@
       <th style="width:10em">Cleared</th>
       <th style="width:10em">{{$store.state[$route.params.team].teamSettings.ModName}}</th>
       <th style="width:10px">Liked</th>
+      <th style="width:10px">Videos</th>
       <th style="width:10px">Difficulty Voted</th>
       <th style="width:5em">Submitted</th>
     </tr></thead>
@@ -106,7 +107,7 @@
 
         let filtered_levels=that.data.levels;
 
-    
+
         const datatable=$('#table').DataTable()
         datatable.clear();
         datatable.rows.add(filtered_levels);
@@ -127,7 +128,7 @@
         let that = this;
         loadEndpoint({
           that,
-          data:{ 
+          data:{
             code:that.$route.params.code
           },
           onLoad(_rawData){

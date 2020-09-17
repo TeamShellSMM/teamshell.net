@@ -80,6 +80,7 @@ let makeClearDatatable=($,dt,that,hidden=[],rowLabel='players')=>{
       {data:'completed'},
       {data:'is_shellder'},
       {data:'liked'},
+      {data:'videos'},
       {data:'difficulty_vote'},
       {data:'created_at'},
 
@@ -154,6 +155,20 @@ let makeClearDatatable=($,dt,that,hidden=[],rowLabel='players')=>{
         targets:8
       },
       {
+        "render": function ( data ) {
+          var videos="";
+          if(data){
+            var raw_vids=data.split(",")
+            for(let j=0;j<raw_vids.length;j++){
+              videos+="<a class='clear-vid-link' target='_blank' data-toggle='tooltip' title='Video clear' href='"+raw_vids[j].replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")+"'><i class='fas fa-video' aria-hidden='true'></i></a> "
+            }
+          }
+
+          return videos;
+        },
+        targets:9
+      },
+      {
         "render": function ( data, type ) {
           if ( type !="display" ) {
               return data
@@ -161,7 +176,7 @@ let makeClearDatatable=($,dt,that,hidden=[],rowLabel='players')=>{
               return data?parseFloat(data).toFixed(1):""
           }
         },
-        targets:9
+        targets:10
       },
       {
         "render": function ( data, type ) {
@@ -172,7 +187,7 @@ let makeClearDatatable=($,dt,that,hidden=[],rowLabel='players')=>{
               return day.fromNow()
           }
         },
-        targets:10
+        targets:11
       }
     ]
   });
