@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 import App from './App.vue'
 import VuexPersistence from 'vuex-persist'
 import VuejsDialog from 'vuejs-dialog';
+import VueYouTubeEmbed from 'vue-youtube-embed'
 
 // include the default style
 import 'vuejs-dialog/dist/vuejs-dialog.min.css';
@@ -11,6 +12,7 @@ import 'vuejs-dialog/dist/vuejs-dialog.min.css';
 Vue.use(Vuex);
 Vue.use(VueRouter);
 Vue.use(VuejsDialog);
+Vue.use(VueYouTubeEmbed)
 
 import RaceEditComponent from './components/RaceEditComponent';
 

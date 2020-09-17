@@ -4,9 +4,7 @@
       <div class="container">
         <h3 id="table_title" class="maker-detail-title mt-0">Recent Videos</h3>
         <div class="row">
-          <div class="container">
-            <video-card-component v-for="video in data" :key="video.id" :video="video"></video-card-component>
-          </div>
+          <video-card-component v-for="video in data" :key="video.id" :video="video"></video-card-component>
         </div>
       </div>
     </div>

@@ -775,8 +775,17 @@ box-shadow: 0 0 0 3px #21c0ae;
     border-width: 3px;
 }
 
-.video-card .twitter-tweet {
+.twitter-card .twitter-tweet {
     margin: 0px !important;
+}
+
+.youtube-card iframe {
+    width: 100%;
+    height:100%;
+}
+
+.youtube-card > div {
+    height:100%;
 }
 
 .video-card-loader {
