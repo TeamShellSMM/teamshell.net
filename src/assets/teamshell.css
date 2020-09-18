@@ -767,31 +767,101 @@ box-shadow: 0 0 0 3px #21c0ae;
 }
 
 .video-card {
-    text-align: center;
-    padding: 5px;
+    text-align: left;
     height: 100%;
     border-radius: 10px;
     box-shadow: 3px 3px #5A5A5A;
     border-width: 3px;
+    min-height: 480px;
+}
+
+.video-card .video-card-header {
+    min-height: 50px;
+    border-bottom: 1px solid;
+    border-radius: 5px;
+    border-width: 3px;
+    box-shadow: 3px 3px #5A5A5A;
+    padding-left:10px;
+    padding-right:10px;
+    font-size:18px;
+    padding-bottom:12px;
+}
+
+.video-card .video-card-header:after {
+    content:".";
+    line-height:2px;
+    display:block;
+    clear:both;
+    visibility:hidden;
+}
+
+.video-card .video-card-body {
+    height:100%;
+    padding: 5px;
+}
+
+.twitter-card .video-card-body > div {
+    height:100%;
 }
 
 .twitter-card .twitter-tweet {
     margin: 0px !important;
+    min-height:400px;
+    max-width: 100% !important;
+    height: 100%;
+}
+
+.twitter-card .twitter-tweet iframe {
+    max-width:550px;
+    margin:auto;
 }
 
 .youtube-card iframe {
-    width: 100%;
-    height:100%;
+    width: 95% !important;
+    min-height:400px;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    position: absolute;
 }
 
-.youtube-card > div {
+.youtube-card .video-card-body > div {
     height:100%;
+    position:relative;
+}
+
+.twitch-videos-card > iframe {
+    width:100%;
+    min-height:400px;
+}
+
+.twitch-clips-card > iframe {
+    width:100%;
+    min-height:400px;
+}
+
+.streamable-card > iframe {
+    width:100%;
+    min-height:400px;
+}
+
+.facebook-card > iframe {
+    width: 100%;
 }
 
 .video-card-loader {
     width:30%;
-    margin-top:20px;
-    margin-bottom:20px;
+    position:absolute;
+    transform: translate(-50%, -50%);
+    top:50%;
+    left:50%;
+}
+
+.video-page-label {
+    line-height: 100%;
+    vertical-align: middle;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .mt-back-link {

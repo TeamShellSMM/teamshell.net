@@ -3,8 +3,13 @@
     <div class="row">
       <div class="container">
         <h3 id="table_title" class="maker-detail-title mt-0">Recent Videos</h3>
+        <div>
+          <button class="btn" style="color:white;" :class="$route.params.team + '-primary-bg'" v-on:click="prevPage">&lt;</button>
+          <span class="font-weight-bold video-page-label">Page {{page}}</span>
+          <button class="btn" style="color:white;" :class="$route.params.team + '-primary-bg'" v-on:click="nextPage">&gt;</button>
+        </div>
         <div class="row">
-          <video-card-component v-for="video in data" :key="video.id" :video="video"></video-card-component>
+          <video-card-component v-for="video in videos" :key="video.id" :video="video" :tag_labels="tag_labels"></video-card-component>
         </div>
       </div>
     </div>
@@ -23,7 +28,9 @@
     },
     data() {
       return {
-        "data": null,
+        "videos": null,
+        "tag_labels": [],
+        "page": 1
       };
     },
     mounted(){
@@ -42,15 +49,28 @@
           that,
           route: "json/videos",
           data: {
-            page: 0,
+            page: that.page - 1,
             size: 10
           },
           reloadOnError: false,
           onLoad(data){
             $('.loader').hide();
-            that.data = data;
+            that.videos = data.videos;
+            that.tag_labels = data.tag_labels;
           },
         })
+      },
+      prevPage(){
+        if(this.page > 1){
+          this.page --;
+          this.getData();
+        }
+      },
+      nextPage(){
+        if(this.videos.length == 10){
+          this.page++;
+          this.getData();
+        }
       }
     }
   }
