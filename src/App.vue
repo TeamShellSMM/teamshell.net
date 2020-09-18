@@ -50,6 +50,9 @@
               <router-link :to="'/' + $route.params.team + '/members'">Members</router-link>
             </li>
             <li>
+              <router-link :to="'/' + $route.params.team + '/videos'">Videos</router-link>
+            </li>
+            <li>
           <div class="form-check">
 
             <input class="form-check-input" type="checkbox" id="darkmode" v-model="theme" true-value="dark" false-value="light">

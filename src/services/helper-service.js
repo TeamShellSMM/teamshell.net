@@ -80,6 +80,7 @@ let makeClearDatatable=($,dt,that,hidden=[],rowLabel='players')=>{
       {data:'completed'},
       {data:'is_shellder'},
       {data:'liked'},
+      {data:'videos'},
       {data:'difficulty_vote'},
       {data:'created_at'},
 
@@ -154,6 +155,20 @@ let makeClearDatatable=($,dt,that,hidden=[],rowLabel='players')=>{
         targets:8
       },
       {
+        "render": function ( data ) {
+          var videos="";
+          if(data){
+            var raw_vids=data.split(",")
+            for(let j=0;j<raw_vids.length;j++){
+              videos+="<a class='clear-vid-link' target='_blank' data-toggle='tooltip' title='Video clear' href='"+raw_vids[j].replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")+"'><i class='fas fa-video' aria-hidden='true'></i></a> "
+            }
+          }
+
+          return videos;
+        },
+        targets:9
+      },
+      {
         "render": function ( data, type ) {
           if ( type !="display" ) {
               return data
@@ -161,7 +176,7 @@ let makeClearDatatable=($,dt,that,hidden=[],rowLabel='players')=>{
               return data?parseFloat(data).toFixed(1):""
           }
         },
-        targets:9
+        targets:10
       },
       {
         "render": function ( data, type ) {
@@ -172,7 +187,7 @@ let makeClearDatatable=($,dt,that,hidden=[],rowLabel='players')=>{
               return day.fromNow()
           }
         },
-        targets:10
+        targets:11
       }
     ]
   });
@@ -505,9 +520,9 @@ let toggleTooltip= ($,that,old_title,new_title)=>{
   },2000)
 }
 
-let makeLevelName=({ row,that })=>{
+let makeLevelName=({ row, that, skipVideos = false, alwaysAddCreator = false, addLevelLink = false })=>{
   var videos="";
-  if(row.videos){
+  if(row.videos && !skipVideos){
     var raw_vids=row.videos.split(",")
     for(let j=0;j<raw_vids.length;j++){
       videos+="<a class='clear-vid-link' target='_blank' data-toggle='tooltip' title='Video clear' href='"+raw_vids[j].replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")+"'><i class='fas fa-video' aria-hidden='true'></i></a> "
@@ -547,7 +562,7 @@ let makeLevelName=({ row,that })=>{
 
   let makerLink = `<div class='creator-name-div diff-text-mobile'><a class='dt-maker-link' href='/${that.$route.params.team}/maker/${encodeURI(row.creator || row.creator_name)}' maker='${row.creator || row.creator_name}'>${(row.creator || row.creator_name).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")}</a>${medalsHtmlCreator}</div>`;
 
-  return makerLink + "<div class='font-weight-bold level-name-div'>"+medalsHtml+row.level_name.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;") +"<br/>"+ votesHtml+" "+videos + " " + tags + "</div>";
+  return (alwaysAddCreator ? '' : makerLink) + "<div class='font-weight-bold level-name-div'>"+medalsHtml + (addLevelLink ? `<a class="dt-level-link" href="/${that.$route.params.team}/level/${row.code}" code="${row.code}">` : '') + row.level_name.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;") + (addLevelLink ? '</a>': '') + (alwaysAddCreator ? ' by ' +  `<a class='dt-maker-link' href='/${that.$route.params.team}/maker/${encodeURI(row.creator || row.creator_name)}' maker='${row.creator || row.creator_name}'>${(row.creator || row.creator_name).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")}</a>`: '') +"<br/>"+ votesHtml+" "+videos + " " + tags + "</div>";
 }
 
 let makeLevelsDatatable=({ $, id, that, hidden=[], compMode = false, args})=>{
@@ -751,5 +766,5 @@ let getMakerPoints = function(likes, clears, difficultyPoints){
 }
 
 export {
-  loadEndpoint, submitClear, makeRowItems, makeLevelsDatatable,  makeClearDatatable, makeMedalsCreator, makeMedalsLevels, get_input, save_input, store_input, setGetParam, toggleTooltip, makeCodeButtons, l, removeDups, getMakerPoints, clear, random, putFeedback
+  loadEndpoint, submitClear, makeRowItems, makeLevelsDatatable,  makeClearDatatable, makeMedalsCreator, makeMedalsLevels, get_input, save_input, store_input, setGetParam, toggleTooltip, makeCodeButtons, l, removeDups, getMakerPoints, clear, random, putFeedback, makeLevelName
 }
