@@ -4,7 +4,7 @@
       <div class="video-card-header font-weight-bold" :class="$route.params.team + '-secondary-bc'">
         <div style="float:left;width:65%" v-if="video.level" v-html="levelNameHtml">
         </div>
-        <div style="float:right;text-align:right;width:35%;" v-if="video.play">
+        <div style="float:right;text-align:right;width:35%;" v-if="video.play && video.play.completed">
           Cleared by <router-link :to="'/'+$route.params.team+'/maker/'+video.play.player">{{video.play.player}}</router-link>
           <br>
           <span style="font-weight: 500;">{{timeAgo}}</span>
