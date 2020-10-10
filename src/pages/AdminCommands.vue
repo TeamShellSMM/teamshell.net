@@ -16,7 +16,7 @@
       v-for="d in data.commandPermissions"
       :key="d.id">
       <td>
-        <select class="form-control" v-model="d.command_id">
+        <select class="form-control" v-model="d.command_id" :disabled="true">
           <option v-for="c in data.commands" :key="c.id" :value="c.id">{{c.name}}</option>
         </select>
       </td>
@@ -25,7 +25,6 @@
       <td><input class="form-control" type="text" v-model="d.text_channels"/></td>
       <td><input class="form-control" type="text" v-model="d.channel_categories"/></td>
     </tr>
-    <tr><td colspan="7"><button type="button" class="btn btn-success btn-lg btn-block" @click="addRow">Add Command Permission</button></td></tr>
     </table>
     <button type="submit" class="btn btn-primary btn-lg btn-block">Save Settings</button>
 </form>

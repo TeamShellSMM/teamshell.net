@@ -11,8 +11,14 @@
       };
     },
     mounted(){
-      localStorage.clear();
-      this.$router.push("/");
+      let that = this;
+
+      that.$dialog.alert("", {
+        view: "clear-all-view"
+      }).then(function() {
+        that.$router.push("/");
+      });
+
     }
   }
 </script>

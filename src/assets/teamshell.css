@@ -1255,3 +1255,11 @@ box-shadow: 0 0 0 3px #21c0ae;
         margin-right:2.5px;
     }
 }
+
+.btn:hover {
+    opacity:0.9;
+}
+
+.btn:active {
+    opacity:0.8;
+}

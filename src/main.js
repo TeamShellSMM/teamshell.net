@@ -5,6 +5,7 @@ import App from './App.vue'
 import VuexPersistence from 'vuex-persist'
 import VuejsDialog from 'vuejs-dialog';
 import VueYouTubeEmbed from 'vue-youtube-embed'
+import ClearAllView from './components/ClearAllView.vue';
 
 // include the default style
 import 'vuejs-dialog/dist/vuejs-dialog.min.css';
@@ -13,6 +14,8 @@ Vue.use(Vuex);
 Vue.use(VueRouter);
 Vue.use(VuejsDialog);
 Vue.use(VueYouTubeEmbed)
+
+Vue.dialog.registerComponent("clear-all-view", ClearAllView);
 
 import RaceEditComponent from './components/RaceEditComponent';
 

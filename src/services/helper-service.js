@@ -15,10 +15,16 @@ let loadEndpoint = function({type='post',route='json',that,onLoad,data={},reload
     },
     success(_data){
       if(_data.status==="error"){
+        console.log("error", _data);
         if(_data.message==="Authentication error" || _data.message==="Token expired. Need to relogin" ){
           that.$store.commit(that.$route.params.team + '/setToken', {  });
           that.$store.commit(that.$route.params.team + '/setUserInfo', { });
           localStorage.setItem('member','');
+        }
+        if(_data.message === 'Error: "' + that.$route.params.team + '" not found'){
+          $('.loader').hide();
+          that.$router.push("/");
+          return;
         }
         if(that){
           that.$dialog.alert(_data.message).then(function() {
@@ -69,6 +75,7 @@ let makeClearDatatable=($,dt,that,hidden=[],rowLabel='players')=>{
     },
     paging:false,
     responsive:true,
+    order: [[0, "desc"]],
     dom : "ti",
     columns:[
       {data:'no'},
@@ -594,6 +601,7 @@ let makeLevelsDatatable=({ $, id, that, hidden=[], compMode = false, args})=>{
     ],
     paging:!compMode,
     ordering:!compMode,
+    order: [[0, "desc"]],
     pagingType: "simple",
     "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
     pageLength:that.pageLength,
