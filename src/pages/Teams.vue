@@ -136,6 +136,21 @@
             </div>
           </div>
         </div>
+        <div class="col-md-4 col-sm-6 p-1">
+          <div class="card team-card teamspeedrun-primary-bc">
+            <img src="/assets/teams/teamspeedrun/logo.png" class="card-img-top card-img-team-logo card-img-rounded-logo" alt="logo">
+            <div class="card-body">
+              <h2 class="card-title"><router-link to="/teamspeedrun"><span class="teamspeedrun-primary-fg">Team</span><span class="teamspeedrun-secondary-fg"> Power Up</span></router-link></h2>
+              <p class="card-text">
+                Team Speedrun is a group focused on making action packed levels with little time left to spare.
+              </p>
+              <p class="card-text">
+                From traditional-styled levels, to insane on/off shenanigans, as long as the timer is tight, this team has what you need!
+              </p>
+              <router-link to="/teamspeedrun" class="btn teamspeedrun-primary-bg team-card-nav-button" style="color:white;">Go check it out!</router-link>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="row mt-3">
@@ -187,21 +202,6 @@
                   All types of levels are accepted as long as they use twisters and have no checkpoints. If you want to get blown away, this is the place to be!
               </p>
               <a href="https://discord.gg/TKqa8sH" target="_blank" class="btn teamtwister-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3 col-sm-6 p-1">
-          <div class="card team-card team-card-small">
-            <img src="/assets/teams/teamspeedrun/logo.jpg" class="card-img-top card-img-team-logo card-img-rounded-logo" alt="logo">
-            <div class="card-body">
-              <h4 class="card-title"><a href="https://discord.gg/qXhzxnk"><span class="teamspeedrun-primary-fg">Team</span><span class="teamspeedrun-secondary-fg"> Speedrun</span></a></h4>
-              <p class="card-text">
-                Team Speedrun is a group focused on making action packed levels with little time left to spare.
-              </p>
-              <p class="card-text">
-                From traditional-styled levels, to insane on/off shenanigans, as long as the timer is tight, this team has what you need!
-              </p>
-              <a href="https://discord.gg/qXhzxnk" target="_blank" class="btn teamspeedrun-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
             </div>
           </div>
         </div>
