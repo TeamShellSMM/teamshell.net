@@ -140,7 +140,7 @@
           <div class="card team-card teamspeedrun-primary-bc">
             <img src="/assets/teams/teamspeedrun/logo.png" class="card-img-top card-img-team-logo card-img-rounded-logo" alt="logo">
             <div class="card-body">
-              <h2 class="card-title"><router-link to="/teamspeedrun"><span class="teamspeedrun-primary-fg">Team</span><span class="teamspeedrun-secondary-fg"> Power Up</span></router-link></h2>
+              <h2 class="card-title"><router-link to="/teamspeedrun"><span class="teamspeedrun-primary-fg">Team</span><span class="teamspeedrun-secondary-fg"> Speedrun</span></router-link></h2>
               <p class="card-text">
                 Team Speedrun is a group focused on making action packed levels with little time left to spare.
               </p>
