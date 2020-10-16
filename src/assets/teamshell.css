@@ -235,6 +235,15 @@ img {width: 36px}
 .teamjuggle-secondary-bc {border-color:rgb(80, 233, 80) !important;}
 .teamjuggle-secondary-blc {border-left-color:rgb(80, 233, 80) !important;}
 
+.teammusic-primary-fg {color:#1a4aa6 !important;}
+.teammusic-primary-bg {background-color:#1a4aa6 !important;}
+.teammusic-primary-bc {border-color:#1a4aa6 !important;}
+.teammusic-primary-blc {border-left-color:#1a4aa6 !important;}
+.teammusic-secondary-fg {color:#f9c31b !important;}
+.teammusic-secondary-bg {background-color:#f9c31b !important;}
+.teammusic-secondary-bc {border-color:#f9c31b !important;}
+.teammusic-secondary-blc {border-left-color:#f9c31b !important;}
+
 .logo-shadow { text-shadow: 2px 2px #888888;}
 
 /* Dark Mode */
@@ -595,6 +604,11 @@ box-shadow: 0 0 0 3px #21c0ae;
 
 .teampowerup-logo {
     border-radius: 20px;
+    margin-right:10px;
+}
+
+.teammusic-logo {
+    border-radius: 5px;
     margin-right:10px;
 }
 
