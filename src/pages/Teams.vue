@@ -340,6 +340,36 @@
             </div>
           </div>
         </div>
+        <div class="col-md-3 col-sm-6 p-1">
+          <div class="card team-card team-card-small">
+            <img src="/assets/teams/teampballoon/logo.png" class="card-img-top card-img-team-logo" alt="logo">
+            <div class="card-body">
+              <h4 class="card-title"><a href="https://discord.gg/QNy5rPv"><span class="teampballoon-primary-fg">Team</span><span class="teampballoon-secondary-fg"> Power Balloon</span></a></h4>
+              <p class="card-text">
+                Team P Balloon is all about having fun with best power up in Mario Maker.
+              </p>
+              <p class="card-text">
+                If you are looking for exciting, creative and challenging courses that use the P Balloon then this team is for you!
+              </p>
+              <a href="https://discord.gg/QNy5rPv" target="_blank" class="btn teampballoon-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6 p-1">
+          <div class="card team-card team-card-small">
+            <img src="/assets/teams/teamspring/logo.png" class="card-img-top card-img-team-logo card-img-rounded-logo" alt="logo">
+            <div class="card-body">
+              <h4 class="card-title"><a href="https://discord.gg/bpQtmfa"><span class="teamspring-primary-fg">Team</span><span class="teamspring-secondary-fg"> Spring</span></a></h4>
+              <p class="card-text">
+                Team Spring is a new team based around springs!
+              </p>
+              <p class="card-text">
+                Midair spring jumps aren’t required and any types of levels can be found there as long as they center around springs!
+              </p>
+              <a href="https://discord.gg/bpQtmfa" target="_blank" class="btn teamspring-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

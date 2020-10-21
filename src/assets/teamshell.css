@@ -244,6 +244,24 @@ img {width: 36px}
 .teammusic-secondary-bc {border-color:#f9c31b !important;}
 .teammusic-secondary-blc {border-left-color:#f9c31b !important;}
 
+.teampballoon-primary-fg {color:#D0D000 !important;}
+.teampballoon-primary-bg {background-color:#D0D000 !important;}
+.teampballoon-primary-bc {border-color:#D0D000 !important;}
+.teampballoon-primary-blc {border-left-color:#D0D000 !important;}
+.teampballoon-secondary-fg {color:#f88800 !important;}
+.teampballoon-secondary-bg {background-color:#f88800 !important;}
+.teampballoon-secondary-bc {border-color:#f88800 !important;}
+.teampballoon-secondary-blc {border-left-color:#f88800 !important;}
+
+.teamspring-primary-fg {color:#4AC02E !important;}
+.teamspring-primary-bg {background-color:#4AC02E !important;}
+.teamspring-primary-bc {border-color:#4AC02E !important;}
+.teamspring-primary-blc {border-left-color:#4AC02E !important;}
+.teamspring-secondary-fg {color:#E79D3E !important;}
+.teamspring-secondary-bg {background-color:#E79D3E !important;}
+.teamspring-secondary-bc {border-color:#E79D3E !important;}
+.teamspring-secondary-blc {border-left-color:#E79D3E !important;}
+
 .logo-shadow { text-shadow: 2px 2px #888888;}
 
 /* Dark Mode */
