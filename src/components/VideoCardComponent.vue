@@ -21,14 +21,16 @@
           height="100%"
           width="100%"
           scrolling="no"
-          allowfullscreen="false">
+          allowfullscreen="false"
+          parent="makerteams.net">
         </iframe>
         <iframe v-if="video.type == 'twitch-videos'" @load="ready = true"
           :src="twitchVideoUrl"
           height="100%"
           width="100%"
           scrolling="no"
-          allowfullscreen="false">
+          allowfullscreen="false"
+          parent="makerteams.net">
         </iframe>
         <iframe v-if="video.type == 'streamable'" @load="ready = true" :src="streamableUrl" frameborder="0" width="100%" height="100%" style="width: 100%; height: 100%;">
 
