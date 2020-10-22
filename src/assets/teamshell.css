@@ -203,10 +203,10 @@ img {width: 36px}
 .teamspeedrun-primary-bg {background-color:orange !important;}
 .teamspeedrun-primary-bc {border-color:orange !important;}
 .teamspeedrun-primary-blc {border-left-color:orange !important;}
-.teamspeedrun-secondary-fg {color:black !important;}
-.teamspeedrun-secondary-bg {background-color:black !important;}
-.teamspeedrun-secondary-bc {border-color:black !important;}
-.teamspeedrun-secondary-blc {border-left-color:black !important;}
+.teamspeedrun-secondary-fg {color:#4d4d4d !important;}
+.teamspeedrun-secondary-bg {background-color:#4d4d4d !important;}
+.teamspeedrun-secondary-bc {border-color:#4d4d4d !important;}
+.teamspeedrun-secondary-blc {border-left-color:#4d4d4d !important;}
 
 .teamego-primary-fg {color:#0070C0 !important;}
 .teamego-primary-bg {background-color:#0070C0 !important;}
