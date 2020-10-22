@@ -61,13 +61,18 @@
       return {
         'levelNameHtml': "",
         'timeAgo': "",
-        'ready': false
+        'ready': false,
+        "host": ""
       };
     },
     mounted(){
       this.levelNameHtml = makeLevelName({row: this.video.level, "that": this, skipVideos: true, alwaysAddCreator: true, addLevelLink: true});
       if(this.video.play){
         this.timeAgo = moment(this.video.play.created_at).fromNow();
+      }
+      this.host = document.location.host;
+      if(this.host.indexOf(":") !== -1){
+        this.host = this.host.substring(0, this.host.indexOf(":"));
       }
     },
     computed: {
@@ -92,7 +97,7 @@
       twitchClipUrl(){
         if(this.video.type == 'twitch-clips'){
           let twitch_slug = this.video.url.substring(this.video.url.lastIndexOf("/") + 1, (this.video.url.lastIndexOf("?") !== -1 ? this.video.url.lastIndexOf("?") : this.video.url.length));
-          let url = 'https://clips.twitch.tv/embed?clip=' + twitch_slug + '&autoplay=false&mute=false&parent=' + document.location.host.substring(0, document.location.host.indexOf(":"));
+          let url = 'https://clips.twitch.tv/embed?clip=' + twitch_slug + '&autoplay=false&mute=false&parent=' + this.host;
           return url;
         }
         return null;
@@ -100,7 +105,7 @@
       twitchVideoUrl(){
         if(this.video.type == 'twitch-videos'){
           let twitch_slug = this.video.url.substring(this.video.url.lastIndexOf("/") + 1, (this.video.url.lastIndexOf("?") !== -1 ? this.video.url.lastIndexOf("?") : this.video.url.length));
-          let url = 'https://player.twitch.tv/?video=v' + twitch_slug + '&autoplay=false&mute=false&parent=' + document.location.host.substring(0, document.location.host.indexOf(":"));
+          let url = 'https://player.twitch.tv/?video=v' + twitch_slug + '&autoplay=false&mute=false&parent=' + this.host;
           return url;
         }
         return null;
