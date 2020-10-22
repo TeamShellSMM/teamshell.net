@@ -370,6 +370,21 @@
             </div>
           </div>
         </div>
+        <div class="col-md-3 col-sm-6 p-1">
+          <div class="card team-card team-card-small">
+            <img src="/assets/teams/teamyoshi/logo.png" class="card-img-top card-img-team-logo card-img-rounded-logo" alt="logo">
+            <div class="card-body">
+              <h4 class="card-title"><a href="https://discord.gg/b3qsRtT"><span class="teamyoshi-primary-fg">Team</span><span class="teamyoshi-secondary-fg"> Yoshi</span></a></h4>
+              <p class="card-text">
+                Team Yoshi is the best place to find everything revolving around our favorite dinosaur companion, no matter if it's kaizo, puzzle or platforming levels.
+              </p>
+              <p class="card-text">
+                No matter if you want to save or kill all yoshis, this team is for you.
+              </p>
+              <a href="https://discord.gg/b3qsRtT" target="_blank" class="btn teamyoshi-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
