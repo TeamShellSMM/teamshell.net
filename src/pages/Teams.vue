@@ -151,6 +151,21 @@
             </div>
           </div>
         </div>
+        <div class="col-md-4 col-sm-6 p-1">
+          <div class="card team-card teammusic-primary-bc">
+            <img src="/assets/teams/teammusic/logo.png" class="card-img-top card-img-team-logo" alt="logo">
+            <div class="card-body">
+              <h2 class="card-title"><router-link to="/teammusic"><span class="teammusic-primary-fg">Team</span><span class="teammusic-secondary-fg"> Music</span></router-link></h2>
+              <p class="card-text">
+                Team Music is an all-inclusive community interested in uniting the music level makers of the world. It doesn't matter if you make automatic levels or hard platforming levels. If you love making music in Mario Maker, this is the team for you!
+              </p>
+              <p class="card-text">
+                Join the community, upload your levels, and let's share all the tips and setups needed to make the most banger tunes in all of Mario Maker!
+              </p>
+              <router-link to="/teammusic" class="btn teammusic-primary-bg team-card-nav-button" style="color:white;">Go check it out!</router-link>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="row mt-3">
@@ -382,6 +397,21 @@
                 No matter if you want to save or kill all yoshis, this team is for you.
               </p>
               <a href="https://discord.gg/b3qsRtT" target="_blank" class="btn teamyoshi-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6 p-1">
+          <div class="card team-card team-card-small">
+            <img src="/assets/teams/teamteam/logo.png" class="card-img-top card-img-team-logo card-img-rounded-logo" alt="logo">
+            <div class="card-body">
+              <h4 class="card-title"><a href="https://discord.gg/afKFcGC"><span class="teamteam-primary-fg">Team</span><span class="teamteam-secondary-fg"> Team</span></a></h4>
+              <p class="card-text">
+                Team Team's goal is to have a team where everyone feels that they have a variety of levels for them. It doesn't matter if you like Precision, Kaizo, Powerups, or anything else, they'll be sure to have it.
+              </p>
+              <p class="card-text">
+                If you want to try out every single type of level that mario offers, this is the place to be.
+              </p>
+              <a href="https://discord.gg/afKFcGC" target="_blank" class="btn teamteam-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
             </div>
           </div>
         </div>

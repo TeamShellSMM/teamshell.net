@@ -271,6 +271,15 @@ img {width: 36px}
 .teamyoshi-secondary-bc {border-color:#B21F0D !important;}
 .teamyoshi-secondary-blc {border-left-color:#B21F0D !important;}
 
+.teamteam-primary-fg {color:#7D1CED !important;}
+.teamteam-primary-bg {background-color:#7D1CED !important;}
+.teamteam-primary-bc {border-color:#7D1CED !important;}
+.teamteam-primary-blc {border-left-color:#7D1CED !important;}
+.teamteam-secondary-fg {color:#FE1449 !important;}
+.teamteam-secondary-bg {background-color:#FE1449 !important;}
+.teamteam-secondary-bc {border-color:#FE1449 !important;}
+.teamteam-secondary-blc {border-left-color:#FE1449 !important;}
+
 .logo-shadow { text-shadow: 2px 2px #888888;}
 
 /* Dark Mode */
