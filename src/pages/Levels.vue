@@ -131,7 +131,7 @@
         that.pageLength = parseInt(that.pageLength,10);
       }
 
-      makeLevelsDatatable({$,id:'#table',that })
+      makeLevelsDatatable({$,id:'#table',that, hidden: this.$route.params.team === "curatedtrolls" ? [4, 11, 15] : [] })
       this.getData();
     },
     computed: {

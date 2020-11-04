@@ -166,6 +166,21 @@
             </div>
           </div>
         </div>
+        <div class="col-md-4 col-sm-6 p-1">
+          <div class="card team-card curatedtrolls-primary-bc">
+            <img src="/assets/teams/curatedtrolls/logo.png" class="card-img-top card-img-team-logo" alt="logo">
+            <div class="card-body">
+              <h2 class="card-title"><router-link to="/curatedtrolls"><span class="curatedtrolls-primary-fg">Curated</span><span class="curatedtrolls-secondary-fg"> Trolls</span></router-link></h2>
+              <p class="card-text">
+                Curated Trolls is a collection of levels full of humorous deception, misdirection, and tricky traps.
+              </p>
+              <p class="card-text">
+                Troll levels aim to be fun for the player, allowing them to make steady progress while also having a good laugh along the way. The levels that make the list are those widely agreed upon by the community to be broadly enjoyable by a majority of players.
+              </p>
+              <router-link to="/curatedtrolls" class="btn curatedtrolls-primary-bg team-card-nav-button" style="color:white;">Go check it out!</router-link>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="row mt-3">

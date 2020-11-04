@@ -108,14 +108,22 @@
               <router-link :to="'/howtojoin'">How to join</router-link>
             </li>
           </ul>
+          <ul id="right-nav" class="makerteams-nav" style="float:right;">
+            <li>
+              <a href="https://discord.gg/AMfc5neaw2" target="_blank" class="mt-discord-link" title="Join the discord"><i class="fab fa-discord"></i></a>
+            </li>
+            <li>
+              <a href="https://twitter.com/MakerTeamsSMM" target="_blank" class="mt-twitter-link" title="Follow us on twitter"><i class="fab fa-twitter"></i></a>
+            </li>
+            <li>
+              <a href="https://www.patreon.com/MakerTeams" target="_blank" class="mt-patreon-link" title="Help us out on patreon"><i class="fab fa-patreon"></i></a>
+            </li>
+          </ul>
         </div>
       </div>
       <router-view :key="$route.fullPath"></router-view>
       <div class="row" style="height:100px;">
 
-      </div>
-      <div class="makerteams-footer makerteams-secondary-bg">
-        <h4>If you want your very own team bot and page, you can reach us on discord (<span class="teamshell-secondary-fg">Liaf#0443</span> or <span class="teamshell-secondary-fg">a_unique_id#6616</span>).</h4>
       </div>
     </template>
   </div>

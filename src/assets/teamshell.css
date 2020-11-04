@@ -390,6 +390,32 @@ ul#nav li a.router-link-active:hover {
     font-weight: normal;
 }
 
+ul#right-nav {
+    padding: 0;
+    margin: 0 0 5px;
+}
+
+ul#right-nav li {
+    font-family: 'Bangers', 'sans-serif';
+    display: inline-block;
+    font-size: 24px;
+    margin: 0 15px 0 0;
+}
+
+ul#right-nav a {
+    font-weight: normal;
+}
+
+ul#right-nav li a.router-link-active {
+    text-decoration: underline;
+    font-weight: normal;
+}
+
+ul#right-nav li a.router-link-active:hover {
+    color: #007bff;
+    font-weight: normal;
+}
+
 .container {
     max-width: 1440px;
 }
@@ -411,6 +437,45 @@ ul#nav li a.router-link-active:hover {
 }
 .level-medals:last-of-type {
     margin-right:5px;
+}
+
+.mt-discord-link {
+    color: #7289DA;
+    opacity: 1;
+}
+.mt-discord-link:hover {
+    color: #7289DA;
+    opacity: 0.8;
+}
+.mt-discord-link:active {
+    color: #7289DA;
+    opacity: 0.6;
+}
+
+.mt-patreon-link {
+    color: #f96854;
+    opacity: 1;
+}
+.mt-patreon-link:hover {
+    color: #f96854;
+    opacity: 0.8;
+}
+.mt-patreon-link:active {
+    color: #f96854;
+    opacity: 0.6;
+}
+
+.mt-twitter-link {
+    color: #1da1f2;
+    opacity: 1;
+}
+.mt-twitter-link:hover {
+    color: #1da1f2;
+    opacity: 0.8;
+}
+.mt-twitter-link:active {
+    color: #1da1f2;
+    opacity: 0.6;
 }
 
 .medal {

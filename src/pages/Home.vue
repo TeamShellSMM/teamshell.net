@@ -1,7 +1,8 @@
 <template>
   <div class="">
-    <div class="row" v-if="!loggedIn && $store.state[$route.params.team].teamSettings.hideJoinTeamInstructions !== 'true'">
-      <h2 class="howto-header">How to become a part of the team</h2>
+    <div class="row" v-if="!loggedIn">
+      <h2 class="howto-header" v-if="$store.state[$route.params.team].teamSettings.hideJoinTeamInstructions !== 'true'">How to become a part of the team</h2>
+      <h2 class="howto-header" v-if="$store.state[$route.params.team].teamSettings.hideJoinTeamInstructions === 'true'">Follow these steps to get started:</h2>
       <div class="howto-content">
         <div class="howto-bg-element">
 
@@ -17,7 +18,7 @@
               Join the discord (the link is up top) and use
             </p>
             <p class="text-bold">
-              !register YourName
+              !register
             </p>
             <p>
               in the #{{$store.state[$route.params.team].teamSettings.RegistrationChannel || 'bot-command'}} text-channel to register with your desired name!
@@ -52,7 +53,7 @@
             <p>
               Play some levels from the list on this site and submit your clears by clicking the clear or like button on the right side of each level.
             </p>
-            <p>
+            <p v-if="$store.state[$route.params.team].teamSettings.hideJoinTeamInstructions !== 'true'">
               For beginners we'd recommend playing stuff with a lower difficulty.
             </p>
           </div>
@@ -66,16 +67,16 @@
           <div class="howto-text-container">
             <h4>Step #4</h4>
             <p>{{$store.state[$route.params.team].teamSettings.AddLevelRequirements}}</p>
-            <p class="text-bold">
+            <p v-if="$store.state[$route.params.team].teamSettings.hideJoinTeamInstructions !== 'true'" class="text-bold">
               !add XXX-XXX-XXX LevelName
             </p>
-            <p>
+            <p v-if="$store.state[$route.params.team].teamSettings.hideJoinTeamInstructions !== 'true'">
               As soon as it's approved by the {{$store.state[$route.params.team].teamSettings.ModName}} you're done and you'll get your official initiation into the team!
             </p>
           </div>
         </div>
       </div>
-      <p class="howto-footer">If you need any help you can always ask in one of the text channels or you can just message a {{$store.state[$route.params.team].teamSettings.ModName}}. {{$store.state[$route.params.team].teamSettings.HaveFun}}</p>
+      <p class="howto-footer">If you need any help you can always ask in one of the text channels or you can just message a {{$store.state[$route.params.team].teamSettings.ModName === "Curator" ? "Moderator" : $store.state[$route.params.team].teamSettings.ModName}}. {{$store.state[$route.params.team].teamSettings.HaveFun}}</p>
     </div>
     <div class="row">
       <div class="col-md-6">
