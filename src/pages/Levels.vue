@@ -17,14 +17,13 @@
           </select>
         </div>
 
-
           <div class="col-md-3" @change="clientReload()">
           <label for="pendingLevel">Levels</label>
           <select name="approved" id="pendingLevel" class="form-control">
             <option value="approved" selected>Approved</option>
-            <option value="pending" >Pending</option>
-            <option value="infix" >In Fix Request</option>
-            <option value="all">All</option>
+            <option v-if='$route.params.team !== "curatedtrolls"' value="pending" >Pending</option>
+            <option v-if='$route.params.team !== "curatedtrolls"' value="infix" >In Fix Request</option>
+            <option v-if='$route.params.team !== "curatedtrolls"' value="all">All</option>
           </select>
           <small class="form-text text-muted">Approved levels are levels that have been played and approved by a moderator.</small>
         </div>
@@ -107,11 +106,17 @@
         this.tagOnce=this.$route.params.tags
       }
 
+      if(this.$route.params.team === "curatedtrolls"){
+        $( document ).ready(function() {
+          $('#pendingLevel').val('approved');
+        });
+        localStorage.setItem('approved','approved')
+      }
+
       store_input(this.$route.query, 'cleared','#clearedLevel')
       store_input(this.$route.query, 'approved','#pendingLevel')
       store_input(this.$route.query, 'minDifficulty','#minDifficulty')
       store_input(this.$route.query, 'maxDifficulty','#maxDifficulty')
-
 
       if(this.$route.params.status){
         console.log(this.$route.params.status)
@@ -188,7 +193,11 @@
             }
           }
 
-          const statusType=get_input('approved')
+          let statusType=get_input('approved')
+
+          if(this.$route.params.team === "curatedtrolls" && level.status !==this.$constants.LEVEL_STATUS.APPROVED){
+            return false;
+          }
 
           if(statusType==='infix' && level.status!==this.$constants.LEVEL_STATUS.NEED_FIX) return false;
           if(statusType==='approved' && level.status !==this.$constants.LEVEL_STATUS.APPROVED) return false;

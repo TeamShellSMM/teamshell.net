@@ -6,7 +6,7 @@
         <select name="membershipStatus" id="membershipStatus" class="form-control">
           <option value="1" selected>Members</option>
           <option value="2">Mods</option>
-          <option value="4">Unoffical</option>
+          <option value="4">Unofficial</option>
           <option value="5">All</option>
         </select>
         <small class="form-text text-muted">Filtered records with zero points will be hidden.</small>

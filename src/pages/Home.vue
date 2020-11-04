@@ -85,7 +85,7 @@
           <tr><td>Official Levels</td><td id="numApproved">Loading</td></tr>
           <tr><td>Pending Levels</td><td id="numPending">Loading</td></tr>
           <tr><td>Members</td><td id="numMembers">Loading</td></tr>
-          <tr><td>Unoffical Members</td><td id="numUnofficialMembers">Loading</td></tr>
+          <tr><td>Unofficial Members</td><td id="numUnofficialMembers">Loading</td></tr>
           <tr><td>Clears</td><td id="numClears">Loading</td></tr>
           <tr><td>Votes</td><td id="numVotes">Loading</td></tr>
           <tr><td>Likes</td><td id="numLikes">Loading</td></tr>
