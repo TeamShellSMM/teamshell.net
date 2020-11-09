@@ -36,7 +36,7 @@
 <div v-if="collaborators && collaborators.length > 0" class="collaborators-container">
   <h3 :class="$route.params.team + '-secondary-fg level-detail-title'">🤝Collaborators</h3>
   <div class="row">
-    <div v-for="collaborator in collaborators" class="col-sm-2 collaborator-container" :key="collaborator.id">
+    <div v-for="collaborator in collaborators" class="col-6 col-sm-4 col-md-3 col-xl-2 collaborator-container" :key="collaborator.id">
       <div class="collaborator-flex" :style="{ 'border-color': collaborator.hexColor }">
         <img v-bind:src="collaborator.avatarURL ? collaborator.avatarURL : '/assets/defaults/discord-default-avatar.png'" class="maker-avatar collab-avatar" />
         <div>

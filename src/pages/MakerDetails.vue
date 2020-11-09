@@ -27,6 +27,32 @@
       </tr></thead>
     </table>
 
+    <template v-show="data && data.collabs && data.collabs.length > 0">
+      <h3 id="table_title" class="maker-detail-title">Collabs</h3>
+
+      <table id="table2" class="compact row-border stripe hover" style="width:100%">
+        <thead><tr>
+          <th class="all" style="width:10px;">No.</th>
+          <th class="all" style="width:10em;"><span class="diff-text-default">Level Code</span><span class="diff-text-mobile">Code</span></th>
+          <th style="width:10em">Creator</th>
+          <th class="all">Level Name</th>
+          <th class="all" style="width:10px"><span class="diff-text-default">Difficulty</span><span class="diff-text-mobile">Diff</span></th>
+          <th>Approved</th>
+          <th style="width:10px">New Code</th>
+          <th style="width:10px">Video</th>
+          <th style="width:5em">Registered On</th>
+          <th style="width:5em">Tags</th>
+          <th style="width:10px">Clears</th>
+          <th style="width:10px">Diff Vote</th>
+          <th style="width:10px">Likes</th>
+          <th style="width:10px" title="Like-Clear-Diff Score (aka how many Maker Points this level is worth)"><span class="diff-text-default">LCD Score</span><span class="diff-text-mobile">LCD</span></th>
+          <th class="all" style="width:10px"><span class="diff-text-default">Clear</span><span class="diff-text-mobile"><i class='fa fa-check text-success' aria-hidden='true'></i></span></th>
+          <th style="width:10px">Your Vote</th>
+          <th class="all" style="width:10px"><span class="diff-text-default">Like</span><span class="diff-text-mobile"><i class='fa fa-heart text-danger' aria-hidden='true'></i></span></th>
+        </tr></thead>
+      </table>
+    </template>
+
     <h3 id="table_title" class="maker-detail-title">Plays</h3>
 
     <div id="playedTableCont" class="level-detail-played-table">
@@ -65,6 +91,7 @@
       $('th').tooltip();
       makeClearDatatable($,'#playedTable',this,this.$route.params.team === "curatedtrolls" ? [5, 7, 4, 10] : [5, 7],'plays');
       makeLevelsDatatable({$,id:'#table',that,hidden: this.$route.params.team === "curatedtrolls" ? [2, 4, 11, 15] : [2]});
+      makeLevelsDatatable({$,id:'#table2',that,hidden: this.$route.params.team === "curatedtrolls" ? [4, 11, 15] : []});
       this.getData();
     },
     computed: {
@@ -89,6 +116,14 @@
         datatable.clear();
         datatable.rows.add(this.data.levels)
         datatable.draw();
+
+        if(this.data.collabs && this.data.collabs.length > 0){
+          console.log("should refresh", this.data.collabs);
+          var datatableCollabs=$('#table2').DataTable()
+          datatableCollabs.clear();
+          datatableCollabs.rows.add(this.data.collabs)
+          datatableCollabs.draw();
+        }
 
         if(this.data.plays){
           const datatable2=$('#playedTable').DataTable()
