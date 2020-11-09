@@ -37,7 +37,7 @@
   <h3 :class="$route.params.team + '-secondary-fg level-detail-title'">🤝Collaborators</h3>
   <div class="row">
     <div v-for="collaborator in collaborators" class="col-sm-2" :key="collaborator.id">
-      <h2 v-if="data"><img v-bind:src="collaborator.avatarURL ? collaborator.avatarURL : '/assets/defaults/discord-default-avatar.png'" class="maker-avatar" /><router-link :style="{ color: collaborator.hexColor }" :to="'/' + $route.params.team + '/maker/' + collaborator.name" exact>{{collaborator.name}}</router-link></h2>
+      <h3 v-if="data"><img v-bind:src="collaborator.avatarURL ? collaborator.avatarURL : '/assets/defaults/discord-default-avatar.png'" class="maker-avatar" /><router-link :style="{ color: collaborator.hexColor }" :to="'/' + $route.params.team + '/maker/' + collaborator.name" exact>{{collaborator.name}}</router-link></h3>
     </div>
   </div>
 </div>
@@ -82,7 +82,7 @@
       let that = this;
       $('th').tooltip()
       makeLevelsDatatable({$,id:'#table',that,hidden: this.$route.params.team === "curatedtrolls" ? [4, 11, 15] : [], args:{'paging': false,"info":''} })
-      makeClearDatatable($,'#playedTable',this,this.$route.params.team === "curatedtrolls" ? [1, 2, 3, 4, 5, 10] : [1,2,3,4] )
+      makeClearDatatable($,'#playedTable',this,this.$route.params.team === "curatedtrolls" ? [1,2,3,4,10] : [1,2,3,4] )
       this.getData();
     },
     computed: {
