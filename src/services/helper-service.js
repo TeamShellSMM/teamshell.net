@@ -567,9 +567,9 @@ let makeLevelName=({ row, that, skipVideos = false, alwaysAddCreator = false, ad
   let medalsHtmlCreator=makeMedalsCreator(row.creator_id,that.competition_winners)
   let medalsHtml=makeMedalsLevels(row.id,that.competition_winners)
 
-  let makerLink = `<div class='creator-name-div diff-text-mobile'><a class='dt-maker-link' href='/${that.$route.params.team}/maker/${encodeURI(row.creator || row.creator_name)}' maker='${row.creator || row.creator_name}'>${(row.creator || row.creator_name).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")}</a>${medalsHtmlCreator}</div>`;
+  let makerLink = `<div class='creator-name-div diff-text-mobile'><a class='dt-maker-link' href='/${that.$route.params.team}/maker/${encodeURI(row.creator || row.creator_name)}' maker='${row.creator || row.creator_name}'>${(row.creator || row.creator_name).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")}</a>${row.collaborator_count && row.collaborator_count > 0 ? `<a class='dt-level-link' code='${row.code}' href='/${that.$route.params.team}/level/${row.code}'> (+${row.collaborator_count}🤝)</a>` : ''}${medalsHtmlCreator}</div>`;
 
-  return (alwaysAddCreator ? '' : makerLink) + "<div class='font-weight-bold level-name-div'>"+medalsHtml + (addLevelLink ? `<a class="dt-level-link" href="/${that.$route.params.team}/level/${row.code}" code="${row.code}">` : '') + row.level_name.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;") + (addLevelLink ? '</a>': '') + (alwaysAddCreator ? ' by ' +  `<a class='dt-maker-link' href='/${that.$route.params.team}/maker/${encodeURI(row.creator || row.creator_name)}' maker='${row.creator || row.creator_name}'>${(row.creator || row.creator_name).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")}</a>`: '') +"<br/>"+ votesHtml+" "+videos + " " + tags + "</div>";
+  return (alwaysAddCreator ? '' : makerLink) + "<div class='font-weight-bold level-name-div'>"+medalsHtml + (addLevelLink ? `<a class="dt-level-link" href="/${that.$route.params.team}/level/${row.code}" code="${row.code}">` : '') + row.level_name.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;") + (addLevelLink ? '</a>': '') + (alwaysAddCreator ? ' by ' +  `<a class='dt-maker-link' href='/${that.$route.params.team}/maker/${encodeURI(row.creator || row.creator_name)}' maker='${row.creator || row.creator_name}'>${(row.creator || row.creator_name).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")}</a>${row.collaborator_count && row.collaborator_count > 0 ? `<a class='dt-level-link' code='${row.code}' href='/${that.$route.params.team}/level/${row.code}'> (+${row.collaborator_count}🤝)</a>` : ''}`: '') +"<br/>"+ votesHtml+" "+videos + " " + tags + "</div>";
 }
 
 let makeLevelsDatatable=({ $, id, that, hidden=[], compMode = false, args})=>{
@@ -637,7 +637,7 @@ let makeLevelsDatatable=({ $, id, that, hidden=[], compMode = false, args})=>{
           if(type!="display") return data
           console.log(row, data);
           const medalsHtml=makeMedalsCreator(row.creator_id,that.data.competition_winners)
-          return "<div class='creator-name-div'><a class='dt-maker-link' href='/" + that.$route.params.team + "/maker/" + encodeURI(data) + "' maker='" + data + "'>" + (!row.creator_is_member ? "🔰" : "") + data + "</a>"+ (compMode ? '' : medalsHtml) +"</div>";
+          return "<div class='creator-name-div'><a class='dt-maker-link' href='/" + that.$route.params.team + "/maker/" + encodeURI(data) + "' maker='" + data + "'>" + (!row.creator_is_member ? "🔰" : "") + data + `</a>${row.collaborator_count && row.collaborator_count > 0 ? `<a class='dt-level-link' code='${row.code}' href='/${that.$route.params.team}/level/${row.code}'> (+${row.collaborator_count}🤝)</a>` : ''}`+ (compMode ? '' : medalsHtml) +"</div>";
         },
         targets: 2
       },{

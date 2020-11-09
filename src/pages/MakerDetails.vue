@@ -63,8 +63,8 @@
     mounted(){
       let that = this;
       $('th').tooltip();
-      makeClearDatatable($,'#playedTable',this,[5,7],'plays');
-      makeLevelsDatatable({$,id:'#table',that,hidden:[2] });
+      makeClearDatatable($,'#playedTable',this,this.$route.params.team === "curatedtrolls" ? [4, 11, 15, 5, 7] : [5, 7],'plays');
+      makeLevelsDatatable({$,id:'#table',that,hidden: this.$route.params.team === "curatedtrolls" ? [2, 4, 11, 15] : [2]});
       this.getData();
     },
     computed: {

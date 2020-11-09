@@ -33,7 +33,14 @@
 </div>
 </div>
 
-
+<div v-if="collaborators && collaborators.length > 0" class="collaborators-container">
+  <h3 :class="$route.params.team + '-secondary-fg level-detail-title'">🤝Collaborators</h3>
+  <div class="row">
+    <div v-for="collaborator in collaborators" class="col-sm-2" :key="collaborator.id">
+      <h2 v-if="data"><img v-bind:src="collaborator.avatarURL ? collaborator.avatarURL : '/assets/defaults/discord-default-avatar.png'" class="maker-avatar" /><router-link :style="{ color: collaborator.hexColor }" :to="'/' + $route.params.team + '/maker/' + collaborator.name" exact>{{collaborator.name}}</router-link></h2>
+    </div>
+  </div>
+</div>
 
 <div id="playedTableCont" class="level-detail-played-table">
   <table id="playedTable" class="compact row-border stripe hover" style="width:100%;">
@@ -67,14 +74,15 @@
     data(){
       return{
         level:{},
+        collaborators: [],
         ...this.$store.state[this.$route.params.team].teamvars,
       }
     },
     mounted(){
       let that = this;
       $('th').tooltip()
-      makeLevelsDatatable({$,id:'#table',that,args:{'paging': false,"info":''} })
-      makeClearDatatable($,'#playedTable',this,[1,2,3,4])
+      makeLevelsDatatable({$,id:'#table',that,hidden: this.$route.params.team === "curatedtrolls" ? [4, 11, 15] : [], args:{'paging': false,"info":''} })
+      makeClearDatatable($,'#playedTable',this,this.$route.params.team === "curatedtrolls" ? [4, 11, 1, 2, 3] : [1,2,3,4] )
       this.getData();
     },
     computed: {
@@ -83,7 +91,7 @@
           return this.$store.state[this.$route.params.team].token ? true : false;
         }
         return false;
-      }
+      },
     },
     methods: {
       refresh(){
@@ -134,6 +142,7 @@
           onLoad(_rawData){
             that.data=_rawData
             that.level=_rawData.levels[0]
+            that.collaborators = _rawData.collaborators;
             that.level.created_at=moment(that.level.created_at).fromNow();
             that.refresh()
           },

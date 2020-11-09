@@ -1378,3 +1378,7 @@ box-shadow: 0 0 0 3px #21c0ae;
 .btn:active {
     opacity:0.8;
 }
+
+.collaborators-container {
+    margin-top: 30px;
+}
