@@ -1379,6 +1379,38 @@ box-shadow: 0 0 0 3px #21c0ae;
     opacity:0.8;
 }
 
-.collaborators-container {
+.collaborators-containers {
     margin-top: 30px;
+}
+
+.collaborator-container {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.collaborator-flex {
+    background-color:#e9e9e9;
+    border-radius: 10px;
+    padding:10px;
+    border: 3px solid;
+    height: 165px;
+}
+
+.collaborator-container h3 {
+    margin-top: 10px;
+    word-wrap: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 70px;
+    align-items: center;
+    justify-content: center;
+}
+
+.collab-avatar {
+    margin-left: 0px;
+    margin-right: 0px;
+    border: 1px solid;
 }

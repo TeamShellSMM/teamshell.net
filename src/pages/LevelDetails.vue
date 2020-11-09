@@ -36,8 +36,13 @@
 <div v-if="collaborators && collaborators.length > 0" class="collaborators-container">
   <h3 :class="$route.params.team + '-secondary-fg level-detail-title'">🤝Collaborators</h3>
   <div class="row">
-    <div v-for="collaborator in collaborators" class="col-sm-2" :key="collaborator.id">
-      <h3 v-if="data"><img v-bind:src="collaborator.avatarURL ? collaborator.avatarURL : '/assets/defaults/discord-default-avatar.png'" class="maker-avatar" /><router-link :style="{ color: collaborator.hexColor }" :to="'/' + $route.params.team + '/maker/' + collaborator.name" exact>{{collaborator.name}}</router-link></h3>
+    <div v-for="collaborator in collaborators" class="col-sm-2 collaborator-container" :key="collaborator.id">
+      <div class="collaborator-flex" :style="{ 'border-color': collaborator.hexColor }">
+        <img v-bind:src="collaborator.avatarURL ? collaborator.avatarURL : '/assets/defaults/discord-default-avatar.png'" class="maker-avatar collab-avatar" />
+        <div>
+          <h3><router-link :style="{ color: collaborator.hexColor }" :to="'/' + $route.params.team + '/maker/' + collaborator.name" exact>{{collaborator.name}}</router-link></h3>
+        </div>
+      </div>
     </div>
   </div>
 </div>
