@@ -69,7 +69,7 @@
     mounted(){
       let that = this;
 
-      makeLevelsDatatable({$,id:'#table',that,hidden: this.$route.params.team === "curatedtrolls" ? [4, 11, 15] : [],compMode: true})
+      makeLevelsDatatable({$,id:'#table',that,hidden: this.$store.state[this.$route.params.team].teamSettings.hideDifficulty === "true" ? [4, 11, 15] : [],compMode: true})
       this.getData();
     },
     computed: {

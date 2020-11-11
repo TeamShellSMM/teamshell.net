@@ -68,7 +68,7 @@ let loadEndpoint = function({type='post',route='json',that,onLoad,data={},reload
 let makeClearDatatable=($,dt,that,hidden=[],rowLabel='players')=>{
   $(dt).DataTable({
     "language": {
-    "emptyTable": "Data is loading.",
+    "emptyTable": "-",
     "info":           `_TOTAL_ ${rowLabel}`,
     "infoEmpty":      "0 rows",
     "infoFiltered":   "/ _MAX_ rows",
@@ -575,7 +575,7 @@ let makeLevelName=({ row, that, skipVideos = false, alwaysAddCreator = false, ad
 let makeLevelsDatatable=({ $, id, that, hidden=[], compMode = false, args})=>{
   const datatable=$(id).DataTable({
     "language": {
-    "emptyTable": "Data is loading. ",
+    "emptyTable": "-",
     "info":           "_START_ - _END_ of _TOTAL_ levels",
     "infoEmpty":      "0 levels",
     "infoFiltered":   "(_MAX_ total)",

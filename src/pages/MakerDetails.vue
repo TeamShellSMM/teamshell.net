@@ -27,7 +27,7 @@
       </tr></thead>
     </table>
 
-    <template v-show="data && data.collabs && data.collabs.length > 0">
+    <div v-show="data && data.collabs && data.collabs.length > 0">
       <h3 id="table_title" class="maker-detail-title">Collabs</h3>
 
       <table id="table2" class="compact row-border stripe hover" style="width:100%">
@@ -51,7 +51,7 @@
           <th class="all" style="width:10px"><span class="diff-text-default">Like</span><span class="diff-text-mobile"><i class='fa fa-heart text-danger' aria-hidden='true'></i></span></th>
         </tr></thead>
       </table>
-    </template>
+    </div>
 
     <h3 id="table_title" class="maker-detail-title">Plays</h3>
 
@@ -89,9 +89,9 @@
     mounted(){
       let that = this;
       $('th').tooltip();
-      makeClearDatatable($,'#playedTable',this,this.$route.params.team === "curatedtrolls" ? [5, 7, 4, 10] : [5, 7],'plays');
-      makeLevelsDatatable({$,id:'#table',that,hidden: this.$route.params.team === "curatedtrolls" ? [2, 4, 11, 15] : [2]});
-      makeLevelsDatatable({$,id:'#table2',that,hidden: this.$route.params.team === "curatedtrolls" ? [4, 11, 15] : []});
+      makeClearDatatable($,'#playedTable',this,this.$store.state[this.$route.params.team].teamSettings.hideDifficulty === "true" ? [5, 7, 4, 10] : [5, 7],'plays');
+      makeLevelsDatatable({$,id:'#table',that,hidden: this.$store.state[this.$route.params.team].teamSettings.hideDifficulty === "true" ? [2, 4, 11, 15] : [2]});
+      makeLevelsDatatable({$,id:'#table2',that,hidden: this.$store.state[this.$route.params.team].teamSettings.hideDifficulty === "true" ? [4, 11, 15] : []});
       this.getData();
     },
     computed: {

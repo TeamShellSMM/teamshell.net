@@ -21,9 +21,9 @@
           <label for="pendingLevel">Levels</label>
           <select name="approved" id="pendingLevel" class="form-control">
             <option value="approved" selected>Approved</option>
-            <option v-if='$route.params.team !== "curatedtrolls"' value="pending" >Pending</option>
-            <option v-if='$route.params.team !== "curatedtrolls"' value="infix" >In Fix Request</option>
-            <option v-if='$route.params.team !== "curatedtrolls"' value="all">All</option>
+            <option v-if='$store.state[$route.params.team].teamSettings.hidePendingLevels !== "true"' value="pending" >Pending</option>
+            <option v-if='$store.state[$route.params.team].teamSettings.hidePendingLevels !== "true"' value="infix" >In Fix Request</option>
+            <option v-if='$store.state[$route.params.team].teamSettings.hidePendingLevels !== "true"' value="all">All</option>
           </select>
           <small class="form-text text-muted">Approved levels are levels that have been played and approved by a moderator.</small>
         </div>
@@ -106,7 +106,7 @@
         this.tagOnce=this.$route.params.tags
       }
 
-      if(this.$route.params.team === "curatedtrolls"){
+      if(this.$store.state[this.$route.params.team].teamSettings.hidePendingLevels === "true"){
         $( document ).ready(function() {
           $('#pendingLevel').val('approved');
         });
@@ -136,7 +136,7 @@
         that.pageLength = parseInt(that.pageLength,10);
       }
 
-      makeLevelsDatatable({$,id:'#table',that, hidden: this.$route.params.team === "curatedtrolls" ? [4, 11, 15] : [] })
+      makeLevelsDatatable({$,id:'#table',that, hidden: this.$store.state[this.$route.params.team].teamSettings.hideDifficulty === "true" ? [4, 11, 15] : [] })
       this.getData();
     },
     computed: {
@@ -195,7 +195,7 @@
 
           let statusType=get_input('approved')
 
-          if(this.$route.params.team === "curatedtrolls" && level.status !==this.$constants.LEVEL_STATUS.APPROVED){
+          if(this.$store.state[this.$route.params.team].teamSettings.hidePendingLevels === "true" && level.status !==this.$constants.LEVEL_STATUS.APPROVED){
             return false;
           }
 

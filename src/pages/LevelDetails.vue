@@ -86,8 +86,8 @@
     mounted(){
       let that = this;
       $('th').tooltip()
-      makeLevelsDatatable({$,id:'#table',that,hidden: this.$route.params.team === "curatedtrolls" ? [4, 11, 15] : [], args:{'paging': false,"info":''} })
-      makeClearDatatable($,'#playedTable',this,this.$route.params.team === "curatedtrolls" ? [1,2,3,4,10] : [1,2,3,4] )
+      makeLevelsDatatable({$,id:'#table',that,hidden: this.$store.state[this.$route.params.team].teamSettings.hideDifficulty === 'true' ? [4, 11, 15] : [], args:{'paging': false,"info":''} })
+      makeClearDatatable($,'#playedTable',this,this.$store.state[this.$route.params.team].teamSettings.hideDifficulty === 'true' ? [1,2,3,4,10] : [1,2,3,4] )
       this.getData();
     },
     computed: {
