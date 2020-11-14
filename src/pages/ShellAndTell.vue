@@ -167,7 +167,7 @@
           }
 
           if(that.active_competition){
-            if(!(level.created_at >= that.active_competition.start_date && level.created_at < that.active_competition.end_date)){
+            if(!(level.original_submission_date >= that.active_competition.start_date && level.original_submission_date < that.active_competition.end_date)){
               return false;
             }
           } else {

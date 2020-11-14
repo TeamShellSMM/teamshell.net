@@ -148,7 +148,7 @@
             that.data=_rawData
             that.level=_rawData.levels[0]
             that.collaborators = _rawData.collaborators;
-            that.level.created_at=moment(that.level.created_at).fromNow();
+            that.level.created_at=moment(that.level.original_submission_date).fromNow();
             that.refresh()
           },
         })
