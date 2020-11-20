@@ -280,6 +280,15 @@ img {width: 36px}
 .teamteam-secondary-bc {border-color:#FE1449 !important;}
 .teamteam-secondary-blc {border-left-color:#FE1449 !important;}
 
+.coingang-primary-fg {color:#F7DA43 !important;}
+.coingang-primary-bg {background-color:#F7DA43 !important;}
+.coingang-primary-bc {border-color:#F7DA43 !important;}
+.coingang-primary-blc {border-left-color:#F7DA43 !important;}
+.coingang-secondary-fg {color:#FC485A !important;}
+.coingang-secondary-bg {background-color:#FC485A !important;}
+.coingang-secondary-bc {border-color:#FC485A !important;}
+.coingang-secondary-blc {border-left-color:#FC485A !important;}
+
 .logo-shadow { text-shadow: 2px 2px #888888;}
 
 /* Dark Mode */

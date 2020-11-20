@@ -181,6 +181,21 @@
             </div>
           </div>
         </div>
+        <div class="col-md-4 col-sm-6 p-1">
+          <div class="card team-card teampballoon-primary-bc">
+            <img src="/assets/teams/teampballoon/logo.png" class="card-img-top card-img-team-logo" alt="logo">
+            <div class="card-body">
+              <h2 class="card-title"><router-link to="/teampballoon"><span class="teampballoon-primary-fg">Team</span><span class="teampballoon-secondary-fg"> Power Balloon</span></router-link></h2>
+              <p class="card-text">
+                Team P Balloon is all about having fun with best power up in Mario Maker.
+              </p>
+              <p class="card-text">
+                If you are looking for exciting, creative and challenging courses that use the P Balloon then this team is for you!
+              </p>
+              <router-link to="/teampballoon" class="btn teampballoon-primary-bg team-card-nav-button" style="color:white;">Go check it out!</router-link>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="row mt-3">
@@ -372,21 +387,6 @@
         </div>
         <div class="col-md-3 col-sm-6 p-1">
           <div class="card team-card team-card-small">
-            <img src="/assets/teams/teampballoon/logo.png" class="card-img-top card-img-team-logo" alt="logo">
-            <div class="card-body">
-              <h4 class="card-title"><a href="https://discord.gg/QNy5rPv"><span class="teampballoon-primary-fg">Team</span><span class="teampballoon-secondary-fg"> Power Balloon</span></a></h4>
-              <p class="card-text">
-                Team P Balloon is all about having fun with best power up in Mario Maker.
-              </p>
-              <p class="card-text">
-                If you are looking for exciting, creative and challenging courses that use the P Balloon then this team is for you!
-              </p>
-              <a href="https://discord.gg/QNy5rPv" target="_blank" class="btn teampballoon-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3 col-sm-6 p-1">
-          <div class="card team-card team-card-small">
             <img src="/assets/teams/teamspring/logo.png" class="card-img-top card-img-team-logo card-img-rounded-logo" alt="logo">
             <div class="card-body">
               <h4 class="card-title"><a href="https://discord.gg/bpQtmfa"><span class="teamspring-primary-fg">Team</span><span class="teamspring-secondary-fg"> Spring</span></a></h4>
@@ -427,6 +427,21 @@
                 If you want to try out every single type of level that mario offers, this is the place to be.
               </p>
               <a href="https://discord.gg/afKFcGC" target="_blank" class="btn teamteam-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6 p-1">
+          <div class="card team-card team-card-small">
+            <img src="/assets/teams/coingang/logo.png" class="card-img-top card-img-team-logo" alt="logo">
+            <div class="card-body">
+              <h4 class="card-title"><a href="https://discord.gg/FB73fRa"><span class="coingang-primary-fg">Coin</span><span class="coingang-secondary-fg"> Gang</span></a></h4>
+              <p class="card-text">
+                The Coin Gang is a group of courses that is all about collecting all the things, and finding great satisfaction while doing so.
+              </p>
+              <p class="card-text">
+                Whether it's in the name of exploration, showing off, or getting good, there's a course type for every enthusiastic gamer here.
+              </p>
+              <a href="https://discord.gg/FB73fRa" target="_blank" class="btn coingang-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
             </div>
           </div>
         </div>
