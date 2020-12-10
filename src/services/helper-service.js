@@ -327,14 +327,14 @@ let makeRowItems=function(that,datatable){
     that.$router.push("/" + that.$route.params.team + "/maker/" + this.getAttribute("maker"));
     });
 
-    $(document).off('click', 'i.dt-clear-button');
-    $(document).on('click', 'i.dt-clear-button', function(e){
+    $(document).off('click', 'td:has(i.dt-clear-button)');
+    $(document).on('click', 'td:has(i.dt-clear-button)', function(e){
     e.stopPropagation();
     e.preventDefault();
     const button = this;
-    const datatableRow=datatable.row($(button).attr('rownum'))
-    const code=$(button).attr('code')
-    const level_name=$(button).attr('levelname')
+    const datatableRow=datatable.row($(button).children('i.dt-clear-button').attr('rownum'))
+    const code=$(button).children('i.dt-clear-button').attr('code')
+    const level_name=$(button).children('i.dt-clear-button').attr('levelname')
     submitClear({
         that,
         datatableRow,
@@ -346,14 +346,14 @@ let makeRowItems=function(that,datatable){
     })
     });
 
-    $(document).off('click', 'i.dt-unclear-button');
-    $(document).on('click', 'i.dt-unclear-button', function(e){
+    $(document).off('click', 'td:has(i.dt-unclear-button)');
+    $(document).on('click', 'td:has(i.dt-unclear-button)', function(e){
     e.stopPropagation();
     e.preventDefault();
     const button = this;
-    const datatableRow=datatable.row($(button).attr('rownum'))
-    const code=$(button).attr('code')
-    const level_name=$(button).attr('levelname')
+    const datatableRow=datatable.row($(button).children('i.dt-unclear-button').attr('rownum'))
+    const code=$(button).children('i.dt-unclear-button').attr('code')
+    const level_name=$(button).children('i.dt-unclear-button').attr('levelname')
     submitClear({
         that,
         datatableRow,
@@ -366,14 +366,14 @@ let makeRowItems=function(that,datatable){
     })
     });
 
-    $(document).off('click', 'i.dt-like-button');
-    $(document).on('click', 'i.dt-like-button', function(e){
+    $(document).off('click', 'td:has(i.dt-like-button)');
+    $(document).on('click', 'td:has(i.dt-like-button)', function(e){
     e.stopPropagation();
     e.preventDefault();
     const button = this;
-    const datatableRow=datatable.row($(button).attr('rownum'))
-    const code=$(button).attr('code')
-    const level_name=$(button).attr('levelname')
+    const datatableRow=datatable.row($(button).children('i.dt-like-button').attr('rownum'))
+    const code=$(button).children('i.dt-like-button').attr('code')
+    const level_name=$(button).children('i.dt-like-button').attr('levelname')
     let tempData = datatableRow.data();
     let message=`Are you sure you want to submit a clear and like for "${level_name}" (${code})?`;
     let args={
@@ -395,15 +395,15 @@ let makeRowItems=function(that,datatable){
     })
     });
 
-    $(document).off('click', 'i.dt-unlike-button');
-    $(document).on('click', 'i.dt-unlike-button', function(e){
+    $(document).off('click', 'td:has(i.dt-unlike-button)');
+    $(document).on('click', 'td:has(i.dt-unlike-button)', function(e){
 
     e.stopPropagation();
     e.preventDefault();
     const button = this;
-    const datatableRow=datatable.row($(button).attr('rownum'))
-    const code=$(button).attr('code')
-    const level_name=$(button).attr('levelname')
+    const datatableRow=datatable.row($(button).children('i.dt-unlike-button').attr('rownum'))
+    const code=$(button).children('i.dt-unlike-button').attr('code')
+    const level_name=$(button).children('i.dt-unlike-button').attr('levelname')
     submitClear({
         that,
         datatableRow,
