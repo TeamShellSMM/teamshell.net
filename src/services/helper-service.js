@@ -35,7 +35,7 @@ let loadEndpoint = function({type='post',route='json',that,onLoad,data={},reload
           });
         }
       } else {
-        console.log(_data)
+        //console.log(_data)
         that.$store.commit(that.$route.params.team + '/setTeamAdmin', _data.teamAdmin);
         that.$store.commit(that.$route.params.team + '/setRaceCreator', _data.raceCreator);
         if(_data.teamSettings){
@@ -307,28 +307,28 @@ let makeMedalsCreator=function(creator,competition_winners=[]){
  * @param {VueComponent} that
  * @param {DataTable} datatable
  */
-let makeRowItems=function(that,datatable){
-  $(document).off('click', 'span.tag');
-  $(document).off('click', 'span.tag',function(){
+let makeRowItems=function(that,id,datatable){
+  $(document).off('click', id + ' span.tag');
+  $(document).off('click', id + ' span.tag',function(){
   });
 
-    $(document).off('click', 'a.dt-level-link');
-    $(document).on('click', 'a.dt-level-link', function(e){
+    $(document).off('click', id + ' a.dt-level-link');
+    $(document).on('click', id + ' a.dt-level-link', function(e){
     e.stopPropagation();
     e.preventDefault();
     that.$router.push("/" + that.$route.params.team + "/level/" + this.getAttribute("code"));
-    console.log("level link clicked", this.getAttribute("code"));
+    //console.log("level link clicked", this.getAttribute("code"));
     });
 
-    $(document).off('click', 'a.dt-maker-link');
-    $(document).on('click', 'a.dt-maker-link', function(e){
+    $(document).off('click', id + ' a.dt-maker-link');
+    $(document).on('click', id + ' a.dt-maker-link', function(e){
     e.stopPropagation();
     e.preventDefault();
     that.$router.push("/" + that.$route.params.team + "/maker/" + this.getAttribute("maker"));
     });
 
-    $(document).off('click', 'td:has(i.dt-clear-button)');
-    $(document).on('click', 'td:has(i.dt-clear-button)', function(e){
+    $(document).off('click', id + ' td:has(i.dt-clear-button)');
+    $(document).on('click', id + ' td:has(i.dt-clear-button)', function(e){
     e.stopPropagation();
     e.preventDefault();
     const button = this;
@@ -346,8 +346,8 @@ let makeRowItems=function(that,datatable){
     })
     });
 
-    $(document).off('click', 'td:has(i.dt-unclear-button)');
-    $(document).on('click', 'td:has(i.dt-unclear-button)', function(e){
+    $(document).off('click', id + ' td:has(i.dt-unclear-button)');
+    $(document).on('click', id + ' td:has(i.dt-unclear-button)', function(e){
     e.stopPropagation();
     e.preventDefault();
     const button = this;
@@ -366,8 +366,8 @@ let makeRowItems=function(that,datatable){
     })
     });
 
-    $(document).off('click', 'td:has(i.dt-like-button)');
-    $(document).on('click', 'td:has(i.dt-like-button)', function(e){
+    $(document).off('click', id + ' td:has(i.dt-like-button)');
+    $(document).on('click', id + ' td:has(i.dt-like-button)', function(e){
     e.stopPropagation();
     e.preventDefault();
     const button = this;
@@ -395,8 +395,8 @@ let makeRowItems=function(that,datatable){
     })
     });
 
-    $(document).off('click', 'td:has(i.dt-unlike-button)');
-    $(document).on('click', 'td:has(i.dt-unlike-button)', function(e){
+    $(document).off('click', id + ' td:has(i.dt-unlike-button)');
+    $(document).on('click', id + ' td:has(i.dt-unlike-button)', function(e){
 
     e.stopPropagation();
     e.preventDefault();
@@ -573,7 +573,8 @@ let makeLevelName=({ row, that, skipVideos = false, alwaysAddCreator = false, ad
 }
 
 let makeLevelsDatatable=({ $, id, that, hidden=[], compMode = false, args})=>{
-  const datatable=$(id).DataTable({
+  //console.log("initiating levels datatable with id", id);
+  let datatable=$(id).DataTable({
     "language": {
     "emptyTable": "-",
     "info":           "_START_ - _END_ of _TOTAL_ levels",
@@ -635,7 +636,7 @@ let makeLevelsDatatable=({ $, id, that, hidden=[], compMode = false, args})=>{
       {
         "render": function ( data, type, row) {
           if(type!="display") return data
-          console.log(row, data);
+          //console.log(row, data);
           const medalsHtml=makeMedalsCreator(row.creator_id,that.data.competition_winners)
           return "<div class='creator-name-div'><a class='dt-maker-link' href='/" + that.$route.params.team + "/maker/" + encodeURI(data) + "' maker='" + data + "'>" + (!row.creator_is_member ? "🔰" : "") + data + `</a>${row.collaborator_count && row.collaborator_count > 0 ? `<a class='dt-level-link' code='${row.code}' href='/${that.$route.params.team}/level/${row.code}'> (+${row.collaborator_count}🤝)</a>` : ''}`+ (compMode ? '' : medalsHtml) +"</div>";
         },
@@ -710,15 +711,18 @@ let makeLevelsDatatable=({ $, id, that, hidden=[], compMode = false, args})=>{
     ],
     ...args,
   });
-  makeCodeButtons($,that)
-  makeRowItems(that,datatable)
+  makeCodeButtons($,id,that)
+  makeRowItems(that,id,datatable)
+
+  //console.log("done with", datatable);
+
   return datatable;
 }
 
-let makeCodeButtons=($,that)=>{
-
-  $(document).off('click', '.copy');
-  $(document).on('click', '.copy', function(){
+let makeCodeButtons=($,id,that)=>{
+  $(document).off('click', id + ' .copy');
+  $(document).on('click', id + ' .copy', function(){
+    console.log("copying code");
     let code=$(this).parent().text().substring(0,11);
     let new_title="Code copied."
     if(!that.$store.state[that.$route.params.team].token){
@@ -732,8 +736,8 @@ let makeCodeButtons=($,that)=>{
     }
   })
 
-  $(document).off('click', '.copyLike');
-  $(document).on('click', '.copyLike', function(){
+  $(document).off('click', id + ' .copyLike');
+  $(document).on('click', id + ' .copyLike', function(){
     if(!that.$store.state[that.$route.params.team].token){
       let code=$(this).parent().text().substring(0,11);
       let old_title="Copy clear code with like"
@@ -741,7 +745,7 @@ let makeCodeButtons=($,that)=>{
       toggleTooltip($,this,new_title,old_title)
       copyClipboard("!clear "+code+" like")
     } else {
-      console.log("send like post");
+      //console.log("send like post");
     }
   });
 }
