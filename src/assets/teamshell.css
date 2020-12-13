@@ -289,6 +289,25 @@ img {width: 36px}
 .coingang-secondary-bc {border-color:#FC485A !important;}
 .coingang-secondary-blc {border-left-color:#FC485A !important;}
 
+.teamwalljamp-primary-fg {color:#AAAAAA !important;}
+.teamwalljamp-primary-bg {background-color:#AAAAAA !important;}
+.teamwalljamp-primary-bc {border-color:#AAAAAA !important;}
+.teamwalljamp-primary-blc {border-left-color:#AAAAAA !important;}
+.teamwalljamp-secondary-fg {color:#1b199e !important;}
+.teamwalljamp-secondary-bg {background-color:#1b199e !important;}
+.teamwalljamp-secondary-bc {border-color:#1b199e !important;}
+.teamwalljamp-secondary-blc {border-left-color:#1b199e !important;}
+
+.teamglitches-primary-fg {color:#EC5510 !important;}
+.teamglitches-primary-bg {background-color:#EC5510 !important;}
+.teamglitches-primary-bc {border-color:#EC5510 !important;}
+.teamglitches-primary-blc {border-left-color:#EC5510 !important;}
+.teamglitches-secondary-fg {color:#ED436C !important;}
+.teamglitches-secondary-bg {background-color:#ED436C !important;}
+.teamglitches-secondary-bc {border-color:#ED436C !important;}
+.teamglitches-secondary-blc {border-left-color:#ED436C !important;}
+
+
 .logo-shadow { text-shadow: 2px 2px #888888;}
 
 /* Dark Mode */

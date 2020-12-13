@@ -445,6 +445,36 @@
             </div>
           </div>
         </div>
+        <div class="col-md-3 col-sm-6 p-1">
+          <div class="card team-card team-card-small">
+            <img src="/assets/teams/teamwalljamp/logo.png" class="card-img-top card-img-team-logo card-img-rounded-logo" alt="logo">
+            <div class="card-body">
+              <h4 class="card-title"><a href="https://discord.gg/gSum9UCPBH"><span class="teamwalljamp-primary-fg">Team</span><span class="teamwalljamp-secondary-fg">WallJamp</span></a></h4>
+              <p class="card-text">
+                Team Wall Jamp is all about the best move in the modern styles: wall jumps!
+              </p>
+              <p class="card-text">
+                This team accepts all kinds of levels from traditional to kaizo, precision to speedrun, you name it! If you like sliding down walls as well then this is where you should be headed.
+              </p>
+              <a href="https://discord.gg/gSum9UCPBH" target="_blank" class="btn teamwalljamp-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6 p-1">
+          <div class="card team-card team-card-small">
+            <img src="/assets/teams/teamglitches/logo.png" class="card-img-top card-img-team-logo card-img-rounded-logo" alt="logo">
+            <div class="card-body">
+              <h4 class="card-title"><a href="https://discord.gg/2MVW58Bxt3"><span class="teamglitches-primary-fg">Team</span><span class="teamglitches-secondary-fg">Glitches</span></a></h4>
+              <p class="card-text">
+                TeamGlitches is the place where you can share all glitches you find!
+              </p>
+              <p class="card-text">
+                If you love to find glitches and make Uno Mas levels, this is where you need to be! Have fun sharing your fun glitch levels and videos!
+              </p>
+              <a href="https://discord.gg/2MVW58Bxt3" target="_blank" class="btn teamglitches-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
