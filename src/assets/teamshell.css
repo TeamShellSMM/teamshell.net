@@ -307,6 +307,14 @@ img {width: 36px}
 .teamglitches-secondary-bc {border-color:#ED436C !important;}
 .teamglitches-secondary-blc {border-left-color:#ED436C !important;}
 
+.teamhang10-primary-fg {color:#1C82BF !important;}
+.teamhang10-primary-bg {background-color:#1C82BF !important;}
+.teamhang10-primary-bc {border-color:#1C82BF !important;}
+.teamhang10-primary-blc {border-left-color:#1C82BF !important;}
+.teamhang10-secondary-fg {color:#1A3F93 !important;}
+.teamhang10-secondary-bg {background-color:#1A3F93 !important;}
+.teamhang10-secondary-bc {border-color:#1A3F93 !important;}
+.teamhang10-secondary-blc {border-left-color:#1A3F93 !important;}
 
 .logo-shadow { text-shadow: 2px 2px #888888;}
 

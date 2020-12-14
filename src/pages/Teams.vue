@@ -475,6 +475,21 @@
             </div>
           </div>
         </div>
+        <div class="col-md-3 col-sm-6 p-1">
+          <div class="card team-card team-card-small">
+            <img src="/assets/teams/teamhang10/logo.png" class="card-img-top card-img-team-logo card-img-rounded-logo" alt="logo">
+            <div class="card-body">
+              <h4 class="card-title"><a href="https://discord.gg/qNQCyCCgCs"><span class="teamhang10-primary-fg">Team</span><span class="teamhang10-secondary-fg"> Hang 10</span></a></h4>
+              <p class="card-text">
+                Team Hang 10 is an Item based Kaizo team focusing on levels built exclusively around surf tricks.
+              </p>
+              <p class="card-text">
+                If you enjoy fun, challenging levels with a great flow, join our discord and come ride the wave!
+              </p>
+              <a href="https://discord.gg/qNQCyCCgCs" target="_blank" class="btn teamhang10-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
