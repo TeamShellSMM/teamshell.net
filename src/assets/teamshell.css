@@ -650,6 +650,29 @@ box-shadow: 0 0 0 3px #21c0ae;
     margin-top:0.5em;
 }
 
+.maker-name-title {
+    margin-bottom:0px;
+    margin-top:0px;
+}
+
+.maker-detail-title-container {
+    display:flex;
+    margin-bottom:20px;
+}
+
+.maker-detail-title-text-container {
+    margin-left:5px;
+    display: inline-flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    height:64px;
+}
+
+.maker-detail-sub-title {
+    font-weight:bold;
+}
+
 .header-row {
     border-radius: 5px;
     border-bottom: 1px solid lightgrey;

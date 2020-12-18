@@ -1,7 +1,14 @@
 <template>
   <div class="container">
-    <h2 v-if="data" id="table_title" class="maker-detail-title" v-bind:style="{ color: data.maker.hexColor }" ><img v-bind:src="data.maker.avatarURL ? data.maker.avatarURL : '/assets/defaults/discord-default-avatar.png'" class="maker-avatar" /> {{$route.params.name}}</h2>
-    <h2 v-if="!data" id="table_title" class="maker-detail-title"><img src="/assets/defaults/discord-default-avatar.png" class="maker-avatar" /> {{$route.params.name}}</h2>
+    <div class="maker-detail-title-container">
+      <img v-if="data" v-bind:src="data.maker.avatarURL ? data.maker.avatarURL : '/assets/defaults/discord-default-avatar.png'" class="maker-avatar" />
+      <img v-if="!data" src="/assets/defaults/discord-default-avatar.png" class="maker-avatar" />
+      <div class="maker-detail-title-text-container">
+        <h2 v-if="data" id="table_title" class="maker-detail-title maker-name-title" v-bind:style="{ color: data.maker.hexColor }">{{$route.params.name}}</h2>
+        <h2 v-if="!data" id="table_title" class="maker-detail-title maker-name-title">{{$route.params.name}}</h2>
+        <span v-if="data && data.maker && data.maker.maker_id" class="maker-detail-sub-title">ID: ({{data.maker.maker_id}})</span>
+      </div>
+    </div>
 
     <h3 id="table_title" class="maker-detail-title">Levels</h3>
 
@@ -145,6 +152,7 @@
             name: that.$route.params.name,
           },
           onLoad(_rawData){
+            console.log("raw maker data", _rawData);
             that.data=_rawData
             that.refresh()
           },

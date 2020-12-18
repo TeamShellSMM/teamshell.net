@@ -125,7 +125,7 @@
           {
             "render": function ( data, type, row ) {
               if(type!="display") return data;
-              let badge=row.maker_id?"<br/><small>(ID:"+row.maker_id+")</small>":"";
+              let badge=row.maker_id?"<br/><small>(ID: "+row.maker_id+")</small>":"";
               return data + badge
             },
             targets: 2
