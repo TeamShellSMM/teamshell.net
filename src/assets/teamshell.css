@@ -316,6 +316,15 @@ img {width: 36px}
 .teamhang10-secondary-bc {border-color:#1A3F93 !important;}
 .teamhang10-secondary-blc {border-left-color:#1A3F93 !important;}
 
+.teamworldrecord-primary-fg {color:#2196F3 !important;}
+.teamworldrecord-primary-bg {background-color:#2196F3 !important;}
+.teamworldrecord-primary-bc {border-color:#2196F3 !important;}
+.teamworldrecord-primary-blc {border-left-color:#2196F3 !important;}
+.teamworldrecord-secondary-fg {color:#E53935 !important;}
+.teamworldrecord-secondary-bg {background-color:#E53935 !important;}
+.teamworldrecord-secondary-bc {border-color:#E53935 !important;}
+.teamworldrecord-secondary-blc {border-left-color:#E53935 !important;}
+
 .logo-shadow { text-shadow: 2px 2px #888888;}
 
 /* Dark Mode */
