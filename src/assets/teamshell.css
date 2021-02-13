@@ -325,6 +325,15 @@ img {width: 36px}
 .teamworldrecord-secondary-bc {border-color:#E53935 !important;}
 .teamworldrecord-secondary-blc {border-left-color:#E53935 !important;}
 
+.teamupsidedown-primary-fg {color:#183048  !important;}
+.teamupsidedown-primary-bg {background-color:#183048 !important;}
+.teamupsidedown-primary-bc {border-color:#183048 !important;}
+.teamupsidedown-primary-blc {border-left-color:#183048 !important;}
+.teamupsidedown-secondary-fg {color:#717b85  !important;}
+.teamupsidedown-secondary-bg {background-color:#717b85 !important;}
+.teamupsidedown-secondary-bc {border-color:#717b85 !important;}
+.teamupsidedown-secondary-blc {border-left-color:#717b85 !important;}
+
 .logo-shadow { text-shadow: 2px 2px #888888;}
 
 /* Dark Mode */

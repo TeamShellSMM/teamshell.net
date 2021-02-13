@@ -505,6 +505,21 @@
             </div>
           </div>
         </div>
+        <div class="col-md-3 col-sm-6 p-1">
+          <div class="card team-card team-card-small">
+            <img src="/assets/teams/teamupsidedown/logo.png" class="card-img-top card-img-team-logo card-img-rounded-logo" alt="logo">
+            <div class="card-body">
+              <h4 class="card-title"><a href="https://discord.gg/GHeYUfHTv4"><span class="teamupsidedown-primary-fg">Team </span><span class="teamupsidedown-secondary-fg"> Upsidedown</span></a></h4>
+              <p class="card-text">
+                Team Upsidedown is all the fun you can have in Mario Maker, but from a different point of view. Upsidedown!
+              </p>
+              <p class="card-text">
+                #ꓕEⱯW ꓵbƧIDEDOMИ
+              </p>
+              <a href="https://discord.gg/GHeYUfHTv4" target="_blank" class="btn teamupsidedown-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
