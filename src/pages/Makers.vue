@@ -135,7 +135,7 @@
               if(type!="display") return data
               const medalsHtml=makeMedalsCreator(row.creator_id,that.competition_winners)
 
-              return "<div class='creator-name-div'><a class='dt-maker-link' href='/" + that.$route.params.team + "/maker/" + encodeURI(data) + "' maker='" + data + "'>" + data + "</a>"+medalsHtml +"</div>";
+              return "<div class='creator-name-div'><a class='dt-maker-link' href='/" + that.$route.params.team + "/maker/" + encodeURIComponent(data).replace(/[!'()*]/g, escape) + "' maker='" + data + "'>" + data + "</a>"+medalsHtml +"</div>";
             },
             targets: 0
           }
