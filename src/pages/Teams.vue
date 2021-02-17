@@ -282,21 +282,6 @@
         </div>
         <div class="col-md-3 col-sm-6 p-1">
           <div class="card team-card team-card-small">
-            <img src="/assets/teams/teamfish/logo.png" class="card-img-top card-img-team-logo card-img-rounded-logo" alt="logo">
-            <div class="card-body">
-              <h4 class="card-title"><a href="https://discord.gg/AV57rek"><span class="teamfish-primary-fg">Team</span><span class="teamfish-secondary-fg"> Fish</span></a></h4>
-              <p class="card-text">
-                Team Fish is a team that uses all kinds of fish in their levels.
-              </p>
-              <p class="card-text">
-                This team accepts all kinds of kaizo, platforming and precision levels as long as there's enough fish in them. If you're a fan of Cheep Cheeps, Fishbones, or Porcupuffers, this is definitely the place for you.
-              </p>
-              <a href="https://discord.gg/AV57rek" target="_blank" class="btn teamfish-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3 col-sm-6 p-1">
-          <div class="card team-card team-card-small">
             <img src="/assets/teams/teamnocloudabuse/logo.png?v1" class="card-img-top card-img-team-logo" alt="logo">
             <div class="card-body">
               <h4 class="card-title"><a href="https://discord.gg/H48dXPu"><span class="teamnocloudabuse-primary-fg">Team</span><span class="teamnocloudabuse-secondary-fg"> #NoCloudAbuse</span></a></h4>
