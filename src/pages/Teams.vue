@@ -222,6 +222,21 @@
         </div>
         <div class="col-md-3 col-sm-6 p-1">
           <div class="card team-card team-card-small">
+            <img src="/assets/teams/teamworldrecord/logo.png" class="card-img-top card-img-team-logo card-img-rounded-logo" alt="logo">
+            <div class="card-body">
+              <h4 class="card-title"><a href="https://discord.gg/RqkphtTWAs"><span class="teamworldrecord-primary-fg">Team</span><span class="teamworldrecord-secondary-fg"> World Record</span></a></h4>
+              <p class="card-text">
+                Team World Record is a team where you can get world records on any level in Mario Maker and get points for them. Let me repeat, you can get points from ANY LEVEL IN MARIO MAKER.
+              </p>
+              <p class="card-text">
+                You can also play official #TWR levels, make official #TWR levels, and have fun optimizing levels!
+              </p>
+              <a href="https://discord.gg/RqkphtTWAs" target="_blank" class="btn teamworldrecord-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6 p-1">
+          <div class="card team-card team-card-small">
             <img src="/assets/teams/teamhat/logo.png" class="card-img-top card-img-team-logo" alt="logo">
             <div class="card-body">
               <h4 class="card-title"><a href="https://discord.gg/ZDeYXtH"><span class="teamhat-primary-fg">Team</span><span class="teamhat-secondary-fg"> Hat!</span></a></h4>
@@ -472,21 +487,6 @@
                 If you enjoy fun, challenging levels with a great flow, join our discord and come ride the wave!
               </p>
               <a href="https://discord.gg/qNQCyCCgCs" target="_blank" class="btn teamhang10-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3 col-sm-6 p-1">
-          <div class="card team-card team-card-small">
-            <img src="/assets/teams/teamworldrecord/logo.png" class="card-img-top card-img-team-logo card-img-rounded-logo" alt="logo">
-            <div class="card-body">
-              <h4 class="card-title"><a href="https://discord.gg/RqkphtTWAs"><span class="teamworldrecord-primary-fg">Team</span><span class="teamworldrecord-secondary-fg"> World Record</span></a></h4>
-              <p class="card-text">
-                Team World Record is a team where you can get world records on any level in Mario Maker and get points for them. Let me repeat, you can get points from ANY LEVEL IN MARIO MAKER.
-              </p>
-              <p class="card-text">
-                You can also play official #TWR levels, make official #TWR levels, and have fun optimizing levels!
-              </p>
-              <a href="https://discord.gg/RqkphtTWAs" target="_blank" class="btn teamworldrecord-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
             </div>
           </div>
         </div>
