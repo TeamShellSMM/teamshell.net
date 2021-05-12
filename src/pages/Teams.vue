@@ -516,7 +516,7 @@
               <p class="card-text">
                 From simple hold-right optimisations to super tight Wall-Jump mazes, this Team is open to any kind of Challenge. If you enjoy beating Levels where every kind of Time-Save matters, this is the place to be.
               </p>
-              <a href="https://discord.gg/amjMhWPB8N" target="_blank" class="btn timeattack-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
+              <a href="https://discord.gg/amjMhWPB8N" target="_blank" class="btn teamtimeattack-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
             </div>
           </div>
         </div>
