@@ -334,6 +334,24 @@ img {width: 36px}
 .teamupsidedown-secondary-bc {border-color:#717b85 !important;}
 .teamupsidedown-secondary-blc {border-left-color:#717b85 !important;}
 
+.teamtimeattack-primary-fg {color:#DCF0E6 !important;}
+.teamtimeattack-primary-bg {background-color:#DCF0E6 !important;}
+.teamtimeattack-primary-bc {border-color:#DCF0E6 !important;}
+.teamtimeattack-primary-blc {border-left-color:#DCF0E6 !important;}
+.teamtimeattack-secondary-fg {color:#00FF19  !important;}
+.teamtimeattack-secondary-bg {background-color:#00FF19 !important;}
+.teamtimeattack-secondary-bc {border-color:#00FF19 !important;}
+.teamtimeattack-secondary-blc {border-left-color:#00FF19 !important;}
+
+.teamfantastik-primary-fg {color:#01FEF4 !important;}
+.teamfantastik-primary-bg {background-color:#01FEF4 !important;}
+.teamfantastik-primary-bc {border-color:#01FEF4 !important;}
+.teamfantastik-primary-blc {border-left-color:#01FEF4 !important;}
+.teamfantastik-secondary-fg {color:#FF0101  !important;}
+.teamfantastik-secondary-bg {background-color:#FF0101 !important;}
+.teamfantastik-secondary-bc {border-color:#FF0101 !important;}
+.teamfantastik-secondary-blc {border-left-color:#FF0101 !important;}
+
 .logo-shadow { text-shadow: 2px 2px #888888;}
 
 /* Dark Mode */

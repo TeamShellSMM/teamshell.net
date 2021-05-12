@@ -505,6 +505,36 @@
             </div>
           </div>
         </div>
+        <div class="col-md-3 col-sm-6 p-1">
+          <div class="card team-card team-card-small">
+            <img src="/assets/teams/teamtimeattack/logo.png" class="card-img-top card-img-team-logo card-img-rounded-logo" alt="logo">
+            <div class="card-body">
+              <h4 class="card-title"><a href="https://discord.gg/amjMhWPB8N"><span class="teamtimeattack-primary-fg">Team </span><span class="teamtimeattack-secondary-fg"> Time Attack</span></a></h4>
+              <p class="card-text">
+                Team Time-Attack is a Team centered around Levels with extremely tight Timers.
+              </p>
+              <p class="card-text">
+                From simple hold-right optimisations to super tight Wall-Jump mazes, this Team is open to any kind of Challenge. If you enjoy beating Levels where every kind of Time-Save matters, this is the place to be.
+              </p>
+              <a href="https://discord.gg/amjMhWPB8N" target="_blank" class="btn timeattack-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6 p-1">
+          <div class="card team-card team-card-small">
+            <img src="/assets/teams/teamfantastik/logo.png" class="card-img-top card-img-team-logo card-img-rounded-logo" alt="logo">
+            <div class="card-body">
+              <h4 class="card-title"><a href="https://discord.gg/xdnTAuCMcr"><span class="teamfantastik-primary-fg">Team </span><span class="teamfantastik-secondary-fg"> Fantastik</span></a></h4>
+              <p class="card-text">
+                TeamFantastik is a group where our goal is to have kaizo style levels of all types including platforming, shell tricks or even rom hack style levels.
+              </p>
+              <p class="card-text">
+                Any style or any skill of kaizo is welcome and never forget that you too can be fantastik!
+              </p>
+              <a href="https://discord.gg/xdnTAuCMcr" target="_blank" class="btn teamfantastik-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
