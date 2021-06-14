@@ -352,6 +352,15 @@ img {width: 36px}
 .teamfantastik-secondary-bc {border-color:#FF0101 !important;}
 .teamfantastik-secondary-blc {border-left-color:#FF0101 !important;}
 
+.teamzeropercent-primary-fg {color:#6857ff !important;}
+.teamzeropercent-primary-bg {background-color:#6857ff !important;}
+.teamzeropercent-primary-bc {border-color:#6857ff !important;}
+.teamzeropercent-primary-blc {border-left-color:#6857ff !important;}
+.teamzeropercent-secondary-fg {color:#78bb01  !important;}
+.teamzeropercent-secondary-bg {background-color:#78bb01 !important;}
+.teamzeropercent-secondary-bc {border-color:#78bb01 !important;}
+.teamzeropercent-secondary-blc {border-left-color:#78bb01 !important;}
+
 .logo-shadow { text-shadow: 2px 2px #888888;}
 
 /* Dark Mode */
