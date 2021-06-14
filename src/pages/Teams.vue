@@ -80,19 +80,18 @@
             </div>
           </div>
         </div>
-        <div class="bs-callout bs-callout-maker-teams bs-callout-content">
-          <div class="col-md-4 col-sm-6 p-1">
-            <div class="card team-card teamzeropercent-primary-bc">
-              <img src="/assets/teams/teamzeropercent/logo.png" class="card-img-top card-img-team-logo" alt="logo">
-              <div class="card-body">
-                <h2 class="card-title"><span class="teamzeropercent-primary-fg">#Team</span><span class="teamzeropercent-secondary-fg">0%</span></h2>
-                <p class="card-text">
-                  Team 0% is a group dedicated to making sure that every single level in both Super Mario Maker and Super Mario Maker 2 has at least one clear on it, hence the name 0% for the 0% level clear-rates. We're the second-largest SMM team and we are constantly growing in size!  If you want to grind out some first clears, or just hang out and find some hot garbage levels to play, then come on in!
-                </p>
-                <a href="https://discord.gg/hpQJdYAXWE" target="_blank" class="btn teamzeropercent-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
-              </div>
+        <div class="col-md-4 col-sm-6 p-1">
+          <div class="card team-card teamzeropercent-primary-bc">
+            <img src="/assets/teams/teamzeropercent/logo.png" class="card-img-top card-img-team-logo" alt="logo">
+            <div class="card-body">
+              <h2 class="card-title"><span class="teamzeropercent-primary-fg">#Team</span><span class="teamzeropercent-secondary-fg">0%</span></h2>
+              <p class="card-text">
+                Team 0% is a group dedicated to making sure that every single level in both Super Mario Maker and Super Mario Maker 2 has at least one clear on it, hence the name 0% for the 0% level clear-rates. We're the second-largest SMM team and we are constantly growing in size!  If you want to grind out some first clears, or just hang out and find some hot garbage levels to play, then come on in!
+              </p>
+              <a href="https://discord.gg/hpQJdYAXWE" target="_blank" class="btn teamzeropercent-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
             </div>
           </div>
+        </div>
         <div class="col-md-4 col-sm-6 p-1">
           <div class="card team-card teamicicle-primary-bc">
             <img src="/assets/teams/teamicicle/logo.png" class="card-img-top card-img-team-logo" alt="logo">
