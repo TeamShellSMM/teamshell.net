@@ -547,6 +547,21 @@
             </div>
           </div>
         </div>
+        <div class="col-md-3 col-sm-6 p-1">
+          <div class="card team-card team-card-small">
+            <img src="/assets/teams/teamzelda/logo.png" class="card-img-top card-img-team-logo card-img-rounded-logo" alt="logo">
+            <div class="card-body">
+              <h4 class="card-title"><a href="https://discord.gg/RNkqqby3"><span class="teamzelda-primary-fg">Team </span><span class="teamzelda-secondary-fg"> Zelda</span></a></h4>
+              <p class="card-text">
+                Team Zelda is a team for Link players wanting to explore the depths of dungeons, enjoying hardcore Link kaizo levels or even like to speedrun with a sword at hand.
+              </p>
+              <p class="card-text">
+                All of these are welcome in Team Zelda!
+              </p>
+              <a href="https://discord.gg/RNkqqby3" target="_blank" class="btn teamzelda-primary-bg team-card-nav-button" style="color:white;">Join the discord!</a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
