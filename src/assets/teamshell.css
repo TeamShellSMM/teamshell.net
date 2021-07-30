@@ -334,6 +334,15 @@ img {width: 36px}
 .teamzelda-secondary-bc {border-color:#5bb04e !important;}
 .teamzelda-secondary-blc {border-left-color:#5bb04e !important;}
 
+.teammuncher-primary-fg {color:#df0c04 !important;}
+.teammuncher-primary-bg {background-color:#df0c04 !important;}
+.teammuncher-primary-bc {border-color:#df0c04 !important;}
+.teammuncher-primary-blc {border-left-color:#df0c04 !important;}
+.teammuncher-secondary-fg {color:#ffc102  !important;}
+.teammuncher-secondary-bg {background-color:#ffc102 !important;}
+.teammuncher-secondary-bc {border-color:#ffc102 !important;}
+.teammuncher-secondary-blc {border-left-color:#ffc102 !important;}
+
 .teamzeropercent-primary-fg {color:#6857ff !important;}
 .teamzeropercent-primary-bg {background-color:#6857ff !important;}
 .teamzeropercent-primary-bc {border-color:#6857ff !important;}
